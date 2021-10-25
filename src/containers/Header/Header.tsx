@@ -2,17 +2,19 @@ import React from "react";
 import Cart from "../../components/Header/Cart";
 import Deliver from "../../components/Header/Deliver";
 import ListOfOptions from "../../components/Header/ListOfOptions";
-import Login from "../../components/Header/Login";
 import Returns from "../../components/Header/Returns";
-import SearchBar from "../../components/Header/SearchBar";
-import Logo from "../../components/Logo/Logo";
+import Logo from "../../components/core/Logo/Logo";
 import styled from "styled-components";
+import SearchBar from "../../components/Header/SearchBar/SearchBar";
+import Login from "../../components/Header/Login";
 
 const HeaderElement = styled.header`
   display: flex;
   width: 100vw;
   flex-direction: column;
   justify-content: center;
+  position: relative;
+  z-index: 100;
 `;
 const FirstRow = styled.div`
   background-color: #131921;

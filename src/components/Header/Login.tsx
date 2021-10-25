@@ -1,16 +1,26 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import { FaCaretDown } from "react-icons/fa";
 
 import styled from "styled-components";
 import HiddenLogin from "./List/HiddenLogin";
+import { OverlayContext } from "../../context/OverlayContext";
+const Wrapper = styled.div`
+  margin: 5px 0;
+  padding: 8px;
+  display: flex;
+  align-items: center;
+  position: relative;
+  &:hover {
+    & div {
+      visibility: visible !important;
+    }
+  }
+`;
 const CustomLink = styled(Link)`
   font-size: 0.875rem;
   color: #fff;
-  margin: 5px 0;
   white-space: pre-wrap;
-  padding: 8px;
-  position: relative;
   &:hover {
     outline: 1px solid #fff;
   }
@@ -22,17 +32,22 @@ const Bold = styled.span`
   min-height: 17.33px;
   align-items: center;
 `;
-
 const Login = () => {
+  const { setOverlay } = useContext(OverlayContext);
+
   return (
-    <CustomLink to="/orders">
-      Hello, Sign in <br />
-      <Bold>
-        Account & Lists <FaCaretDown />
-      </Bold> 
-      
-      <HiddenLogin/>
-    </CustomLink>
+    <Wrapper
+      onMouseEnter={() => setOverlay(true)}
+      onMouseLeave={() => setOverlay(false)}
+    >
+      <CustomLink to="/orders">
+        Hello, Sign in <br />
+        <Bold>
+          Account & Lists <FaCaretDown />
+        </Bold>
+      </CustomLink>
+      <HiddenLogin />
+    </Wrapper>
   );
 };
 

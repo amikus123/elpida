@@ -2,7 +2,8 @@ import React from "react";
 
 import styled from "styled-components";
 import { Link } from "react-router-dom";
-import Button from "../../universal/Button";
+import Button from "../../core/Buttons/Button";
+import { Visibility } from "@mui/icons-material";
 
 const leftNames = [
   "Create a List",
@@ -27,9 +28,16 @@ const rightNames = [
   "Register foa a Bussines Account",
 ];
 
+const Padding = styled.div`
+position: absolute;
+width: 500px;
+padding:1rem;
+cursor: default;
+top:2rem;
+left:-5rem;
+
+`
 const Wrapper = styled.div`
-  position: absolute;
-  width: 500px;
   background-color: snow;
   height: fit-content;
   color: black;
@@ -90,9 +98,11 @@ const ListLink = styled(Link)`
     text-decoration: underline;
   }
 `;
+
 const HiddenLogin = () => {
-  return (
-    <Wrapper>
+  return ( 
+    <Padding style={{visibility:"hidden"}}>
+    <Wrapper >
       <InternalWrapper>
         <TopSection>
           <Button>Sign in</Button>
@@ -124,6 +134,7 @@ const HiddenLogin = () => {
         </ListSectionWrap>
       </InternalWrapper>
     </Wrapper>
+    </Padding>
   );
 };
 
