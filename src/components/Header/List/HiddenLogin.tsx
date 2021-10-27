@@ -33,8 +33,8 @@ position: absolute;
 width: 500px;
 padding:1rem;
 cursor: default;
-top:2rem;
-left:-5rem;
+top:3rem;
+left:-15rem;
 
 `
 const Wrapper = styled.div`
@@ -58,18 +58,17 @@ const TopSection = styled.div`
   border-bottom: 1px solid #eee;
   padding: 1.5rem;
 `;
-
 const SpanLink = styled(Link)`
   color: blue;
   &:hover {
     color: orange;
     text-decoration: underline;
   }
-`;
+  `;
 
 const ListSectionWrap = styled.div`
   display: flex;
-`;
+  `;
 const ListWrap = styled.div`
   width: 50%;
   display: flex;
@@ -77,28 +76,29 @@ const ListWrap = styled.div`
   align-items: flex-start;
   padding: 1rem;
   margin-top: 1rem;
-`;
+  `;
 const ListItems = styled.ul`
   line-height: 1rem;
   font-size: 13px;
-`;
+  `;
 const ListHeader = styled.p`
   font-weight: bold;
   padding-bottom: 7px;
   font-size: 1rem;
-`;
+  `;
 
 const ListElement = styled.li`
   padding-bottom: 7px;
-`;
+  `;
 const ListLink = styled(Link)`
   color: black;
   &:hover {
     color: orange;
     text-decoration: underline;
   }
-`;
+  `;
 
+// ADD DODOAD
 const HiddenLogin = () => {
   return ( 
     <Padding style={{visibility:"hidden"}}>

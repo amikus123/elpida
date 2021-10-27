@@ -18,10 +18,14 @@ const HeaderElement = styled.header`
 `;
 const FirstRow = styled.div`
   background-color: #131921;
+  padding:0 1rem;
   width: 100vw;
-  height: 60px;
+  height: 64px;
   display: flex;
   align-items: center;
+  &>*{
+    margin:0.5rem;
+}
 `;
 const Header = () => {
   return (

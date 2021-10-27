@@ -21,6 +21,7 @@ const CustomLink = styled(Link)`
   font-size: 0.875rem;
   color: #fff;
   white-space: pre-wrap;
+  padding:0.5rem;
   &:hover {
     outline: 1px solid #fff;
   }

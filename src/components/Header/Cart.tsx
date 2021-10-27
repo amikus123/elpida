@@ -7,14 +7,16 @@ const number = 1;
 const Wrap = styled.div`
   font-size: 0.875rem;
   color: #fff;
-  margin: 5px 0;
+  /* margin: 5px 0; */
   white-space: pre-wrap;
-  padding: 0 8px;
+  padding: 5px 11px;
   display: flex;
   align-items: flex-end;
   &:hover {
     outline: 1px solid #fff;
   }
+  cursor: pointer;
+  max-height: 54px;
 `;
 const CartWrap = styled.div`
   position: relative;
