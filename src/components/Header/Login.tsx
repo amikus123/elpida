@@ -4,7 +4,7 @@ import { FaCaretDown } from "react-icons/fa";
 
 import styled from "styled-components";
 import HiddenLogin from "./List/HiddenLogin";
-import { OverlayContext } from "../../context/OverlayContext";
+import { ElementContext } from "../../context/ElementContext";
 const Wrapper = styled.div`
   margin: 5px 0;
   padding: 8px;
@@ -34,7 +34,7 @@ const Bold = styled.span`
   align-items: center;
 `;
 const Login = () => {
-  const { setOverlay } = useContext(OverlayContext);
+  const { setOverlay } = useContext(ElementContext);
 
   return (
     <Wrapper

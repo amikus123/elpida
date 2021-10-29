@@ -1,26 +1,30 @@
-import Header from "./containers/Header/Header";
 import React from "react";
+import Header from "./containers/Header/Header";
 import { Switch, Route } from "react-router-dom";
 import { Reset } from "styled-reset";
 import Global from "./styles/global";
 import Home from "./Pages/Home";
 import Overlay from "./components/core/Overlay/Overlay";
-import { OverlayProvider } from "./context/OverlayContext"
-
-
+import { ElementProvider } from "./context/ElementContext";
+import { ThemeProvider } from "styled-components";
+import { lightTheme } from "./styles/themes";
+import { DataProvider } from "./context/DataContext";
 function App() {
-
   return (
     <>
       <Reset />
-      <Global />
-      <OverlayProvider>
-        <Overlay />
-        <Header />
-        <Switch>
-          <Route path="/" component={Home}></Route>
-        </Switch>
-      </OverlayProvider>
+      <ThemeProvider theme={lightTheme}>
+        <DataProvider>
+          <ElementProvider>
+            <Global />
+            <Overlay />
+            <Header />
+            <Switch>
+              <Route path="/" component={Home}></Route>
+            </Switch>
+          </ElementProvider>
+        </DataProvider>
+      </ThemeProvider>
     </>
   );
 }

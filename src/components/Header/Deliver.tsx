@@ -1,10 +1,11 @@
 import React, { useContext } from "react";
 import { Link } from "react-router-dom";
-import { FaCaretDown } from "react-icons/fa";
 import RoomIcon from '@mui/icons-material/Room';
 import styled from "styled-components";
 import HiddenLogin from "./List/HiddenLogin";
-import { OverlayContext } from "../../context/OverlayContext";
+import { ElementContext } from "../../context/ElementContext";
+import { DataContext } from "../../context/DataContext";
+
 const Wrapper = styled.div`
   margin: 5px 0;
   padding:0.5rem 0;
@@ -34,17 +35,18 @@ const Bold = styled.span`
   align-items: center;
 `;
 const Deliver = () => {
-  const { setOverlay } = useContext(OverlayContext);
+  const { openModal } = useContext(ElementContext);
+  const { selectedLocation } = useContext(DataContext);
 
   return (
     <Wrapper
-     
+     onClick={()=>{openModal("location")}}
     >
         <RoomIcon style={{color:"white"}}/>
       <CustomLink to="/orders">
         Deliver to<br />
         <Bold>
-          American Samoa
+        {selectedLocation}
         </Bold>
       </CustomLink>
       <HiddenLogin />

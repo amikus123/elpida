@@ -30,7 +30,7 @@ const Display = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  border-right: 1px solid #cdcdcd;
+  border-right: 1px solid ${props => props.theme.borderColor};
   border-radius: 6px 0px 0px 6px;
 
   & > span {

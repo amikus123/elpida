@@ -1,6 +1,5 @@
 import React from "react";
 import styled from "styled-components";
-import { Link } from "react-router-dom";
 import SearchIcon from "@mui/icons-material/Search";
 const Outer = styled.span`
   border-color: #a88734 #9c7e31 #846a29;
@@ -36,32 +35,8 @@ const Inner = styled.span`
 
   }
 `;
-const Text = styled.span`
-  background-color: transparent;
-  border: 0;
-  display: block;
-  font-family: Arial, sans-serif;
-  font-size: 13px;
-  line-height: 29px;
-  margin: 0;
-  outline: 0;
-  padding: 0 10px 0 11px;
-  text-align: center;
-  white-space: nowrap;
-`;
 
 const CustomIcon = styled(SearchIcon)`
-  /* background-color: transparent;
-  border: 0;
-  display: block;
-  font-family: Arial, sans-serif;
-  font-size: 13px;
-  line-height: 29px;
-  margin: 0;
-  outline: 0;
-  padding: 0 10px 0 11px;
-  text-align: center;
-  white-space: nowrap; */
   font-size: 1.75rem!important;
 `;
 
