@@ -20,6 +20,7 @@ export default createGlobalStyle<StyledGlobals>`
     font-size: 13px;
     line-height: 19px;
     color: #111;
+    background-color: #EAEDED;
     /* overflow: ${props => props.modal ? "visible" : "hidden"}; */
 
    }

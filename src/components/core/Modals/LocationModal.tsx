@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import styled from "styled-components";
-import { ElementContext } from "../../../context/ElementContext";
+import { ElementContext } from "../../../containers/Header/context/ElementContext";
 import PlainButton from "../Buttons/PlainButton";
 import HorizontalText from "../Dividers/HorizontalText";
 import Dropdown from "../Inputs/Dropdown";

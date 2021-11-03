@@ -5,10 +5,10 @@ import { Reset } from "styled-reset";
 import Global from "./styles/global";
 import Home from "./Pages/Home";
 import Overlay from "./components/core/Overlay/Overlay";
-import { ElementProvider } from "./context/ElementContext";
+import { ElementProvider } from "./containers/Header/context/ElementContext";
 import { ThemeProvider } from "styled-components";
 import { lightTheme } from "./styles/themes";
-import { DataProvider } from "./context/DataContext";
+import { DataProvider } from "./containers/Header/context/DataContext";
 function App() {
   return (
     <>

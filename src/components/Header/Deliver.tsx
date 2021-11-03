@@ -3,8 +3,8 @@ import { Link } from "react-router-dom";
 import RoomIcon from '@mui/icons-material/Room';
 import styled from "styled-components";
 import HiddenLogin from "./List/HiddenLogin";
-import { ElementContext } from "../../context/ElementContext";
-import { DataContext } from "../../context/DataContext";
+import { ElementContext } from "../../containers/Header/context/ElementContext";
+import { DataContext } from "../../containers/Header/context/DataContext";
 
 const Wrapper = styled.div`
   margin: 5px 0;
