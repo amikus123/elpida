@@ -2,7 +2,6 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
 
-import React from "react";
 import Header from "./containers/Header/Header";
 import { Switch, Route } from "react-router-dom";
 import { Reset } from "styled-reset";

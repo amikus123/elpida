@@ -10,12 +10,13 @@ interface CardProps {
 }
 
 const Image = styled.img`
-  max-width: 300px;
+  max-width: 375px;
+  min-width: 250px;
   max-height: 250px;
   margin: 1rem auto 0 auto;
   
 `;
-const CardAdd = ({ data }: CardProps) => {
+const CardAd = ({ data }: CardProps) => {
   const { signIn, addName } = data;
   return (
     <CardWrap type="add">
@@ -25,4 +26,4 @@ const CardAdd = ({ data }: CardProps) => {
   );
 };
 
-export default CardAdd;
+export default CardAd;
