@@ -1,8 +1,8 @@
 import React from 'react'
 import styled from 'styled-components'
-import { CardArr } from '../../constans/homeCards'
-import CardAdd from '../core/Cards/CardAdd'
-import HomeCard from '../core/Cards/HomeCard'
+import { CardArr } from '../../../constans/homeCards'
+import CardAdd from '../../core/Cards/CardAdd'
+import HomeCard from '../../core/Cards/HomeCard'
 
 interface CardWrapProps {
   data:CardArr

@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import styled from "styled-components";
-import { ElementContext, ModalOptions } from "../../../containers/Header/context/ElementContext";
+import { ElementContext } from "../../../context/ElementContext";
 import ModalWrap from "../Modals/ModalWrap";
 interface ShadeProps {
   selectedModal: boolean;

@@ -1,8 +1,8 @@
 import { useContext } from "react";
 import styled from "styled-components";
 import { possibleLocations } from "../../../constans/locationList";
-import { DataContext } from "../../../containers/Header/context/DataContext";
-import { ElementContext } from "../../../containers/Header/context/ElementContext";
+import { DataContext } from "../../../context/DataContext";
+import { ElementContext } from "../../../context/ElementContext";
 const Wrapper = styled.div`
   position: relative;
   height: 29px;

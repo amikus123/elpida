@@ -1,6 +1,6 @@
 import React, { useContext } from 'react'
 import styled from 'styled-components';
-import { ElementContext } from '../../../containers/Header/context/ElementContext';
+import { ElementContext } from '../../../context/ElementContext';
 import LocationModal from './LocationModal';
 
 
