@@ -17,6 +17,7 @@ const Wrapper = styled.div`
 `;
 const TextWrapper = styled.div`
   display: flex;
+  margin-bottom: 1rem;
   & > :first-child {
     margin-right: 1rem;
   }
