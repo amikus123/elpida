@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 
+type ButtonTypes = "normal" | "submit"
 interface ButtonProps {
   color?: "yellow" | "white";
   variant?: "button" | "link" | "submit";
@@ -43,6 +44,7 @@ const PlainButton = ({
   color = "yellow",
   variant = "button",
   onClick = () => {},
+
   text,
 }: ButtonProps) => {
   const getElement = () => {

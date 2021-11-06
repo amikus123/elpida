@@ -5,6 +5,7 @@ import HomeCarousel from "../components/Home/HomeCarousel";
 import ItemRow from "../components/Home/ItemRow/ItemRow";
 import { firtsRow, secondRow } from "../constans/homeCards";
 import { bestSellersRowData } from "../constans/rowData";
+import Login from "./SignUpPage";
 const Wrap = styled.div`
   margin: 0 auto;
   padding: 0 2rem;
@@ -35,7 +36,9 @@ const Home = () => {
         <Cards data={firtsRow} />
         <ItemRow data={bestSellersRowData} />
         <Cards data={secondRow} />
+        
       </ContentWrap>
+      <Login/>
     </Wrap>
   );
 };

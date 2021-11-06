@@ -1,7 +1,7 @@
 import React, { ReactNode } from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
-type Variants = "header" | "normal" | "secondary" | "link";
+type Variants = "header" | "normal" | "secondary" | "link" | "label";
 type PossibleElements =
   | "p"
   | "span"
@@ -12,14 +12,15 @@ type PossibleElements =
   | "h5"
   | "h6"
   | "link"
-  | "imageLink";
+  | "label";
 interface TextProps {
   children?: ReactNode;
   variant?: Variants;
   fontSize?: string;
   element?: PossibleElements;
   to?: string;
-  style?: {}
+  labelTarget?: string;
+  style?: {};
 }
 interface StyleProps {
   variant: Variants;
@@ -32,7 +33,8 @@ const Text = ({
   fontSize = "1rem",
   element = "p",
   to = "#",
-  style={},
+  labelTarget = "",
+  style = {},
 }: TextProps) => {
   // get element to display from passed props
 
@@ -44,6 +46,16 @@ const Text = ({
     color: ${(props) =>
       props.variant === "secondary" ? props.theme.secondaryDark : "inherit"};
   `;
+
+  const LabelElement = styled.label<StyleProps>`
+    line-height: 24px;
+    font-size: ${(props) => props.fontSize};
+    font-weight: ${(props) =>
+      props.variant === "header" ? "bolder" : "normal"};
+    color: ${(props) =>
+      props.variant === "secondary" ? props.theme.secondaryDark : "inherit"};
+  `;
+
   const LinkElement = styled(Link)<StyleProps>`
     line-height: 24px;
     font-size: ${(props) => props.fontSize};
@@ -57,20 +69,45 @@ const Text = ({
       text-decoration: underline;
     }
   `;
-
-  return (
-    <>
-      {element === "link" ? (
-        <LinkElement to={to} variant={variant} fontSize={fontSize}  style={style}>
+  const getElement = () => {
+    let toReturn;
+    if (element === "link") {
+      toReturn = (
+        <LinkElement
+          to={to}
+          variant={variant}
+          fontSize={fontSize}
+          style={style}
+        >
           {children}
         </LinkElement>
-      ) : (
-        <TextElement variant={variant} as={element} fontSize={fontSize} style={style}>
+      );
+    } else if (element === "label") {
+      toReturn = (
+        <LabelElement
+          variant={variant}
+          htmlFor={labelTarget}
+          fontSize={fontSize}
+          style={style}
+        >
+          {children}
+        </LabelElement>
+      );
+    } else {
+      toReturn = (
+        <TextElement
+          variant={variant}
+          as={element}
+          fontSize={fontSize}
+          style={style}
+        >
           {children}
         </TextElement>
-      )}
-    </>
-  );
+      );
+    }
+    return toReturn;
+  };
+  return <>{getElement()}</>;
 };
 
 export default Text;

@@ -1,4 +1,4 @@
-import React from "react";
+import React,{useEffect} from "react";
 import styled from "styled-components";
 import { CardArr } from "../../../constans/homeCards";
 import CardAd from "../../core/Cards/CardAd";
@@ -9,14 +9,16 @@ interface CardWrapProps {
 }
 
 const Wrapper = styled.div`
-display: grid;
-grid-gap: 10px;
-grid-template-columns: repeat(auto-fill, minmax(250px, 350px));
-justify-content: center;
-
+  display: grid;
+  grid-gap: 10px;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 350px));
+  justify-content: center;
 `;
 
 const Cards = ({ data }: CardWrapProps) => {
+  useEffect(() => {
+    console.log(data);
+  }, [data]);
   return (
     <Wrapper>
       {data.map((item, index) => {

@@ -1,5 +1,4 @@
 import React from "react";
-import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { CardData } from "../../../constans/homeCards";
 import { nameToPublicLink } from "../../../utils/imageFunctions";
@@ -26,9 +25,8 @@ const HomeCard = ({ data }: CardProps) => {
   return (
     <CardWrap type="home" >
     <div>
-      <TextWrap>
-
       <Text variant="header" fontSize="21px" >{topText}</Text>
+      <TextWrap>
       </TextWrap>
       <Text to={link} element="link" >
         <Imgage alt={imageName} src={nameToPublicLink(imageName, "homeCards")} />
