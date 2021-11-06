@@ -1,95 +1,48 @@
-import React, { useState } from "react";
-import styled from "styled-components";
 import * as Yup from "yup";
 
 import PlainButton from "../components/core/Buttons/PlainButton";
 import HorizontalText from "../components/core/Dividers/HorizontalText";
 import FormikForm, { InputData } from "../components/core/Form/FormikForm";
-import Basic from "../components/core/Form/Test";
-import TextInput from "../components/core/Inputs/TextInput";
 import Text from "../components/core/Text/Text";
-const LogInPage = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-
-  const Wrapper = styled.div`
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    display: flex;
-    margin: 5rem auto;
-    max-width: 500px;
-    width: 100%;
-    background-color: white;
-    padding: 1.5rem;
-    /* border:1px solid  #007185; */
-    border-radius: 8px;
-
-    & > form {
-      width: 100%;
-      & > * {
-        margin-top: 1rem;
-      }
-    }
-  `;
-  const onSubmit = (e:any)=>{
-
-  }
-  const inputs:InputData[] = [{
-    type:"text",
-    id:"name",
-    label:"name",
-    validation:undefined
-  },
-  {
-    type:"password",
-    id:"password",
-    label:"password",
-    validation:undefined
-  },
-  {
-    type:"email",
-    id:"email",
-    label:"emial",
-    validation:Yup.string().email("Invalid email address").required("Required")
-  }
-
-]
+import FormWrap from "../containers/FormWrap";
+const LoginPage = () => {
+  const onSubmit = (e: any) => {};
+  const inputs: InputData[] = [
+    {
+      type: "email",
+      id: "email",
+      label: "Email",
+      validation: Yup.string()
+        .email("Invalid email address")
+        .required("Required"),
+    },
+    {
+      type: "password",
+      id: "password",
+      label: "Password",
+      validation: Yup.string().required("Password is required"),
+    },
+  
+  ];
   return (
-    <Wrapper>
-      <FormikForm  onSubmit={onSubmit} inputs={inputs}/>
+    <FormWrap>
       <Text variant="header" element="h1" fontSize="2rem">
         Log in
       </Text>
-      <form>
-        <div>
-          <TextInput
-            state={email}
-            setState={setEmail}
-            inputId="email"
-            labelText="Email"
-          />
-        </div>
-        <div>
-          <TextInput
-            state={password}
-            setState={setPassword}
-            inputId="password"
-            labelText="Password"
-          />
-        </div>
-
+      <FormikForm onSubmit={onSubmit} inputs={inputs}>
         <PlainButton text="Log in" variant="submit" />
+      </FormikForm>
+      <form>
         <HorizontalText />
         <Text>
-          New to Elpida? {" "}
+          New to Elpida?{" "}
           <Text to="/signup" variant="link" element="link">
             Sign up
           </Text>
         </Text>
       </form>
-    </Wrapper>
+    </FormWrap>
   );
 };
 
-export default LogInPage;
+export default LoginPage;

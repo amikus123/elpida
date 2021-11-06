@@ -16,7 +16,7 @@ const Input = styled.input`
   }
 `;
 
-export type InputTypes = "text" | "email" | "password";
+export type FormikInputTypes = "text" | "email" | "password"|"submit";
 interface TextFormInputProps {
   value: string;
   handleChange: {
@@ -29,7 +29,7 @@ interface TextFormInputProps {
   };
   inputId: string;
   labelText?: string;
-  inputType: InputTypes;
+  inputType: FormikInputTypes;
   errorText: string | undefined;
   handleBlur: {
     (e: React.FocusEvent<any, Element>): void;

@@ -7,14 +7,15 @@ import { Switch, Route, useLocation } from "react-router-dom";
 import { Reset } from "styled-reset";
 import Global from "./styles/global";
 import Home from "./Pages/Home";
-import SignUpPage from "./Pages/SignUpPage";
 import Overlay from "./components/core/Overlay/Overlay";
 import { ElementProvider } from "./context/ElementContext";
 import { ThemeProvider } from "styled-components";
 import { lightTheme } from "./styles/themes";
 import { DataProvider } from "./context/DataContext";
-import LogInPage from "./Pages/LogInPage";
+import SignupPage from "./Pages/SignupPage";
+
 import { UserProvider } from "./context/UserContext";
+import LoginPage from "./Pages/LoginPage";
 
 function App() {
   const location = useLocation();
@@ -32,9 +33,10 @@ function App() {
               location.pathname !== "/signup" ? (
                 <Header />
               ) : null}
+              s
               <Switch>
-                <Route path="/login" component={LogInPage}></Route>
-                <Route path="/signup" render={() => <SignUpPage />}></Route>
+                <Route path="/login" component={LoginPage}></Route>
+                <Route path="/signup" component={SignupPage}></Route>
                 <Route path="/" exact component={Home}></Route>
               </Switch>
             </ElementProvider>
