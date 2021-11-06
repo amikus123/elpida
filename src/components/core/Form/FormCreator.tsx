@@ -1,7 +1,7 @@
 import React from "react";
 import Experiment from "../Inputs/Experiment";
 import TextInput from "../Inputs/TextInput";
-type InputTypes = "text" | "password" | "submit";
+export type InputTypes = "text" | "password" | "submit"|"email";
 export interface InputData {
   type: InputTypes;
   state: string;

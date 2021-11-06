@@ -1,8 +1,11 @@
 import React, { useState } from "react";
 import styled from "styled-components";
+import * as Yup from "yup";
 
 import PlainButton from "../components/core/Buttons/PlainButton";
 import HorizontalText from "../components/core/Dividers/HorizontalText";
+import FormikForm, { InputData } from "../components/core/Form/FormikForm";
+import Basic from "../components/core/Form/Test";
 import TextInput from "../components/core/Inputs/TextInput";
 import Text from "../components/core/Text/Text";
 const LogInPage = () => {
@@ -29,8 +32,32 @@ const LogInPage = () => {
       }
     }
   `;
+  const onSubmit = (e:any)=>{
+
+  }
+  const inputs:InputData[] = [{
+    type:"text",
+    id:"name",
+    label:"name",
+    validation:undefined
+  },
+  {
+    type:"password",
+    id:"password",
+    label:"password",
+    validation:undefined
+  },
+  {
+    type:"email",
+    id:"email",
+    label:"emial",
+    validation:Yup.string().email("Invalid email address").required("Required")
+  }
+
+]
   return (
     <Wrapper>
+      <FormikForm  onSubmit={onSubmit} inputs={inputs}/>
       <Text variant="header" element="h1" fontSize="2rem">
         Log in
       </Text>
