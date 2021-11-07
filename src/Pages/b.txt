@@ -3,7 +3,7 @@ import "slick-carousel/slick/slick-theme.css";
 import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
 
 import Header from "./containers/Header/Header";
-import { Switch, useLocation } from "react-router-dom";
+import { Switch, Route, useLocation } from "react-router-dom";
 import { Reset } from "styled-reset";
 import Global from "./styles/global";
 import Home from "./Pages/Home";
@@ -18,7 +18,10 @@ import { UserProvider } from "./context/UserContext";
 import LoginPage from "./Pages/LoginPage";
 import { ROUTES } from "./constans/routes";
 import Dashboard from "./Pages/Dashboard";
+import PrivateRoute from "./Pages/CustomRoutes/ProtectedRoute";
+import PublicRoute from "./Pages/CustomRoutes/PublicRoute";
 import RouteController from "./Pages/CustomRoutes/RouteController";
+import ProtectedRoute from "./Pages/CustomRoutes/ProtectedRoute";
 
 function App() {
   const location = useLocation();
@@ -36,23 +39,23 @@ function App() {
               location.pathname !== "/signup" ? (
                 <Header />
               ) : null}
-                {/* <PublicRoute  path={ROUTES.LOGIN} component={LoginPage}></PublicRoute>
-                <PublicRoute  path={ROUTES.SIGNUP}component={SignupPage}></PublicRoute>
-                <PrivateRoute  path={ROUTES.DASHBOARD}component={Dashboard}></PrivateRoute> */}
-
-                {/* <PublicRoute
+              <Switch>
+                <Route path={ROUTES.LOGIN} component={LoginPage}></Route>
+                <Route path={ROUTES.SIGNUP} component={SignupPage}></Route>
+                <Route path={ROUTES.DASHBOARD} component={Dashboard}></Route>
+                <ProtectedRoute
                   path={ROUTES.HOME}
                   exact
                   component={Home}
-                ></PublicRoute> */}
-<Switch>
-              <RouteController
+                ></ProtectedRoute>
+              </Switch>
+
+              {/* <RouteController
                 routeType={'public'}
                 component={Home}
                 path={ROUTES.HOME}
                 exact
              />
-              {/* // Auth Routes */}
              <RouteController
                 routeType={'auth'}
                 component={LoginPage}
@@ -65,15 +68,12 @@ function App() {
                 path={ROUTES.SIGNUP}
                 exact
              />
-             {/* // Protected Route */}
              <RouteController
                 routeType={'protected'}
                 component={Dashboard}
                 path={ROUTES.DASHBOARD}
                 exact
-             />
-</Switch>
-
+             /> */}
             </ElementProvider>
           </DataProvider>
         </UserProvider>

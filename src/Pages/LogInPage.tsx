@@ -1,3 +1,4 @@
+import { useContext } from "react";
 import * as Yup from "yup";
 
 import PlainButton from "../components/core/Buttons/PlainButton";
@@ -5,8 +6,11 @@ import HorizontalText from "../components/core/Dividers/HorizontalText";
 import FormikForm, { InputData } from "../components/core/Form/FormikForm";
 import Text from "../components/core/Text/Text";
 import FormWrap from "../containers/FormWrap";
+import { UserContext } from "../context/UserContext";
+import { WordMap } from "../types";
 const LoginPage = () => {
-  const onSubmit = (e: any) => {};
+  const { login } = useContext(UserContext);
+
   const inputs: InputData[] = [
     {
       type: "email",
@@ -24,6 +28,18 @@ const LoginPage = () => {
     },
   
   ];
+  const onSubmit = async (e: WordMap, errors: any) => {
+    errors.setSubmitting(true);
+    const res = await login(e.email, e.password);
+    console.log(res);
+    if (res.length === 2) {
+      errors.setErrors({ [res[0]]: res[1] });
+    } else {
+    }
+    errors.setSubmitting(false);
+
+  };
+
   return (
     <FormWrap>
       <Text variant="header" element="h1" fontSize="2rem">

@@ -1,13 +1,34 @@
+import { useContext, useState } from "react";
+import { useHistory } from "react-router";
 import * as Yup from "yup";
-
 import PlainButton from "../components/core/Buttons/PlainButton";
 import HorizontalText from "../components/core/Dividers/HorizontalText";
 import FormikForm, { InputData } from "../components/core/Form/FormikForm";
 import Text from "../components/core/Text/Text";
 import FormWrap from "../containers/FormWrap";
+import { UserContext } from "../context/UserContext";
+import { WordMap } from "../types";
+
+
 
 const SignupPage = () => {
-  const onSubmit = (e: any) => {};
+  const { signup } = useContext(UserContext);
+  const history = useHistory()
+  const onSubmit = async (e: WordMap, errors: any) => {
+    console.log(e, errors);
+    errors.setSubmitting(true);
+    console.log("subitmerd");
+    const res = await signup(e.email, e.password);
+    console.log(res);
+    if (res.length === 2) {
+      errors.setErrors({ [res[0]]: res[1] });
+    } else {
+    }
+    history.replace("/") 
+    errors.setSubmitting(false);
+
+  };
+
   const inputs: InputData[] = [
     {
       type: "email",
@@ -25,12 +46,11 @@ const SignupPage = () => {
     },
     {
       type: "password",
-      id: "ConfirmPassword",
+      id: "confirmPassword",
       label: "Confrim Password",
-      validation: Yup.string().oneOf(
-        [Yup.ref("password"), null],
-        "Passwords must match"
-      ).required("You must confirm your password"),
+      validation: Yup.string()
+        .oneOf([Yup.ref("password"), null], "Passwords must match")
+        .required("You must confirm your password"),
     },
   ];
   return (
@@ -41,6 +61,7 @@ const SignupPage = () => {
       <FormikForm onSubmit={onSubmit} inputs={inputs}>
         <PlainButton text="Sign up" variant="submit" />
       </FormikForm>
+
       <form>
         <HorizontalText />
         <Text>

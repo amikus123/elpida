@@ -27,6 +27,38 @@ interface StyleProps {
   fontSize: string;
 }
 
+const TextElement = styled.h4<StyleProps>`
+line-height: 24px;
+font-size: ${(props) => props.fontSize};
+font-weight: ${(props) =>
+  props.variant === "header" ? "bolder" : "normal"};
+color: ${(props) =>
+  props.variant === "secondary" ? props.theme.secondaryDark : "inherit"};
+`;
+
+const LabelElement = styled.label<StyleProps>`
+line-height: 24px;
+font-size: ${(props) => props.fontSize};
+font-weight: ${(props) =>
+  props.variant === "header" ? "bolder" : "normal"};
+color: ${(props) =>
+  props.variant === "secondary" ? props.theme.secondaryDark : "inherit"};
+`;
+
+const LinkElement = styled(Link)<StyleProps>`
+line-height: 24px;
+font-size: ${(props) => props.fontSize};
+font-weight: ${(props) =>
+  props.variant === "header" ? "bolder" : "normal"};
+/* color: ${(props) =>
+  props.variant === "secondary" ? props.theme.secondaryDark : "inherit"}; */
+color: #007185;
+&:hover {
+  color: #c7511f;
+  text-decoration: underline;
+}
+`;
+
 const Text = ({
   children,
   variant = "normal",
@@ -38,37 +70,7 @@ const Text = ({
 }: TextProps) => {
   // get element to display from passed props
 
-  const TextElement = styled.h4<StyleProps>`
-    line-height: 24px;
-    font-size: ${(props) => props.fontSize};
-    font-weight: ${(props) =>
-      props.variant === "header" ? "bolder" : "normal"};
-    color: ${(props) =>
-      props.variant === "secondary" ? props.theme.secondaryDark : "inherit"};
-  `;
 
-  const LabelElement = styled.label<StyleProps>`
-    line-height: 24px;
-    font-size: ${(props) => props.fontSize};
-    font-weight: ${(props) =>
-      props.variant === "header" ? "bolder" : "normal"};
-    color: ${(props) =>
-      props.variant === "secondary" ? props.theme.secondaryDark : "inherit"};
-  `;
-
-  const LinkElement = styled(Link)<StyleProps>`
-    line-height: 24px;
-    font-size: ${(props) => props.fontSize};
-    font-weight: ${(props) =>
-      props.variant === "header" ? "bolder" : "normal"};
-    /* color: ${(props) =>
-      props.variant === "secondary" ? props.theme.secondaryDark : "inherit"}; */
-    color: #007185;
-    &:hover {
-      color: #c7511f;
-      text-decoration: underline;
-    }
-  `;
   const getElement = () => {
     let toReturn;
     if (element === "link") {

@@ -10,3 +10,4 @@ export interface WordMap {
 export type ValidationTypes =
   | RequiredStringSchema<string | undefined, AnyObject>
   | StringSchema<string | undefined, AnyObject, string | undefined>;
+

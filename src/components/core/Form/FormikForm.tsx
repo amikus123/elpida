@@ -3,8 +3,7 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import FormikInput, { FormikInputTypes } from "../Inputs/FormikInput";
 import { ValidationTypes, WordMap } from "../../../types";
-
-
+import Spinner from "../Loading/Spinner";
 export interface InputData {
   type: FormikInputTypes;
   id: string;
@@ -12,16 +11,16 @@ export interface InputData {
   validation?: ValidationTypes;
 }
 
-
 interface ValidationMap {
   [key: string]: ValidationTypes;
 }
 
 interface SignupProps {
   inputs: InputData[];
-  onSubmit: (arg1: any) => any;
+  onSubmit: (arg1: any, arg2: any) => any;
   children: any;
 }
+
 
 
 const FormikForm = ({ inputs, onSubmit, children }: SignupProps) => {
@@ -43,15 +42,24 @@ const FormikForm = ({ inputs, onSubmit, children }: SignupProps) => {
   const formik = useFormik({
     initialValues: getInitialValues(inputs).values,
     validationSchema: Yup.object(getInitialValues(inputs).validation),
-    onSubmit: onSubmit,
+    onSubmit: (values, errors) => {
+      onSubmit(values, errors);
+    },
   });
   return (
-    <form onSubmit={formik.handleSubmit}>
+    <form
+      onSubmit={(e) => {
+        // prevents multiple form submissions
+        e.preventDefault();
+        if (!formik.isSubmitting) {
+          formik.handleSubmit(e);
+        }
+      }}
+    >
       {inputs.map((item, index) => {
         return (
-          <div>
+          <div key={index}>
             <FormikInput
-              key={index}
               labelText={item.label}
               inputId={item.id}
               inputType={item.type}
@@ -64,6 +72,12 @@ const FormikForm = ({ inputs, onSubmit, children }: SignupProps) => {
           </div>
         );
       })}
+      {/* dispalys spinner while form is being submitted */}
+      {formik.isSubmitting ? (
+        <>
+          <Spinner />
+        </>
+      ) : null}
       {children}
     </form>
   );
