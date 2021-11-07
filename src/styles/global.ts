@@ -1,8 +1,8 @@
 import { createGlobalStyle } from "styled-components";
-interface StyledGlobals{
-    modal?:boolean,
-  }
-  
+interface StyledGlobals {
+  modal?: boolean;
+}
+
 export default createGlobalStyle<StyledGlobals>`
 
    *{
@@ -14,6 +14,7 @@ export default createGlobalStyle<StyledGlobals>`
        }
    #root{
        margin:0 auto;
+        position: relative;
    }
    body{
     font-family: "Amazon Ember",Arial,sans-serif;
@@ -21,7 +22,9 @@ export default createGlobalStyle<StyledGlobals>`
     line-height: 19px;
     color: #111;
     background-color: #EAEDED;
-    /* overflow: ${props => props.modal ? "visible" : "hidden"}; */
+    width: 100vw;;
+
+    /* overflow: ${(props) => (props.modal ? "visible" : "hidden")}; */
 
    }
    a{

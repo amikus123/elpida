@@ -3,4 +3,11 @@ export enum ROUTES {
   LOGIN = '/login',
   SIGNUP= '/signup',
   DASHBOARD = '/dashboard',
+  CART = '/cart',
+  ORDERS="/orders"
+}
+
+export enum MODALS{
+  LOCATION="location",
+  
 }

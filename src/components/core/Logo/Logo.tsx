@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import React from "react";
 import { Link } from "react-router-dom";
+import { ROUTES } from "../../../constans/routes";
 
 interface LogoProps {
   showText?: boolean;
@@ -15,7 +16,7 @@ padding: 0.5rem;
 }
 `
 const Logo = ({ showText = true }: LogoProps) => {
-  return <LogoText to="/">Elpida</LogoText>;
+  return <LogoText to={ROUTES.HOME}>Elpida</LogoText>;
 };
 
 

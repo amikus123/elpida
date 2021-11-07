@@ -10,13 +10,13 @@ const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   width: 375px;
-  height: 375px;
+  height: 400px;
   background-color: #fff;
   border-radius: 1rem;
 `;
 
 const Top = styled.header`
-  height: 57px;
+  height: 64px;
   background-color: #f0f2f2;
   border-bottom: 1px solid #cdcdcd;
   padding: 1rem 2rem;
@@ -31,8 +31,8 @@ const Middle = styled.div`
   display: flex;
   flex-direction: column;
 
-  > * {
-    /* margin: 0.5rem 0; */
+  &>:first-child  {
+    margin: 0.5rem 0;
   }
 `;
 const InputWrap = styled.div`
@@ -69,7 +69,7 @@ const LocationModal = () => {
   return (
     <Wrapper>
       <Top>
-        <Text variant="header">Choose your location</Text>
+        <Text boldness="bold" fontSize="1.125rem">Choose your location</Text>
       </Top>
       <Middle>
         <Text>

@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
-
-const Outer = styled.span`
+import { Link } from "react-router-dom";
+const Outer = styled(Link)`
   width: 100%;
   background-color: #fff;
   border-color: #a88734 #9c7e31 #846a29;
@@ -17,6 +17,7 @@ const Outer = styled.span`
     /* border-color: #a88734 #9c7e31 #846a29; */
   }
 `;
+
 const Inner = styled.span`
   box-shadow: 0 1px 0 rgba(255, 255, 255, 0.4) inset;
   background: linear-gradient(to bottom, #f7dfa5, #f0c14b);
@@ -47,17 +48,28 @@ const Text = styled.span`
 interface ButtonProps {
   text?: string;
   children?: any;
+  to?:string
 }
-const Button = ({ text = "", children = "" }: ButtonProps) => {
+const Button = ({ text = "", children = "" ,to=""}: ButtonProps) => {
   return (
-    <Outer>
+    <>
+    {to===""? (<Outer as="span">
       <Inner>
         <Text>
           {text}
           {children}
         </Text>
       </Inner>
-    </Outer>
+    </Outer>): (<Outer to={to}>
+      <Inner>
+        <Text>
+          {text}
+          {children}
+        </Text>
+      </Inner>
+    </Outer>)}
+    </>
+   
   );
 };
 

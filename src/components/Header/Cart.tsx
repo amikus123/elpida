@@ -1,10 +1,11 @@
-import React from "react";
-// import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
+import React, { useContext } from "react";
 import styled from "styled-components";
 import { FaShoppingCart } from "react-icons/fa";
-const number = 1;
+import { Link } from "react-router-dom";
+import { ROUTES } from "../../constans/routes";
+import { DataContext } from "../../context/DataContext";
 
-const Wrap = styled.div`
+const Wrap = styled(Link)`
   font-size: 0.875rem;
   color: #fff;
   /* margin: 5px 0; */
@@ -17,6 +18,10 @@ const Wrap = styled.div`
   }
   cursor: pointer;
   max-height: 54px;
+  &>:last-child{
+    padding-left: 0.125rem;
+  padding-bottom: 0.5rem;
+  }
 `;
 const CartWrap = styled.div`
   position: relative;
@@ -32,17 +37,16 @@ const CartNumber = styled.span`
 const Text = styled.span`
   font-weight: bold;
   color: #fff;
-  padding-left: 0.125rem;
-  padding-bottom: 0.5rem;
 `;
 const Cart = () => {
+  const { cartCount} = useContext(DataContext)
   return (
-    <Wrap>
+    <Wrap to={ROUTES.CART}>
       <CartWrap>
         <FaShoppingCart color="red" size="2.5rem" />
-        <CartNumber>{number}</CartNumber>
+        <CartNumber>{cartCount}</CartNumber>
       </CartWrap>
-      <Text>Cart</Text>
+      <Text >Cart</Text>
     </Wrap>
   );
 };

@@ -8,7 +8,7 @@ import { bestSellersRowData } from "../constans/rowData";
 const Wrap = styled.div`
   margin: 0 auto;
   padding: 0 2rem;
-  max-width: 1500px;
+  max-width: min(1500px, 100vw);
   overflow-x: hidden;
   position: relative;
   display: flex;

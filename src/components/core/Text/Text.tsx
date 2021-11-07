@@ -2,6 +2,9 @@ import React, { ReactNode } from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 type Variants = "header" | "normal" | "secondary" | "link" | "label";
+
+type FontSizes = "bold" | "initial";
+
 type PossibleElements =
   | "p"
   | "span"
@@ -21,64 +24,54 @@ interface TextProps {
   to?: string;
   labelTarget?: string;
   style?: {};
+  boldness?: FontSizes;
 }
 interface StyleProps {
   variant: Variants;
   fontSize: string;
+  boldness: FontSizes;
 }
 
-const TextElement = styled.h4<StyleProps>`
-line-height: 24px;
-font-size: ${(props) => props.fontSize};
-font-weight: ${(props) =>
-  props.variant === "header" ? "bolder" : "normal"};
-color: ${(props) =>
-  props.variant === "secondary" ? props.theme.secondaryDark : "inherit"};
+const Base = styled.p<StyleProps>`
+  line-height: 1.5em;
+  font-size: ${(props) => props.fontSize};
+  font-weight: ${(props) => props.boldness};
+  color: ${(props) =>
+    props.variant === "secondary" ? props.theme.secondaryDark : "inherit"};
 `;
 
-const LabelElement = styled.label<StyleProps>`
-line-height: 24px;
-font-size: ${(props) => props.fontSize};
-font-weight: ${(props) =>
-  props.variant === "header" ? "bolder" : "normal"};
-color: ${(props) =>
-  props.variant === "secondary" ? props.theme.secondaryDark : "inherit"};
-`;
+const TextElement = styled(Base)<StyleProps>``;
 
-const LinkElement = styled(Link)<StyleProps>`
-line-height: 24px;
-font-size: ${(props) => props.fontSize};
-font-weight: ${(props) =>
-  props.variant === "header" ? "bolder" : "normal"};
-/* color: ${(props) =>
-  props.variant === "secondary" ? props.theme.secondaryDark : "inherit"}; */
-color: #007185;
-&:hover {
-  color: #c7511f;
-  text-decoration: underline;
-}
+const LinkElement = styled(Base)<StyleProps>`
+  color: #007185;
+  &:hover {
+    color: #c7511f;
+    text-decoration: underline;
+  }
 `;
 
 const Text = ({
   children,
   variant = "normal",
-  fontSize = "1rem",
+  fontSize = "inherit",
   element = "p",
   to = "#",
   labelTarget = "",
   style = {},
+  boldness = "initial",
 }: TextProps) => {
   // get element to display from passed props
-
 
   const getElement = () => {
     let toReturn;
     if (element === "link") {
       toReturn = (
         <LinkElement
+          as={Link}
           to={to}
           variant={variant}
           fontSize={fontSize}
+          boldness={boldness}
           style={style}
         >
           {children}
@@ -86,20 +79,23 @@ const Text = ({
       );
     } else if (element === "label") {
       toReturn = (
-        <LabelElement
+        <TextElement
+          boldness={boldness}
+          as="label"
           variant={variant}
           htmlFor={labelTarget}
           fontSize={fontSize}
           style={style}
         >
           {children}
-        </LabelElement>
+        </TextElement>
       );
     } else {
       toReturn = (
         <TextElement
-          variant={variant}
+          boldness={boldness}
           as={element}
+          variant={variant}
           fontSize={fontSize}
           style={style}
         >

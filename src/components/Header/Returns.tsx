@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
+import { ROUTES } from "../../constans/routes";
 const CustomLink = styled(Link)`
   font-size: 0.875rem;
   color: #fff;
@@ -17,7 +18,7 @@ const Bold = styled.span`
 
 const Returns = () => {
   return (
-    <CustomLink to="/orders">
+    <CustomLink to={ROUTES.ORDERS}>
       Returns <br />
       <Bold>& Orders</Bold>
     </CustomLink>

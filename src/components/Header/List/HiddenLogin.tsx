@@ -3,8 +3,8 @@ import React from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import Button from "../../core/Buttons/Button";
-import { Visibility } from "@mui/icons-material";
-
+import { ROUTES } from "../../../constans/routes";
+import Text from "../../core/Text/Text";
 const leftNames = [
   "Create a List",
   "Find a List or Registery",
@@ -29,14 +29,13 @@ const rightNames = [
 ];
 
 const Padding = styled.div`
-position: absolute;
-width: 500px;
-padding:1rem;
-cursor: default;
-top:3rem;
-left:-15rem;
-
-`
+  position: absolute;
+  width: 500px;
+  padding: 1rem;
+  cursor: default;
+  top: 3rem;
+  left: -15rem;
+`;
 const Wrapper = styled.div`
   background-color: snow;
   height: fit-content;
@@ -57,83 +56,88 @@ const TopSection = styled.div`
   font-size: 0.6875rem;
   border-bottom: 1px solid #eee;
   padding: 1.5rem;
-`;
-const SpanLink = styled(Link)`
-  color: blue;
-  &:hover {
-    color: orange;
-    text-decoration: underline;
+  & > :first-child {
+    margin-bottom: 0.5rem;
   }
-  `;
+  & > :last-child {
+    font-size: 0.75rem;
+  }
+`;
 
 const ListSectionWrap = styled.div`
   display: flex;
-  `;
-const ListWrap = styled.div`
+`;
+const ListWrap = styled.nav`
   width: 50%;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   padding: 1rem;
   margin-top: 1rem;
-  `;
+  &>:first-child{
+    padding-bottom:7px;
+  }
+`;
 const ListItems = styled.ul`
   line-height: 1rem;
   font-size: 13px;
-  `;
+  & > li {
+    padding-bottom: 7px;
+  }
+`;
 const ListHeader = styled.p`
   font-weight: bold;
   padding-bottom: 7px;
   font-size: 1rem;
-  `;
+`;
 
-const ListElement = styled.li`
-  padding-bottom: 7px;
-  `;
 const ListLink = styled(Link)`
   color: black;
   &:hover {
     color: orange;
     text-decoration: underline;
   }
-  `;
+`;
 
 // ADD DODOAD
 const HiddenLogin = () => {
-  return ( 
-    <Padding style={{visibility:"hidden"}}>
-    <Wrapper >
-      <InternalWrapper>
-        <TopSection>
-          <Button>Sign in</Button>
-          <p>
-            New customer? <SpanLink to="/register">Start here</SpanLink>
-          </p>
-        </TopSection>
-        <ListSectionWrap>
-          <ListWrap>
-            <ListHeader>Your list</ListHeader>
-            <ListItems>
-              {leftNames.map((item, index) => (
-                <ListElement key={index}>
-                  <ListLink to="/">{item} </ListLink>
-                </ListElement>
-              ))}
-            </ListItems>
-          </ListWrap>
-          <ListWrap style={{ borderLeft: "1px solid #eee" }}>
-            <ListHeader>Your Account</ListHeader>
-            <ListItems>
-              {rightNames.map((item, index) => (
-                <ListElement key={index}>
-                  <ListLink to="/">{item} </ListLink>
-                </ListElement>
-              ))}
-            </ListItems>
-          </ListWrap>
-        </ListSectionWrap>
-      </InternalWrapper>
-    </Wrapper>
+  return (
+    <Padding style={{ visibility: "hidden" }}>
+      <Wrapper>
+        <InternalWrapper>
+          <TopSection>
+            <Button to={ROUTES.LOGIN}>Sign in</Button>
+            <Text>
+              New customer?{" "}
+              <Text to={ROUTES.SIGNUP} element="link">
+                Start here
+              </Text>
+            </Text>
+          </TopSection>
+          <ListSectionWrap>
+            <ListWrap>
+              <ListHeader>Your list</ListHeader>
+              <ListItems>
+                {leftNames.map((item, index) => (
+                  <li key={index}>
+                    <ListLink to="/">{item} </ListLink>
+                  </li>
+                ))}
+              </ListItems>
+            </ListWrap>
+            <ListWrap style={{ borderLeft: "1px solid #eee" }}>
+              <Text variant="header">Your Account</Text>
+              <ListItems>
+                {rightNames.map((item, index) => (
+                  <li key={index}>
+                    <ListLink to="/">{item} </ListLink>
+                  </li>
+                ))}
+              </ListItems>
+            </ListWrap>
+          </ListSectionWrap>
+        </InternalWrapper>
+      </Wrapper>
     </Padding>
   );
 };
