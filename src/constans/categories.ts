@@ -6,6 +6,9 @@ export interface Category {
   link: string;
 }
 
+export enum categoryPath  {
+
+} 
 export const categories: Category[] = [
   {
     image: nameToPublicLink("agd", "/categories"),

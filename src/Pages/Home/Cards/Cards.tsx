@@ -1,8 +1,8 @@
 import React,{useEffect} from "react";
 import styled from "styled-components";
 import { CardArr } from "../../../constans/homeCards";
-import CardAd from "../../core/Cards/CardAd";
-import HomeCard from "../../core/Cards/HomeCard";
+import CardAd from "../../../components/core/Cards/CardAd";
+import HomeCard from "../../../components/core/Cards/HomeCard";
 
 interface CardWrapProps {
   data: CardArr;

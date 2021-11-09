@@ -5,7 +5,7 @@ import { RowItem } from "../../../constans/rowData";
 import { nameToPublicLink } from "../../../utils/imageFunctions";
 
 import Slider from "react-slick";
-import Arrow from "../Arrow";
+import Arrow from "../Carousel/Arrow";
 
 // Import css files
 

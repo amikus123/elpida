@@ -1,11 +1,11 @@
 import React from "react";
 import styled from "styled-components";
-import Cards from "../components/Home/Cards/Cards";
-import HomeCarousel from "../components/Home/HomeCarousel";
-import ItemRow from "../components/Home/ItemRow/ItemRow";
-import { firtsRow, secondRow } from "../constans/homeCards";
-import { bestSellersRowData } from "../constans/rowData";
-import PageCenterWrap from "../containers/PageCenterWrap";
+import Cards from "./Cards/Cards";
+import ItemRow from "./ItemRow/ItemRow";
+import { firtsRow, secondRow } from "../../constans/homeCards";
+import { bestSellersRowData } from "../../constans/rowData";
+import PageCenterWrap from "../../containers/PageCenterWrap";
+import HomeCarousel from "./Carousel/HomeCarousel";
 
 const ContentWrap = styled.div`
   margin-top: 250px;

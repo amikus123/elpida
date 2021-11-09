@@ -6,7 +6,7 @@ import Header from "./containers/Header/Header";
 import { Switch, useLocation } from "react-router-dom";
 import { Reset } from "styled-reset";
 import Global from "./styles/global";
-import Home from "./Pages/Home";
+import Home from "./Pages/Home/Home";
 import Overlay from "./components/core/Overlay/Overlay";
 import { ThemeProvider } from "styled-components";
 import { lightTheme } from "./styles/themes";
@@ -18,8 +18,8 @@ import Dashboard from "./Pages/Dashboard";
 import RouteController from "./Pages/CustomRoutes/RouteController";
 import { useContext, useEffect } from "react";
 import { ElementContext } from "./context/ElementContext";
-import Breadcrumbs from "./components/core/Breadcrumbs/Breadcrumbs";
 import CategoryPage from "./Pages/CategoryPage/CategoryPage";
+import ProductListPage from "./Pages/ProductListPage/ProductListPage";
 
 function App() {
   const location = useLocation();
@@ -33,7 +33,7 @@ function App() {
   return (
     <>
       <Reset />
-      <ThemeProvider theme={lightTheme} >
+      <ThemeProvider theme={lightTheme}>
         <Global />
         <Overlay />
         {location.pathname !== "/login" && location.pathname !== "/signup" ? (
@@ -42,33 +42,40 @@ function App() {
 
         <Switch>
           <RouteController
-            routeType={"public"}
+            routeType="public"
             component={Home}
             path={ROUTES.HOME}
             exact
           />
-              <RouteController
-            routeType={"public"}
+          <RouteController
+            routeType="public"
             component={CategoryPage}
             path={ROUTES.CATEGORIES}
             exact
           />
+          <RouteController
+            routeType="public"
+            component={ProductListPage}
+            path={"/categories/:slug"}
+            exact
+          />
+
           {/* // Auth Routes */}
           <RouteController
-            routeType={"auth"}
+            routeType="auth"
             component={LoginPage}
             path={ROUTES.LOGIN}
             exact
           />
           <RouteController
-            routeType={"auth"}
+            routeType="auth"
             component={SignupPage}
             path={ROUTES.SIGNUP}
             exact
           />
           {/* // Protected Route */}
           <RouteController
-            routeType={"protected"}
+            routeType="protected"
             component={Dashboard}
             path={ROUTES.DASHBOARD}
             exact

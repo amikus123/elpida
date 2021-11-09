@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { nameToPublicLink } from "../../utils/imageFunctions";
+import { nameToPublicLink } from "../../../utils/imageFunctions";
 
 interface CarouselProps {
   imageName: string;
