@@ -31,7 +31,7 @@ export const UserProvider = ({ children }: { children: any }) => {
       return "email";
     } else {
       return "";
-    }
+    } 
   };
   const signup = async (email: string, password: string) => {
     try {

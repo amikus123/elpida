@@ -50,6 +50,7 @@ const LinkElement = styled(Base)<StyleProps>`
   }
 `;
 
+
 const Text = ({
   children,
   variant = "normal",

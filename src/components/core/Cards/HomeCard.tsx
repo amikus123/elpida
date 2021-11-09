@@ -5,8 +5,10 @@ import { nameToPublicLink } from "../../../utils/imageFunctions";
 import Text from "../Text/Text";
 import CardWrap from "./CardWrap.";
 
-
-
+const CardWrapWithSize = styled(CardWrap)`
+height: 420px;
+min-width: 275px;
+max-width: 350px;`
 const TextWrap = styled.div`
   padding-bottom:10px;
   padding-top: 10px;
@@ -23,7 +25,7 @@ interface CardProps {
 const HomeCard = ({ data }: CardProps) => {
   const { imageName, topText, bottomText, link } = data;
   return (
-    <CardWrap type="home" >
+    <CardWrapWithSize type="home" >
     <div>
       <Text variant="header" fontSize="21px" >{topText}</Text>
       <TextWrap>
@@ -33,7 +35,7 @@ const HomeCard = ({ data }: CardProps) => {
       </Text>
       </div>
       <Text element="link"to={link} style={{paddingBottom:"10px"}} fontSize="13px" >{bottomText}</Text>
-    </CardWrap> 
+    </CardWrapWithSize> 
   );
 };
 

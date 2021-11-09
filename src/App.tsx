@@ -18,6 +18,8 @@ import Dashboard from "./Pages/Dashboard";
 import RouteController from "./Pages/CustomRoutes/RouteController";
 import { useContext, useEffect } from "react";
 import { ElementContext } from "./context/ElementContext";
+import Breadcrumbs from "./components/core/Breadcrumbs/Breadcrumbs";
+import CategoryPage from "./Pages/CategoryPage/CategoryPage";
 
 function App() {
   const location = useLocation();
@@ -43,6 +45,12 @@ function App() {
             routeType={"public"}
             component={Home}
             path={ROUTES.HOME}
+            exact
+          />
+              <RouteController
+            routeType={"public"}
+            component={CategoryPage}
+            path={ROUTES.CATEGORIES}
             exact
           />
           {/* // Auth Routes */}

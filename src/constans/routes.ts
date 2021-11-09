@@ -4,7 +4,9 @@ export enum ROUTES {
   SIGNUP= '/signup',
   DASHBOARD = '/dashboard',
   CART = '/cart',
-  ORDERS="/orders"
+  ORDERS="/orders",
+  CATEGORIES="/categories"
+
 }
 
 export enum MODALS{

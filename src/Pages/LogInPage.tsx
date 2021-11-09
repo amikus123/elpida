@@ -7,7 +7,6 @@ import FormikForm, { InputData } from "../components/core/Form/FormikForm";
 import Text from "../components/core/Text/Text";
 import FormWrap from "../containers/FormWrap";
 import { UserContext } from "../context/UserContext";
-import { WordMap } from "../types";
 const LoginPage = () => {
   const { login } = useContext(UserContext);
 
@@ -28,7 +27,7 @@ const LoginPage = () => {
     },
   
   ];
-  const onSubmit = async (e: WordMap, errors: any) => {
+  const onSubmit = async (e: Record<string,string>, errors: any) => {
     errors.setSubmitting(true);
     const res = await login(e.email, e.password);
     console.log(res);

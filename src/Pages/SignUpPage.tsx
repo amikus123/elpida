@@ -7,14 +7,13 @@ import FormikForm, { InputData } from "../components/core/Form/FormikForm";
 import Text from "../components/core/Text/Text";
 import FormWrap from "../containers/FormWrap";
 import { UserContext } from "../context/UserContext";
-import { WordMap } from "../types";
 
 
 
 const SignupPage = () => {
   const { signup } = useContext(UserContext);
   const history = useHistory()
-  const onSubmit = async (e: WordMap, errors: any) => {
+  const onSubmit = async (e: Record<string,string>, errors: any) => {
     console.log(e, errors);
     errors.setSubmitting(true);
     console.log("subitmerd");

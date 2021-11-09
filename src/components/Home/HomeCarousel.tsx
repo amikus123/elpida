@@ -9,11 +9,11 @@ const Wrapper = styled.div`
   margin: 0 auto;
   overflow-x: hidden;
   overflow-y: visible;
-  flex:1;
   height:600px;
   position: absolute;
   top:0;
-  left:0;
+  left:50%;
+  transform: translateX(-50%);
   /* overflow: hidden; */ 
 
   -ms-overflow-style: none;  /* IE and Edge */

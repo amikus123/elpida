@@ -10,7 +10,7 @@ import Login from "../../components/Header/Login";
 
 const HeaderElement = styled.header`
   display: flex;
-  max-width: 100vw;
+  width: 100vw;
 
   flex-direction: column;
   justify-content: center;
@@ -19,7 +19,7 @@ const HeaderElement = styled.header`
 `;
 const FirstRow = styled.div`
   background-color: #131921;
-  flex:1;
+  width:100%;
   padding:0 1rem;
   height: 64px;
   display: flex;

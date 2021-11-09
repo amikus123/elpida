@@ -2,7 +2,7 @@ import React from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import FormikInput, { FormikInputTypes } from "../Inputs/FormikInput";
-import { ValidationTypes, WordMap } from "../../../types";
+import { ValidationTypes } from "../../../types";
 import Spinner from "../Loading/Spinner";
 export interface InputData {
   type: FormikInputTypes;
@@ -11,9 +11,7 @@ export interface InputData {
   validation?: ValidationTypes;
 }
 
-interface ValidationMap {
-  [key: string]: ValidationTypes;
-}
+
 
 interface SignupProps {
   inputs: InputData[];
@@ -25,8 +23,8 @@ interface SignupProps {
 
 const FormikForm = ({ inputs, onSubmit, children }: SignupProps) => {
   const getInitialValues = (inputs: InputData[]) => {
-    const values: WordMap = {};
-    const validation: ValidationMap = {};
+    const values: Record<string,string> = {};
+    const validation: Record<string,ValidationTypes> = {};
     inputs.forEach((item) => {
       values[item.id] = "";
       if (item.validation) {

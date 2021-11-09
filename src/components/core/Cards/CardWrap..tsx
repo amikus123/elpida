@@ -4,14 +4,13 @@ import styled from "styled-components";
 type WrapTypes = "home" | "add";
 
 const WrapWrap = styled.div`
-  flex: 1;
+  /* flex: 1; */
+  /* idk if it should be removed */
 `;
 
 const Wrap = styled.div`
 width:100%;
-  height: 420px;
-  min-width: 275px;
-  max-width: 350px;
+
   display:flex;
   flex-direction:column;
   /* align-items: center */
@@ -33,10 +32,11 @@ const AddWrap = styled(Wrap)`
 interface CardProps {
   children: any;
   type?: WrapTypes;
+  className?:string;
 }
-const CardWrap = ({ children, type = "home" }: CardProps) => {
+const CardWrap = ({ children, type = "home",className="" }: CardProps) => {
   return (
-    <WrapWrap>
+    <WrapWrap className={className}>
       {type === "home" ? (
         <HomeWrap>{children}</HomeWrap>
       ) : (
