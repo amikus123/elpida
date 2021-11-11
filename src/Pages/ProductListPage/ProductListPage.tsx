@@ -1,57 +1,17 @@
-import React, { useCallback, useEffect, useRef, useState } from "react";
+import React, { useCallback, useState } from "react";
 import { useParams } from "react-router-dom";
 import Breadcrumbs from "../../components/core/Breadcrumbs/Breadcrumbs";
 import ProdcutListAside from "./ProdcutListAside/ProdcutListAside";
-import deep from "deep-equal"
+import deep from "deep-equal";
 
 import ProductListList from "./ProductListList/ProductListList";
+import { Filter, filterOptions, items } from "./tmpConst";
+import styled from "styled-components";
+import PageCenterWrap from "../../containers/PageCenterWrap";
 type CategoryParams = {
   slug: string;
 };
 
-export interface Filter {
-  title: string;
-  propertyName: string;
-  values: string[];
-}
-
-const filterOptions: Filter[] = [
-  {
-    title: "Company",
-    propertyName: "company",
-    values: ["Beko", "Samsung", "LG"],
-  },
-  {
-    title: "Height",
-    propertyName: "Height",
-    values: ["200cm", "190cm", "180cm"],
-  },
-  {
-    title: "Width",
-    propertyName: "width",
-    values: ["100cm", "90cm", "80cm"],
-  },
-  {
-    title: "Energy class",
-    propertyName: "energyCLass",
-    values: ["A", "B", "C"],
-  },
-];
-
-export interface FilterState {
-  title: string;
-  propertyName: string;
-  // if all items in boolmap are false, than we show all items
-  boolMap: Record<string, boolean>;
-}
-
-const getBoolMap = (arr: string[]) => {
-  const res: Record<string, boolean> = {};
-  arr.forEach((item, key) => {
-    res[item] = false;
-  });
-  return res;
-};
 const filterToInitialState = (obj: Filter[]) => {
   const res: Record<string, string[]> = {};
   obj.forEach((item, index) => {
@@ -60,9 +20,31 @@ const filterToInitialState = (obj: Filter[]) => {
   return res;
 };
 
+const ContentWrap = styled(PageCenterWrap)`
+  width: 100%;
+  display: flex;
+  justify-content: flex-start;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: space-around;
+  padding: 0;
+
+  & > * {
+  }
+  padding-bottom: 3rem;
+`;
+
+const Wrap = styled(PageCenterWrap)`
+  display: flex;
+  width: 100%;
+  justify-content: flex-start;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 2rem;
+`;
+
 const ProductListPage = () => {
   const { slug } = useParams<CategoryParams>();
-  const formRef = useRef();
 
   // if category is in not in DoorBackTwoTone, we will show error component
   //  product list will be fetched frokm db
@@ -72,35 +54,32 @@ const ProductListPage = () => {
     Record<string, string[]>
   >(filterToInitialState(filterOptions));
 
-
-  const onRefChange = useCallback(node => {
-    if (node === null) { 
+  const onRefChange = useCallback((node) => {
+    if (node === null) {
       // DOM node referenced by ref has been unmounted
     } else {
-      if(!deep(node.values,filterSettings)){
-        setFilterSettings(node.values)
-        console.log("zmieniono",node.values)
+      if (!deep(node.values, filterSettings)) {
+        setFilterSettings(node.values);
+        console.log("zmieniono", node.values);
       }
       // DOM node referenced by ref has changed and exists
     }
   }, []);
-  
 
   return (
-    <div>
+    <Wrap>
       <Breadcrumbs />
-      {JSON.stringify(filterSettings)}
-      <div>
+      <ContentWrap>
         <ProdcutListAside
+          categoryName={"Lodowki"}
+          categoryCount={items.length}
           data={filterOptions}
           dynamicValues={filterSettings}
-          formRef ={onRefChange}
-
+          formRef={onRefChange}
         />
-        <ProductListList />
-      </div>
-      aaaasaaa
-    </div>
+        <ProductListList items={items} />
+      </ContentWrap>
+    </Wrap>
   );
 };
 

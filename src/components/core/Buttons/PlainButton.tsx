@@ -11,18 +11,48 @@ interface ButtonProps {
 interface ButtonStyle {
   color?: "yellow" | "white";
 }
+// const Button = styled.button<ButtonStyle>`
+//   width: 100%;
+//   border: 0;
+//   display: block;
+//   font-size: 13px;
+//   line-height: 29px;
+//   margin: 0;
+//   outline: 0;
+//   border: 1px solid;
+//   padding: 0 10px 0 11px;
+//   text-align: center;
+//   border-radius: 5px;
+//   background-color: ${(props) =>
+//     props.color === "yellow" ? props.theme.yellow : props.theme.white};
+//   border-color: ${(props) =>
+//     props.color === "yellow"
+//       ? props.theme.yellowBorder
+//       : props.theme.whiteBorder};
+//   box-shadow: ${(props) => props.theme.boxShadow};
+//   color: ${(props) => props.theme.darkText};
+//   cursor: pointer;
+//   color: #0f1111;
+//   &:hover {
+//     background-color: ${(props) =>
+//       props.color === "yellow"
+//         ? props.theme.yellowBorder
+//         : props.theme.whiteButtonHover};
+//   }
+// `;
+
 const Button = styled.button<ButtonStyle>`
   width: 100%;
   border: 0;
   display: block;
-  font-size: 13px;
-  line-height: 29px;
+  font-size: inherit;
+  line-height: 1.8125em;
   margin: 0;
   outline: 0;
   border: 1px solid;
-  padding: 0 10px 0 11px;
+  padding: 0 0.625em 0 0.6875em;
   text-align: center;
-  border-radius: 5px;
+  border-radius: 0.3125em;
   background-color: ${(props) =>
     props.color === "yellow" ? props.theme.yellow : props.theme.white};
   border-color: ${(props) =>

@@ -8,6 +8,7 @@ const Wrap = styled.div`
   padding: 10px 20px;
   display: flex;
   height: 150px;
+  font-size:13px;
   flex-direction: column;
   /* align-items: center */
   justify-content: space-evenly;

@@ -26,6 +26,8 @@ const LinkFill = styled(Link)`
   padding:1rem;
   height: 200px;
   width: 200px;
+  color:inherit;
+
 
 `;
 const ImageComponent = styled.img`
@@ -45,11 +47,12 @@ const Categories = () => {
             <LinkFill to={item.link}>
               <ImageComponent src={item.image} />
               <Text>{item.title}</Text>
-              <Text>{item.count}</Text>
+              <Text  presetColor="grey" >({item.count})</Text>
             </LinkFill>
           </CardWrapStyled>
         );
       })}
+
     </Wrap>
   );
 };

@@ -12,16 +12,12 @@ const Wrap = styled(PageCenterWrap)`
   display: flex;
   justify-content: flex-start;
   flex-direction: column;
-  align-items:flex-start;
-  &>*{
-    padding-top: 0.5rem;;
-  };
-  padding-bottom:3rem;
+  align-items: flex-start;
+  & > * {
+    padding-top: 0.5rem;
+  }
+  padding-bottom: 3rem;
 `;
-const greyStyle = {
-  color: "#888",
-  fontSize: "0.85em",
-};
 
 const CategoryPage = () => {
   return (
@@ -29,7 +25,7 @@ const CategoryPage = () => {
       <Breadcrumbs />
       <Text fontSize="2rem" element="h3">
         Categories{" "}
-        <Text element="span" style={greyStyle}>
+        <Text element="span" fontSize="0.85em" presetColor="grey">
           ({categories.length})
         </Text>
       </Text>
