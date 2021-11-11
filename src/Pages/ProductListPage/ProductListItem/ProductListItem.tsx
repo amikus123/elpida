@@ -6,6 +6,7 @@ import ProductDescription from "./ProductDescription";
 import ProductSidebar from "./ProductSidebar";
 import styled from "styled-components";
 import { COLORS } from "../../../styles/styleValues";
+import { Link } from "react-router-dom";
 
 interface ProductListItemProps {
   item: ItemData;
@@ -23,19 +24,20 @@ const DescrtiptionWrap = styled.div`
   flex: 1;
 `;
 const ProductListItem = ({ item }: ProductListItemProps) => {
-  const { title, price, rating, ratingCount, id, image, linkToPage } = item;
+  const { title, rating, ratingCount, id, images, linkToPage,properties,price } = item;
+
   return (
-    <Wrap>
+    <Wrap  >
       <DescrtiptionWrap>
-        <Text element="h3" fontSize="2em">
+        <Text  fontSize="2em" to={linkToPage}>
           {title}
         </Text>
         <div>
           <Rating rating={rating} ratingCount={ratingCount} productCode={id} />
         </div>
-        <ProductDescription />
+        <ProductDescription images={images}  properties={properties}/>
       </DescrtiptionWrap>
-      <ProductSidebar item={item} />
+      <ProductSidebar price={price}/>
     </Wrap>
   );
 };

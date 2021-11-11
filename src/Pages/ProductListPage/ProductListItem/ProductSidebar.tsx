@@ -7,7 +7,7 @@ import Text from "../../../components/core/Text/Text";
 import PhoneCall from "./PhoneCall";
 
 interface ProductListItemProps {
-  item: ItemData;
+  price: number;
 }
 
 const Wrap = styled.div`
@@ -20,16 +20,18 @@ const Wrap = styled.div`
     margin-bottom:0.5rem;
   }
 `;
-const ProductSidebar = ({ item }: ProductListItemProps) => {
-  const { title, price, rating, ratingCount, id, image, linkToPage } = item;
+const ProductSidebar = ({ price }: ProductListItemProps) => {
 
   return (
     <Wrap>
       <Text fontSize="1.25rem">Price: {price}zl</Text>
+      <Text >Arrives: Nov 25 - Dec 6</Text>
       <PlainButton  text="Add to Cart"></PlainButton>
+      <PlainButton  text="Buy now"></PlainButton>
+
       <PhoneCall />
     </Wrap>
-    
+
   );
 };
 

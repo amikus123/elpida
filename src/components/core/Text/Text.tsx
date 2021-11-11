@@ -17,7 +17,7 @@ type PossibleElements =
   | "h6"
   | "link"
   | "label";
-  // presetColor should always be poassed using COLORs enym
+// presetColor should always be poassed using COLORs enym
 interface TextProps {
   children?: ReactNode;
   variant?: Variants;
@@ -36,12 +36,11 @@ interface StyleProps {
   boldness: FontSizes;
 }
 
-
 const Base = styled.p<StyleProps>`
   line-height: 1.5em;
   font-size: ${(props) => props.fontSize};
   font-weight: ${(props) => props.boldness};
-  color: ${(props) => props.presetColor };
+  color: ${(props) => props.presetColor};
 `;
 
 const TextElement = styled(Base)<StyleProps>``;
@@ -59,7 +58,7 @@ const Text = ({
   variant = "normal",
   fontSize = "inherit",
   element = "p",
-  to = "#",
+  to = "",
   labelTarget = "",
   style = {},
   boldness = "initial",
@@ -93,6 +92,21 @@ const Text = ({
           fontSize={fontSize}
           style={style}
           presetColor={presetColor}
+        >
+          {children}
+        </TextElement>
+      );
+    } else if (to !== "") {
+      toReturn = (
+        <TextElement
+          boldness={boldness}
+          as={Link}
+          variant={variant}
+          fontSize={fontSize}
+          style={style}
+          presetColor={presetColor}
+          to={to}
+
         >
           {children}
         </TextElement>

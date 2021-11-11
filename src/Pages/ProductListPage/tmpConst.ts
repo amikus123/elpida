@@ -4,17 +4,17 @@ export interface Filter {
   values: string[];
 }
 
-
-export interface ItemData  {
+export interface ItemData {
   price: number;
   rating: number;
   ratingCount: number;
   id: string;
-  image: string;
+  images: string[];
   linkToPage: string;
+  title: string;
   // propertiees listed in Filter interfcaer
-  [key: string]: string | number;
-} 
+  properties: Option[];
+}
 
 export const items: ItemData[] = [
   {
@@ -22,21 +22,101 @@ export const items: ItemData[] = [
     rating: 3,
     ratingCount: 61,
     id: "Asdasas",
-    image: "a",
-    linkToPage: "/",
-    title:"Lodkowska Lg Gbb940BMQZT"
-    },
-    {
-      price: 13,
-      rating: 3,
-      ratingCount: 61,
-      id: "Asdasas",
-      image: "a",
-      linkToPage: "/",
-      title:"Lodkowska Lg Gbb940BMQZT"
+    images: ["open", "closed"],
+    linkToPage: "categories/agd/a",
+    title: "Lodkowska Lg Gbb940BMQZT",
+    properties: [
+      {
+        title: "Company",
+        propertyName: "company",
+        value: "Samsung",
       },
+      {
+        title: "Height",
+        propertyName: "height",
+        value: "190cm",
+      },
+      {
+        title: "Width",
+        propertyName: "width",
+        value: "90cm",
+      },
+      {
+        title: "Energy class",
+        propertyName: "energyCLass",
+        value: "B",
+      },
+    ],
+  },
+  {
+    price: 13,
+    rating: 3,
+    ratingCount: 61,
+    id: "Asdasas",
+    images: ["open", "closed"],
+    linkToPage: "categories/agd/a",
+    title: "Lodkowska Lg Gbb940BMQZT",
+    properties: [
+      {
+        title: "Company",
+        propertyName: "company",
+        value: "Samsung",
+      },
+      {
+        title: "Height",
+        propertyName: "height",
+        value: "190cm",
+      },
+      {
+        title: "Width",
+        propertyName: "width",
+        value: "90cm",
+      },
+      {
+        title: "Energy class",
+        propertyName: "energyCLass",
+        value: "B",
+      },
+    ],
+  },
+  {
+    price: 13,
+    rating: 3,
+    ratingCount: 61,
+    id: "Asdasas",
+    images: ["open", "closed"],
+    linkToPage: "categories/agd/a",
+    title: "Lodkowska Lg Gbb940BMQZT",
+    properties: [
+      {
+        title: "Company",
+        propertyName: "company",
+        value: "Samsung",
+      },
+      {
+        title: "Height",
+        propertyName: "height",
+        value: "190cm",
+      },
+      {
+        title: "Width",
+        propertyName: "width",
+        value: "90cm",
+      },
+      {
+        title: "Energy class",
+        propertyName: "energyCLass",
+        value: "B",
+      },
+    ],
+  },
 ];
 
+export interface Option {
+  title: string;
+  propertyName: string;
+  value: string;
+}
 export const filterOptions: Filter[] = [
   {
     title: "Company",
@@ -45,7 +125,7 @@ export const filterOptions: Filter[] = [
   },
   {
     title: "Height",
-    propertyName: "Height",
+    propertyName: "height",
     values: ["200cm", "190cm", "180cm"],
   },
   {
@@ -59,11 +139,3 @@ export const filterOptions: Filter[] = [
     values: ["A", "B", "C"],
   },
 ];
-
-export interface FilterState {
-  title: string;
-  propertyName: string;
-  // if all items in boolmap are false, than we show all items
-  boolMap: Record<string, boolean>;
-}
-
