@@ -6,7 +6,7 @@ import ListOfOptions from "./HeaderTabs/ListOfOptions";
 import Login from "./HeaderTabs/Login";
 import Returns from "./HeaderTabs/Returns";
 import SearchBar from "./SearchBar/SearchBar";
-
+import { SIZES } from "../../../styles/styleValues";
 
 const HeaderElement = styled.header`
   display: flex;
@@ -15,17 +15,41 @@ const HeaderElement = styled.header`
   justify-content: center;
   position: relative;
   z-index: 100;
+  background-color: #131921;
 `;
 const FirstRow = styled.div`
-  background-color: #131921;
-  padding:0 1rem;
+  padding: 0 1rem;
   width: 100vw;
   height: 64px;
   display: flex;
   align-items: center;
-  &>*{
-    margin:0.5rem;
-}
+  justify-content: space-around;
+
+  & > * {
+    margin: 0.5rem;
+  }
+`;
+const MobileSearchWrap = styled.div`
+  flex: 1;
+  visibility: visible;
+  margin: 0.25rem 1rem;
+  @media (min-width: ${SIZES.TABLET}) {
+    visibility: hidden;
+    display: none;
+    height: 0;
+  }
+`;
+const DesktopSearchWrap = styled.div`
+  visibility: hidden;
+  display: none;
+
+  width: 0;
+  @media (min-width: ${SIZES.TABLET}) {
+    visibility: visible;
+    display: block;
+
+    flex: 1;
+  }
 `;
 const Header = () => {
   return (
@@ -33,11 +57,17 @@ const Header = () => {
       <FirstRow>
         <Logo />
         <Deliver />
-        <SearchBar />
+        <DesktopSearchWrap>
+          <SearchBar />
+        </DesktopSearchWrap>
+
         <Login />
         <Returns />
         <Cart />
       </FirstRow>
+      <MobileSearchWrap>
+        <SearchBar />
+      </MobileSearchWrap>
       <ListOfOptions />
     </HeaderElement>
   );

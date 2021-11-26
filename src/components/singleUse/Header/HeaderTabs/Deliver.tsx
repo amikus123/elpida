@@ -5,6 +5,7 @@ import { MODALS } from "../../../../constans/routes";
 import { DataContext } from "../../../../context/DataContext";
 import { ElementContext } from "../../../../context/ElementContext";
 import HiddenLogin from "../List/HiddenLogin";
+import { SIZES } from "../../../../styles/styleValues";
 
 
 const Wrapper = styled.div`
@@ -19,6 +20,9 @@ const Wrapper = styled.div`
     outline: 1px solid #fff;
   }
   cursor: pointer;
+  @media (max-width: ${SIZES.TABLET}) {
+    display:none;
+  }
 `;
 const CustomLink = styled.p`
   font-size: 0.875rem;

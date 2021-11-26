@@ -12,6 +12,7 @@ const CustomLink = styled(Link)`
     outline: 1px solid #fff;
   }
 `;
+
 const Bold = styled.span`
   font-weight: bold;
 `;
@@ -20,7 +21,7 @@ const Returns = () => {
   return (
     <CustomLink to={ROUTES.ORDERS}>
       Returns <br />
-      <Bold>& Orders</Bold>
+      <Bold>&&nbsp;Orders</Bold>
     </CustomLink>
   );
 };

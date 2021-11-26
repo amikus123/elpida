@@ -5,12 +5,16 @@ import { FaCaretDown } from "react-icons/fa";
 import styled from "styled-components";
 import { ElementContext } from "../../../../context/ElementContext";
 import HiddenLogin from "../List/HiddenLogin";
+import { SIZES } from "../../../../styles/styleValues";
 const Wrapper = styled.div`
   margin: 5px 0;
   padding: 8px;
   display: flex;
   align-items: center;
   position: relative;
+  @media (max-width: ${SIZES.TABLET}) {
+    position: initial;
+  }
   &:hover {
     & div {
       visibility: visible !important;
@@ -32,6 +36,9 @@ const Bold = styled.span`
   display: flex;
   min-height: 17.33px;
   align-items: center;
+  @media (max-width: ${SIZES.TABLET}) {
+    display: none;
+  }
 `;
 const Login = () => {
   const { setOverlay } = useContext(ElementContext);
@@ -42,7 +49,7 @@ const Login = () => {
       onMouseLeave={() => setOverlay(false)}
     >
       <CustomLink to="/orders">
-        Hello, Sign in <br />
+        Hello, Sign&nbsp;in <br />
         <Bold>
           Account & Lists <FaCaretDown />
         </Bold>

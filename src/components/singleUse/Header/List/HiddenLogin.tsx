@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import Button from "../../../core/Buttons/Button";
 import { ROUTES } from "../../../../constans/routes";
 import MyText from "../../../core/Text/MyText";
+import { SIZES } from "../../../../styles/styleValues";
 const leftNames = [
   "Create a List",
   "Find a List or Registery",
@@ -31,10 +32,17 @@ const rightNames = [
 const Padding = styled.div`
   position: absolute;
   width: 500px;
+  max-width:90vw;
   padding: 1rem;
   cursor: default;
   top: 3rem;
   left: -15rem;
+  z-index:30;
+  @media (max-width: ${SIZES.TABLET}) {
+  left: 50%;
+transform: translateX(-50%);
+  }
+  
 `;
 const Wrapper = styled.div`
   background-color: snow;
@@ -46,7 +54,7 @@ const Wrapper = styled.div`
 // changes width ro 460
 const InternalWrapper = styled.div`
   margin: 0 auto;
-  width: 460px;
+  width:92%;
 `;
 const TopSection = styled.div`
   display: flex;

@@ -4,6 +4,7 @@ import { FaShoppingCart } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import { ROUTES } from "../../../../constans/routes";
 import { DataContext } from "../../../../context/DataContext";
+import { SIZES } from "../../../../styles/styleValues";
 
 const Wrap = styled(Link)`
   font-size: 0.875rem;
@@ -37,6 +38,9 @@ const CartNumber = styled.span`
 const Text = styled.span`
   font-weight: bold;
   color: #fff;
+  @media (max-width: ${SIZES.TABLET}) {
+    display:none;
+  }
 `;
 const Cart = () => {
   const { cartCount } = useContext(DataContext);

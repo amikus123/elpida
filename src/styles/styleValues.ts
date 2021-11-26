@@ -5,3 +5,9 @@ export enum COLORS {
   mediumOrange = "#c7511f",
   inherit = "inherit",
 }
+
+export enum SIZES{
+  MOBILE="480px",
+  TABLET="786px",
+  DESKTOP="1440px",
+}
