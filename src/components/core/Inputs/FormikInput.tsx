@@ -1,7 +1,7 @@
 import React from "react";
 
 import styled from "styled-components";
-import Text from "../Text/Text";
+import MyText from "../Text/MyText";
 
 const Input = styled.input`
   width: 100%;
@@ -16,7 +16,7 @@ const Input = styled.input`
   }
 `;
 
-export type FormikInputTypes = "text" | "email" | "password"|"submit";
+export type FormikInputTypes = "text" | "email" | "password" | "submit";
 interface TextFormInputProps {
   value: string;
   handleChange: {
@@ -50,7 +50,9 @@ const FormikInput = ({
   // label is optional
   return (
     <>
-      {labelText !== "" ? <Text labelTarget={inputId}>{labelText}</Text> : null}{" "}
+      {labelText !== "" ? (
+        <MyText labelTarget={inputId}>{labelText}</MyText>
+      ) : null}{" "}
       <Input
         id={inputId}
         onBlur={handleBlur}

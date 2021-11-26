@@ -1,7 +1,7 @@
 import React from "react";
 
 import styled from "styled-components";
-import Text from "../Text/Text";
+import MyText from "../Text/MyText";
 
 const Input = styled.input`
   width: 100%;
@@ -36,12 +36,14 @@ const TextInput = ({
   // label is optional
   return (
     <>
-      {labelText !== "" ? <Text labelTarget={inputId}>{labelText}</Text> : null}{" "}
+      {labelText !== "" ? (
+        <MyText labelTarget={inputId}>{labelText}</MyText>
+      ) : null}{" "}
       <Input
         id={inputId}
         value={state}
         type={inputType}
-        onChange={(e)=>{
+        onChange={(e) => {
           setState(e.target.value);
         }}
       />

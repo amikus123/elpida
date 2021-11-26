@@ -5,7 +5,7 @@ import PlainButton from "../Buttons/PlainButton";
 import HorizontalText from "../Dividers/HorizontalText";
 import Dropdown from "../Inputs/Dropdown";
 import TextInput from "../Inputs/TextInput";
-import Text from "../Text/Text";
+import MyText from "../Text/MyText";
 const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
@@ -31,7 +31,7 @@ const Middle = styled.div`
   display: flex;
   flex-direction: column;
 
-  &>:first-child  {
+  & > :first-child {
     margin: 0.5rem 0;
   }
 `;
@@ -69,12 +69,14 @@ const LocationModal = () => {
   return (
     <Wrapper>
       <Top>
-        <Text boldness="bold" fontSize="1.125rem">Choose your location</Text>
+        <MyText boldness="bold" fontSize="1.125rem">
+          Choose your location
+        </MyText>
       </Top>
       <Middle>
-        <Text>
+        <MyText>
           Delivery options and delivery speeds may vary for different locations
-        </Text>
+        </MyText>
         <PlainButton
           text="Sign to see your addesses"
           color="yellow"

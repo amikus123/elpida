@@ -23,7 +23,7 @@ export default createGlobalStyle<StyledGlobals>`
     color: #111;
     background-color: #EAEDED;
     width: 100vw;;
-    overflow-x: hidden;
+    overflow-x: hidden; 
     /* overflow: ${(props) => (props.modal ? "visible" : "hidden")}; */
 
    }

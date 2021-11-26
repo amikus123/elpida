@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router";
 import styled from "styled-components";
 import { capitalizeFirstLetter } from "../../../utils/stringFunctions";
-import Text from "../Text/Text";
+import MyText from "../Text/MyText";
 import ArrowRightAltIcon from "@mui/icons-material/ArrowRightAlt";
 interface PathObject {
   path: string;
@@ -44,14 +44,14 @@ const Breadcrumbs = () => {
         return (
           <>
             {index !== 0 && index ? <ArrowRightAltIcon /> : null}
-            <Text
+            <MyText
               to={item.path}
               element="link"
               key={index}
               style={{ display: "inline" }}
             >
               {item.name}
-            </Text>
+            </MyText>
           </>
         );
       })}

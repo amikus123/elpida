@@ -2,25 +2,26 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
 
-import Header from "./containers/Header/Header";
 import { Switch, useLocation } from "react-router-dom";
 import { Reset } from "styled-reset";
 import Global from "./styles/global";
-import Home from "./Pages/Home/Home";
-import Overlay from "./components/core/Overlay/Overlay";
+import Home from "./Pages/PublicPages/Home/Home";
 import { ThemeProvider } from "styled-components";
 import { lightTheme } from "./styles/themes";
-import SignupPage from "./Pages/SignupPage";
 
-import LoginPage from "./Pages/LoginPage";
+import LoginPage from "./Pages/AuthPages/LoginPage";
 import { ROUTES } from "./constans/routes";
-import Dashboard from "./Pages/Dashboard";
-import RouteController from "./Pages/CustomRoutes/RouteController";
+import Dashboard from "./Pages/ProtectedPages/Dashboard/Dashboard";
+import RouteController from "./components/CustomRoutes/RouteController";
 import { useContext, useEffect } from "react";
 import { ElementContext } from "./context/ElementContext";
-import CategoryPage from "./Pages/CategoryPage/CategoryPage";
-import ProductListPage from "./Pages/ProductListPage/ProductListPage";
-
+import CategoryPage from "./Pages/PublicPages/CategoryPage/CategoryPage";
+import ProductPage from "./Pages/PublicPages/ProductPage/ProductPage";
+import Header from "./components/singleUse/Header/Header";
+import Overlay from "./components/singleUse/Overlay/Overlay";
+import SignupPage from "./Pages/AuthPages/SignupPage";
+import ProductListPage from "./Pages/PublicPages/ProductListPage/ProductListPage";
+import IncorrectPath from "./Pages/PublicPages/IncorrectPath/IncorrectPath";
 function App() {
   const location = useLocation();
   const { reset } = useContext(ElementContext);
@@ -29,7 +30,7 @@ function App() {
     // reset element(modal,overlay) status on location change
     console.log(location.pathname);
     reset();
-  }, [location]);
+  }, [location, reset]);
   return (
     <>
       <Reset />
@@ -47,6 +48,7 @@ function App() {
             path={ROUTES.HOME}
             exact
           />
+
           <RouteController
             routeType="public"
             component={CategoryPage}
@@ -56,11 +58,24 @@ function App() {
           <RouteController
             routeType="public"
             component={ProductListPage}
-            path={"/categories/:slug"}
+            path={"/categories/:category/"}
+            exact
+          />
+          <RouteController
+            routeType="public"
+            component={ProductPage}
+            path={"/categories/:category/:item"}
+            exact
+          />
+          <RouteController
+            routeType="public"
+            component={IncorrectPath}
+            path={"/*"}
             exact
           />
 
-          {/* // Auth Routes */}
+          {/*  Auth Routes, only non logged user can access them */}
+
           <RouteController
             routeType="auth"
             component={LoginPage}
@@ -73,7 +88,7 @@ function App() {
             path={ROUTES.SIGNUP}
             exact
           />
-          {/* // Protected Route */}
+          {/*  Protected Route only auth user can access them */}
           <RouteController
             routeType="protected"
             component={Dashboard}

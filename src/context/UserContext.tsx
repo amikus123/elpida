@@ -1,7 +1,7 @@
 import {
   createUserWithEmailAndPassword,
   User,
-  signInWithEmailAndPassword
+  signInWithEmailAndPassword,
 } from "firebase/auth";
 
 import { createContext, useState, useEffect } from "react";
@@ -13,7 +13,7 @@ export const UserContext = createContext({
     const a: any = "";
     return a;
   },
-  login:async (arg1: string, arg2: string) => {
+  login: async (arg1: string, arg2: string) => {
     const a: any = "";
     return a;
   },
@@ -31,7 +31,7 @@ export const UserProvider = ({ children }: { children: any }) => {
       return "email";
     } else {
       return "";
-    } 
+    }
   };
   const signup = async (email: string, password: string) => {
     try {
@@ -63,15 +63,15 @@ export const UserProvider = ({ children }: { children: any }) => {
     const unsubscribe = auth.onAuthStateChanged((user) => {
       setCurrentUser(user);
       setLoading(false);
-      console.log(user,"context user")
+      console.log(user, "context user");
     });
     return unsubscribe;
   }, []);
 
-  const val = { signup, currentUser ,login};
+  const val = { signup, currentUser, login };
   return (
     <UserContext.Provider value={{ ...val }}>
-      {loading ? null : <>{ children }</>}
+      {loading ? null : <>{children}</>}
     </UserContext.Provider>
   );
 };
