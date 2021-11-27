@@ -5,7 +5,7 @@ import {
 } from "firebase/auth";
 
 import { createContext, useState, useEffect } from "react";
-import { auth } from "../firebase/main";
+import { myAuth } from "../firebase/main";
 
 const a: any = null;
 export const UserContext = createContext({
@@ -35,7 +35,7 @@ export const UserProvider = ({ children }: { children: any }) => {
   };
   const signup = async (email: string, password: string) => {
     try {
-      return await createUserWithEmailAndPassword(auth, email, password);
+      return await createUserWithEmailAndPassword(myAuth, email, password);
     } catch (e) {
       // returns word map, keys are fileds whre message should be shown
       console.error(e);
@@ -48,7 +48,7 @@ export const UserProvider = ({ children }: { children: any }) => {
   };
   const login = async (email: string, password: string) => {
     try {
-      return await signInWithEmailAndPassword(auth, email, password);
+      return await signInWithEmailAndPassword(myAuth, email, password);
     } catch (e) {
       // returns word map, keys are fileds whre message should be shown
       console.error(e);
@@ -60,7 +60,7 @@ export const UserProvider = ({ children }: { children: any }) => {
     }
   };
   useEffect(() => {
-    const unsubscribe = auth.onAuthStateChanged((user) => {
+    const unsubscribe = myAuth.onAuthStateChanged((user) => {
       setCurrentUser(user);
       setLoading(false);
       console.log(user, "context user");

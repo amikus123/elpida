@@ -41,10 +41,6 @@ const ProductListPage = () => {
   //  product list will be fetched frokm db
   // form will be based on type od object, fetched from db
 
-
-
-
-
   return (
     <Wrap>
       <Breadcrumbs />

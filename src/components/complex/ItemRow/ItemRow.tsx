@@ -1,8 +1,8 @@
 import React from "react";
-import { RowContent } from "../../../constans/rowData";
 import ItemRowCarousel from "./ItemRowCarousel";
 import MyText from "../../core/Text/MyText";
 import styled from "styled-components";
+import { RowContent } from "../../../types";
 
 interface ItemRowProps {
   data: RowContent;

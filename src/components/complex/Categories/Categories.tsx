@@ -1,6 +1,6 @@
 import React from "react";
-import { categories } from "../../../constans/categories";
 import styled from "styled-components";
+import { CardData } from "../../../types";
 import CategoryItem from "./CategoryItem";
 
 const Wrap = styled.div`
@@ -14,10 +14,14 @@ const Wrap = styled.div`
   }
 `;
 
-const Categories = () => {
+interface CategoriesProps{
+  data:CardData[]
+}
+// displays cards 
+const Categories = ({data}:CategoriesProps) => {
   return (
     <Wrap>
-      {categories.map((item, index) => {
+      {data.map((item, index) => {
         return <CategoryItem item={item} key={index} />;
       })}
     </Wrap>

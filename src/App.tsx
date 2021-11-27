@@ -67,12 +67,7 @@ function App() {
             path={"/categories/:category/:item"}
             exact
           />
-          <RouteController
-            routeType="public"
-            component={IncorrectPath}
-            path={"/*"}
-            exact
-          />
+    
 
           {/*  Auth Routes, only non logged user can access them */}
 
@@ -93,6 +88,13 @@ function App() {
             routeType="protected"
             component={Dashboard}
             path={ROUTES.DASHBOARD}
+            exact
+          />
+
+<RouteController
+            routeType="public"
+            component={IncorrectPath}
+            path={"/*"}
             exact
           />
         </Switch>

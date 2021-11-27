@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { CardData } from "../../../../constans/homeCards";
+import { CardData } from "../../../../types";
 import { nameToPublicLink } from "../../../../utils/imageFunctions";
 import MyText from "../../../core/Text/MyText";
 import CardWrap from "./CardWrap.";

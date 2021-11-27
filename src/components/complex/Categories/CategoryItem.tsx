@@ -4,14 +4,14 @@ import { Link } from 'react-router-dom';
 import styled from "styled-components";
 import CardWrap from '../Cards/CardTypes/CardWrap.';
 import MyText from '../../../components/core/Text/MyText';
-import { Category } from '../../../constans/categories';
+import { CardData } from '../../../types';
 
 const Wrap = styled.div`
   width: 100%;
   display: flex;
   flex-wrap: wrap;
   flex-direction: row;
-  justify-content: center;
+  justify-content: space-between;
   & > :hover {
     transform: scale(1.05);
   }
@@ -22,10 +22,10 @@ const LinkFill = styled(Link)`
   align-items: center;
   justify-content: center;
   border: 1px solid #888;
-  padding: 1rem;
-  height: 200px;
-  width: 200px;
+  height: 220px;
+  width: 220px;
   color: inherit;
+ 
 `;
 const ImageComponent = styled.img`
   max-width: 125px;
@@ -33,18 +33,18 @@ const ImageComponent = styled.img`
 `;
 
 interface CategoryItemProps{
- item:Category
+ item:CardData
 }
 const CardWrapStyled = styled(CardWrap)``;
 const CategoryItem = ({item}:CategoryItemProps) => {
-  const {link,image,title,count} = item
+  const {link,topText,bottomText,imageName} = item
 
   return (
     <CardWrapStyled>
     <LinkFill to={link}>
-      <ImageComponent src={image} />
-      <MyText>{title}</MyText>
-      {count?<MyText presetColor="grey">({count})</MyText>:null}
+      <ImageComponent src={imageName} />
+      <MyText fontSize="1.25rem">{topText}</MyText>
+      {bottomText?<MyText presetColor="grey" fontSize="1.125rem">{bottomText}</MyText>:null}
     </LinkFill>
   </CardWrapStyled>
   )
