@@ -4,6 +4,7 @@ import * as Yup from "yup";
 import FormikInput, { FormikInputTypes } from "../Inputs/FormikInput";
 import { ValidationTypes } from "../../../types";
 import Spinner from "../Loading/Spinner";
+import styled from "styled-components";
 export interface InputData {
   type: FormikInputTypes;
   id: string;
@@ -11,20 +12,19 @@ export interface InputData {
   validation?: ValidationTypes;
 }
 
-
-
+const InputWrap = styled.div`
+  margin: 1rem;
+`
 interface SignupProps {
   inputs: InputData[];
   onSubmit: (arg1: any, arg2: any) => any;
   children: any;
 }
 
-
-
 const FormikForm = ({ inputs, onSubmit, children }: SignupProps) => {
   const getInitialValues = (inputs: InputData[]) => {
-    const values: Record<string,string> = {};
-    const validation: Record<string,ValidationTypes> = {};
+    const values: Record<string, string> = {};
+    const validation: Record<string, ValidationTypes> = {};
     inputs.forEach((item) => {
       values[item.id] = "";
       if (item.validation) {
@@ -56,7 +56,7 @@ const FormikForm = ({ inputs, onSubmit, children }: SignupProps) => {
     >
       {inputs.map((item, index) => {
         return (
-          <div key={index}>
+          <InputWrap key={index}>
             <FormikInput
               labelText={item.label}
               inputId={item.id}
@@ -67,7 +67,7 @@ const FormikForm = ({ inputs, onSubmit, children }: SignupProps) => {
               errorText={formik.errors[item.id]}
               showError={formik.touched[item.id] && formik.errors[item.id]}
             />
-          </div>
+          </InputWrap>
         );
       })}
       {/* dispalys spinner while form is being submitted */}

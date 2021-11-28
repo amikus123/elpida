@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import styled from "styled-components";
 import { FaShoppingCart } from "react-icons/fa";
 import { Link } from "react-router-dom";
-import { ROUTES } from "../../../../constans/routes";
+import { PUBLIC_ROUTES } from "../../../../constans/routes";
 import { DataContext } from "../../../../context/DataContext";
 import { SIZES } from "../../../../styles/styleValues";
 
@@ -45,7 +45,7 @@ const Text = styled.span`
 const Cart = () => {
   const { cartCount } = useContext(DataContext);
   return (
-    <Wrap to={ROUTES.CART}>
+    <Wrap to={PUBLIC_ROUTES.CART}>
       <CartWrap>
         <FaShoppingCart color="red" size="2.5rem" />
         <CartNumber>{cartCount}</CartNumber>

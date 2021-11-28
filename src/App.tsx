@@ -10,7 +10,11 @@ import { ThemeProvider } from "styled-components";
 import { lightTheme } from "./styles/themes";
 
 import LoginPage from "./Pages/AuthPages/LoginPage";
-import { ROUTES } from "./constans/routes";
+import {
+  AUTH_ROUTES,
+  PROTECTED_ROUTES,
+  PUBLIC_ROUTES,
+} from "./constans/routes";
 import Dashboard from "./Pages/ProtectedPages/Dashboard/Dashboard";
 import RouteController from "./components/CustomRoutes/RouteController";
 import { useContext, useEffect } from "react";
@@ -22,6 +26,8 @@ import Overlay from "./components/singleUse/Overlay/Overlay";
 import SignupPage from "./Pages/AuthPages/SignupPage";
 import ProductListPage from "./Pages/PublicPages/ProductListPage/ProductListPage";
 import IncorrectPath from "./Pages/PublicPages/IncorrectPath/IncorrectPath";
+import HomeImages from "./Pages/ProtectedPages/HomeImages/HomeImages";
+import Snackbar from "./components/singleUse/Snackbar/Snackbar";
 function App() {
   const location = useLocation();
   const { reset } = useContext(ElementContext);
@@ -37,22 +43,21 @@ function App() {
       <ThemeProvider theme={lightTheme}>
         <Global />
         <Overlay />
-        {location.pathname !== "/login" && location.pathname !== "/signup" ? (
-          <Header />
-        ) : null}
+        <Snackbar/>
+        {location.pathname in AUTH_ROUTES ? null : <Header />}
 
         <Switch>
           <RouteController
             routeType="public"
             component={Home}
-            path={ROUTES.HOME}
+            path={PUBLIC_ROUTES.HOME}
             exact
           />
 
           <RouteController
             routeType="public"
             component={CategoryPage}
-            path={ROUTES.CATEGORIES}
+            path={PUBLIC_ROUTES.CATEGORIES}
             exact
           />
           <RouteController
@@ -67,31 +72,35 @@ function App() {
             path={"/categories/:category/:item"}
             exact
           />
-    
 
           {/*  Auth Routes, only non logged user can access them */}
 
           <RouteController
             routeType="auth"
             component={LoginPage}
-            path={ROUTES.LOGIN}
+            path={AUTH_ROUTES.LOGIN}
             exact
           />
           <RouteController
             routeType="auth"
             component={SignupPage}
-            path={ROUTES.SIGNUP}
+            path={AUTH_ROUTES.SIGNUP}
             exact
           />
           {/*  Protected Route only auth user can access them */}
           <RouteController
             routeType="protected"
             component={Dashboard}
-            path={ROUTES.DASHBOARD}
+            path={PROTECTED_ROUTES.DASHBOARD}
             exact
           />
-
-<RouteController
+          <RouteController
+            routeType="protected"
+            component={HomeImages}
+            path={PROTECTED_ROUTES.HOME_IMAGES}
+            exact
+          />
+          <RouteController
             routeType="public"
             component={IncorrectPath}
             path={"/*"}

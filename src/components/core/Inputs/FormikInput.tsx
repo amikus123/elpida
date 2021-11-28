@@ -16,7 +16,7 @@ const Input = styled.input`
   }
 `;
 
-export type FormikInputTypes = "text" | "email" | "password" | "submit";
+export type FormikInputTypes = "text" | "email" | "password" | "submit" |"file";
 interface TextFormInputProps {
   value: string;
   handleChange: {
@@ -37,6 +37,7 @@ interface TextFormInputProps {
   };
   showError: string | false | undefined;
 }
+
 const FormikInput = ({
   value,
   inputType = "text",
@@ -51,7 +52,7 @@ const FormikInput = ({
   return (
     <>
       {labelText !== "" ? (
-        <MyText labelTarget={inputId}>{labelText}</MyText>
+        <MyText fontSize="1.25rem" labelTarget={inputId}>{labelText}</MyText>
       ) : null}{" "}
       <Input
         id={inputId}
@@ -60,7 +61,7 @@ const FormikInput = ({
         type={inputType}
         onChange={handleChange}
       />
-      {showError ? <div>{errorText}</div> : null}
+      {showError ? <MyText presetColor="red">{errorText}</MyText> : null}
     </>
   );
 };

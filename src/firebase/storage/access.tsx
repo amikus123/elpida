@@ -1,21 +1,43 @@
+import { getDocs, collection } from "firebase/firestore";
 import { getDownloadURL,ref } from "firebase/storage";
-import { myStorage } from "../main";
+import { SnackbarTexts } from "../../constans/snackbar";
+import { BaseFirestoreResposne } from "../../types";
+import { myDb, myStorage } from "../main";
 
-interface ImageWithName{
-  
+
+
+
+interface DashboardHomeImagesResponse extends BaseFirestoreResposne{
+  res:string[]
 }
-// gets images for dashboard categories
-export const getDashboardCategoryImages = async (): Promise<string[]> => {
-  const prefix = "dashboard/categoryImages/";
-  const fileNames = [
-    "INVENTORY",
-    "PROMOTED_CARDS",
-    "HOME_IMAGES",
-    "BEST_SELLERS",
-  ];
-  const fetching = fileNames.map((fileName) => {
-    const fileLocation = prefix+fileName+".png"
-    return getDownloadURL(ref(myStorage, fileLocation));
-  });
-  return Promise.all(fetching)
+export const getDashboardCategoryImages = async (): Promise<DashboardHomeImagesResponse> => {
+  try{
+    const prefix = "dashboard/categoryImages/";
+    const fileNames = [
+      "INVENTORY",
+      "PROMOTED_CARDS",
+      "HOME_IMAGES",
+      "BEST_SELLERS",
+    ];
+    const fetching = fileNames.map((fileName) => {
+      const fileLocation = prefix+fileName+".png"
+      return getDownloadURL(ref(myStorage, fileLocation));
+    });
+    const res =  await Promise.all(fetching)
+    return   {
+      res,
+      error: false,
+      text: "",
+    };
+  }catch(e:any){
+    console.error(e);
+    return {
+      res :[],
+      error: true,
+      text: SnackbarTexts.unsuccesfulInitialFetching + e.code,
+    };
+  }
+
+  
 };
+

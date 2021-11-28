@@ -1,22 +1,66 @@
 import { createContext, useEffect, useState } from "react";
+import {
+  PossibleModalColor,
+  POSSIBLE_MODAL_COLORS,
+  SnackbarType,
+} from "../constans/snackbar";
+import { BaseFirestoreResposne } from "../types";
 
 export type ModalOptions = "location" | "none";
+const tmp: SnackbarType = {
+  show: false,
+  color: "red",
+  text: "",
+  prevTimeoutId: null,
+};
 export const ElementContext = createContext({
   showOverlay: false,
   selectedModal: "none",
   showDropdown: false,
+  snackbarValue: tmp,
+  updateSnackbar: (text: string, color: PossibleModalColor = "green") => {},
   setOverlay: (arg: boolean) => {},
   setModal: (arg: ModalOptions) => {},
   openModal: (arg: ModalOptions) => {},
   clearModal: () => {},
   setDropdown: (arg: boolean) => {},
   reset: () => {},
+  setSnackbarWithResposne: (resposne: BaseFirestoreResposne) => {}
 });
 
 export const ElementProvider = ({ children }: { children: any }) => {
   const [showOverlay, setShowOverlay] = useState(false);
   const [selectedModal, setSelectedModal] = useState<ModalOptions>("none");
   const [showDropdown, setShowDropdown] = useState(false);
+
+  const [snackbarValue, setSnackbarValue] = useState<SnackbarType>({
+    show: false,
+    color: "red",
+    text: "",
+    prevTimeoutId: null,
+  });
+
+  const updateSnackbar = (
+    text: string,
+    color: keyof typeof POSSIBLE_MODAL_COLORS = "green"
+  ) => {
+    // if there is no previous timeout, we set it
+    // else we remove it and then set it
+    if (snackbarValue.prevTimeoutId !== null) {
+      clearTimeout(snackbarValue.prevTimeoutId);
+    }
+    const newTimeoutId = setTimeout(() => {
+      setSnackbarValue({ ...snackbarValue, show: false, prevTimeoutId: null });
+    }, 5000);
+    setSnackbarValue({ color, text, show: true, prevTimeoutId: newTimeoutId });
+  };
+
+  const setSnackbarWithResposne = (resposne: BaseFirestoreResposne) => {
+    const { text, error } = resposne;
+    const color = error?"red":"green"
+  
+    updateSnackbar(text, color);
+  };
   useEffect(() => {
     if (selectedModal === "none") {
       const scrollY = document.body.style.top;
@@ -40,7 +84,6 @@ export const ElementProvider = ({ children }: { children: any }) => {
     setSelectedModal("none");
     setShowOverlay(false);
   };
-
   const openModal = (modalVariant: ModalOptions) => {
     setSelectedModal(modalVariant);
     setShowOverlay(true);
@@ -63,6 +106,9 @@ export const ElementProvider = ({ children }: { children: any }) => {
     selectedModal,
     setModal,
     clearModal,
+    snackbarValue,
+    updateSnackbar,
+    setSnackbarWithResposne
   };
   return (
     <ElementContext.Provider value={{ ...val }}>

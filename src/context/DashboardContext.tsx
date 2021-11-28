@@ -1,17 +1,15 @@
-import { createContext, useEffect, useState } from "react";
+import { createContext, useEffect, useState,useContext } from "react";
 import { DASHBOARD_ROUTES } from "../constans/routes";
+import { getAllHomeImages } from "../firebase/firestore/access";
 import { getDashboardCategoryImages } from "../firebase/storage/access";
 import { CardData } from "../types";
-import { nameToPublicLink } from "../utils/imageFunctions";
+import { ElementContext } from "./ElementContext";
 
 const example: CardData = {
   imageName: "",
   topText: "INVENTORY",
   link: DASHBOARD_ROUTES.INVENTORY,
 };
-export const DashboardContext = createContext({
-  categories: [example],
-});
 
 const baseState: CardData[] = [
   {
@@ -35,22 +33,30 @@ const baseState: CardData[] = [
     link: DASHBOARD_ROUTES.HOME_IMAGES,
   },
 ];
+export const DashboardContext = createContext({
+  categories: [example],
+  fetchDashboardCategoryImages: async() => {return await console.log()},
+});
 
 export const DashboardProvider = ({ children }: { children: any }) => {
+  const {setSnackbarWithResposne} =  useContext(ElementContext)
   const [categories, setCategories] = useState<CardData[]>(baseState);
-  useEffect(() => {
-    const fetch = async ()=>{
-      const urls = await getDashboardCategoryImages()
-      // upadting the urls
-      const copy = [...categories]
-      urls.forEach((item,index)=>{
-        copy[index].imageName = item
-      })
-      setCategories(copy)
-    }
-    fetch()
-  }, [])
-  const val = { categories };
+  const fetchDashboardCategoryImages =async ()=>{
+    const response = await getDashboardCategoryImages()
+    console.log(response)
+    // upadting the urls
+    setSnackbarWithResposne(response)
+    const urls = response.res
+    const copy = [...categories]
+    urls.forEach((item,index)=>{
+      copy[index].imageName = item
+    })
+    setCategories(copy)
+    console.log(await getAllHomeImages())
+  }
+
+
+  const val = { categories, setCategories,fetchDashboardCategoryImages};
   return (
     <DashboardContext.Provider value={{ ...val }}>
       {children}

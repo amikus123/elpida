@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext,useEffect } from "react";
 import styled from "styled-components";
 import Categories from "../../../components/complex/Categories/Categories";
 import MyText from "../../../components/core/Text/MyText";
@@ -6,14 +6,14 @@ import { DashboardContext } from "../../../context/DashboardContext";
 
 const Dashboard = () => {
   // cards for each categorey
-  const {categories} = useContext(DashboardContext)
-
+  const {categories,fetchDashboardCategoryImages} = useContext(DashboardContext)
+  
+  useEffect(() => {
+    fetchDashboardCategoryImages()
+  }, [])
 
   return (
     <div>
-      <MyText>Which itemsasdasdsd would you like to edit?</MyText>
-
-      <MyText>Which itemsasdasdsd would you like to edit?</MyText>
       <Categories data={categories} />
     </div>
   );

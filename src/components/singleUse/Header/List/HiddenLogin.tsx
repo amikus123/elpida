@@ -3,9 +3,10 @@ import React from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import Button from "../../../core/Buttons/Button";
-import { ROUTES } from "../../../../constans/routes";
+import { AUTH_ROUTES } from "../../../../constans/routes";
 import MyText from "../../../core/Text/MyText";
 import { SIZES } from "../../../../styles/styleValues";
+
 const leftNames = [
   "Create a List",
   "Find a List or Registery",
@@ -114,10 +115,10 @@ const HiddenLogin = () => {
       <Wrapper>
         <InternalWrapper>
           <TopSection>
-            <Button to={ROUTES.LOGIN}>Sign in</Button>
+            <Button to={AUTH_ROUTES.LOGIN}>Sign in</Button>
             <MyText>
               New customer?{" "}
-              <MyText to={ROUTES.SIGNUP} element="link">
+              <MyText to={AUTH_ROUTES.SIGNUP} element="link">
                 Start here
               </MyText>
             </MyText>

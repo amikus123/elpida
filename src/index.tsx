@@ -7,18 +7,15 @@ import { BrowserRouter as Router } from "react-router-dom";
 import { DataProvider } from "./context/DataContext";
 import { ElementProvider } from "./context/ElementContext";
 import { UserProvider } from "./context/UserContext";
-import { DashboardProvider } from "./context/DashboardContext";
 
 ReactDOM.render(
   <React.StrictMode>
     <Router>
       <UserProvider>
         <DataProvider>
-          <DashboardProvider>
             <ElementProvider>
               <App />
             </ElementProvider>
-          </DashboardProvider>
         </DataProvider>
       </UserProvider>
     </Router>

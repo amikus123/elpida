@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import { Route, Redirect } from "react-router-dom";
-import { ROUTES } from "../../constans/routes";
+import { PUBLIC_ROUTES } from "../../constans/routes";
 import { UserContext } from "../../context/UserContext";
 
 /**
@@ -22,7 +22,7 @@ const AuthRoute = ({ component, ...rest }: { component: any }) => {
         return !currentUser ? (
           <>{renderElement(component, routerProps)}</>
         ) : (
-          <Redirect to={{ pathname: ROUTES.HOME }} />
+          <Redirect to={{ pathname: PUBLIC_ROUTES.HOME }} />
         );
       }}
     />

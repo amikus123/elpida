@@ -1,7 +1,8 @@
 import React, { useContext } from "react";
 import { Route, Redirect } from "react-router-dom";
-import { ROUTES } from "../../constans/routes";
+import { AUTH_ROUTES } from "../../constans/routes";
 import { UserContext } from "../../context/UserContext";
+import { DashboardProvider } from "../../context/DashboardContext";
 
 /**
  * Redirect users from auth pages to home page after login.
@@ -20,14 +21,17 @@ const ProtectedRoute = ({
       </>
     );
   };
+  // w
   return (
     <Route
       {...rest}
       render={(routerProps) => {
         return currentUser !== null ? (
-          <>{renderElement(component, routerProps)}</>
+          <DashboardProvider>
+            {renderElement(component, routerProps)}
+          </DashboardProvider>
         ) : (
-          <Redirect path="" to={{ pathname: ROUTES.SIGNUP }} />
+          <Redirect path="" to={{ pathname: AUTH_ROUTES.SIGNUP }} />
         );
       }}
     />
