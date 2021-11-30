@@ -1,9 +1,7 @@
 import { doc, setDoc } from "firebase/firestore";
 import { uploadBytes, ref } from "firebase/storage";
 import { SnackbarTexts } from "../../constans/snackbar";
-import {
-  TextMixedFireStoreResposne,
-} from "../../types";
+import { TextMixedFireStoreResposne } from "../../types";
 import { myDb, myStorage } from "../main";
 import { v4 as uuidv4 } from "uuid";
 
@@ -23,6 +21,7 @@ export const uploadFromForm = async (
   //* genereate random ID
   const dbId = uuidv4();
   const itemRef = doc(myDb, path, dbId);
+  console.log(data,"DATA")
   try {
     const firebaseEntry: FirestoreEntry = {};
 
@@ -70,12 +69,13 @@ const handleImageUpload = async (
         const currentFileName = filePath + "-" + index;
         const storageRef = ref(myStorage, currentFileName);
         fileNames.push(currentFileName);
-        return  uploadBytes(storageRef, file);
+        return uploadBytes(storageRef, file);
       });
       res = fileNames;
       await Promise.all(uploading);
     } else {
       // TODO add chceck if already has extension
+      res=filePath
       const storageRef = ref(myStorage, filePath);
       await uploadBytes(storageRef, fileData);
     }

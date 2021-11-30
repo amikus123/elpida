@@ -54,9 +54,8 @@ const SignupPage = () => {
       <MyText variant="header" element="h1" fontSize="2rem">
         Sign up
       </MyText>
-      <FormikForm onSubmit={onSubmit} inputs={inputs}>
-        <PlainButton text="Sign up" variant="submit" />
-      </FormikForm>
+      <FormikForm onSubmit={onSubmit} inputs={inputs} submitButtonText="Sign up"/>
+      
 
       <form>
         <HorizontalText />

@@ -5,7 +5,7 @@ import PlainButton from "../../components/core/Buttons/PlainButton";
 import HorizontalText from "../../components/core/Dividers/HorizontalText";
 import FormikForm, { InputData } from "../../components/core/Form/FormikForm";
 import MyText from "../../components/core/Text/MyText";
-import FormWrap from "../../components/containers/FormWrap"
+import FormWrap from "../../components/containers/FormWrap";
 import { UserContext } from "../../context/UserContext";
 const LoginPage = () => {
   const { login } = useContext(UserContext);
@@ -42,9 +42,12 @@ const LoginPage = () => {
       <MyText variant="header" element="h1" fontSize="2rem">
         Log in
       </MyText>
-      <FormikForm onSubmit={onSubmit} inputs={inputs}>
-        <PlainButton text="Log in" variant="submit" />
-      </FormikForm>
+      <FormikForm
+        onSubmit={onSubmit}
+        inputs={inputs}
+        submitButtonText="Log in"
+      />
+
       <form>
         <HorizontalText />
         <MyText>

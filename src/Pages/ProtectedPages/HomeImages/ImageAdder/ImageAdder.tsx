@@ -1,5 +1,4 @@
 import React from "react";
-import PlainButton from "../../../../components/core/Buttons/PlainButton";
 import FormikForm, {
   InputData,
 } from "../../../../components/core/Form/FormikForm";
@@ -34,12 +33,11 @@ const ImageAdder = () => {
     <Wrap>
       <FormikForm
         onSubmit={async(values) => {
-          uploadFromForm(values, FirestorePaths.homeImages);
+         await uploadFromForm(values, FirestorePaths.homeImages);
         }}
         inputs={inputs}
-      >
-        <PlainButton text="Add home image" variant="submit" />
-      </FormikForm>
+        submitButtonText="Add Home Image"
+      />
     </Wrap>
   );
 };

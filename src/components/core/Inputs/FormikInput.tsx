@@ -1,10 +1,22 @@
-import { FormikErrors } from "formik";
+import { Field, FormikErrors } from "formik";
 import React from "react";
 
 import styled from "styled-components";
 import MyText from "../Text/MyText";
 
-const Input = styled.input`
+const MyInput = styled.input`
+  width: 100%;
+  height: 100%;
+  border-radius: 4px;
+  border: 1px solid;
+  border-color: ${(props) => props.theme.whiteBorder};
+  padding: 0.25rem;
+  &:focus {
+    box-shadow: 0 0 0 3px #c8f3fa, 0 1px 2px rgba(15, 17, 17, 0.15) inset;
+    border-color: #007185;
+  }
+`;
+const MyField = styled(Field)`
   width: 100%;
   height: 100%;
   border-radius: 4px;
@@ -24,69 +36,43 @@ export type FormikInputTypes =
   | "submit"
   | "file";
 interface TextFormInputProps {
-  value: string;
-  handleChange: {
-    (e: React.ChangeEvent<any>): void;
-    <T_1 = string | React.ChangeEvent<any>>(
-      field: T_1
-    ): T_1 extends React.ChangeEvent<any>
-      ? void
-      : (e: string | React.ChangeEvent<any>) => void;
-  };
-  inputId: string;
+  name: string;
   labelText?: string;
   inputType: FormikInputTypes;
-  errorText: string | undefined;
-  handleBlur: {
-    (e: React.FocusEvent<any, Element>): void;
-    <T = any>(fieldOrEvent: T): T extends string ? (e: any) => void : void;
-  };
-  showError: string | false | undefined;
-  setFieldValue: (
-    field: string,
-    value: any,
-    shouldValidate?: boolean | undefined
-  ) => Promise<void> | Promise<FormikErrors<Record<string, string>>>;
+  errorText?: string | undefined;
+  showError?: boolean |""| undefined;
+  setFieldValue: (field: string, value: any, shouldValidate?: boolean | undefined) => void
 }
 
 const FormikInput = ({
-  value,
-  inputType = "text",
-  handleChange,
-  handleBlur,
-  labelText = "",
-  inputId,
-  errorText = "",
-  showError = false,
-  setFieldValue,
+  name,
+  labelText,
+  inputType,
+  errorText,
+  showError,
+  setFieldValue
 }: TextFormInputProps) => {
   // label is optional
   return (
     <>
       {labelText !== "" ? (
-        <MyText fontSize="1.25rem" labelTarget={inputId}>
+        <MyText fontSize="1.25rem" labelTarget={name}>
           {labelText}
         </MyText>
       ) : null}
       {inputType === "file" ? (
-        <Input
-          id={inputId}
-          onBlur={handleBlur}
+        <MyInput
+          name={name}
           type="file"
-          onChange={(event) => {
+          onChange={(event:any) => {
             if (event.currentTarget && event.currentTarget.files) {
-              setFieldValue(inputId, event.currentTarget.files[0]);
+              setFieldValue(name, event.currentTarget.files[0]);
             }
           }}
         />
       ) : (
-        <Input
-          id={inputId}
-          onBlur={handleBlur}
-          value={value}
-          type={inputType}
-          onChange={handleChange}
-        />
+        <MyField name={name} type={inputType} />
+
       )}
       {showError ? <MyText presetColor="red">{errorText}</MyText> : null}
     </>
