@@ -1,5 +1,5 @@
 import React from "react";
-import { useFormik } from "formik";
+import { Field, Form, Formik, useFormik } from "formik";
 import * as Yup from "yup";
 import FormikInput, { FormikInputTypes } from "../Inputs/FormikInput";
 import { ValidationTypes } from "../../../types";
@@ -17,7 +17,7 @@ const InputWrap = styled.div`
 `
 interface SignupProps {
   inputs: InputData[];
-  onSubmit: (arg1: any, arg2: any) => any;
+  onSubmit: (arg1: any, arg2: any) => Promise<any>;
   children: any;
 }
 
@@ -40,20 +40,16 @@ const FormikForm = ({ inputs, onSubmit, children }: SignupProps) => {
   const formik = useFormik({
     initialValues: getInitialValues(inputs).values,
     validationSchema: Yup.object(getInitialValues(inputs).validation),
-    onSubmit: (values, errors) => {
-      onSubmit(values, errors);
+    onSubmit: async(values, errors) => {
+      await onSubmit(values, errors);
     },
   });
   return (
     <form
-      onSubmit={(e) => {
-        // prevents multiple form submissions
-        e.preventDefault();
-        if (!formik.isSubmitting) {
-          formik.handleSubmit(e);
-        }
-      }}
+      onSubmit={formik.handleSubmit}
     >
+        {JSON.stringify(formik.values)}
+        {formik.isSubmitting}
       {inputs.map((item, index) => {
         return (
           <InputWrap key={index}>
@@ -61,6 +57,7 @@ const FormikForm = ({ inputs, onSubmit, children }: SignupProps) => {
               labelText={item.label}
               inputId={item.id}
               inputType={item.type}
+              setFieldValue={formik.setFieldValue}
               handleChange={formik.handleChange}
               value={formik.values[item.id]}
               handleBlur={formik.handleBlur}
@@ -81,3 +78,37 @@ const FormikForm = ({ inputs, onSubmit, children }: SignupProps) => {
   );
 };
 export default FormikForm;
+
+
+const Example = () => (
+  <div>
+    <h1>Sign Up</h1>
+    <Formik
+      initialValues={{
+        firstName: '',
+        lastName: '',
+        email: '',
+      }}
+      onSubmit={async (values) => {
+        await sleep(500);
+        alert(JSON.stringify(values, null, 2));
+      }}
+    >
+      {({ isSubmitting }) => (
+        <Form>
+          <label htmlFor="firstName">First Name</label>
+          <Field name="firstName" placeholder="Jane" />
+
+          <label htmlFor="lastName">Last Name</label>
+          <Field name="lastName" placeholder="Doe" />
+
+          <label htmlFor="email">Email</label>
+          <Field name="email" placeholder="jane@acme.com" type="email" />
+
+          <button type="submit" disabled={isSubmitting}>
+            Submit
+          </button>
+        </Form>
+      )}
+    </Formik>
+  </div>

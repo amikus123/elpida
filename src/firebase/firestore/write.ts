@@ -2,8 +2,7 @@ import { doc, setDoc } from "firebase/firestore";
 import { uploadBytes, ref } from "firebase/storage";
 import { SnackbarTexts } from "../../constans/snackbar";
 import {
-  TextArrFirestoreResposne,
-  TextFirestoreResposne,
+  TextMixedFireStoreResposne,
 } from "../../types";
 import { myDb, myStorage } from "../main";
 import { v4 as uuidv4 } from "uuid";
@@ -13,36 +12,35 @@ type BaseTypes = string | number | any[] | Record<string, any>;
 type PossibleTypes = BaseTypes | File | File[];
 type FirestoreEntry = Record<string, BaseTypes>;
 type FormData = Record<string, PossibleTypes>;
+
 // key is name of attribute
-// we can
 
 export const uploadFromForm = async (
   data: FormData,
   path: string,
-  imageLocation: string = ""
+  imageLocation: string = path
 ) => {
-
-  console.log(data)
+  //* genereate random ID
   const dbId = uuidv4();
   const itemRef = doc(myDb, path, dbId);
   try {
     const firebaseEntry: FirestoreEntry = {};
 
     const keys = Object.keys(data);
+    const filePath = imageLocation + "/" + dbId;
     for (const key of keys) {
-      console.log(key)
+      console.log(key);
       let obj = data[key];
-      if (obj instanceof File) {
-        const res = await uploadImage(obj, dbId, imageLocation);
-        firebaseEntry[key] = res.res;
-      } else if (obj instanceof Array && obj[0] instanceof File) {
-        const res = await uploadImgaes(obj, dbId, imageLocation);
+      if (
+        obj instanceof File ||
+        (obj instanceof Array && obj[0] instanceof File)
+      ) {
+        const res = await handleImageUpload(obj, filePath);
         firebaseEntry[key] = res.res;
       } else {
         firebaseEntry[key] = obj;
       }
     }
-    console.log("fins")
 
     await setDoc(itemRef, firebaseEntry, { merge: true });
     return {
@@ -50,7 +48,7 @@ export const uploadFromForm = async (
       text: SnackbarTexts.succesfulDbAddition,
     };
   } catch (e: any) {
-    console.error(e)
+    console.error(e);
     return {
       error: true,
       text: SnackbarTexts.unsuccesfulDbAddition + e.code,
@@ -58,52 +56,38 @@ export const uploadFromForm = async (
   }
 };
 
-const uploadImgaes = async (
-  arr: File[],
-  name: string,
-  imagePath: string = ""
-): Promise<TextArrFirestoreResposne> => {
+// this dunctions returs string if it is givent single File
+// or arr of string is givent arr of Files
+const handleImageUpload = async (
+  fileData: File[] | File,
+  filePath: string
+): Promise<TextMixedFireStoreResposne> => {
   try {
+    let res: string | string[] = "";
     const fileNames: string[] = [];
-    const uploading = arr.map((file, index) => {
-      const currentFileName = imagePath + name + ".jpg";
-      fileNames.push(currentFileName);
-      return uploadImage(file, currentFileName);
-    });
-    await Promise.all(uploading);
+    if (Array.isArray(fileData)) {
+      const uploading = fileData.map((file, index) => {
+        const currentFileName = filePath + "-" + index;
+        const storageRef = ref(myStorage, currentFileName);
+        fileNames.push(currentFileName);
+        return  uploadBytes(storageRef, file);
+      });
+      res = fileNames;
+      await Promise.all(uploading);
+    } else {
+      // TODO add chceck if already has extension
+      const storageRef = ref(myStorage, filePath);
+      await uploadBytes(storageRef, fileData);
+    }
+
     return {
-      res: fileNames,
+      res: res,
       error: false,
       text: SnackbarTexts.succesfulImageUpload,
     };
   } catch (e: any) {
     return {
       res: [],
-      error: true,
-      text: SnackbarTexts.unsuccesfulImageUpload + e.code,
-    };
-  }
-};
-
-const uploadImage = async (
-  file: File,
-  fileName: string,
-  imagePath: string = ""
-): Promise<TextFirestoreResposne> => {
-  try {
-    // TODO add chceck if already has extension
-    const finalPath = imagePath + fileName + ".jpg";
-    const storageRef = ref(myStorage, fileName);
-
-    await uploadBytes(storageRef, file);
-    return {
-      res: finalPath,
-      error: false,
-      text: SnackbarTexts.succesfulImageUpload,
-    };
-  } catch (e: any) {
-    return {
-      res: "",
       error: true,
       text: SnackbarTexts.unsuccesfulImageUpload + e.code,
     };

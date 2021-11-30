@@ -1,6 +1,7 @@
 import { getDocs, collection } from "@firebase/firestore";
 import { SnackbarTexts } from "../../constans/snackbar";
 import { BaseFirestoreResposne, ImageWithLink } from "../../types";
+import { FirestorePaths } from "../consts";
 import { myDb } from "../main";
 
 
@@ -8,9 +9,10 @@ interface HomeImagesResponse extends BaseFirestoreResposne{
   res:ImageWithLink[]
 }
 
+
 export const getAllHomeImages = async (): Promise<HomeImagesResponse> => {
   try {
-    const querySnapshot = await getDocs(collection(myDb, "homeImages"));
+    const querySnapshot = await getDocs(collection(myDb, FirestorePaths.homeImages));
     const result: ImageWithLink[] = [];
     querySnapshot.forEach((doc) => {
       const docData = doc.data() as ImageWithLink;

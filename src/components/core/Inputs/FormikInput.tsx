@@ -1,3 +1,4 @@
+import { FormikErrors } from "formik";
 import React from "react";
 
 import styled from "styled-components";
@@ -16,7 +17,12 @@ const Input = styled.input`
   }
 `;
 
-export type FormikInputTypes = "text" | "email" | "password" | "submit" |"file";
+export type FormikInputTypes =
+  | "text"
+  | "email"
+  | "password"
+  | "submit"
+  | "file";
 interface TextFormInputProps {
   value: string;
   handleChange: {
@@ -36,6 +42,11 @@ interface TextFormInputProps {
     <T = any>(fieldOrEvent: T): T extends string ? (e: any) => void : void;
   };
   showError: string | false | undefined;
+  setFieldValue: (
+    field: string,
+    value: any,
+    shouldValidate?: boolean | undefined
+  ) => Promise<void> | Promise<FormikErrors<Record<string, string>>>;
 }
 
 const FormikInput = ({
@@ -47,20 +58,36 @@ const FormikInput = ({
   inputId,
   errorText = "",
   showError = false,
+  setFieldValue,
 }: TextFormInputProps) => {
   // label is optional
   return (
     <>
       {labelText !== "" ? (
-        <MyText fontSize="1.25rem" labelTarget={inputId}>{labelText}</MyText>
-      ) : null}{" "}
-      <Input
-        id={inputId}
-        onBlur={handleBlur}
-        value={value}
-        type={inputType}
-        onChange={handleChange}
-      />
+        <MyText fontSize="1.25rem" labelTarget={inputId}>
+          {labelText}
+        </MyText>
+      ) : null}
+      {inputType === "file" ? (
+        <Input
+          id={inputId}
+          onBlur={handleBlur}
+          type="file"
+          onChange={(event) => {
+            if (event.currentTarget && event.currentTarget.files) {
+              setFieldValue(inputId, event.currentTarget.files[0]);
+            }
+          }}
+        />
+      ) : (
+        <Input
+          id={inputId}
+          onBlur={handleBlur}
+          value={value}
+          type={inputType}
+          onChange={handleChange}
+        />
+      )}
       {showError ? <MyText presetColor="red">{errorText}</MyText> : null}
     </>
   );

@@ -50,6 +50,10 @@ export interface TextFirestoreResposne extends BaseFirestoreResposne{
 export interface TextArrFirestoreResposne extends BaseFirestoreResposne{
   res:string[]
 }
+export interface TextMixedFireStoreResposne extends BaseFirestoreResposne{
+  res:string[] | string
+  
+}
 
 export interface ImageWithLink{
   link:string,

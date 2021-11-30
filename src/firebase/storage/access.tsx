@@ -1,8 +1,7 @@
-import { getDocs, collection } from "firebase/firestore";
 import { getDownloadURL,ref } from "firebase/storage";
 import { SnackbarTexts } from "../../constans/snackbar";
 import { BaseFirestoreResposne } from "../../types";
-import { myDb, myStorage } from "../main";
+import { myStorage } from "../main";
 
 
 

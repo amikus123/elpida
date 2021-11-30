@@ -6,6 +6,7 @@ import FormikForm, {
 import styled from "styled-components";
 import * as Yup from "yup";
 import { uploadFromForm } from "../../../../firebase/firestore/write";
+import { FirestorePaths } from "../../../../firebase/consts";
 
 export interface HomeCardForm {
   image: File;
@@ -22,16 +23,21 @@ const inputs: InputData[] = [
     type: "file",
     id: "file",
     label: "Home",
-    validation: Yup.string().required("Image is required"),
   },
 ];
 const Wrap = styled.div`
   width: 50%;
 `;
 const ImageAdder = () => {
+  // TODO modify formik to accept file uploads
   return (
     <Wrap>
-      <FormikForm onSubmit={(values)=>{uploadFromForm(values,"/homeImages","")}} inputs={inputs}>
+      <FormikForm
+        onSubmit={async(values) => {
+          uploadFromForm(values, FirestorePaths.homeImages);
+        }}
+        inputs={inputs}
+      >
         <PlainButton text="Add home image" variant="submit" />
       </FormikForm>
     </Wrap>
