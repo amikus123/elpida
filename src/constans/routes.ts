@@ -10,7 +10,10 @@ export enum PUBLIC_ROUTES {
 export enum AUTH_ROUTES {
   LOGIN="/login",
   SIGNUP= '/signup',
+
 }
+export const noHeader = ["/login","/signup","login","signup"]
+
 
 export enum PROTECTED_ROUTES{
   DASHBOARD = '/dashboard',

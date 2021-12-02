@@ -10,19 +10,9 @@ import { UserContext } from "../../context/UserContext";
 
 const SignupPage = () => {
   const { signup } = useContext(UserContext);
-  const history = useHistory();
-  const onSubmit = async (e: Record<string, string>, errors: any) => {
-    console.log(e, errors);
-    errors.setSubmitting(true);
-    console.log("subitmerd");
-    const res = await signup(e.email, e.password);
-    console.log(res);
-    if (res.length === 2) {
-      errors.setErrors({ [res[0]]: res[1] });
-    } else {
-    }
-    history.replace("/");
-    errors.setSubmitting(false);
+  
+  const onSubmit = async (e: Record<string, string>) => {
+    return  await signup(e.email, e.password);
   };
 
   const inputs: InputData[] = [

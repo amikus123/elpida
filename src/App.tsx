@@ -14,6 +14,7 @@ import {
   AUTH_ROUTES,
   PROTECTED_ROUTES,
   PUBLIC_ROUTES,
+  noHeader,
 } from "./constans/routes";
 import Dashboard from "./Pages/ProtectedPages/Dashboard/Dashboard";
 import RouteController from "./components/CustomRoutes/RouteController";
@@ -28,13 +29,15 @@ import ProductListPage from "./Pages/PublicPages/ProductListPage/ProductListPage
 import IncorrectPath from "./Pages/PublicPages/IncorrectPath/IncorrectPath";
 import HomeImages from "./Pages/ProtectedPages/HomeImages/HomeImages";
 import Snackbar from "./components/singleUse/Snackbar/Snackbar";
+import { UserContext } from "./context/UserContext";
 function App() {
   const location = useLocation();
   const { reset } = useContext(ElementContext);
+  const { signout } = useContext(UserContext);
 
   useEffect(() => {
     // reset element(modal,overlay) status on location change
-    console.log(location.pathname);
+    console.log(location.pathname,noHeader.indexOf(location.pathname) );
     reset();
   }, [location, reset]);
   return (
@@ -43,8 +46,8 @@ function App() {
       <ThemeProvider theme={lightTheme}>
         <Global />
         <Overlay />
-        <Snackbar/>
-        {location.pathname in AUTH_ROUTES ? null : <Header />}
+        <Snackbar />
+        {noHeader.indexOf(location.pathname) !== -1 ? null : <Header />}
 
         <Switch>
           <RouteController
@@ -107,6 +110,13 @@ function App() {
             exact
           />
         </Switch>
+        <button
+          onClick={() => {
+            signout();
+          }}
+        >
+          adasdda
+        </button>
       </ThemeProvider>
     </>
   );

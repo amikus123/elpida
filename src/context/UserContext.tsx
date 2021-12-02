@@ -2,20 +2,25 @@ import {
   createUserWithEmailAndPassword,
   User,
   signInWithEmailAndPassword,
+  signOut,
 } from "firebase/auth";
 
 import { createContext, useState, useEffect } from "react";
+import { BaseResposne } from "../firebase/consts";
 import { myAuth } from "../firebase/main";
+import { createPromise } from "../utils/generalFunctions";
 
 const a: any = null;
+
 export const UserContext = createContext({
   signup: async (arg1: string, arg2: string) => {
-    const a: any = "";
-    return a;
+    return createPromise();
   },
   login: async (arg1: string, arg2: string) => {
-    const a: any = "";
-    return a;
+    return createPromise();
+  },
+  signout: async () => {
+    return createPromise();
   },
   currentUser: a,
 });
@@ -24,39 +29,53 @@ export const UserProvider = ({ children }: { children: any }) => {
   const [currentUser, setCurrentUser] = useState<User | null>(null);
   // check if user i present
   const [loading, setLoading] = useState(true);
-  const getFieldTypeFromErrorCode = (code: string) => {
-    if (code.indexOf("password") !== -1) {
-      return "password";
-    } else if (code.indexOf("email") !== -1) {
-      return "email";
-    } else {
-      return "";
+
+  const signup = async (
+    email: string,
+    password: string
+  ): Promise<BaseResposne> => {
+    try {
+      await createUserWithEmailAndPassword(myAuth, email, password);
+      return {
+        error: false,
+        text: "Succ",
+      };
+    } catch (e: any) {
+      return {
+        error: true,
+        text: e.code,
+      };
     }
   };
-  const signup = async (email: string, password: string) => {
+  const login = async (
+    email: string,
+    password: string
+  ): Promise<BaseResposne> => {
     try {
-      return await createUserWithEmailAndPassword(myAuth, email, password);
-    } catch (e) {
-      // returns word map, keys are fileds whre message should be shown
-      console.error(e);
-      const a: any = e;
-      console.error(a.code);
-      const targetedField = getFieldTypeFromErrorCode(a.code);
-      console.error(a.message);
-      return [targetedField, a.message];
+      await signInWithEmailAndPassword(myAuth, email, password);
+      return {
+        error: false,
+        text: "Succ",
+      };
+    } catch (e: any) {
+      return {
+        error: true,
+        text: e.code,
+      };
     }
   };
-  const login = async (email: string, password: string) => {
+  const signout = async () => {
     try {
-      return await signInWithEmailAndPassword(myAuth, email, password);
-    } catch (e) {
-      // returns word map, keys are fileds whre message should be shown
-      console.error(e);
-      const a: any = e;
-      console.error(a.code);
-      const targetedField = getFieldTypeFromErrorCode(a.code);
-      console.error(a.message);
-      return [targetedField, a.message];
+      await signOut(myAuth);
+      return {
+        error: false,
+        text: "Succ",
+      };
+    } catch (e: any) {
+      return {
+        error: true,
+        text: e.code,
+      };
     }
   };
   useEffect(() => {
@@ -68,7 +87,7 @@ export const UserProvider = ({ children }: { children: any }) => {
     return unsubscribe;
   }, []);
 
-  const val = { signup, currentUser, login };
+  const val = { signup, currentUser, login, signout };
   return (
     <UserContext.Provider value={{ ...val }}>
       {loading ? null : <>{children}</>}

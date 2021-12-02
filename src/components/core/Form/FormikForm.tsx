@@ -1,11 +1,12 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Field, Form, Formik, useFormik } from "formik";
 import * as Yup from "yup";
 import FormikInput, { FormikInputTypes } from "../Inputs/FormikInput";
-import { ValidationTypes } from "../../../types";
+import { BaseFirestoreResposne, ValidationTypes } from "../../../types";
 import Spinner from "../Loading/Spinner";
 import styled from "styled-components";
 import PlainButton from "../Buttons/PlainButton";
+import { ElementContext } from "../../../context/ElementContext";
 export interface InputData {
   type: FormikInputTypes;
   id: string;
@@ -18,13 +19,15 @@ const InputWrap = styled.div`
 `;
 interface SignupProps {
   inputs: InputData[];
-  onSubmit: (arg1: any, arg2: any) => Promise<any>;
-  submitButtonText:string;
+  onSubmit: (arg1: any) => Promise<BaseFirestoreResposne>;
+  submitButtonText: string;
 }
 
 const FormikForm = ({ inputs, onSubmit, submitButtonText }: SignupProps) => {
+  const {setSnackbarWithResposne} = useContext(ElementContext)
+
   const getInitialValues = (inputs: InputData[]) => {
-    const values: Record<string, string> = {};
+    let values: Record<string, string> = {};
     const validation: Record<string, ValidationTypes> = {};
     inputs.forEach((item) => {
       values[item.id] = "";
@@ -41,20 +44,24 @@ const FormikForm = ({ inputs, onSubmit, submitButtonText }: SignupProps) => {
   return (
     <Formik
       initialValues={getInitialValues(inputs).values}
-      onSubmit={async (values, errors) => {
-        await onSubmit(values, errors);
+      onSubmit={async (values) => {
+        const res = await onSubmit(values);
+        setSnackbarWithResposne(res)
+        if(!res.error){
+          // reset if succeded
+          values={}
+        }
       }}
       validationSchema={Yup.object(getInitialValues(inputs).validation)}
     >
       {({ isSubmitting, errors, touched, values, setFieldValue }) => (
         <Form>
-          {JSON.stringify(values)}
-          {isSubmitting}
           {inputs.map((item, index) => {
-            const{type,id} = item
+            const { type, id, label } = item;
             return (
               <InputWrap key={index}>
                 <FormikInput
+                  labelText={label}
                   setFieldValue={setFieldValue}
                   name={id}
                   inputType={type}
@@ -64,7 +71,7 @@ const FormikForm = ({ inputs, onSubmit, submitButtonText }: SignupProps) => {
               </InputWrap>
             );
           })}
-          <PlainButton text={submitButtonText} variant="submit"  />
+          <PlainButton text={submitButtonText} variant="submit" />
 
           {isSubmitting ? <Spinner /> : null}
         </Form>

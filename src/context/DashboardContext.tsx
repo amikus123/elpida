@@ -33,14 +33,17 @@ const baseState: CardData[] = [
     link: DASHBOARD_ROUTES.HOME_IMAGES,
   },
 ];
+
 export const DashboardContext = createContext({
   categories: [example],
   fetchDashboardCategoryImages: async() => {return await console.log()},
 });
 
+
 export const DashboardProvider = ({ children }: { children: any }) => {
   const {setSnackbarWithResposne} =  useContext(ElementContext)
   const [categories, setCategories] = useState<CardData[]>(baseState);
+  
   const fetchDashboardCategoryImages =async ()=>{
     const response = await getDashboardCategoryImages()
     console.log(response)
@@ -54,7 +57,6 @@ export const DashboardProvider = ({ children }: { children: any }) => {
     setCategories(copy)
     console.log(await getAllHomeImages())
   }
-
 
   const val = { categories, setCategories,fetchDashboardCategoryImages};
   return (

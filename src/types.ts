@@ -37,6 +37,13 @@ export interface Ad {
 }
 export type CardArr = (Ad | CardData)[];
 
+
+export interface HomeImage {
+  link: string;
+  image: string;
+  title: string;
+}
+
 // DASHBOARD TYPES
 
 export interface BaseFirestoreResposne {
@@ -52,12 +59,12 @@ export interface TextArrFirestoreResposne extends BaseFirestoreResposne{
 }
 export interface TextMixedFireStoreResposne extends BaseFirestoreResposne{
   res:string[] | string
-  
 }
 
 export interface ImageWithLink{
   link:string,
   image:string
+  title?:string
 }
 export interface UploadedImageWithLink{
   link:string,
