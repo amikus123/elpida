@@ -1,8 +1,9 @@
-import { createContext, useEffect, useState,useContext } from "react";
+import { createContext,  useState,useEffect, useContext } from "react";
 import { DASHBOARD_ROUTES } from "../constans/routes";
-import { getAllHomeImages } from "../firebase/firestore/access";
+import { convertFilePathsToImages, getAllHomeImages } from "../firebase/firestore/access";
 import { getDashboardCategoryImages } from "../firebase/storage/access";
-import { CardData } from "../types";
+import { CardData, ImageWithLink } from "../types";
+import { setStateOrDisplayError } from "../utils/stateFunctions";
 import { ElementContext } from "./ElementContext";
 
 const example: CardData = {
@@ -34,31 +35,50 @@ const baseState: CardData[] = [
   },
 ];
 
+const hm :ImageWithLink[] = []
 export const DashboardContext = createContext({
   categories: [example],
-  fetchDashboardCategoryImages: async() => {return await console.log()},
+  initzialzeDashboard: async () => {
+    return await console.log();
+  },
+  homeImages:hm
 });
 
-
 export const DashboardProvider = ({ children }: { children: any }) => {
-  const {setSnackbarWithResposne} =  useContext(ElementContext)
+  const { setSnackbarWithResposne } = useContext(ElementContext);
   const [categories, setCategories] = useState<CardData[]>(baseState);
-  
-  const fetchDashboardCategoryImages =async ()=>{
-    const response = await getDashboardCategoryImages()
-    console.log(response)
+  const [homeImages, setHomeImages] = useState<ImageWithLink[]>([]);
+  const fetchDashboardCategoryImages = async () => {
+    const response = await getDashboardCategoryImages();
     // upadting the urls
-    setSnackbarWithResposne(response)
-    const urls = response.res
-    const copy = [...categories]
-    urls.forEach((item,index)=>{
-      copy[index].imageName = item
-    })
-    setCategories(copy)
-    console.log(await getAllHomeImages())
+    const urls = response.res;
+    const copy = [...categories];
+    urls.forEach((item, index) => {
+      copy[index].imageName = item;
+    });
+    setCategories(copy);
+  };
+  const getAllImages = async () => {
+    console.log("GET ALL")
+    const res = await getAllHomeImages()
+    if(res){
+      console.log(res,"GET ALL",res.res)
+      const a  =  await convertFilePathsToImages(res.res)
+      console.log(a,res.res,"GGGG")
+      // get images
+      setStateOrDisplayError(res, setHomeImages, setSnackbarWithResposne);
+    }
+  };
+  const initzialzeDashboard = async() =>{
+    fetchDashboardCategoryImages()
+    getAllImages()
   }
 
-  const val = { categories, setCategories,fetchDashboardCategoryImages};
+  useEffect(()=>{
+    initzialzeDashboard()
+  },[])
+
+  const val = { categories, setCategories, initzialzeDashboard,homeImages };
   return (
     <DashboardContext.Provider value={{ ...val }}>
       {children}

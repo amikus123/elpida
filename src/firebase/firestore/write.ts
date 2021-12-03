@@ -1,9 +1,10 @@
-import { doc, setDoc } from "firebase/firestore";
+import { doc, DocumentData, setDoc } from "firebase/firestore";
 import { uploadBytes, ref } from "firebase/storage";
 import { SnackbarTexts } from "../../constans/snackbar";
 import { BaseFirestoreResposne, TextMixedFireStoreResposne } from "../../types";
 import { myDb, myStorage } from "../main";
 import { v4 as uuidv4 } from "uuid";
+import { FirestorePathObject } from "../consts";
 
 // function that uploads
 type BaseTypes = string | number | any[] | Record<string, any>;
@@ -13,20 +14,52 @@ type FormData = Record<string, PossibleTypes>;
 
 // key is name of attribute
 
+// genereates function, which updates state and db values
+export function stateChangerGenerator<T>(
+  setState: React.Dispatch<React.SetStateAction<T>>, path: FirestorePathObject
+) {
+  const x = async (val: T) => {
+    setState(val);
+    updateDoc(val, path);
+  };
+  return x;
+}
+export const updateDoc = async (
+  value: any,
+  path: FirestorePathObject
+) => {
+  try {
+    const documentName = path.doc;
+    const collection = path.col;
+    const itemRef = doc(myDb, documentName, collection);
+    await setDoc(itemRef, value, { merge: false });
+    return {
+      error: false,
+      text: SnackbarTexts.succesfulDbAddition,
+    };
+  } catch (e: any) {
+    console.error(e);
+    return {
+      error: true,
+      text: SnackbarTexts.unsuccesfulDbAddition + e.code,
+    };
+  }
+};
+
 export const uploadFromForm = async (
   data: FormData,
   path: string,
   imageLocation: string = path
-):Promise<BaseFirestoreResposne> => {
+): Promise<BaseFirestoreResposne> => {
   //* genereate random ID
   const dbId = uuidv4();
   const itemRef = doc(myDb, path, dbId);
-  console.log(data,"DATA")
+  console.log(data, "DATA");
   try {
     const firebaseEntry: FirestoreEntry = {};
-
+    // we should add png while uploading
     const keys = Object.keys(data);
-    const filePath = imageLocation + "/" + dbId;
+    const filePath = imageLocation + "/" + dbId + ".png";
     for (const key of keys) {
       console.log(key);
       let obj = data[key];
@@ -40,7 +73,7 @@ export const uploadFromForm = async (
         firebaseEntry[key] = obj;
       }
     }
-
+    // generated dunctions updtates statre
     await setDoc(itemRef, firebaseEntry, { merge: true });
     return {
       error: false,
@@ -75,7 +108,7 @@ const handleImageUpload = async (
       await Promise.all(uploading);
     } else {
       // TODO add chceck if already has extension
-      res=filePath
+      res = filePath;
       const storageRef = ref(myStorage, filePath);
       await uploadBytes(storageRef, fileData);
     }
@@ -93,5 +126,3 @@ const handleImageUpload = async (
     };
   }
 };
-
-

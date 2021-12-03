@@ -29,7 +29,7 @@ const inputs: InputData[] = [
   },
   {
     type: "file",
-    id: "file",
+    id: "image",
     label: "Home",
   },
 ];

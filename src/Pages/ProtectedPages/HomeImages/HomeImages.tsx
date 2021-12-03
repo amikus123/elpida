@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import ImageAdder from "./ImageAdder/ImageAdder";
 import ImageControl from "./ImageControl/ImageControl";
 import styled from "styled-components";
-import Test from "./Test";
+import { DashboardContext } from "../../../context/DashboardContext";
+import { DataContext } from "../../../context/DataContext";
 
 const Wrap = styled.div`
   display: flex;
@@ -10,21 +11,20 @@ const Wrap = styled.div`
   align-items: center;
 `;
 const HomeImages = () => {
-  // fecth all possible images from db, each has a toggle to show them in db
-  // add text to edit their links
-  // include option to add new images
-
-  // toggle to set if it visible
-  // image to
+  const { homeImages } = useContext(DashboardContext);
+  const {dataToShow} = useContext(DataContext);
+  
   const [selected, setSelected] = useState(false);
   const toggleSelected = () => setSelected(!selected);
 
   return (
     <Wrap>
-      <Test />
-      <ImageControl />
-      <ImageAdder />
-      <ImageControl />
+      {homeImages.length > 0 ? (
+        <>
+          <ImageControl homeImages={homeImages} />
+          <ImageAdder />
+        </>
+      ) : null}
     </Wrap>
   );
 };

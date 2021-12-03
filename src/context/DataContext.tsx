@@ -1,25 +1,29 @@
 import React, { useContext } from "react";
 import { createContext, useEffect, useState } from "react";
+import { DataToShow, FirestorePaths, specificFirebasePaths } from "../firebase/consts";
 import {
   getWebisteData,
   getSelectedHomeImages,
 } from "../firebase/firestore/access";
-import { BaseFirestoreResposne, HomeImage } from "../types";
+import { stateChangerGenerator } from "../firebase/firestore/write";
+import {  ImageWithLink } from "../types";
 import { setStateOrDisplayError } from "../utils/stateFunctions";
 import { ElementContext } from "./ElementContext";
-
+  const x :DataToShow= {selectedHomeImages:[]}
 export const DataContext = createContext({
   selectedLocation: "Austria",
   setLocation: (location: string) => {},
   setCartCount: (newCount: number) => {},
+  updateSelectedImagesList:(list:string[])=>{},
   cartCount: 0,
+  dataToShow:x,
 });
 
 export const DataProvider = ({ children }: { children: any }) => {
   const [selectedLocation, setSelectedLocation] = useState("Austria");
   const [cartCount, setCartCount] = useState(0);
-
-  const [homeImagesToDisplay, setHomeImagesToDisplay] = useState<HomeImage[]>(
+  const [dataToShow,setDataToShow] = useState<DataToShow>({selectedHomeImages:[]})
+  const [homeImagesToDisplay, setHomeImagesToDisplay] = useState<ImageWithLink[]>(
     []
   );
   const { setSnackbarWithResposne } = useContext(ElementContext);
@@ -28,9 +32,9 @@ export const DataProvider = ({ children }: { children: any }) => {
 
   const fetchHomeImages = async () => {
     const websiteData = await getWebisteData();
-    if (websiteData.res !== null) {
+    if (!websiteData.error) {
       // fetch based on item
-      console.log(websiteData);
+      setDataToShow(websiteData.res)
       const { selectedHomeImages } = websiteData.res;
       const a = await getSelectedHomeImages(selectedHomeImages);
       setStateOrDisplayError(a, setHomeImagesToDisplay,setSnackbarWithResposne);
@@ -38,6 +42,15 @@ export const DataProvider = ({ children }: { children: any }) => {
       // show snackabr
     }
   };
+
+
+
+  const updateSelectedImagesList = (list:string[]) =>{
+    const newValue :DataToShow= {...dataToShow,selectedHomeImages:list}
+    const fun = stateChangerGenerator(setDataToShow,specificFirebasePaths.dataToShow)
+    fun(newValue)
+    
+  }
   const setLocation = (location: string) => {
     setSelectedLocation(location);
   };
@@ -45,7 +58,7 @@ export const DataProvider = ({ children }: { children: any }) => {
     fetchHomeImages();
   }, []);
 
-  const val = { setLocation, selectedLocation, cartCount, setCartCount };
+  const val = { setLocation, selectedLocation, cartCount, setCartCount,dataToShow,updateSelectedImagesList };
   return (
     <DataContext.Provider value={{ ...val }}>{children}</DataContext.Provider>
   );

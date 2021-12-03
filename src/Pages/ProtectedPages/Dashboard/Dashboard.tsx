@@ -5,14 +5,17 @@ import { DashboardContext } from "../../../context/DashboardContext";
 
 const Dashboard = () => {
   // cards for each categorey
-  const {categories,fetchDashboardCategoryImages} = useContext(DashboardContext)
+  const {initzialzeDashboard,categories} = useContext(DashboardContext)
   
   useEffect(() => {
-    fetchDashboardCategoryImages()
+    console.log("INIT")
+
+    console.log("INIT")
   }, [])
 
   return (
     <div>
+      
       <Categories data={categories} />
     </div>
   );

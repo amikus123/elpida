@@ -11,13 +11,13 @@ import { UserProvider } from "./context/UserContext";
 ReactDOM.render(
   <React.StrictMode>
     <Router>
-      <UserProvider>
-        <DataProvider>
-            <ElementProvider>
-              <App />
-            </ElementProvider>
-        </DataProvider>
-      </UserProvider>
+      <ElementProvider>
+        <UserProvider>
+          <DataProvider>
+            <App />
+          </DataProvider>
+        </UserProvider>
+      </ElementProvider>
     </Router>
   </React.StrictMode>,
   document.getElementById("root")

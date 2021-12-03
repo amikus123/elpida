@@ -38,7 +38,7 @@ export interface Ad {
 export type CardArr = (Ad | CardData)[];
 
 
-export interface HomeImage {
+export interface ImageWithLink {
   link: string;
   image: string;
   title: string;
@@ -61,11 +61,7 @@ export interface TextMixedFireStoreResposne extends BaseFirestoreResposne{
   res:string[] | string
 }
 
-export interface ImageWithLink{
-  link:string,
-  image:string
-  title?:string
-}
+
 export interface UploadedImageWithLink{
   link:string,
   image:File

@@ -45,6 +45,7 @@ const FormikForm = ({ inputs, onSubmit, submitButtonText }: SignupProps) => {
     <Formik
       initialValues={getInitialValues(inputs).values}
       onSubmit={async (values) => {
+        console.log("XDDD")
         const res = await onSubmit(values);
         setSnackbarWithResposne(res)
         if(!res.error){
