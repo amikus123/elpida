@@ -1,15 +1,15 @@
 import React, { memo } from 'react'
 import { Draggable } from 'react-beautiful-dnd';
-import { DraggableData } from './ImageControl';
+import { DraggableData } from './DragItemSetter';
 import ImageElement from './ImageElement';
 
-interface ListElementProps {
+interface DragListItemProps {
   handleToggle: () => void;
   image: DraggableData;
   index: number;
 }
 
-function ListElement({ image, index, handleToggle }: ListElementProps) {
+function DragListItem({ image, index, handleToggle }: DragListItemProps) {
   return (
     <Draggable draggableId={image.dragId} index={index}>
       {(provided) => (
@@ -26,4 +26,4 @@ function ListElement({ image, index, handleToggle }: ListElementProps) {
   );
 }
 
-export default memo(ListElement)
+export default memo(DragListItem)

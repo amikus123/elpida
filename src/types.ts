@@ -1,3 +1,4 @@
+import { User } from "firebase/auth";
 import { StringSchema } from "yup";
 import { RequiredStringSchema } from "yup/lib/string";
 import { AnyObject } from "yup/lib/types";
@@ -44,22 +45,39 @@ export interface ImageWithLink {
   title: string;
   id:string;
 }
+// * FIREBASE TYPES
+
 
 // DASHBOARD TYPES
 
-export interface BaseFirestoreResposne {
+export interface BaseResposne {
   text: string;
   error: boolean;
 }
-export interface TextFirestoreResposne extends BaseFirestoreResposne{
+export interface TextResposne extends BaseResposne{
   res:string
 }
-
-export interface TextArrFirestoreResposne extends BaseFirestoreResposne{
+export interface HomeImagesResponse extends BaseResposne {
+  res: ImageWithLink[];
+}
+export interface TextArrResposne extends BaseResposne{
   res:string[]
 }
-export interface TextMixedFireStoreResposne extends BaseFirestoreResposne{
+export interface TextMixedResposne extends BaseResposne{
   res:string[] | string
+}
+export interface AnyResposne extends BaseResposne {
+  res: any;
+}
+export interface BaseResposne {
+  text: string;
+  error: boolean;
+}
+export interface UserResposne extends BaseResposne {
+  res: User;
+}
+export interface AnyRespose extends BaseResposne {
+  res: any | null;
 }
 
 

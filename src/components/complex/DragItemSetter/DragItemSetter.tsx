@@ -1,49 +1,53 @@
-import React, { useContext, useEffect, useState } from "react";
-
+import React, { useEffect, useState } from "react";
 import { DragDropContext, Droppable } from "react-beautiful-dnd";
-import { ImageWithLink } from "../../../../types";
-import { DashboardContext } from "../../../../context/DashboardContext";
-import { DataContext } from "../../../../context/DataContext";
-import ImageList from "./ImageList";
+import { ImageWithLink } from "../../../types";
+import DragList from "./DragList";
 
 export type DraggableData = ImageWithLink & { dragId: string; show: boolean };
 
-const ImageControl = () => {
-  const { homeImages } = useContext(DashboardContext);
-  const { dataToShow,updateSelectedImagesList } = useContext(DataContext);
-  const [state, setState] = useState<DraggableData[]>([]);
+// * allows user to toggle visibility of items and to adjust their order
+
+interface ImageControlProps{
+  imageData:ImageWithLink[],
+  //* array, with active item ids in order
+  orderOfVisibleItems:string[],
+  //* fucntions, which updates the db and context
+  updateOrdder: (list: string[]) => void,
+}
+const DragItemSetter = ({orderOfVisibleItems,imageData: homeImages,updateOrdder}:ImageControlProps) => {
+
+  const [draggableItems, setDraggableItems] = useState<DraggableData[]>([]);
 
   // used to update state when new data is fetched
   useEffect(() => {
-    setState(getData());
+    setDraggableItems(getData());
   }, [homeImages]);
 
   // creates functions, which passed to element allows to toggle show state
   const handleGenerator = (index: number) => {
     const x = () => {
-      const newState = [...state];
+      const newState = [...draggableItems];
       newState[index].show = !newState[index].show;
       // update global
-      setState(newState);
-    updateSelectedImagesList(getListOFActive(newState))
-
+      setDraggableItems(newState);
+      updateOrdder(getListOFActive(newState));
     };
     return x;
   };
 
+  
   const getData = () => {
     const res: DraggableData[] = [];
     const copy = [...homeImages];
-    const { selectedHomeImages } = dataToShow;
     // first we go over the allowed list
-    selectedHomeImages.forEach((id, index) => {
+    orderOfVisibleItems.forEach((id, index) => {
       const selectedIndex = copy.findIndex((image) => image.id === id);
       const selectedImage = copy.splice(selectedIndex, 1)[0];
       res.push({ ...selectedImage, dragId: `id-${index}`, show: true });
     });
     copy.forEach((item, index) => {
       res.push({
-        dragId: `id-${index + selectedHomeImages.length}`,
+        dragId: `id-${index + orderOfVisibleItems.length}`,
         show: false,
         ...item,
       });
@@ -71,14 +75,14 @@ const ImageControl = () => {
     }
 
     const newState = reorder(
-      state,
+      draggableItems,
       result.source.index,
       result.destination.index
     ) as DraggableData[];
-    updateSelectedImagesList(getListOFActive(newState))
-    setState(newState);
+    updateOrdder(getListOFActive(newState));
+    setDraggableItems(newState);
   }
-  const getListOFActive = (newState=state) => {
+  const getListOFActive = (newState = draggableItems) => {
     const res: string[] = [];
     newState.forEach((item: DraggableData) => {
       if (item.show) {
@@ -89,28 +93,17 @@ const ImageControl = () => {
     return res;
   };
   return (
-    <>
-      {JSON.stringify(state)}
-      <br></br>
-      <br></br>
-      {JSON.stringify(dataToShow)}
-      <br></br>
-      <br></br>
-
-      {JSON.stringify(getListOFActive())}
-
-      <DragDropContext onDragEnd={onDragEnd}>
-        <Droppable droppableId="list">
-          {(provided) => (
-            <div ref={provided.innerRef} {...provided.droppableProps}>
-              <ImageList images={state} handleGenerator={handleGenerator} />
-              {provided.placeholder}
-            </div>
-          )}
-        </Droppable>
-      </DragDropContext>
-    </>
+    <DragDropContext onDragEnd={onDragEnd}>
+      <Droppable droppableId="list">
+        {(provided) => (
+          <div ref={provided.innerRef} {...provided.droppableProps}>
+            <DragList images={draggableItems} handleGenerator={handleGenerator} />
+            {provided.placeholder}
+          </div>
+        )}
+      </Droppable>
+    </DragDropContext>
   );
 };
 
-export default ImageControl;
+export default DragItemSetter;

@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import { createContext, useEffect, useState } from "react";
-import { DataToShow, FirestorePaths, specificFirebasePaths } from "../firebase/consts";
+import { DataToShow, specificFirebasePaths } from "../firebase/consts";
 import {
   getWebisteData,
   getSelectedHomeImages,

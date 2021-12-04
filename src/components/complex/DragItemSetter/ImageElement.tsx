@@ -1,8 +1,7 @@
-import React, { useState } from "react";
+import React from "react";
 import Toggle from "react-toggle";
 import styled from "styled-components";
-import { ImageWithLink } from "../../../../types";
-import { DraggableData } from "./ImageControl";
+import { DraggableData } from "./DragItemSetter";
 
 const Imgae = styled.img`
   width: 500px;
@@ -38,7 +37,6 @@ const ImageElement = React.forwardRef<any, ImageElementProps>(
   (props, ref) => {
     const { imageData,handleToggle } = props
     const {show} = imageData
-    const [selected, setSelected] = useState(show);
     return (
       <Wrap ref={ref}  {...props}>
         <p>{imageData.title}</p>

@@ -14,7 +14,7 @@ const Wrap = styled.div`
   justify-content: center;
   align-items: center;
 `;
-const Breadcrumbs = () => {
+const MyBreadcrumbs = () => {
   let location = useLocation();
   const [pathObjects, setPathObjects] = useState<PathObject[]>([]);
   useEffect(() => {
@@ -59,4 +59,4 @@ const Breadcrumbs = () => {
   );
 };
 
-export default Breadcrumbs;
+export default MyBreadcrumbs;

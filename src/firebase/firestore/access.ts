@@ -1,16 +1,12 @@
 import { getDocs, doc, collection, getDoc } from "@firebase/firestore";
 import { SnackbarTexts } from "../../constans/snackbar";
-import { BaseFirestoreResposne, ImageWithLink } from "../../types";
+import { BaseResposne, HomeImagesResponse, ImageWithLink } from "../../types";
 import { DataToShow, FirestorePathObject, FirestorePaths, specificFirebasePaths } from "../consts";
 import { myDb } from "../main";
 import { getUrlsForLinks } from "../storage/access";
 
-export interface AnyResposne extends BaseFirestoreResposne {
-  res: any;
-}
-interface HomeImagesResponse extends BaseFirestoreResposne {
-  res: ImageWithLink[];
-}
+
+
 
 export const getAllHomeImages = async (): Promise<HomeImagesResponse> => {
   const x = await getAllDocs(
@@ -22,29 +18,29 @@ export const getAllHomeImages = async (): Promise<HomeImagesResponse> => {
 // get initialData =
 
 export const getWebisteData = async (): Promise<
-  BaseFirestoreResposne & { res: DataToShow }
+  BaseResposne & { res: DataToShow }
 > => {
   return (await getSingleDoc(
     specificFirebasePaths.dataToShow
-  )) as BaseFirestoreResposne & { res: DataToShow };
+  )) as BaseResposne & { res: DataToShow };
 };
 
 export const getSelectedHomeImages = async (
   names: string[]
-): Promise<BaseFirestoreResposne & { res: ImageWithLink[] }> => {
+): Promise<BaseResposne & { res: ImageWithLink[] }> => {
   console.log(names,"n,mx")
   return (await getMultipleDocs(
     FirestorePaths.homeImages,
     names
-  )) as BaseFirestoreResposne & { res: ImageWithLink[] };
+  )) as BaseResposne & { res: ImageWithLink[] };
 };
 
 
 
-interface XD{
+interface ObjectWithImage{
   image:string
 }
-export const convertFilePathsToImages =async (objectWithFiles:XD[],location:string="")=>{
+export const convertFilePathsToImages =async (objectWithFiles:ObjectWithImage[],location:string="")=>{
   
   const fileNames = objectWithFiles.map(item=>item.image)
   console.log(objectWithFiles,fileNames,location,"CONVER")

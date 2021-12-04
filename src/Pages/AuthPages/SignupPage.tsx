@@ -1,8 +1,6 @@
-import { useContext, useState } from "react";
-import { useHistory } from "react-router";
+import { useContext } from "react";
 import * as Yup from "yup";
 import FormWrap from "../../components/containers/FormWrap"
-import PlainButton from "../../components/core/Buttons/PlainButton";
 import HorizontalText from "../../components/core/Dividers/HorizontalText";
 import FormikForm, { InputData } from "../../components/core/Form/FormikForm";
 import MyText from "../../components/core/Text/MyText";

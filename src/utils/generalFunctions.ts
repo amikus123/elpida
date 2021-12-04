@@ -1,8 +1,7 @@
-import { BaseResposne } from "../firebase/consts";
+import { BaseResposne } from "../types";
 
-// used in contenxt to simulate type, this is nevet called
+// * used in contenxt to simulate type, this is nevet called in actual code
 export const createPromise = async (): Promise<BaseResposne> => {
-  const xd : BaseResposne = { text: "", error: false }
   function x() {
     var promise = new Promise(function(resolve, reject) {
       window.setTimeout(function() {

@@ -4,10 +4,10 @@ import {
   POSSIBLE_MODAL_COLORS,
   SnackbarType,
 } from "../constans/snackbar";
-import { BaseFirestoreResposne } from "../types";
+import { BaseResposne } from "../types";
 
 export type ModalOptions = "location" | "none";
-const tmp: SnackbarType = {
+const placeholderSnackbarValues: SnackbarType = {
   show: false,
   color: "red",
   text: "",
@@ -17,7 +17,7 @@ export const ElementContext = createContext({
   showOverlay: false,
   selectedModal: "none",
   showDropdown: false,
-  snackbarValue: tmp,
+  snackbarValue: placeholderSnackbarValues,
   updateSnackbar: (text: string, color: PossibleModalColor = "green") => {},
   setOverlay: (arg: boolean) => {},
   setModal: (arg: ModalOptions) => {},
@@ -25,7 +25,7 @@ export const ElementContext = createContext({
   clearModal: () => {},
   setDropdown: (arg: boolean) => {},
   reset: () => {},
-  setSnackbarWithResposne: (resposne: BaseFirestoreResposne) => {}
+  setSnackbarWithResposne: (resposne: BaseResposne) => {}
 });
 
 export const ElementProvider = ({ children }: { children: any }) => {
@@ -55,7 +55,7 @@ export const ElementProvider = ({ children }: { children: any }) => {
     setSnackbarValue({ color, text, show: true, prevTimeoutId: newTimeoutId });
   };
 
-  const setSnackbarWithResposne = (resposne: BaseFirestoreResposne) => {
+  const setSnackbarWithResposne = (resposne: BaseResposne) => {
     const { text, error } = resposne;
     const color = error?"red":"green"
   

@@ -1,6 +1,6 @@
 import React, { useCallback, useState } from "react";
 import { useParams } from "react-router-dom";
-import Breadcrumbs from "../../../components/core/Breadcrumbs/Breadcrumbs";
+import Breadcrumbs from "../../../components/core/Breadcrumbs/MyBreadcrumbs";
 import ProdcutListAside from "./ProdcutListAside/ProdcutListAside";
 import deep from "deep-equal";
 

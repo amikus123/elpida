@@ -1,10 +1,10 @@
-import { BaseFirestoreResposne } from "../types";
+import { BaseResposne } from "../types";
 
 //* Generic functions, sets states or displays error based on result of fetching
 export function setStateOrDisplayError<TValue>(
-  response: BaseFirestoreResposne & { res: TValue },
+  response: BaseResposne & { res: TValue },
   setter: React.Dispatch<React.SetStateAction<TValue>>,
-  setSnackbarWithResposne:(resposne: BaseFirestoreResposne) => void
+  setSnackbarWithResposne:(resposne: BaseResposne) => void
 ): boolean {
   if (response.error) {
     setSnackbarWithResposne(response);

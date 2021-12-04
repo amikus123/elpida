@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import { Field, Form, Formik, useFormik } from "formik";
 import * as Yup from "yup";
 import FormikInput, { FormikInputTypes } from "../Inputs/FormikInput";
-import { BaseFirestoreResposne, ValidationTypes } from "../../../types";
+import { BaseResposne, ValidationTypes } from "../../../types";
 import Spinner from "../Loading/Spinner";
 import styled from "styled-components";
 import PlainButton from "../Buttons/PlainButton";
@@ -19,7 +19,7 @@ const InputWrap = styled.div`
 `;
 interface SignupProps {
   inputs: InputData[];
-  onSubmit: (arg1: any) => Promise<BaseFirestoreResposne>;
+  onSubmit: (arg1: any) => Promise<BaseResposne>;
   submitButtonText: string;
 }
 

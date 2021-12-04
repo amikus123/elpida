@@ -1,7 +1,7 @@
 import { doc, DocumentData, setDoc } from "firebase/firestore";
 import { uploadBytes, ref } from "firebase/storage";
 import { SnackbarTexts } from "../../constans/snackbar";
-import { BaseFirestoreResposne, TextMixedFireStoreResposne } from "../../types";
+import { BaseResposne, TextMixedResposne } from "../../types";
 import { myDb, myStorage } from "../main";
 import { v4 as uuidv4 } from "uuid";
 import { FirestorePathObject } from "../consts";
@@ -50,7 +50,7 @@ export const uploadFromForm = async (
   data: FormData,
   path: string,
   imageLocation: string = path
-): Promise<BaseFirestoreResposne> => {
+): Promise<BaseResposne> => {
   //* genereate random ID
   const dbId = uuidv4();
   const itemRef = doc(myDb, path, dbId);
@@ -93,7 +93,7 @@ export const uploadFromForm = async (
 const handleImageUpload = async (
   fileData: File[] | File,
   filePath: string
-): Promise<TextMixedFireStoreResposne> => {
+): Promise<TextMixedResposne> => {
   try {
     let res: string | string[] = "";
     const fileNames: string[] = [];

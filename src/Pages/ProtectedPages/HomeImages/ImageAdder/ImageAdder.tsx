@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React  from "react";
 import FormikForm, {
   InputData,
 } from "../../../../components/core/Form/FormikForm";
@@ -6,7 +6,6 @@ import styled from "styled-components";
 import * as Yup from "yup";
 import { uploadFromForm } from "../../../../firebase/firestore/write";
 import { FirestorePaths } from "../../../../firebase/consts";
-import { ElementContext } from "../../../../context/ElementContext";
 
 export interface HomeCardForm {
   image: File;
@@ -33,12 +32,9 @@ const inputs: InputData[] = [
     label: "Home",
   },
 ];
-const Wrap = styled.div`
-  width: 50%;
-`;
+
 const ImageAdder = () => {
   return (
-    <Wrap>
       <FormikForm
         onSubmit={async (values) => {
           return await uploadFromForm(values, FirestorePaths.homeImages);
@@ -46,7 +42,6 @@ const ImageAdder = () => {
         inputs={inputs}
         submitButtonText="Add Home Image"
       />
-    </Wrap>
   );
 };
 

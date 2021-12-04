@@ -6,11 +6,12 @@ import {
 } from "firebase/auth";
 
 import { createContext, useState, useEffect } from "react";
-import { BaseResposne } from "../firebase/consts";
 import { myAuth } from "../firebase/main";
+import { BaseResposne } from "../types";
 import { createPromise } from "../utils/generalFunctions";
 
-const a: any = null;
+// we either have to preserve any, or add interface for context
+const placeholderUser: User|any = null;
 
 export const UserContext = createContext({
   signup: async (arg1: string, arg2: string) => {
@@ -22,10 +23,10 @@ export const UserContext = createContext({
   signout: async () => {
     return createPromise();
   },
-  currentUser: a,
+  currentUser: placeholderUser,
 });
 
-export const UserProvider = ({ children }: { children: any }) => {
+export const UserProvider = ({ children }: { children: React.ReactNode }) => {
   const [currentUser, setCurrentUser] = useState<User | null>(null);
   // check if user i present
   const [loading, setLoading] = useState(true);

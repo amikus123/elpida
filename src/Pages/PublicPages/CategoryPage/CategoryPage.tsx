@@ -3,7 +3,7 @@ import MyText from "../../../components/core/Text/MyText";
 import styled from "styled-components";
 import Categories from "../../../components/complex/Categories/Categories";
 import PageCenterWrap from "../../../components/containers/PageCenterWrap";
-import Breadcrumbs from "../../../components/core/Breadcrumbs/Breadcrumbs";
+import MyBreadcrumbs from "../../../components/core/Breadcrumbs/MyBreadcrumbs";
 import { CardData } from "../../../types";
 import { nameToPublicLink } from "../../../utils/imageFunctions";
 const Wrap = styled(PageCenterWrap)`
@@ -65,7 +65,7 @@ const categories: CardData[] =  [
 const CategoryPage = () => {
   return (
     <Wrap>
-      <Breadcrumbs />
+      <MyBreadcrumbs />
       <MyText fontSize="2rem" element="h3">
         Categories{" "}
         <MyText element="span" fontSize="0.85em" presetColor="grey">

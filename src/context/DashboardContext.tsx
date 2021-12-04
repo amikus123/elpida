@@ -44,7 +44,7 @@ export const DashboardContext = createContext({
   homeImages:hm
 });
 
-export const DashboardProvider = ({ children }: { children: any }) => {
+export const DashboardProvider = ({ children }: { children: React.ReactNode }) => {
   const { setSnackbarWithResposne } = useContext(ElementContext);
   const [categories, setCategories] = useState<CardData[]>(baseState);
   const [homeImages, setHomeImages] = useState<ImageWithLink[]>([]);
@@ -59,12 +59,9 @@ export const DashboardProvider = ({ children }: { children: any }) => {
     setCategories(copy);
   };
   const getAllImages = async () => {
-    console.log("GET ALL")
     const res = await getAllHomeImages()
     if(res){
-      console.log(res,"GET ALL",res.res)
       const a  =  await convertFilePathsToImages(res.res)
-      console.log(a,res.res,"GGGG")
       // get images
       setStateOrDisplayError(res, setHomeImages, setSnackbarWithResposne);
     }

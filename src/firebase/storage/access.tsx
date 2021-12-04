@@ -1,12 +1,12 @@
 import { getDownloadURL,ref } from "firebase/storage";
 import { SnackbarTexts } from "../../constans/snackbar";
-import { BaseFirestoreResposne } from "../../types";
+import { BaseResposne } from "../../types";
 import { myStorage } from "../main";
 
 
 
 
-interface DashboardHomeImagesResponse extends BaseFirestoreResposne{
+interface DashboardHomeImagesResponse extends BaseResposne{
   res:string[]
 }
 

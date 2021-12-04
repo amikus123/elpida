@@ -1,13 +1,13 @@
-import { DraggableData } from "./ImageControl";
-import ListElement from "./ListElement";
+import { DraggableData } from "./DragItemSetter";
+import ListElement from "./DragListItem";
 
 
-interface QuoteListProps {
+interface DragListProps {
   images: DraggableData[];
   handleGenerator: (index: number) => () => void;
 }
 
-const ImageList = ({ images, handleGenerator }: QuoteListProps) => {
+const DragList = ({ images, handleGenerator }: DragListProps) => {
   return (
     <>
       {images.map((image: DraggableData, index: number) => (
@@ -21,4 +21,4 @@ const ImageList = ({ images, handleGenerator }: QuoteListProps) => {
     </>
   );
 };
-export default ImageList
+export default DragList
