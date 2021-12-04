@@ -42,6 +42,7 @@ export interface ImageWithLink {
   link: string;
   image: string;
   title: string;
+  id:string;
 }
 
 // DASHBOARD TYPES

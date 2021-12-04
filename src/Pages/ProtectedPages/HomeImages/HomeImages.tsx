@@ -11,20 +11,15 @@ const Wrap = styled.div`
   align-items: center;
 `;
 const HomeImages = () => {
-  const { homeImages } = useContext(DashboardContext);
-  const {dataToShow} = useContext(DataContext);
+
   
   const [selected, setSelected] = useState(false);
   const toggleSelected = () => setSelected(!selected);
 
   return (
     <Wrap>
-      {homeImages.length > 0 ? (
-        <>
-          <ImageControl homeImages={homeImages} />
+          <ImageControl />
           <ImageAdder />
-        </>
-      ) : null}
     </Wrap>
   );
 };

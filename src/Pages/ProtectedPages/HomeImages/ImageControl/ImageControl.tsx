@@ -1,75 +1,66 @@
-import React, { useState } from "react";
-import styled from "styled-components";
+import React, { useContext, useEffect, useState } from "react";
 
-import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
+import { DragDropContext, Droppable } from "react-beautiful-dnd";
 import { ImageWithLink } from "../../../../types";
-import { profile } from "console";
-import ImageElement from "./ImageElement";
+import { DashboardContext } from "../../../../context/DashboardContext";
+import { DataContext } from "../../../../context/DataContext";
+import ImageList from "./ImageList";
 
-const reorder = (
-  list: Iterable<unknown> | ArrayLike<unknown>,
-  startIndex: number,
-  endIndex: number
-) => {
-  const result = Array.from(list);
-  const [removed] = result.splice(startIndex, 1);
-  result.splice(endIndex, 0, removed);
-  return result;
-};
+export type DraggableData = ImageWithLink & { dragId: string; show: boolean };
 
-const QuoteItem = styled.div`
-  width: 200px;
-  border: 1px solid grey;
-  margin-bottom: 8px;
-  background-color: lightblue;
-  padding: 8px;
-`;
+const ImageControl = () => {
+  const { homeImages } = useContext(DashboardContext);
+  const { dataToShow,updateSelectedImagesList } = useContext(DataContext);
+  const [state, setState] = useState<DraggableData[]>([]);
 
-function Quote({ image, index }: { image: ImageWithLink; index: any }) {
-  return (
-    <Draggable draggableId={image.title} index={index}>
-      {(provided) => (
-        // image etc
-        <ImageElement imageData={image} active={true}
-        ref={provided.innerRef}
-          {...provided.draggableProps}
-          {...provided.dragHandleProps}
-        />
-        // <QuoteItem
-        //   ref={provided.innerRef}
-        //   {...provided.draggableProps}
-        //   {...provided.dragHandleProps}
-        // >
-        //   {image.title}
-        // </QuoteItem>
-      )}
-    </Draggable>
-  );
-}
+  // used to update state when new data is fetched
+  useEffect(() => {
+    setState(getData());
+  }, [homeImages]);
 
-const QuoteList = React.memo(function QuoteList({ quotes }: { quotes: any }) {
-  return quotes.map((quote: any, index: number) => (
-    <Quote image={quote} index={index} key={quote.id} />
-  ));
-});
+  // creates functions, which passed to element allows to toggle show state
+  const handleGenerator = (index: number) => {
+    const x = () => {
+      const newState = [...state];
+      newState[index].show = !newState[index].show;
+      // update global
+      setState(newState);
+    updateSelectedImagesList(getListOFActive(newState))
 
-interface ImageControlProps {
-  homeImages: ImageWithLink[];
-}
-type DraggableData = ImageWithLink & {id:string}
-const ImageControl = ({ homeImages }: ImageControlProps) => {
-  // statte
-
-  const initial = homeImages.map((item,index) => {
-    const custom: DraggableData = {
-      id: `id-${index}`,
-      ...item
     };
+    return x;
+  };
 
-    return custom;
-  });
-  
-  const [state, setState] = useState({ quotes: initial });
+  const getData = () => {
+    const res: DraggableData[] = [];
+    const copy = [...homeImages];
+    const { selectedHomeImages } = dataToShow;
+    // first we go over the allowed list
+    selectedHomeImages.forEach((id, index) => {
+      const selectedIndex = copy.findIndex((image) => image.id === id);
+      const selectedImage = copy.splice(selectedIndex, 1)[0];
+      res.push({ ...selectedImage, dragId: `id-${index}`, show: true });
+    });
+    copy.forEach((item, index) => {
+      res.push({
+        dragId: `id-${index + selectedHomeImages.length}`,
+        show: false,
+        ...item,
+      });
+    });
+    return res;
+  };
+
+  const reorder = (
+    list: DraggableData[],
+    startIndex: number,
+    endIndex: number
+  ) => {
+    const result = Array.from(list);
+    const [removed] = result.splice(startIndex, 1);
+    result.splice(endIndex, 0, removed);
+    return result;
+  };
 
   function onDragEnd(result: any) {
     if (!result.destination) {
@@ -79,25 +70,40 @@ const ImageControl = ({ homeImages }: ImageControlProps) => {
       return;
     }
 
-    const quotes = reorder(
-      state.quotes,
+    const newState = reorder(
+      state,
       result.source.index,
       result.destination.index
-    ) as any
-
-    setState({ quotes });
+    ) as DraggableData[];
+    updateSelectedImagesList(getListOFActive(newState))
+    setState(newState);
   }
-
+  const getListOFActive = (newState=state) => {
+    const res: string[] = [];
+    newState.forEach((item: DraggableData) => {
+      if (item.show) {
+        res.push(item.id);
+      }
+    });
+    console.log(res);
+    return res;
+  };
   return (
     <>
-      {JSON.stringify(homeImages)}
+      {JSON.stringify(state)}
       <br></br>
+      <br></br>
+      {JSON.stringify(dataToShow)}
+      <br></br>
+      <br></br>
+
+      {JSON.stringify(getListOFActive())}
+
       <DragDropContext onDragEnd={onDragEnd}>
-        {JSON.stringify(state)}
         <Droppable droppableId="list">
           {(provided) => (
             <div ref={provided.innerRef} {...provided.droppableProps}>
-              <QuoteList quotes={state.quotes} />
+              <ImageList images={state} handleGenerator={handleGenerator} />
               {provided.placeholder}
             </div>
           )}

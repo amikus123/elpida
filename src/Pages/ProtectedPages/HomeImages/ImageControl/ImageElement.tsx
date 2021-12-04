@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import Toggle from "react-toggle";
 import styled from "styled-components";
 import { ImageWithLink } from "../../../../types";
+import { DraggableData } from "./ImageControl";
 
 const Imgae = styled.img`
   width: 500px;
@@ -27,29 +28,21 @@ const Wrap = styled.div`
 `;
 // we cam cut like half of the image
 interface ImageElementProps {
-  imageData: ImageWithLink;
-  active: boolean;
+  imageData: DraggableData;
+  handleToggle:()=>void
   
 }
 
-// const FancyButton = React.forwardRef<HTMLButtonElement, FancyButtonProps>(
-//   ({ children, className = '', fooBar, ...buttonProps }, ref) => (
-//       <button {...buttonProps} className={`fancy-button ${className}`} ref={ref}>
-//           {children}
-//           {fooBar}
-//       </button>
-//   ),
-// );
-
+// addinitional properties are due to Drag api
 const ImageElement = React.forwardRef<any, ImageElementProps>(
   (props, ref) => {
-    const { imageData, active } = props
-    const [selected, setSelected] = useState(false);
-    const toggleSelected = () => setSelected(!selected);
+    const { imageData,handleToggle } = props
+    const {show} = imageData
+    const [selected, setSelected] = useState(show);
     return (
       <Wrap ref={ref}  {...props}>
         <p>{imageData.title}</p>
-        <Toggle defaultChecked={selected} onChange={toggleSelected} />
+        <Toggle  checked={show}  onChange={handleToggle} />
         <ImgaeWrap>
           <Imgae src={imageData.image} alt={imageData.title} />
         </ImgaeWrap>

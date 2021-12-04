@@ -56,7 +56,7 @@ export const uploadFromForm = async (
   const itemRef = doc(myDb, path, dbId);
   console.log(data, "DATA");
   try {
-    const firebaseEntry: FirestoreEntry = {};
+    const firebaseEntry: FirestoreEntry = {id:dbId};
     // we should add png while uploading
     const keys = Object.keys(data);
     const filePath = imageLocation + "/" + dbId + ".png";
