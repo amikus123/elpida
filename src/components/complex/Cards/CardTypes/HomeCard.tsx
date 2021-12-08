@@ -24,7 +24,7 @@ interface CardProps {
   data: CardData;
 }
 const HomeCard = ({ data }: CardProps) => {
-  const { imageName, topText, bottomText, link } = data;
+  const { image: imageName, title: topText, bottomText, link } = data;
   return (
     <CardWrapWithSize type="home">
       <div>

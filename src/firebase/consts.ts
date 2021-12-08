@@ -8,11 +8,17 @@
 export enum FirestorePaths {
   homeImages = "/homeImages",
   dataToShow = "/dataToShow",
+  promotedCards = "/promotedCards",
 }
 export enum StoragePaths {
   homeImages = "/homeImages",
 }
 // * STRUCTURE OF FIREBASE DATA
+
+export interface Group{
+  groupId:string,
+  ids:string
+}
 export interface DataToShow {
   selectedHomeImages: string[];
 }
@@ -34,4 +40,5 @@ export const specificFirebasePaths = {
     col: FirestorePaths.dataToShow,
     doc: "dataToShow",
   },
+
 };

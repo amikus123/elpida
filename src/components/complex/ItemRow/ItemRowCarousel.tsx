@@ -39,12 +39,12 @@ const ItemRowCarousel = ({ products, extraPath }: CarouselProps) => {
       nextArrow={<Arrow left={false} />}
       adaptiveHeight={true}
     >
-      {multipleArray(products).map((item, number) => {
+      {multipleArray(products).map((item, index) => {
         return (
-          <Link to="#">
+          <Link to="#" key={index}>
             <Image
-              src={nameToPublicLink(item.imageName, extraPath)}
-              alt={item.imageName}
+              src={nameToPublicLink(item.image, extraPath)}
+              alt={item.image}
             />
           </Link>
         );

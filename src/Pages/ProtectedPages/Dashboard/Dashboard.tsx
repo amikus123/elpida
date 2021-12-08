@@ -1,5 +1,6 @@
 import React, { useContext } from "react";
 import Categories from "../../../components/complex/Categories/Categories";
+import { PageCenterWrapWithBread } from "../../../components/containers/PageCenterWrap";
 import { DashboardContext } from "../../../context/DashboardContext";
 
 const Dashboard = () => {
@@ -7,10 +8,9 @@ const Dashboard = () => {
   const {categories} = useContext(DashboardContext)
   
   return (
-    <div>
-    
+    <PageCenterWrapWithBread>
       <Categories data={categories} />
-    </div>
+    </PageCenterWrapWithBread>
   );
 };
 

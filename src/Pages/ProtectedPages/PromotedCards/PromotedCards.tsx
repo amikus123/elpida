@@ -1,12 +1,13 @@
 import React, { useContext } from "react";
-import DragItemSetter from "../../../components/complex/DragItemSetter/DragItemSetter";
 import styled from "styled-components";
 import { DashboardContext } from "../../../context/DashboardContext";
 import { DataContext } from "../../../context/DataContext";
 import MyText from "../../../components/core/Text/MyText";
 import { PageCenterWrapWithBread } from "../../../components/containers/PageCenterWrap";
-import FormikForm from "../../../components/core/Form/FormikForm";
+import FormikForm, { InputData } from "../../../components/core/Form/FormikForm";
 import { formikDashboardData } from "../FormikData";
+import { Test } from "./Test";
+
 
 const Wrap = styled.div`
   display: flex;
@@ -20,9 +21,8 @@ const Wrap = styled.div`
 const HomeImages = () => {
   const { homeImages } = useContext(DashboardContext);
   const { dataToShow, updateSelectedImagesList } = useContext(DataContext);
-  const {inputs,handleSubmit,submitButtonText} = formikDashboardData.homeImages
-
-
+  const {inputs,handleSubmit,submitButtonText} = formikDashboardData.promotedCards
+  // 
   return (
     <PageCenterWrapWithBread>
       <Wrap>
@@ -38,11 +38,8 @@ const HomeImages = () => {
         <MyText fontSize="2rem" boldness="bold">
           Change home image order, or toggle visibility
         </MyText>
-        <DragItemSetter
-          imageData={homeImages}
-          orderOfVisibleItems={dataToShow.selectedHomeImages}
-          updateOrdder={updateSelectedImagesList}
-        />
+        <Test/>
+
       </Wrap>
     </PageCenterWrapWithBread>
   );

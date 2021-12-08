@@ -37,7 +37,7 @@ interface CategoryItemProps{
 }
 const CardWrapStyled = styled(CardWrap)``;
 const CategoryItem = ({item}:CategoryItemProps) => {
-  const {link,topText,bottomText,imageName} = item
+  const {link,title: topText,bottomText,image: imageName} = item
 
   return (
     <CardWrapStyled>

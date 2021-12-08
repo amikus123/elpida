@@ -7,30 +7,30 @@ import { setStateOrDisplayError } from "../utils/stateFunctions";
 import { ElementContext } from "./ElementContext";
 
 const example: CardData = {
-  imageName: "",
-  topText: "INVENTORY",
+  image: "",
+  title: "INVENTORY",
   link: DASHBOARD_ROUTES.INVENTORY,
 };
 
 const baseState: CardData[] = [
   {
-    imageName: "",
-    topText: "INVENTORY",
+    image: "",
+    title: "INVENTORY",
     link: DASHBOARD_ROUTES.INVENTORY,
   },
   {
-    imageName: "",
-    topText: "BEST SELLERS",
+    image: "",
+    title: "BEST SELLERS",
     link: DASHBOARD_ROUTES.BEST_SELLERS,
   },
   {
-    imageName: "",
-    topText: "PROMOTED CARDS",
+    image: "",
+    title: "PROMOTED CARDS",
     link: DASHBOARD_ROUTES.PROMOTED_CARDS,
   },
   {
-    imageName: "",
-    topText: "HOME IMAGES",
+    image: "",
+    title: "HOME IMAGES",
     link: DASHBOARD_ROUTES.HOME_IMAGES,
   },
 ];
@@ -54,7 +54,7 @@ export const DashboardProvider = ({ children }: { children: React.ReactNode }) =
     const urls = response.res;
     const copy = [...categories];
     urls.forEach((item, index) => {
-      copy[index].imageName = item;
+      copy[index].image = item;
     });
     setCategories(copy);
   };

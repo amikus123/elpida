@@ -2,11 +2,13 @@ import React from "react";
 import MyText from "../../../components/core/Text/MyText";
 import styled from "styled-components";
 import Categories from "../../../components/complex/Categories/Categories";
-import PageCenterWrap from "../../../components/containers/PageCenterWrap";
+import PageCenterWrap, {
+  PageCenterWrapWithBread,
+} from "../../../components/containers/PageCenterWrap";
 import MyBreadcrumbs from "../../../components/core/Breadcrumbs/MyBreadcrumbs";
 import { CardData } from "../../../types";
 import { nameToPublicLink } from "../../../utils/imageFunctions";
-const Wrap = styled(PageCenterWrap)`
+const Wrap = styled(PageCenterWrapWithBread)`
   width: 100%;
   background-color: #ffffff;
   display: flex;
@@ -22,57 +24,55 @@ const Wrap = styled(PageCenterWrap)`
 // and can click on card to be taken to page that lists all item of given category
 
 // TODO change to dynamic
-const categories: CardData[] =  [
+const categories: CardData[] = [
   {
-    imageName: nameToPublicLink("agd", "/categories"),
+    image: nameToPublicLink("agd", "/categories"),
     bottomText: "6",
-    topText: "AGD",
+    title: "AGD",
     link: "categories/agd",
   },
   {
-    imageName: nameToPublicLink("electronics", "/categories"),
+    image: nameToPublicLink("electronics", "/categories"),
     bottomText: "16",
-    topText: "Electronics",
+    title: "Electronics",
     link: "categories/electronics",
   },
   {
-    imageName: nameToPublicLink("clothing", "/categories"),
+    image: nameToPublicLink("clothing", "/categories"),
     bottomText: "16",
-    topText: "Clothing",
+    title: "Clothing",
     link: "categories/clothing",
   },
   {
-    imageName: nameToPublicLink("clothing", "/categories"),
+    image: nameToPublicLink("clothing", "/categories"),
     bottomText: "16",
-    topText: "Clothing",
+    title: "Clothing",
     link: "categories/clothing",
   },
   {
-    imageName: nameToPublicLink("clothing", "/categories"),
+    image: nameToPublicLink("clothing", "/categories"),
     bottomText: "16",
-    topText: "Clothing",
+    title: "Clothing",
     link: "categories/clothing",
   },
   {
-    imageName: nameToPublicLink("clothing", "/categories"),
+    image: nameToPublicLink("clothing", "/categories"),
     bottomText: "16",
-    topText: "Clothing",
+    title: "Clothing",
     link: "categories/clothing",
   },
 ];
 
-
 const CategoryPage = () => {
   return (
     <Wrap>
-      <MyBreadcrumbs />
       <MyText fontSize="2rem" element="h3">
         Categories{" "}
         <MyText element="span" fontSize="0.85em" presetColor="grey">
           ({categories.length})
         </MyText>
       </MyText>
-      <Categories  data={categories}/>
+      <Categories data={categories} />
     </Wrap>
   );
 };

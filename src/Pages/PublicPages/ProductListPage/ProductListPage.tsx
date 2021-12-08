@@ -7,7 +7,9 @@ import deep from "deep-equal";
 import ProductListList from "./ProductListList/ProductListList";
 import { Filter, filterOptions, items } from "./tmpConst";
 import styled from "styled-components";
-import PageCenterWrap from "../../../components/containers/PageCenterWrap";
+import PageCenterWrap, {
+  PageCenterWrapWithBread,
+} from "../../../components/containers/PageCenterWrap";
 type CategoryParams = {
   category: string;
 };
@@ -20,7 +22,7 @@ const filterToInitialState = (obj: Filter[]) => {
   return res;
 };
 
-const ContentWrap = styled(PageCenterWrap)`
+const Wrap = styled.div`
   width: 100%;
   display: flex;
   justify-content: flex-start;
@@ -32,15 +34,6 @@ const ContentWrap = styled(PageCenterWrap)`
   & > * {
   }
   padding-bottom: 3rem;
-`;
-
-const Wrap = styled(PageCenterWrap)`
-  display: flex;
-  width: 100%;
-  justify-content: flex-start;
-  flex-direction: column;
-  align-items: flex-start;
-  padding: 2rem;
 `;
 
 const ProductListPage = () => {
@@ -67,19 +60,18 @@ const ProductListPage = () => {
   }, []);
 
   return (
+    <PageCenterWrapWithBread>
     <Wrap>
-      <Breadcrumbs />
-      <ContentWrap>
-        <ProdcutListAside
-          categoryName={"Lodowki"}
-          categoryCount={items.length}
-          data={filterOptions}
-          dynamicValues={filterSettings}
-          formRef={onRefChange}
-        />
-        <ProductListList items={items} />
-      </ContentWrap>
+      <ProdcutListAside
+        categoryName={"Lodowki"}
+        categoryCount={items.length}
+        data={filterOptions}
+        dynamicValues={filterSettings}
+        formRef={onRefChange}
+      />
+      <ProductListList items={items} />
     </Wrap>
+    </PageCenterWrapWithBread>
   );
 };
 

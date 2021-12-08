@@ -30,6 +30,7 @@ import IncorrectPath from "./Pages/PublicPages/IncorrectPath/IncorrectPath";
 import HomeImages from "./Pages/ProtectedPages/HomeImages/HomeImages";
 import Snackbar from "./components/singleUse/Snackbar/Snackbar";
 import { UserContext } from "./context/UserContext";
+import PromotedCards from "./Pages/ProtectedPages/PromotedCards/PromotedCards";
 function App() {
   const location = useLocation();
   const { reset } = useContext(ElementContext);
@@ -98,6 +99,24 @@ function App() {
             exact
           />
           <RouteController
+            routeType="protected"
+            component={HomeImages}
+            path={PROTECTED_ROUTES.HOME_IMAGES}
+            exact
+          />
+               <RouteController
+            routeType="protected"
+            component={PromotedCards}
+            path={PROTECTED_ROUTES.PROMOTED_CARDS}
+            exact
+          />
+               <RouteController
+            routeType="protected"
+            component={HomeImages}
+            path={PROTECTED_ROUTES.HOME_IMAGES}
+            exact
+          />
+               <RouteController
             routeType="protected"
             component={HomeImages}
             path={PROTECTED_ROUTES.HOME_IMAGES}

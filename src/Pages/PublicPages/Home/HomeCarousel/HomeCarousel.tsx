@@ -28,6 +28,8 @@ const Wrapper = styled.div`
 `;
 const iamgeNames = ["beauty","christmas","computers","ikea","ship","toys"];
 const HomeCarousel = () => {
+
+  
   return (
     <Wrapper>
       <Carousel infiniteLoop={true} showStatus={false} showIndicators={false}>

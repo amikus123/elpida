@@ -11,8 +11,15 @@ export type ValidationTypes =
 //* used in Categoires object, to display card like objects
 
 export interface RowItem {
-  imageName: string;
+  image: string;
   link: string;
+}
+export interface ImageWithLink extends  RowItem  {
+  title: string;
+  id?:string;
+}
+export interface CardData  extends ImageWithLink{
+  bottomText?: string;
 }
 
 export interface RowContent {
@@ -26,25 +33,15 @@ export interface RowContent {
 }
 
 // * USED IN CARD COMPONENT
-export interface CardData {
-  topText: string;
-  imageName: string;
-  bottomText?: string;
-  link: string;
-}
+
+
+
 export interface Ad {
   signIn: boolean;
   addName: string;
 }
 export type CardArr = (Ad | CardData)[];
 
-
-export interface ImageWithLink {
-  link: string;
-  image: string;
-  title: string;
-  id:string;
-}
 // * FIREBASE TYPES
 
 

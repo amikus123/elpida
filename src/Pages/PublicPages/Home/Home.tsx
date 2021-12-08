@@ -16,26 +16,26 @@ const ContentWrap = styled.div`
 `;
 const firtsRow: CardArr = [
   {
-    topText: "AmazonBasics",
-    imageName: "amazonBasics",
+    title: "AmazonBasics",
+    image: "amazonBasics",
     bottomText: "See more",
     link: "/",
   },
   {
-    topText: "Easy Returns",
-    imageName: "easyReturns",
+    title: "Easy Returns",
+    image: "easyReturns",
     bottomText: "Learn more",
     link: "/",
   },
   {
-    topText: "Easy Returns",
-    imageName: "easyReturns",
+    title: "Easy Returns",
+    image: "easyReturns",
     bottomText: "Learn more",
     link: "/",
   },
   {
-    topText: "Easy Returns",
-    imageName: "easyReturns",
+    title: "Easy Returns",
+    image: "easyReturns",
     bottomText: "Learn more",
     link: "/",
   },
@@ -43,21 +43,21 @@ const firtsRow: CardArr = [
 
 const secondRow: CardArr = [
   {
-    topText: "AmazonBasics",
-    imageName: "amazonBasics",
+    title: "AmazonBasics",
+    image: "amazonBasics",
     bottomText: "See more",
     link: "/",
   },
   {
-    topText: "Easy Returns",
-    imageName: "easyReturns",
+    title: "Easy Returns",
+    image: "easyReturns",
     bottomText: "Learn more",
     link: "/",
   },
 
   {
-    topText: "Easy Returns",
-    imageName: "easyReturns",
+    title: "Easy Returns",
+    image: "easyReturns",
     bottomText: "Learn more",
     link: "/",
   },
@@ -70,10 +70,10 @@ const secondRow: CardArr = [
 
 const bestSellersProducts: RowItem[] = [
   {
-    imageName: "coffe",
+    image: "coffe",
     link: "#",
   },
-  { imageName: "jenga", link: "$" },
+  { image: "jenga", link: "$" },
 ];
 
 const bestSellersRowData: RowContent = {

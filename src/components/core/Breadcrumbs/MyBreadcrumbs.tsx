@@ -14,6 +14,11 @@ const Wrap = styled.div`
   justify-content: center;
   align-items: center;
 `;
+const InnerWrap = styled.div`
+  display: flex;
+  align-items: center;
+  font-size: 1.5rem;
+`;
 const MyBreadcrumbs = () => {
   let location = useLocation();
   const [pathObjects, setPathObjects] = useState<PathObject[]>([]);
@@ -42,17 +47,20 @@ const MyBreadcrumbs = () => {
     <Wrap>
       {pathObjects.map((item, index) => {
         return (
-          <>
-            {index !== 0 && index ? <ArrowRightAltIcon /> : null}
+          <InnerWrap>
+
+            {index !== 0 && index && item.name !== "" ? (
+              <ArrowRightAltIcon fontSize="inherit" />
+            ) : null}
             <MyText
               to={item.path}
               element="link"
               key={index}
               style={{ display: "inline" }}
             >
-              {item.name}
+              {item.name.replaceAll("_"," ")}
             </MyText>
-          </>
+          </InnerWrap>
         );
       })}
     </Wrap>

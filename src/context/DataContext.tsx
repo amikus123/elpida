@@ -6,7 +6,7 @@ import {
   getSelectedHomeImages,
 } from "../firebase/firestore/access";
 import { stateChangerGenerator } from "../firebase/firestore/write";
-import {  ImageWithLink } from "../types";
+import {  ImageWithLink,CardData } from "../types";
 import { setStateOrDisplayError } from "../utils/stateFunctions";
 import { ElementContext } from "./ElementContext";
   const x :DataToShow= {selectedHomeImages:[]}
@@ -19,13 +19,16 @@ export const DataContext = createContext({
   dataToShow:x,
 });
 
-export const DataProvider = ({ children }: { children: any }) => {
+export const DataProvider = ({ children }: { children: React.ReactNode }) => {
+  // data for ui element
   const [selectedLocation, setSelectedLocation] = useState("Austria");
   const [cartCount, setCartCount] = useState(0);
+  //* not all data from db 
   const [dataToShow,setDataToShow] = useState<DataToShow>({selectedHomeImages:[]})
   const [homeImagesToDisplay, setHomeImagesToDisplay] = useState<ImageWithLink[]>(
     []
   );
+
   const { setSnackbarWithResposne } = useContext(ElementContext);
   
 
@@ -38,6 +41,7 @@ export const DataProvider = ({ children }: { children: any }) => {
       const { selectedHomeImages } = websiteData.res;
       const a = await getSelectedHomeImages(selectedHomeImages);
       setStateOrDisplayError(a, setHomeImagesToDisplay,setSnackbarWithResposne);
+      console.log(websiteData.res,"RES")
     } else {
       // show snackabr
     }

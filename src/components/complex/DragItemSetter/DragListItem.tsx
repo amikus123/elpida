@@ -13,7 +13,6 @@ function DragListItem({ image, index, handleToggle }: DragListItemProps) {
   return (
     <Draggable draggableId={image.dragId} index={index}>
       {(provided) => (
-        // image etc
         <ImageElement
           handleToggle={handleToggle}
           imageData={image}

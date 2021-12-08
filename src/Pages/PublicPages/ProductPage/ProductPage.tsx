@@ -4,7 +4,7 @@ import deep from "deep-equal";
 
 import styled from "styled-components";
 import { Breadcrumbs } from "@mui/material";
-import PageCenterWrap from "../../../components/containers/PageCenterWrap";
+import PageCenterWrap, { PageCenterWrapWithBread } from "../../../components/containers/PageCenterWrap";
 type CategoryParams = {
   category: string;
 };
@@ -25,14 +25,7 @@ const ContentWrap = styled(PageCenterWrap)`
   padding-bottom: 3rem;
 `;
 
-const Wrap = styled(PageCenterWrap)`
-  display: flex;
-  width: 100%;
-  justify-content: flex-start;
-  flex-direction: column;
-  align-items: flex-start;
-  padding: 2rem;
-`;
+
 
 const ProductListPage = () => {
   const { category } = useParams<CategoryParams>();
@@ -42,12 +35,12 @@ const ProductListPage = () => {
   // form will be based on type od object, fetched from db
 
   return (
-    <Wrap>
+    <PageCenterWrapWithBread>
       <Breadcrumbs />
       <ContentWrap>
      "XD"
       </ContentWrap>
-    </Wrap>
+    </PageCenterWrapWithBread>
   );
 };
 
