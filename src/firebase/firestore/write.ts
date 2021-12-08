@@ -1,4 +1,4 @@
-import { doc, DocumentData, setDoc } from "firebase/firestore";
+import { doc, setDoc } from "firebase/firestore";
 import { uploadBytes, ref } from "firebase/storage";
 import { SnackbarTexts } from "../../constans/snackbar";
 import { BaseResposne, TextMixedResposne } from "../../types";

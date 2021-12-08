@@ -1,16 +1,12 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
-import { nameToPublicLink } from "../../../../utils/imageFunctions";
 
-interface CarouselProps {
-  imageName: string;
-  extraPath: string;
-}
-
-const Wrapper = styled.div`
+const Wrapper = styled(Link)`
   max-width: 1500px;
   height: 250px;
   position: relative;
+  display:block;
 `;
 
 const Img = styled.img`
@@ -18,10 +14,15 @@ const Img = styled.img`
   top: 0;
   left: 0;
 `;
-const CarouselItem = ({ imageName, extraPath }: CarouselProps) => {
+interface CarouselProps {
+  image: string;
+  link: string;
+  alt: string;
+}
+const CarouselItem = ({ image, link, alt }: CarouselProps) => {
   return (
-    <Wrapper>
-      <Img src={nameToPublicLink(imageName, extraPath)} alt={imageName} />
+    <Wrapper to={link} >
+      <Img src={image} alt={alt} />
     </Wrapper>
   );
 };

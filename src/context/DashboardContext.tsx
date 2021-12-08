@@ -46,8 +46,10 @@ export const DashboardContext = createContext({
 
 export const DashboardProvider = ({ children }: { children: React.ReactNode }) => {
   const { setSnackbarWithResposne } = useContext(ElementContext);
+  // sued to display dashaborad UI
   const [categories, setCategories] = useState<CardData[]>(baseState);
   const [homeImages, setHomeImages] = useState<ImageWithLink[]>([]);
+
   const fetchDashboardCategoryImages = async () => {
     const response = await getDashboardCategoryImages();
     // upadting the urls
@@ -58,6 +60,7 @@ export const DashboardProvider = ({ children }: { children: React.ReactNode }) =
     });
     setCategories(copy);
   };
+  
   const getAllImages = async () => {
     const res = await getAllHomeImages()
     if(res){

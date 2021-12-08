@@ -1,7 +1,8 @@
-import React from "react";
+import React,{useContext} from "react";
 import styled from "styled-components";
 import { Carousel } from "react-responsive-carousel";
 import CarouselItem from "./CarouselItem";
+import { DataContext } from "../../../../context/DataContext";
 
 const Wrapper = styled.div`
   max-width: 1500px;
@@ -26,15 +27,14 @@ const Wrapper = styled.div`
     overflow: visible !important;
   }
 `;
-const iamgeNames = ["beauty","christmas","computers","ikea","ship","toys"];
 const HomeCarousel = () => {
-
-  
+    const {objectsToDisplay} = useContext(DataContext)
+  // there i should access the data
   return (
     <Wrapper>
       <Carousel infiniteLoop={true} showStatus={false} showIndicators={false}>
-        {iamgeNames.map((item, index) => {
-          return <CarouselItem key={index} imageName={item} extraPath="homeCarousel/" />;
+        {objectsToDisplay.homeImages.map((item, index) => {
+          return <CarouselItem key={index} image={item.image} link={item.link} alt={item.link} />;
         })}
       </Carousel>
     </Wrapper>

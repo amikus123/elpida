@@ -32,7 +32,7 @@ export const formikDashboardData:FormikDataWrap = {
       },
     ],
     handleSubmit:async (values) => {
-      return await uploadFromForm(values, FirestorePaths.homeImages);
+      return await uploadFromForm({...values}, FirestorePaths.homeImages);
   },
   submitButtonText:"Add Home Image",
 
@@ -64,7 +64,7 @@ promotedCards:{
     },
   ],
   handleSubmit:async (values) => {
-    return await uploadFromForm({...values,group:1}, FirestorePaths.promotedCards);
+    return await uploadFromForm({...values,group:1,}, FirestorePaths.promotedCards);
 },
 submitButtonText:"Add Home Image",
 
