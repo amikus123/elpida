@@ -2,7 +2,7 @@ import { createContext,  useState,useEffect, useContext } from "react";
 import { DASHBOARD_ROUTES } from "../constans/routes";
 import { convertFilePathsToImages, getAllHomeImages } from "../firebase/firestore/access";
 import { getDashboardCategoryImages } from "../firebase/storage/access";
-import { CardData, ImageWithLink } from "../types";
+import { CardData, ImageWithLink } from "../constans/types";
 import { setStateOrDisplayError } from "../utils/stateFunctions";
 import { ElementContext } from "./ElementContext";
 

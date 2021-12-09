@@ -19,10 +19,9 @@ const Wrap = styled.div`
   }
 `;
 const HomeImages = () => {
-  const { homeImages } = useContext(DashboardContext);
-  const { dataToShow, updateSelectedImagesList } = useContext(DataContext);
   const {inputs,handleSubmit,submitButtonText} = formikDashboardData.promotedCards
-  // 
+  const { objectsToDisplay } = useContext(DataContext);
+
   return (
     <PageCenterWrapWithBread>
       <Wrap>
@@ -38,7 +37,7 @@ const HomeImages = () => {
         <MyText fontSize="2rem" boldness="bold">
           Change home image order, or toggle visibility
         </MyText>
-        <Test/>
+        <Test data={objectsToDisplay.cardGroups}/>
 
       </Wrap>
     </PageCenterWrapWithBread>

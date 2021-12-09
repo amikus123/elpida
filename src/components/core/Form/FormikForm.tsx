@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import { Field, Form, Formik, useFormik } from "formik";
 import * as Yup from "yup";
 import FormikInput, { FormikInputTypes } from "../Inputs/FormikInput";
-import { BaseResposne, ValidationTypes } from "../../../types";
+import { BaseResposne, ValidationTypes } from "../../../constans/types";
 import Spinner from "../Loading/Spinner";
 import styled from "styled-components";
 import PlainButton from "../Buttons/PlainButton";

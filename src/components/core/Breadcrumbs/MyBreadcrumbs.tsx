@@ -39,7 +39,7 @@ const MyBreadcrumbs = () => {
       });
       return pathObjects;
     };
-
+    
     setPathObjects(getFomratedPath());
   }, [location]);
 
@@ -47,7 +47,7 @@ const MyBreadcrumbs = () => {
     <Wrap>
       {pathObjects.map((item, index) => {
         return (
-          <InnerWrap>
+          <InnerWrap key={index}>
 
             {index !== 0 && index && item.name !== "" ? (
               <ArrowRightAltIcon fontSize="inherit" />

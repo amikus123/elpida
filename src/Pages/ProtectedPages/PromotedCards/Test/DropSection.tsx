@@ -1,5 +1,6 @@
 import React from "react";
 import { Droppable } from "react-beautiful-dnd";
+import { CardData } from "../../../../constans/types";
 import DraggableItem from "./DraggableItem";
 
 
@@ -11,12 +12,9 @@ const getListStyle = (isDraggingOver: boolean) => ({
 
 interface DropSectionProps{
   index:number,
-  el: {
-    id: string;
-    content: string;
-}[]
+  cards:CardData[]
 }
-const DropSection = ({index,el}:DropSectionProps) => {
+const DropSection = ({index,cards}:DropSectionProps) => {
   return (
     <Droppable droppableId={`${index}`}>
       {(provided, snapshot) => (
@@ -25,8 +23,8 @@ const DropSection = ({index,el}:DropSectionProps) => {
           style={getListStyle(snapshot.isDraggingOver)}
           {...provided.droppableProps}
         >
-          {el.map((item, index) => (
-            <DraggableItem key={index}  item={item} index={index}/>
+          {cards.map((card, index) => (
+            <DraggableItem key={index}  card={card} index={index}/>
           ))}
           {provided.placeholder}
         </div>

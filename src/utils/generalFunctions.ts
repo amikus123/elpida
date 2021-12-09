@@ -1,4 +1,4 @@
-import { BaseResposne } from "../types";
+import { BaseResposne } from "../constans/types";
 
 // * used in contenxt to simulate type, this is nevet called in actual code
 export const createPromise = async (): Promise<BaseResposne> => {

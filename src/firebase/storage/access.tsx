@@ -1,6 +1,6 @@
 import { getDownloadURL,ref } from "firebase/storage";
 import { SnackbarTexts } from "../../constans/snackbar";
-import { BaseResposne } from "../../types";
+import { BaseResposne } from "../../constans/types";
 import { myStorage } from "../main";
 
 
@@ -12,8 +12,10 @@ interface DashboardHomeImagesResponse extends BaseResposne{
 
 export const getUrlsForLinks =async (fileNames:string[],prefix:string)=>{
   const fetching = fileNames.map((fileName) => {
+    if(fileName ===""){
+      return ""
+    }
     const fileLocation = prefix+fileName
-    console.log(fileLocation,"ffile")
     return getDownloadURL(ref(myStorage, fileLocation));
   });
   return  await Promise.all(fetching)

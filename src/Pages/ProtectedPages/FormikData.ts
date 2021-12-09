@@ -1,8 +1,8 @@
 import * as Yup from "yup";
 import { InputData } from "../../components/core/Form/FormikForm";
-import { FirestorePaths } from "../../firebase/consts";
+import { FirestorePaths } from "../../constans/consts";
 import { uploadFromForm } from "../../firebase/firestore/write";
-import { BaseResposne } from "../../types";
+import { BaseResposne } from "../../constans/types";
 
 interface FormikData {
   inputs:InputData[],
@@ -64,7 +64,7 @@ promotedCards:{
     },
   ],
   handleSubmit:async (values) => {
-    return await uploadFromForm({...values,group:1,}, FirestorePaths.promotedCards);
+    return await uploadFromForm({...values}, FirestorePaths.promotedCards + "/0/cards/");
 },
 submitButtonText:"Add Home Image",
 

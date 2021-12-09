@@ -1,20 +1,41 @@
 import { getDocs, doc, collection, getDoc } from "@firebase/firestore";
 import { SnackbarTexts } from "../../constans/snackbar";
-import { BaseResposne, HomeImagesResponse, ImageWithLink } from "../../types";
-import { DataToShow, FirestorePathObject, FirestorePaths, specificFirebasePaths } from "../consts";
+import {
+  BaseResposne,
+  CardData,
+  CardDataResponse,
+  HomeImagesResponse,
+  ImageWithLink,
+} from "../../constans/types";
+import {
+  DataToShow,
+  FirestorePathObject,
+  FirestorePaths,
+  specificFirebasePaths,
+} from "../../constans/consts";
 import { myDb } from "../main";
 import { getUrlsForLinks } from "../storage/access";
 
-
-
-
 export const getAllHomeImages = async (): Promise<HomeImagesResponse> => {
-  const x = await getAllDocs(
-    FirestorePaths.homeImages
-  ) as HomeImagesResponse 
-  console.log(x,"getAllHomeImages")
-  return x 
-}
+  const x = (await getAllDocs(FirestorePaths.homeImages)) as HomeImagesResponse;
+  // console.log(x, "getAllHomeImages");
+  return x;
+};
+
+// ! FUNCTION TO GET ALL  SUBN COLLECTIONS
+
+
+export const getAllCardGroupes = async (): Promise<CardData[][]> => {
+
+  const arr :CardData[][] = []
+  for(let i=0;i<5;i++){
+    const res= await getAllDocs(`cardGroupes/${i}/cards/`) as CardDataResponse
+    arr.push(res.res)
+  }
+
+  
+  return arr;
+};
 // get initialData =
 
 export const getWebisteData = async (): Promise<
@@ -28,29 +49,27 @@ export const getWebisteData = async (): Promise<
 export const getSelectedHomeImages = async (
   names: string[]
 ): Promise<BaseResposne & { res: ImageWithLink[] }> => {
-  console.log(names,"n,mx")
   return (await getMultipleDocs(
     FirestorePaths.homeImages,
     names
   )) as BaseResposne & { res: ImageWithLink[] };
 };
 
-
-
-interface ObjectWithImage{
-  image:string
+interface ObjectWithImage {
+  image: string;
 }
-export const convertFilePathsToImages =async (objectWithFiles:ObjectWithImage[],location:string="")=>{
-  
-  const fileNames = objectWithFiles.map(item=>item.image)
-  console.log(objectWithFiles,fileNames,location,"CONVER")
-  const links = await getUrlsForLinks(fileNames,location)
-  for(const i in objectWithFiles){
-    objectWithFiles[i].image = links[i]
+// this function accepts any object with linkt to starage, and return thah object but with actual path to db
+export const convertFilePathsToImages = async (
+  objectWithFiles: ObjectWithImage[],
+  location: string = ""
+) => {
+  const fileNames = objectWithFiles.map((item) => item.image);
+  const links = await getUrlsForLinks(fileNames, location);
+  for (const i in objectWithFiles) {
+    objectWithFiles[i].image = links[i];
   }
-  return  objectWithFiles
-
-}
+  return objectWithFiles;
+};
 
 export const getMultipleDocs = async (
   collection: string,
@@ -58,7 +77,6 @@ export const getMultipleDocs = async (
 ): Promise<unknown> => {
   try {
     let res: any = [];
-    console.log("XDD",documentNames);
     const fetching = documentNames.map((name) => {
       return getSingleDoc(collection, name);
     });
@@ -98,7 +116,6 @@ export const getSingleDoc = async (
     const docRef = doc(myDb, collection, documentName);
 
     const docSnap = await getDoc(docRef);
-    console.log(docSnap.data(),"DOCK",documentName,collection)
     return {
       res: docSnap.data(),
       error: false,
@@ -123,7 +140,6 @@ export const getAllDocs = async (
       const docData = doc.data() as ImageWithLink;
       result.push(docData);
     });
-    console.log(result,"res")
     return {
       res: result,
       error: false,

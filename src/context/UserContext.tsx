@@ -7,7 +7,7 @@ import {
 
 import { createContext, useState, useEffect } from "react";
 import { myAuth } from "../firebase/main";
-import { BaseResposne } from "../types";
+import { BaseResposne } from "../constans/types";
 import { createPromise } from "../utils/generalFunctions";
 
 // we either have to preserve any, or add interface for context

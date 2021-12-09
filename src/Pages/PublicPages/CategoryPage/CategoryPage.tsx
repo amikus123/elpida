@@ -6,7 +6,7 @@ import PageCenterWrap, {
   PageCenterWrapWithBread,
 } from "../../../components/containers/PageCenterWrap";
 import MyBreadcrumbs from "../../../components/core/Breadcrumbs/MyBreadcrumbs";
-import { CardData } from "../../../types";
+import { CardData } from "../../../constans/types";
 import { nameToPublicLink } from "../../../utils/imageFunctions";
 const Wrap = styled(PageCenterWrapWithBread)`
   width: 100%;

@@ -57,6 +57,14 @@ export interface TextResposne extends BaseResposne{
 export interface HomeImagesResponse extends BaseResposne {
   res: ImageWithLink[];
 }
+export interface CardDataResponse extends BaseResposne {
+  res: CardData[];
+}
+export interface CardDataResponsePlural extends BaseResposne {
+  res: CardData[][];
+}
+
+
 export interface TextArrResposne extends BaseResposne{
   res:string[]
 }

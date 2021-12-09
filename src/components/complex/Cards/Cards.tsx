@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { CardArr } from "../../../types";
+import { CardArr } from "../../../constans/types";
 import CardAd from "./CardTypes/CardAd";
 import HomeCard from "./CardTypes/HomeCard";
 

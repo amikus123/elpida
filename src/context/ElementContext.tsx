@@ -4,7 +4,7 @@ import {
   POSSIBLE_MODAL_COLORS,
   SnackbarType,
 } from "../constans/snackbar";
-import { BaseResposne } from "../types";
+import { BaseResposne } from "../constans/types";
 
 export type ModalOptions = "location" | "none";
 const placeholderSnackbarValues: SnackbarType = {

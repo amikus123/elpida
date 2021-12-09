@@ -1,10 +1,10 @@
-import { doc, setDoc } from "firebase/firestore";
+import { doc, setDoc,deleteDoc } from "firebase/firestore";
 import { uploadBytes, ref } from "firebase/storage";
 import { SnackbarTexts } from "../../constans/snackbar";
-import { BaseResposne, TextMixedResposne } from "../../types";
+import { BaseResposne, CardData, TextMixedResposne } from "../../constans/types";
 import { myDb, myStorage } from "../main";
 import { v4 as uuidv4 } from "uuid";
-import { FirestorePathObject } from "../consts";
+import { FirestorePathObject } from "../../constans/consts";
 
 // function that uploads
 type BaseTypes = string | number | any[] | Record<string, any>;
@@ -15,8 +15,46 @@ type FormData = Record<string, PossibleTypes>;
 // key is name of attribute
 
 // genereates function, which updates state and db values
+
+export const updateCardGroupes = async (newData: CardData[][],oldData:CardData[][]) => {
+  const res = await resetCardGroupes(oldData)
+if(res){
+  console.log(res,"XDD")
+
+  for (const i in newData) {
+    // go voer 4 collections
+    updateDoc({},`cardGroupes/${i}`)
+    const item = newData[i]
+    const path = `cardGroupes/${i}/cards`
+    for (const x of item){
+        updateDoc(x,path+`/${x.id}`,false)
+    }
+  }
+}
+
+};
+
+export const resetCardGroupes = async (data: CardData[][]) => {
+  const promises :any[]= []
+  for (const i in data) {
+    // go voer 4 collections
+    updateDoc({},`cardGroupes/${i}`)
+    const item = data[i]
+    const path = `cardGroupes/${i}/cards`
+    for (const x of item){ 
+        const s = `${path}/${x.id}`
+        console.log(s)
+        const res = await deleteDoc(doc(myDb, s ));
+        promises.push(res)
+
+    }
+
+  }
+  return Promise.all(promises)
+};
 export function stateChangerGenerator<T>(
-  setState: React.Dispatch<React.SetStateAction<T>>, path: FirestorePathObject
+  setState: React.Dispatch<React.SetStateAction<T>>,
+  path: FirestorePathObject
 ) {
   const x = async (val: T) => {
     setState(val);
@@ -24,15 +62,19 @@ export function stateChangerGenerator<T>(
   };
   return x;
 }
-export const updateDoc = async (
-  value: any,
-  path: FirestorePathObject
-) => {
+export const updateDoc = async (value: any, path: FirestorePathObject | string,merge=false) => {
   try {
-    const documentName = path.doc;
-    const collection = path.col;
-    const itemRef = doc(myDb, documentName, collection);
-    await setDoc(itemRef, value, { merge: false });
+    let itemRef
+    if(typeof path === "string"){
+      itemRef = doc(myDb, path);
+
+    }else{
+      const documentName = path.doc;
+      const collection = path.col;
+      itemRef = doc(myDb, documentName, collection);
+    }
+
+    await setDoc(itemRef, value, { merge });
     return {
       error: false,
       text: SnackbarTexts.succesfulDbAddition,
@@ -53,10 +95,11 @@ export const uploadFromForm = async (
 ): Promise<BaseResposne> => {
   //* genereate random ID
   const dbId = uuidv4();
-  const itemRef = doc(myDb, path, dbId);
+  const itemRef = doc(myDb, path + dbId);
+
   console.log(data, "DATA");
   try {
-    const firebaseEntry: FirestoreEntry = {id:dbId};
+    const firebaseEntry: FirestoreEntry = { id: dbId };
     // we should add png while uploading
     const keys = Object.keys(data);
     const filePath = imageLocation + "/" + dbId + ".png";

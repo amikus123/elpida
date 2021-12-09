@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import styled from "styled-components";
 import CardWrap from '../Cards/CardTypes/CardWrap.';
 import MyText from '../../../components/core/Text/MyText';
-import { CardData } from '../../../types';
+import { CardData } from '../../../constans/types';
 
 const Wrap = styled.div`
   width: 100%;

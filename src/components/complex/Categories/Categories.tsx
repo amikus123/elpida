@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { CardData } from "../../../types";
+import { CardData } from "../../../constans/types";
 import CategoryItem from "./CategoryItem";
 
 const Wrap = styled.div`

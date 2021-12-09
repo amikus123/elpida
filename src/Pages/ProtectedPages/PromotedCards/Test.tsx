@@ -1,15 +1,12 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   DragDropContext,
 } from "react-beautiful-dnd";
+import { CardData } from "../../../constans/types";
+import { updateCardGroupes } from "../../../firebase/firestore/write";
 import DropSection from "./Test/DropSection";
 
-// fake data generator
-const getItems = (count: number, offset = 0) =>
-  Array.from({ length: count }, (v, k) => k).map((k) => ({
-    id: `item-${k + offset}}`,
-    content: `item ${k + offset}`,
-  }));
+
 
 const reorder = (
   list: Iterable<any> | ArrayLike<any>,
@@ -46,9 +43,15 @@ const move = (
 };
 
 
-
-export function Test() {
-  const [state, setState] = useState([getItems(10), getItems(5, 10),getItems(5, 110)]);
+interface TestInterface{
+  data : CardData[][]
+}
+export function Test({data}:TestInterface) {
+  // const [state, setState] = useState([getItems(10), getItems(5, 10)]);
+  const [state, setState] = useState< CardData[][]>(data);
+  useEffect(()=>{
+    setState(data)
+  },[data])
   function onDragEnd(result: any) {
     // { source: any; destination: any; }
     const { source, destination } = result;
@@ -56,40 +59,35 @@ export function Test() {
     if (!destination) {
       return;
     }
-    const sInd = +source.droppableId;
-    const dInd = +destination.droppableId;
-
-    if (sInd === dInd) {
-      const items = reorder(state[sInd], source.index, destination.index);
+    const sourceIndex = +source.droppableId;
+    const dropIndex = +destination.droppableId;
+    // it dropped item in the same group
+    if (sourceIndex === dropIndex) {
+      const items = reorder(state[sourceIndex], source.index, destination.index);
       const newState = [...state];
-      newState[sInd] = items;
+      newState[sourceIndex] = items;
       setState(newState);
     } else {
-      const result = move(state[sInd], state[dInd], source, destination);
+      // dropped item in other group
+      const result = move(state[sourceIndex], state[dropIndex], source, destination);
       const newState = [...state];
-      newState[sInd] = result[sInd];
-      newState[dInd] = result[dInd];
-
-      setState(newState.filter((group) => group.length));
+      console.log(result,newState)
+      newState[sourceIndex] = result[sourceIndex];
+      newState[dropIndex] = result[dropIndex];
+      // ! add fuctnion to change data in db
+      updateCardGroupes(newState,state)
+      setState(newState);
     }
   }
+
 
   return (
     <div>
       {JSON.stringify(state)}
-      <button
-        type="button"
-        onClick={() => {
-          setState([...state, []]);
-        }}
-      >
-        Add new group
-      </button>
-
       <div style={{ display: "flex" }}>
         <DragDropContext onDragEnd={onDragEnd}>
-          {state.map((el, index) => (
-           <DropSection key={index} el={el} index={index}/>
+          {state.map((cards, index) => (
+           <DropSection key={index} cards={cards} index={index}/>
           ))}
         </DragDropContext>
       </div>

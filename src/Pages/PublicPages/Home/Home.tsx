@@ -3,7 +3,7 @@ import styled from "styled-components";
 import Cards from "../../../components/complex/Cards/Cards";
 import ItemRow from "../../../components/complex/ItemRow/ItemRow";
 import PageCenterWrap from "../../../components/containers/PageCenterWrap";
-import { RowItem, RowContent, CardArr } from "../../../types";
+import { RowItem, RowContent, CardArr } from "../../../constans/types";
 import HomeCarousel from "./HomeCarousel/HomeCarousel";
 
 const ContentWrap = styled.div`

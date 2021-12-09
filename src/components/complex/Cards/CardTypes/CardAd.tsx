@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { Ad } from "../../../../types";
+import { Ad } from "../../../../constans/types";
 import { nameToPublicLink } from "../../../../utils/imageFunctions";
 import SignIn from "../../../core/Sigin/SignIn";
 import CardWrap from "./CardWrap.";

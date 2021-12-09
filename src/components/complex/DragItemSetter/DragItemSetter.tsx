@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { DragDropContext, Droppable } from "react-beautiful-dnd";
-import { ImageWithLink } from "../../../types";
+import { ImageWithLink } from "../../../constans/types";
 import DragList from "./DragList";
 
 export type DraggableData = ImageWithLink & { dragId: string; show: boolean };

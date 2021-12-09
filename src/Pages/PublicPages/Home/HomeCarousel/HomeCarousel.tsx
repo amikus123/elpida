@@ -1,4 +1,4 @@
-import React,{useContext} from "react";
+import React, { useContext } from "react";
 import styled from "styled-components";
 import { Carousel } from "react-responsive-carousel";
 import CarouselItem from "./CarouselItem";
@@ -10,31 +10,35 @@ const Wrapper = styled.div`
   margin: 0 auto;
   overflow-x: hidden;
   overflow-y: visible;
-  height:600px;
+  height: 600px;
   position: absolute;
-  top:0;
-  left:50%;
+  top: 0;
+  left: 50%;
   transform: translateX(-50%);
-  /* overflow: hidden; */ 
-
-  -ms-overflow-style: none;  /* IE and Edge */
-  scrollbar-width: none;  /* Firefox */
-  &::-webkit-scrollbar{
+  /* overflow: hidden; */
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+  &::-webkit-scrollbar {
     display: none;
-
   }
   & * {
     overflow: visible !important;
   }
 `;
 const HomeCarousel = () => {
-    const {objectsToDisplay} = useContext(DataContext)
-  // there i should access the data
+  const { objectsToDisplay } = useContext(DataContext);
   return (
     <Wrapper>
       <Carousel infiniteLoop={true} showStatus={false} showIndicators={false}>
         {objectsToDisplay.homeImages.map((item, index) => {
-          return <CarouselItem key={index} image={item.image} link={item.link} alt={item.link} />;
+          return (
+            <CarouselItem
+              key={index}
+              image={item.image}
+              link={item.link}
+              alt={item.link}
+            />
+          );
         })}
       </Carousel>
     </Wrapper>

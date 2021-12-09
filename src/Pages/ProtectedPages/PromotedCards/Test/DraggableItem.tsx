@@ -2,6 +2,7 @@ import React from 'react'
 import {
   Draggable,
 } from "react-beautiful-dnd";
+import { CardData } from '../../../../constans/types';
 
 const getItemStyle = (isDragging: any, draggableStyle: any) => {
   return {
@@ -18,16 +19,13 @@ const getItemStyle = (isDragging: any, draggableStyle: any) => {
   };
 };
 interface DraggableItemProps{
-item:{
-  id: string;
-  content: string;
-},
+card:CardData,
 index:number,
 }
-const DraggableItem = ({item,index}:DraggableItemProps) => {
+const DraggableItem = ({card,index}:DraggableItemProps) => {
   return (
     <Draggable
-    draggableId={item.id}
+    draggableId={card.id}
     index={index}
   >
 
@@ -47,7 +45,7 @@ const DraggableItem = ({item,index}:DraggableItemProps) => {
             justifyContent: "space-around",
           }}
         >
-          {item.content}
+          xxxx
         </div>
       </div>
     )}

@@ -5,7 +5,7 @@ import styled from "styled-components";
 import Slider from "react-slick";
 import Arrow from "../../../Pages/PublicPages/Home/HomeCarousel/Arrow";
 import { nameToPublicLink } from "../../../utils/imageFunctions";
-import { RowItem } from "../../../types";
+import { RowItem } from "../../../constans/types";
 
 // Import css files
 
