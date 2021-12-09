@@ -1,10 +1,15 @@
-import { doc, setDoc,deleteDoc } from "firebase/firestore";
+import { doc, setDoc, deleteDoc } from "firebase/firestore";
 import { uploadBytes, ref } from "firebase/storage";
 import { SnackbarTexts } from "../../constans/snackbar";
-import { BaseResposne, CardData, TextMixedResposne } from "../../constans/types";
+import {
+  BaseResposne,
+  CardData,
+  TextMixedResposne,
+} from "../../constans/types";
 import { myDb, myStorage } from "../main";
 import { v4 as uuidv4 } from "uuid";
 import { FirestorePathObject } from "../../constans/consts";
+import { getAllCardGroupes } from "./access";
 
 // function that uploads
 type BaseTypes = string | number | any[] | Record<string, any>;
@@ -16,42 +21,77 @@ type FormData = Record<string, PossibleTypes>;
 
 // genereates function, which updates state and db values
 
-export const updateCardGroupes = async (newData: CardData[][],oldData:CardData[][]) => {
-  const res = await resetCardGroupes(oldData)
-if(res){
-  console.log(res,"XDD")
+// export const updateCards = async (value: any, old: any) => {
+//   try {
+//     console.log(old)
+//     await updateDoc(
+//       { ...old, 0: [...old[0], value] },
+//       "promotedCards/promotedCards"
+//     );
 
-  for (const i in newData) {
-    // go voer 4 collections
-    updateDoc({},`cardGroupes/${i}`)
-    const item = newData[i]
-    const path = `cardGroupes/${i}/cards`
-    for (const x of item){
-        updateDoc(x,path+`/${x.id}`,false)
+//     return {
+//       error: false,
+//       text: SnackbarTexts.succesfulDbAddition,
+//     };
+//   } catch (e: any) {
+//     console.error(e);
+//     return {
+//       error: true,
+//       text: SnackbarTexts.unsuccesfulDbAddition + e.code,
+//     };
+//   }
+// };
+
+export const updateCards = async (
+  data: FormData,
+  old: any,
+): Promise<BaseResposne> => {
+  //* genereate random ID
+  const dbId = uuidv4();
+  const  path = "promotedCards/promotedCards"
+
+  console.log(data, "DATA");
+  try {
+    const firebaseEntry: FirestoreEntry = { id: dbId };
+    const xd = await getAllCardGroupes()
+    console.log(xd,"WESZLO")
+    // we should add png while uploading
+    const keys = Object.keys(data);
+    const filePath = path + "/" + dbId + ".png";
+    for (const key of keys) {
+      console.log(key);
+      let obj = data[key];
+      if (
+        obj instanceof File ||
+        (obj instanceof Array && obj[0] instanceof File)
+      ) {
+        const res = await handleImageUpload(obj, filePath);
+        firebaseEntry[key] = res.res;
+      } else {
+        firebaseEntry[key] = obj;
+      }
     }
-  }
-}
+    // generated dunctions updtates statre
+    console.log(old, "WTD")
+    await updateDoc(
+      { ...xd, 0: [...xd[0], firebaseEntry] },
+      path
+    );
 
+    return {
+      error: false,
+      text: SnackbarTexts.succesfulDbAddition,
+    };
+  } catch (e: any) {
+    console.error(e);
+    return {
+      error: true,
+      text: SnackbarTexts.unsuccesfulDbAddition + e.code,
+    };
+  }
 };
 
-export const resetCardGroupes = async (data: CardData[][]) => {
-  const promises :any[]= []
-  for (const i in data) {
-    // go voer 4 collections
-    updateDoc({},`cardGroupes/${i}`)
-    const item = data[i]
-    const path = `cardGroupes/${i}/cards`
-    for (const x of item){ 
-        const s = `${path}/${x.id}`
-        console.log(s)
-        const res = await deleteDoc(doc(myDb, s ));
-        promises.push(res)
 
-    }
-
-  }
-  return Promise.all(promises)
-};
 export function stateChangerGenerator<T>(
   setState: React.Dispatch<React.SetStateAction<T>>,
   path: FirestorePathObject
@@ -62,13 +102,16 @@ export function stateChangerGenerator<T>(
   };
   return x;
 }
-export const updateDoc = async (value: any, path: FirestorePathObject | string,merge=false) => {
+export const updateDoc = async (
+  value: any,
+  path: FirestorePathObject | string,
+  merge = false
+) => {
   try {
-    let itemRef
-    if(typeof path === "string"){
+    let itemRef;
+    if (typeof path === "string") {
       itemRef = doc(myDb, path);
-
-    }else{
+    } else {
       const documentName = path.doc;
       const collection = path.col;
       itemRef = doc(myDb, documentName, collection);
@@ -169,3 +212,16 @@ const handleImageUpload = async (
     };
   }
 };
+
+
+export const aa = async (value) =>{
+  const  path = "promotedCards/promotedCards"
+  const obj:any  = {}
+  for(const i in value){
+    obj[i] = value[i]
+  }
+  console.log(obj)
+  const itemRef =await doc(myDb, path);
+
+  setDoc(itemRef,obj)
+}

@@ -64,7 +64,7 @@ promotedCards:{
     },
   ],
   handleSubmit:async (values) => {
-    return await uploadFromForm({...values}, FirestorePaths.promotedCards + "/0/cards/");
+    return await uploadFromForm({...values},  "promotedCards/");
 },
 submitButtonText:"Add Home Image",
 

@@ -24,15 +24,17 @@ export const getAllHomeImages = async (): Promise<HomeImagesResponse> => {
 
 // ! FUNCTION TO GET ALL  SUBN COLLECTIONS
 
-
+// ! REWRTE YOUR MESS 
+// ! ADD BUTTON TO REFRESH ON FORM PAGES
+// ! A LOT OF THIS CAN BE SIMPLIEIREF
 export const getAllCardGroupes = async (): Promise<CardData[][]> => {
-
+  const doc :any = await getSingleDoc("promotedCards/promotedCards")
+  console.log(doc,"lul")
+  const res = doc.res
   const arr :CardData[][] = []
-  for(let i=0;i<5;i++){
-    const res= await getAllDocs(`cardGroupes/${i}/cards/`) as CardDataResponse
-    arr.push(res.res)
+  for(const key in Object.keys(res)){
+    arr.push(res[key])
   }
-
   
   return arr;
 };

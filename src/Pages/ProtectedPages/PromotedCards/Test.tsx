@@ -3,7 +3,7 @@ import {
   DragDropContext,
 } from "react-beautiful-dnd";
 import { CardData } from "../../../constans/types";
-import { updateCardGroupes } from "../../../firebase/firestore/write";
+import { aa } from "../../../firebase/firestore/write";
 import DropSection from "./Test/DropSection";
 
 
@@ -75,8 +75,8 @@ export function Test({data}:TestInterface) {
       newState[sourceIndex] = result[sourceIndex];
       newState[dropIndex] = result[dropIndex];
       // ! add fuctnion to change data in db
-      updateCardGroupes(newState,state)
       setState(newState);
+      aa(newState)
     }
   }
 
