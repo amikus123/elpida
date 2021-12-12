@@ -35,7 +35,7 @@ const HomeCard = ({ data }: CardProps) => {
         <MyText to={link} element="link">
           <Imgage
             alt={imageName}
-            src={nameToPublicLink(imageName, "homeCards")}
+            src={imageName}
           />
         </MyText>
       </div>

@@ -3,7 +3,6 @@ import { SnackbarTexts } from "../../constans/snackbar";
 import {
   BaseResposne,
   CardData,
-  CardDataResponse,
   HomeImagesResponse,
   ImageWithLink,
 } from "../../constans/types";
@@ -17,18 +16,17 @@ import { myDb } from "../main";
 import { getUrlsForLinks } from "../storage/access";
 
 export const getAllHomeImages = async (): Promise<HomeImagesResponse> => {
-  const x = (await getAllDocs(FirestorePaths.homeImages)) as HomeImagesResponse;
-  // console.log(x, "getAllHomeImages");
-  return x;
+  const x =  (await getAllDocs(FirestorePaths.homeImages)) as HomeImagesResponse;
+  return x 
 };
 
 // ! FUNCTION TO GET ALL  SUBN COLLECTIONS
-
 // ! REWRTE YOUR MESS 
 // ! ADD BUTTON TO REFRESH ON FORM PAGES
 // ! A LOT OF THIS CAN BE SIMPLIEIREF
+
 export const getAllCardGroupes = async (): Promise<CardData[][]> => {
-  const doc :any = await getSingleDoc("promotedCards/promotedCards")
+  const doc :any = await getSingleDoc(FirestorePaths.promotedCards)
   console.log(doc,"lul")
   const res = doc.res
   const arr :CardData[][] = []
@@ -56,6 +54,7 @@ export const getSelectedHomeImages = async (
     names
   )) as BaseResposne & { res: ImageWithLink[] };
 };
+
 
 interface ObjectWithImage {
   image: string;

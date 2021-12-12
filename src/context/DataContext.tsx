@@ -45,7 +45,7 @@ export const DataProvider = ({ children }: { children: React.ReactNode }) => {
   // * object fetch from db, ready to display
   const [objectsToDisplay, setObjectsToDisplay] = useState<X>({
     homeImages: [],
-    cardGroups: [],
+    cardGroups: [[],[],[],[]],
   });
 
 
@@ -90,11 +90,11 @@ export const DataProvider = ({ children }: { children: React.ReactNode }) => {
         homeImagesRaw
       )) as ImageWithLink[];
       const groupCardsRaw = await getAllCardGroupes();
-      const cardGroups: CardData[][] = groupCardsRaw;
-      // for (const x of groupCardsRaw) {
-      //   const res = (await convertFilePathsToImages(x)) as CardData[];
-      //   cardGroups.push(res);
-      // }
+      const cardGroups: CardData[][] = [];
+      for (const x of groupCardsRaw) {
+        const res = (await convertFilePathsToImages(x)) as CardData[];
+        cardGroups.push(res);
+      }
 
       console.log(groupCardsRaw, cardGroups,"fin");
       setObjectsToDisplay({ homeImages, cardGroups });

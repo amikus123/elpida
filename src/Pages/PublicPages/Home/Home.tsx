@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useContext } from "react";
 import styled from "styled-components";
 import Cards from "../../../components/complex/Cards/Cards";
 import ItemRow from "../../../components/complex/ItemRow/ItemRow";
 import PageCenterWrap from "../../../components/containers/PageCenterWrap";
 import { RowItem, RowContent, CardArr } from "../../../constans/types";
+import { DataContext } from "../../../context/DataContext";
 import HomeCarousel from "./HomeCarousel/HomeCarousel";
 
 const ContentWrap = styled.div`
@@ -84,13 +85,15 @@ const bestSellersRowData: RowContent = {
 };
 
 const Home = () => {
+  const {objectsToDisplay} = useContext(DataContext)
+
   return (
     <PageCenterWrap>
       <HomeCarousel />
       <ContentWrap>
-        <Cards data={firtsRow} />
+        <Cards data={objectsToDisplay.cardGroups[0]} />
         <ItemRow data={bestSellersRowData} />
-        <Cards data={secondRow} />
+        <Cards data={objectsToDisplay.cardGroups[1]} />
       </ContentWrap>
     </PageCenterWrap>
   );

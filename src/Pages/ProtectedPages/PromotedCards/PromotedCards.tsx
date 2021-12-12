@@ -1,12 +1,9 @@
 import React, { useContext } from "react";
 import styled from "styled-components";
-import { DashboardContext } from "../../../context/DashboardContext";
 import { DataContext } from "../../../context/DataContext";
 import MyText from "../../../components/core/Text/MyText";
 import { PageCenterWrapWithBread } from "../../../components/containers/PageCenterWrap";
-import FormikForm, {
-  InputData,
-} from "../../../components/core/Form/FormikForm";
+import FormikForm from "../../../components/core/Form/FormikForm";
 import { formikDashboardData } from "../FormikData";
 import { Test } from "./Test";
 
@@ -28,7 +25,7 @@ const HomeImages = () => {
     <PageCenterWrapWithBread>
       <Wrap>
         <MyText fontSize="2rem" boldness="bold">
-          Add new home image
+          Add new card
         </MyText>
         <FormikForm
           onSubmit={addNewCard}
@@ -36,7 +33,7 @@ const HomeImages = () => {
           submitButtonText={submitButtonText}
         />
         <MyText fontSize="2rem" boldness="bold">
-          Change home image order, or toggle visibility
+          Change card goups
         </MyText>
         <Test data={objectsToDisplay.cardGroups} />
       </Wrap>

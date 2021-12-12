@@ -8,8 +8,7 @@
 export enum FirestorePaths {
   homeImages = "/homeImages",
   dataToShow = "/dataToShow",
-  promotedCards = "/cardGroupes",
-  cardGroupes = "/cardGroupes",
+  promotedCards = "/promotedCards/promotedCards",
 
 }
 export enum StoragePaths {

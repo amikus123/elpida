@@ -83,7 +83,6 @@ export function Test({data}:TestInterface) {
 
   return (
     <div>
-      {JSON.stringify(state)}
       <div style={{ display: "flex" }}>
         <DragDropContext onDragEnd={onDragEnd}>
           {state.map((cards, index) => (

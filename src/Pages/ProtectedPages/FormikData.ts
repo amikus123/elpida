@@ -60,13 +60,13 @@ promotedCards:{
     {
       type: "file",
       id: "image",
-      label: "Home",
+      label: "Card image",
     },
   ],
   handleSubmit:async (values) => {
     return await uploadFromForm({...values},  "promotedCards/");
 },
-submitButtonText:"Add Home Image",
+submitButtonText:"Add card",
 
 }
 }
