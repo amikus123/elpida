@@ -4,7 +4,7 @@ import {
 } from "react-beautiful-dnd";
 import { CardData } from "../../../constans/types";
 import { aa } from "../../../firebase/firestore/write";
-import DropSection from "./Test/DropSection";
+import DropSection from "./DropSection";
 
 
 
@@ -46,7 +46,7 @@ const move = (
 interface TestInterface{
   data : CardData[][]
 }
-export function Test({data}:TestInterface) {
+const GroupDrag = ({data}:TestInterface) => {
   // const [state, setState] = useState([getItems(10), getItems(5, 10)]);
   const [state, setState] = useState< CardData[][]>(data);
   useEffect(()=>{
@@ -93,3 +93,6 @@ export function Test({data}:TestInterface) {
     </div>
   );
 }
+
+
+export default GroupDrag

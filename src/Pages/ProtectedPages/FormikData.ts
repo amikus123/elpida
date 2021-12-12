@@ -70,3 +70,10 @@ submitButtonText:"Add card",
 
 }
 }
+
+export interface AcceptableGroupData{
+  image:string,
+}
+export interface GroupDragData{
+
+}

@@ -3,7 +3,7 @@ import styled from "styled-components";
 import Cards from "../../../components/complex/Cards/Cards";
 import ItemRow from "../../../components/complex/ItemRow/ItemRow";
 import PageCenterWrap from "../../../components/containers/PageCenterWrap";
-import { RowItem, RowContent, CardArr } from "../../../constans/types";
+import { RowItem, RowContent } from "../../../constans/types";
 import { DataContext } from "../../../context/DataContext";
 import HomeCarousel from "./HomeCarousel/HomeCarousel";
 
@@ -15,59 +15,8 @@ const ContentWrap = styled.div`
     margin-top: 1rem;
   }
 `;
-const firtsRow: CardArr = [
-  {
-    title: "AmazonBasics",
-    image: "amazonBasics",
-    bottomText: "See more",
-    link: "/",
-  },
-  {
-    title: "Easy Returns",
-    image: "easyReturns",
-    bottomText: "Learn more",
-    link: "/",
-  },
-  {
-    title: "Easy Returns",
-    image: "easyReturns",
-    bottomText: "Learn more",
-    link: "/",
-  },
-  {
-    title: "Easy Returns",
-    image: "easyReturns",
-    bottomText: "Learn more",
-    link: "/",
-  },
-];
 
-const secondRow: CardArr = [
-  {
-    title: "AmazonBasics",
-    image: "amazonBasics",
-    bottomText: "See more",
-    link: "/",
-  },
-  {
-    title: "Easy Returns",
-    image: "easyReturns",
-    bottomText: "Learn more",
-    link: "/",
-  },
 
-  {
-    title: "Easy Returns",
-    image: "easyReturns",
-    bottomText: "Learn more",
-    link: "/",
-  },
-
-  {
-    signIn: true,
-    addName: "ad1",
-  },
-];
 
 const bestSellersProducts: RowItem[] = [
   {

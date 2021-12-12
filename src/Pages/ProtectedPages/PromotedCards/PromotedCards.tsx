@@ -5,7 +5,7 @@ import MyText from "../../../components/core/Text/MyText";
 import { PageCenterWrapWithBread } from "../../../components/containers/PageCenterWrap";
 import FormikForm from "../../../components/core/Form/FormikForm";
 import { formikDashboardData } from "../FormikData";
-import { Test } from "./Test";
+import GroupDrag from "../../../components/complex/GroupDrag/GroupDrag";
 
 const Wrap = styled.div`
   display: flex;
@@ -33,9 +33,9 @@ const HomeImages = () => {
           submitButtonText={submitButtonText}
         />
         <MyText fontSize="2rem" boldness="bold">
-          Change card goups
+          Change card groups
         </MyText>
-        <Test data={objectsToDisplay.cardGroups} />
+        <GroupDrag data={objectsToDisplay.cardGroups} />
       </Wrap>
     </PageCenterWrapWithBread>
   );

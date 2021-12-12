@@ -1,7 +1,7 @@
 import React from "react";
 import { Draggable } from "react-beautiful-dnd";
 import styled from "styled-components";
-import { CardData } from "../../../../constans/types";
+import { CardData } from "../../../constans/types";
 
 const getItemStyle = (isDragging: any, draggableStyle: any) => {
   return {
