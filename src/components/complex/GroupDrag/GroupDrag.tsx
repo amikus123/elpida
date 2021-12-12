@@ -2,8 +2,7 @@ import React, { useEffect, useState } from "react";
 import {
   DragDropContext,
 } from "react-beautiful-dnd";
-import { CardData } from "../../../constans/types";
-import { aa } from "../../../firebase/firestore/write";
+import { GroupDragTemplate } from "../../../Pages/ProtectedPages/FormikData";
 import DropSection from "./DropSection";
 
 
@@ -43,17 +42,17 @@ const move = (
 };
 
 
-interface TestInterface{
-  data : CardData[][]
+interface GroupDragInterface{
+  data : Record<string,string>[][],
+  templateData:GroupDragTemplate
 }
-const GroupDrag = ({data}:TestInterface) => {
-  // const [state, setState] = useState([getItems(10), getItems(5, 10)]);
-  const [state, setState] = useState< CardData[][]>(data);
+const GroupDrag = ({data,templateData}:GroupDragInterface) => {
+  const [state, setState] = useState< Record<string,string>[][]>(data);
   useEffect(()=>{
     setState(data)
   },[data])
+
   function onDragEnd(result: any) {
-    // { source: any; destination: any; }
     const { source, destination } = result;
     // dropped outside the list
     if (!destination) {
@@ -74,23 +73,21 @@ const GroupDrag = ({data}:TestInterface) => {
       console.log(result,newState)
       newState[sourceIndex] = result[sourceIndex];
       newState[dropIndex] = result[dropIndex];
-      // ! add fuctnion to change data in db
       setState(newState);
-      aa(newState)
+      // changes new data in db
+      templateData.updateDb(newState)
     }
   }
 
 
   return (
-    <div>
       <div style={{ display: "flex" }}>
         <DragDropContext onDragEnd={onDragEnd}>
           {state.map((cards, index) => (
-           <DropSection key={index} cards={cards} index={index}/>
+           <DropSection key={index} cards={cards} index={index} />
           ))}
         </DragDropContext>
       </div>
-    </div>
   );
 }
 

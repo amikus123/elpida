@@ -1,7 +1,6 @@
 import React from "react";
 import { Draggable } from "react-beautiful-dnd";
 import styled from "styled-components";
-import { CardData } from "../../../constans/types";
 
 const getItemStyle = (isDragging: any, draggableStyle: any) => {
   return {
@@ -18,7 +17,7 @@ const getItemStyle = (isDragging: any, draggableStyle: any) => {
   };
 };
 interface DraggableItemProps {
-  card: CardData;
+  card: Record<string,string>;
   index: number;
 }
 const Item = styled.div`

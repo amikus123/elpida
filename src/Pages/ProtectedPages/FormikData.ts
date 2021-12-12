@@ -1,10 +1,10 @@
 import * as Yup from "yup";
 import { InputData } from "../../components/core/Form/FormikForm";
 import { FirestorePaths } from "../../constans/consts";
-import { uploadFromForm } from "../../firebase/firestore/write";
+import {  updateGroupDragGenerator, uploadFromForm } from "../../firebase/firestore/write";
 import { BaseResposne } from "../../constans/types";
 
-interface FormikData {
+export interface FormikData {
   inputs:InputData[],
   handleSubmit:(arg1: any) => Promise<BaseResposne>,
   submitButtonText:string,
@@ -74,6 +74,15 @@ submitButtonText:"Add card",
 export interface AcceptableGroupData{
   image:string,
 }
-export interface GroupDragData{
-
+export const  groupDataTemplates:Record<string,GroupDragTemplate> = {
+  promotedCards:{
+    formik:formikDashboardData.promotedCards,
+    updateDb:updateGroupDragGenerator(FirestorePaths.promotedCards),
+    header:"Add new card"
+  }
+}
+export interface GroupDragTemplate{
+  formik:FormikData,
+  updateDb:(val:Record<string,string>[][])=>Promise<BaseResposne>,
+  header:string,
 }

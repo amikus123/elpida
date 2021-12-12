@@ -1,10 +1,7 @@
 import { doc, setDoc } from "firebase/firestore";
 import { uploadBytes, ref } from "firebase/storage";
 import { SnackbarTexts } from "../../constans/snackbar";
-import {
-  BaseResposne,
-  TextMixedResposne,
-} from "../../constans/types";
+import { BaseResposne, TextMixedResposne } from "../../constans/types";
 import { myDb, myStorage } from "../main";
 import { v4 as uuidv4 } from "uuid";
 import { FirestorePathObject } from "../../constans/consts";
@@ -16,44 +13,19 @@ type PossibleTypes = BaseTypes | File | File[];
 type FirestoreEntry = Record<string, BaseTypes>;
 type FormData = Record<string, PossibleTypes>;
 
-// key is name of attribute
-
-// genereates function, which updates state and db values
-
-// export const updateCards = async (value: any, old: any) => {
-//   try {
-//     console.log(old)
-//     await updateDoc(
-//       { ...old, 0: [...old[0], value] },
-//       "promotedCards/promotedCards"
-//     );
-
-//     return {
-//       error: false,
-//       text: SnackbarTexts.succesfulDbAddition,
-//     };
-//   } catch (e: any) {
-//     console.error(e);
-//     return {
-//       error: true,
-//       text: SnackbarTexts.unsuccesfulDbAddition + e.code,
-//     };
-//   }
-// };
-
 export const updateCards = async (
   data: FormData,
-  old: any,
+  old: any
 ): Promise<BaseResposne> => {
   //* genereate random ID
   const dbId = uuidv4();
-  const  path = "promotedCards/promotedCards"
+  const path = "promotedCards/promotedCards";
 
   console.log(data, "DATA");
   try {
     const firebaseEntry: FirestoreEntry = { id: dbId };
-    const xd = await getAllCardGroupes()
-    console.log(xd,"WESZLO")
+    const xd = await getAllCardGroupes();
+    console.log(xd, "WESZLO");
     // we should add png while uploading
     const keys = Object.keys(data);
     const filePath = path + "/" + dbId + ".png";
@@ -71,11 +43,8 @@ export const updateCards = async (
       }
     }
     // generated dunctions updtates statre
-    console.log(old, "WTD")
-    await updateDoc(
-      { ...xd, 0: [...xd[0], firebaseEntry] },
-      path
-    );
+    console.log(old, "WTD");
+    await updateDoc({ ...xd, 0: [...xd[0], firebaseEntry] }, path);
 
     return {
       error: false,
@@ -89,7 +58,6 @@ export const updateCards = async (
     };
   }
 };
-
 
 export function stateChangerGenerator<T>(
   setState: React.Dispatch<React.SetStateAction<T>>,
@@ -212,15 +180,34 @@ const handleImageUpload = async (
   }
 };
 
+export const updateGroupDragGenerator = (path: string) => {
+  const res = async (value: Record<string, string>[][]) => {
+    const x = await updateGroupDrag(value, path);
+    return x;
+  };
 
-export const aa = async (value) =>{
-  const  path = "promotedCards/promotedCards"
-  const obj:any  = {}
-  for(const i in value){
-    obj[i] = value[i]
+  return res;
+};
+
+export const updateGroupDrag = async (
+  value: Record<string, string>[][],
+  path: string
+) => {
+  try {
+    const obj: Record<string, Record<string, string>[]> = {};
+    for (const i in value) {
+      obj[i] = value[i];
+    }
+    const itemRef = await doc(myDb, path);
+    setDoc(itemRef, obj);
+    return {
+      error: false,
+      text: SnackbarTexts.succesfulDbAddition,
+    };
+  } catch (e) {
+    return {
+      error: true,
+      text: SnackbarTexts.unsuccesfulDbAddition + e.code,
+    };
   }
-  console.log(obj)
-  const itemRef =await doc(myDb, path);
-
-  setDoc(itemRef,obj)
-}
+};

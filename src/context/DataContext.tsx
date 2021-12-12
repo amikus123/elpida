@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import { createContext, useEffect, useState } from "react";
 import {
   DataToShow as IdsOfItemsToDisplay,
@@ -45,7 +45,7 @@ export const DataProvider = ({ children }: { children: React.ReactNode }) => {
   // * object fetch from db, ready to display
   const [objectsToDisplay, setObjectsToDisplay] = useState<X>({
     homeImages: [],
-    cardGroups: [[],[],[],[]],
+    cardGroups: [[],[],[],],
   });
 
 

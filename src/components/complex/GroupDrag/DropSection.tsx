@@ -12,7 +12,8 @@ const getListStyle = (isDraggingOver: boolean) => ({
 
 interface DropSectionProps{
   index:number,
-  cards:CardData[]
+  cards:Record<string,string>[],
+
 }
 const DropSection = ({index,cards}:DropSectionProps) => {
   return (
