@@ -8,56 +8,10 @@ import { FirestorePathObject } from "../../constans/consts";
 import { getAllCardGroupes } from "./access";
 
 // function that uploads
-type BaseTypes = string | number | any[] | Record<string, any>;
-type PossibleTypes = BaseTypes | File | File[];
-type FirestoreEntry = Record<string, BaseTypes>;
-type FormData = Record<string, PossibleTypes>;
-
-export const updateCards = async (
-  data: FormData,
-  old: any
-): Promise<BaseResposne> => {
-  //* genereate random ID
-  const dbId = uuidv4();
-  const path = "promotedCards/promotedCards";
-
-  console.log(data, "DATA");
-  try {
-    const firebaseEntry: FirestoreEntry = { id: dbId };
-    const xd = await getAllCardGroupes();
-    console.log(xd, "WESZLO");
-    // we should add png while uploading
-    const keys = Object.keys(data);
-    const filePath = path + "/" + dbId + ".png";
-    for (const key of keys) {
-      console.log(key);
-      let obj = data[key];
-      if (
-        obj instanceof File ||
-        (obj instanceof Array && obj[0] instanceof File)
-      ) {
-        const res = await handleImageUpload(obj, filePath);
-        firebaseEntry[key] = res.res;
-      } else {
-        firebaseEntry[key] = obj;
-      }
-    }
-    // generated dunctions updtates statre
-    console.log(old, "WTD");
-    await updateDoc({ ...xd, 0: [...xd[0], firebaseEntry] }, path);
-
-    return {
-      error: false,
-      text: SnackbarTexts.succesfulDbAddition,
-    };
-  } catch (e: any) {
-    console.error(e);
-    return {
-      error: true,
-      text: SnackbarTexts.unsuccesfulDbAddition + e.code,
-    };
-  }
-};
+export type BaseTypes = string | number | any[] | Record<string, any>;
+export type PossibleTypes = BaseTypes | File | File[];
+export type FirestoreEntry = Record<string, BaseTypes>;
+export type MyFormData = Record<string, PossibleTypes>;
 
 export function stateChangerGenerator<T>(
   setState: React.Dispatch<React.SetStateAction<T>>,
@@ -99,7 +53,7 @@ export const updateDoc = async (
 };
 
 export const uploadFromForm = async (
-  data: FormData,
+  data: MyFormData,
   path: string,
   imageLocation: string = path
 ): Promise<BaseResposne> => {
@@ -107,7 +61,6 @@ export const uploadFromForm = async (
   const dbId = uuidv4();
   const itemRef = doc(myDb, path + dbId);
 
-  console.log(data, "DATA");
   try {
     const firebaseEntry: FirestoreEntry = { id: dbId };
     // we should add png while uploading
@@ -180,15 +133,61 @@ const handleImageUpload = async (
   }
 };
 
+export const addNewDragObjectGenerator = (path: string) => {
+    const fun = async (data: MyFormData) => {
+      return await updateCards(data, path);
+    };
+    return fun
+};
+
+export const updateCards = async (
+  data: MyFormData,
+  path: string
+): Promise<BaseResposne> => {
+  const dbId = uuidv4();
+  try {
+    const firebaseEntry: FirestoreEntry = { id: dbId };
+    const xd = await getAllCardGroupes();
+    // we should add png while uploading
+    const keys = Object.keys(data);
+    const filePath = path + "/" + dbId + ".png";
+    for (const key of keys) {
+      let obj = data[key];
+      if (
+        obj instanceof File ||
+        (obj instanceof Array && obj[0] instanceof File)
+      ) {
+        const res = await handleImageUpload(obj, filePath);
+        firebaseEntry[key] = res.res;
+      } else {
+        firebaseEntry[key] = obj;
+      }
+    }
+    await updateDoc({ ...xd, 0: [...xd[0], firebaseEntry] }, path);
+    return {
+      error: false,
+      text: SnackbarTexts.succesfulDbAddition,
+    };
+  } catch (e: any) {
+    console.error(e);
+    return {
+      error: true,
+      text: SnackbarTexts.unsuccesfulDbAddition + e.code,
+    };
+  }
+};
+
+
+// this function is used in formik objects to remove the need to pass path in the component
 export const updateGroupDragGenerator = (path: string) => {
   const res = async (value: Record<string, string>[][]) => {
     const x = await updateGroupDrag(value, path);
     return x;
   };
-
   return res;
 };
 
+// this function is used in GroupDrag
 export const updateGroupDrag = async (
   value: Record<string, string>[][],
   path: string

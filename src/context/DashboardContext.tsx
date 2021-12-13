@@ -1,6 +1,6 @@
 import { createContext,  useState,useEffect, useContext } from "react";
 import { DASHBOARD_ROUTES } from "../constans/routes";
-import {  getAllHomeImages } from "../firebase/firestore/access";
+import {  convertFilePathsToImages, getAllHomeImages } from "../firebase/firestore/access";
 import { getDashboardCategoryImages } from "../firebase/storage/access";
 import { CardData, ImageWithLink } from "../constans/types";
 import { setStateOrDisplayError } from "../utils/stateFunctions";
@@ -45,7 +45,6 @@ export const DashboardContext = createContext({
 });
 
 export const DashboardProvider = ({ children }: { children: React.ReactNode }) => {
-  const { setSnackbarWithResposne } = useContext(ElementContext);
   // sued to display dashaborad UI
   const [categories, setCategories] = useState<CardData[]>(baseState);
   const [homeImages, setHomeImages] = useState<ImageWithLink[]>([]);
@@ -63,10 +62,9 @@ export const DashboardProvider = ({ children }: { children: React.ReactNode }) =
   
   const getAllImages = async () => {
     const res = await getAllHomeImages()
-    if(res){
-      // const a  =  await convertFilePathsToImages(res.res)
-      // get images
-      setStateOrDisplayError(res, setHomeImages, setSnackbarWithResposne);
+    if(!res.error){
+      const a  =  await convertFilePathsToImages(res.res) as any
+      setHomeImages(a)
     }
   };
   const initzialzeDashboard = async() =>{

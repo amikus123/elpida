@@ -1,7 +1,8 @@
-import { Field, FormikErrors } from "formik";
+import { Field } from "formik";
 import React from "react";
 
 import styled from "styled-components";
+import { FormikInputTypes, InputData } from "../Form/FormikForm";
 import MyText from "../Text/MyText";
 
 const MyInput = styled.input`
@@ -19,6 +20,8 @@ const MyInput = styled.input`
 const MyField = styled(Field)`
   width: 100%;
   height: 100%;
+  min-height: 25px;
+  min-width: 25px;
   border-radius: 4px;
   border: 1px solid;
   border-color: ${(props) => props.theme.whiteBorder};
@@ -29,51 +32,66 @@ const MyField = styled(Field)`
   }
 `;
 
-export type FormikInputTypes =
-  | "text"
-  | "email"
-  | "password"
-  | "submit"
-  | "file";
 interface TextFormInputProps {
-  name: string;
-  labelText?: string;
-  inputType: FormikInputTypes;
+  item: InputData;
   errorText?: string | undefined;
-  showError?: boolean |""| undefined;
-  setFieldValue: (field: string, value: any, shouldValidate?: boolean | undefined) => void
+  showError?: boolean | "" | undefined;
+  setFieldValue: (
+    field: string,
+    value: any,
+    shouldValidate?: boolean | undefined
+  ) => void;
 }
 
 const FormikInput = ({
-  name,
-  labelText,
-  inputType,
+  item,
   errorText,
   showError,
-  setFieldValue
+  setFieldValue,
 }: TextFormInputProps) => {
-  // label is optional
-  return (
-    <>
-      {labelText !== "" ? (
-        <MyText fontSize="1.25rem" labelTarget={name}>
-          {labelText}
-        </MyText>
-      ) : null}
-      {inputType === "file" ? (
+  const getCorrectInputType = (type: FormikInputTypes) => {
+    let el = null;
+    if (type === "file") {
+      el = (
         <MyInput
-          name={name}
+          name={id}
           type="file"
-          onChange={(event:any) => {
+          onChange={(event: any) => {
             if (event.currentTarget && event.currentTarget.files) {
-              setFieldValue(name, event.currentTarget.files[0]);
+              setFieldValue(id, event.currentTarget.files[0]);
             }
           }}
         />
-      ) : (
-        <MyField name={name} type={inputType} />
+      );
+    } else if (type === "radio") {
+      el = (
+        <div role="group" aria-labelledby="my-radio-group">
+          {values.map((item, index) => {
+            return (
+              <label key={index}>
+                <Field type="radio" name={id} value={item} />
+                {item}
+              </label>
+            );
+          })}
+        </div>
+      );
+    } else {
+      el = <MyField name={id} type={type} />;
+    }
 
-      )}
+    return el;
+  };
+  // label is optional
+  const { id, type, label, values } = item;
+  return (
+    <>
+      {label !== "" ? (
+        <MyText fontSize="1.25rem" labelTarget={id}>
+          {label}
+        </MyText>
+      ) : null}
+      {getCorrectInputType(type)}
       {showError ? <MyText presetColor="red">{errorText}</MyText> : null}
     </>
   );

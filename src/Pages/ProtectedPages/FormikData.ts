@@ -1,7 +1,7 @@
 import * as Yup from "yup";
 import { InputData } from "../../components/core/Form/FormikForm";
 import { FirestorePaths } from "../../constans/consts";
-import {  updateGroupDragGenerator, uploadFromForm } from "../../firebase/firestore/write";
+import {  addNewDragObjectGenerator, MyFormData, updateGroupDragGenerator, uploadFromForm } from "../../firebase/firestore/write";
 import { BaseResposne } from "../../constans/types";
 
 export interface FormikData {
@@ -9,7 +9,7 @@ export interface FormikData {
   handleSubmit:(arg1: any) => Promise<BaseResposne>,
   submitButtonText:string,
 }
-type FormikDataWrap = Record<string,FormikData>
+export type FormikDataWrap = Record<string,FormikData>
 export const formikDashboardData:FormikDataWrap = {
   homeImages:{
     inputs: [
@@ -64,7 +64,9 @@ promotedCards:{
     },
   ],
   handleSubmit:async (values) => {
-    return await uploadFromForm({...values},  "promotedCards/");
+    // ! NEVER USED FUCNTION IS PASSED IN  groupDataTemplates
+    throw new Error
+    return await uploadFromForm({...values},  FirestorePaths.promotedCards);
 },
 submitButtonText:"Add card",
 
@@ -78,11 +80,15 @@ export const  groupDataTemplates:Record<string,GroupDragTemplate> = {
   promotedCards:{
     formik:formikDashboardData.promotedCards,
     updateDb:updateGroupDragGenerator(FirestorePaths.promotedCards),
-    header:"Add new card"
+    header:"Add new card",
+    addNewDragObject:addNewDragObjectGenerator(FirestorePaths.promotedCards),
   }
 }
+
+
 export interface GroupDragTemplate{
   formik:FormikData,
   updateDb:(val:Record<string,string>[][])=>Promise<BaseResposne>,
   header:string,
+  addNewDragObject:  (data: MyFormData) => Promise<BaseResposne>
 }

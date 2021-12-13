@@ -3,14 +3,14 @@ import { DataContext } from "../../../context/DataContext";
 import {  groupDataTemplates } from "../FormikData";
 import GroupDataPage from "../../../components/complex/GroupDragPage/GroupDataPage";
 
-const HomeImages = () => {
+const BestSellers = () => {
   // we use different one beacuse wee nned to acces context in upload
   const { objectsToDisplay } = useContext(DataContext);
 
   return (
  
-    <GroupDataPage  objectsToDisplay={objectsToDisplay.cardGroups as unknown as Record<string,string>[][]}  templateData={groupDataTemplates.promotedCards} />
+    <GroupDataPage objectsToDisplay={objectsToDisplay.cardGroups as unknown as Record<string,string>[][]}  templateData={groupDataTemplates.promotedCards} />
   );
 };
 
-export default HomeImages;
+export default BestSellers;

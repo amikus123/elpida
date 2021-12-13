@@ -31,6 +31,8 @@ import HomeImages from "./Pages/ProtectedPages/HomeImages/HomeImages";
 import Snackbar from "./components/singleUse/Snackbar/Snackbar";
 import { UserContext } from "./context/UserContext";
 import PromotedCards from "./Pages/ProtectedPages/PromotedCards/PromotedCards";
+import BestSellers from "./Pages/ProtectedPages/BestSelllers/BestSellers";
+import Inventory from "./Pages/ProtectedPages/Inventory/Inventory";
 function App() {
   const location = useLocation();
   const { reset } = useContext(ElementContext);
@@ -112,14 +114,14 @@ function App() {
           />
                <RouteController
             routeType="protected"
-            component={HomeImages}
-            path={PROTECTED_ROUTES.HOME_IMAGES}
+            component={BestSellers}
+            path={PROTECTED_ROUTES.BEST_SELLERS}
             exact
           />
                <RouteController
             routeType="protected"
-            component={HomeImages}
-            path={PROTECTED_ROUTES.HOME_IMAGES}
+            component={Inventory}
+            path={PROTECTED_ROUTES.INVENTORY}
             exact
           />
           <RouteController

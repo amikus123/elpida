@@ -45,7 +45,6 @@ export type CardArr = (Ad | CardData)[];
 // * FIREBASE TYPES
 
 
-// DASHBOARD TYPES
 
 export interface BaseResposne {
   text: string;

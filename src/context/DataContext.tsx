@@ -10,28 +10,24 @@ import {
   convertFilePathsToImages,
   getAllCardGroupes,
 } from "../firebase/firestore/access";
-import { stateChangerGenerator,updateCards } from "../firebase/firestore/write";
-import { BaseResposne, CardData, ImageWithLink } from "../constans/types";
+import { stateChangerGenerator } from "../firebase/firestore/write";
+import {  CardData, ImageWithLink } from "../constans/types";
 
 // used to provide betterautocomplete
 const x: IdsOfItemsToDisplay = { selectedHomeImages: [] };
-const y: X = { homeImages: [], cardGroups: [] };
-const baseAsync = async(data:any)=>{
-  const a = await console.log()as unknown as BaseResposne
-  return a 
-}
+const y: DataToShow = { homeImages: [], cardGroups: [] };
+
 export const DataContext = createContext({
   selectedLocation: "Austria",
   setLocation: (location: string) => {},
   setCartCount: (newCount: number) => {},
-  addNewCard:baseAsync,
   updateSelectedImagesList: (list: string[]) => {},
   cartCount: 0,
   dataToShow: x,
   objectsToDisplay: y,
 });
 
-export interface X {
+export interface DataToShow {
   homeImages: ImageWithLink[];
   cardGroups: CardData[][];
 }
@@ -43,7 +39,7 @@ export const DataProvider = ({ children }: { children: React.ReactNode }) => {
   const [idsOfItemsToDisplay, setIdsOfItemsToDisplay] =
     useState<IdsOfItemsToDisplay>({ selectedHomeImages: [] });
   // * object fetch from db, ready to display
-  const [objectsToDisplay, setObjectsToDisplay] = useState<X>({
+  const [dataToShow, setDataToShow] = useState<DataToShow>({
     homeImages: [],
     cardGroups: [[],[],[],],
   });
@@ -77,10 +73,8 @@ export const DataProvider = ({ children }: { children: React.ReactNode }) => {
     setSelectedLocation(location);
   };
   
-  const addNewCard = async(data:any)=>{
-    const x = await updateCards(data,objectsToDisplay.cardGroups)
-    return x
-  }
+  // drag functions, they need access to current state to properly update state
+
 
 
   useEffect(() => {
@@ -90,14 +84,15 @@ export const DataProvider = ({ children }: { children: React.ReactNode }) => {
         homeImagesRaw
       )) as ImageWithLink[];
       const groupCardsRaw = await getAllCardGroupes();
+      console.log(homeImages,"jkjj")
       const cardGroups: CardData[][] = [];
       for (const x of groupCardsRaw) {
         const res = (await convertFilePathsToImages(x)) as CardData[];
         cardGroups.push(res);
       }
 
-      console.log(groupCardsRaw, cardGroups,"fin");
-      setObjectsToDisplay({ homeImages, cardGroups });
+      console.log( cardGroups,homeImages,homeImagesRaw,"fin");
+      setDataToShow({ homeImages, cardGroups });
     };
     init();
   }, []);
@@ -109,8 +104,7 @@ export const DataProvider = ({ children }: { children: React.ReactNode }) => {
     setCartCount,
     dataToShow: idsOfItemsToDisplay,
     updateSelectedImagesList,
-    objectsToDisplay,
-    addNewCard,
+    objectsToDisplay: dataToShow,
   };
   return (
     <DataContext.Provider value={{ ...val }}>{children}</DataContext.Provider>

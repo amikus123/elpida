@@ -1,5 +1,4 @@
 import {
-  FormikData,
   GroupDragTemplate,
 } from "../../../Pages/ProtectedPages/FormikData";
 import { PageCenterWrapWithBread } from "../../containers/PageCenterWrap";
@@ -21,12 +20,10 @@ const Wrap = styled.div`
 
 interface GroupDataPageProps {
   objectsToDisplay: Record<string, string>[][];
-  addNewObject: (data: Record<string, string>) => Promise<BaseResposne>;
   templateData: GroupDragTemplate;
 }
 const GroupDataPage = ({
   objectsToDisplay,
-  addNewObject,
   templateData,
 }: GroupDataPageProps) => {
   const { inputs, submitButtonText } = templateData.formik;
@@ -38,7 +35,7 @@ const GroupDataPage = ({
           {templateData.header}
         </MyText>
         <FormikForm
-          onSubmit={addNewObject}
+          onSubmit={templateData.addNewDragObject}
           inputs={inputs}
           submitButtonText={submitButtonText}
         />

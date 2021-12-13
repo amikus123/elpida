@@ -17,13 +17,12 @@ import { getUrlsForLinks } from "../storage/access";
 
 export const getAllHomeImages = async (): Promise<HomeImagesResponse> => {
   const x =  (await getAllDocs(FirestorePaths.homeImages)) as HomeImagesResponse;
+  console.log(x,"all")
   return x 
 };
 
-// ! FUNCTION TO GET ALL  SUBN COLLECTIONS
-// ! REWRTE YOUR MESS 
-// ! ADD BUTTON TO REFRESH ON FORM PAGES
-// ! A LOT OF THIS CAN BE SIMPLIEIREF
+
+
 
 export const getAllCardGroupes = async (): Promise<CardData[][]> => {
   const doc :any = await getSingleDoc(FirestorePaths.promotedCards)
@@ -69,6 +68,7 @@ export const convertFilePathsToImages = async (
   for (const i in objectWithFiles) {
     objectWithFiles[i].image = links[i];
   }
+  console.log(objectWithFiles,"OBJ WIT ")
   return objectWithFiles;
 };
 

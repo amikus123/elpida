@@ -1,4 +1,3 @@
-// TYPES
 
 
 
@@ -6,13 +5,19 @@
 // specific fileLoactions
 
 export enum FirestorePaths {
-  homeImages = "/homeImages",
+  homeImages = "/homeImages/",
   dataToShow = "/dataToShow",
   promotedCards = "/promotedCards/promotedCards",
 
+
+
+}
+export enum ProductPaths{
+  beer = "/beer",
+  wine="/wine"
 }
 export enum StoragePaths {
-  homeImages = "/homeImages",
+  homeImages = "/homeImages/",
 }
 // * STRUCTURE OF FIREBASE DATA
 
@@ -41,5 +46,4 @@ export const specificFirebasePaths = {
     col: FirestorePaths.dataToShow,
     doc: "dataToShow",
   },
-
 };
