@@ -13,8 +13,9 @@ interface ImageControlProps{
   orderOfVisibleItems:string[],
   //* fucntions, which updates the db and context
   updateOrdder: (list: string[]) => void,
+  deleteById:(s:string)=>Promise<void>
 }
-const DragItemSetter = ({orderOfVisibleItems,imageData: homeImages,updateOrdder}:ImageControlProps) => {
+const DragItemSetter = ({orderOfVisibleItems,imageData: homeImages,updateOrdder,deleteById}:ImageControlProps) => {
 
   const [draggableItems, setDraggableItems] = useState<DraggableData[]>([]);
 
@@ -45,6 +46,7 @@ const DragItemSetter = ({orderOfVisibleItems,imageData: homeImages,updateOrdder}
       const selectedImage = copy.splice(selectedIndex, 1)[0];
       res.push({ ...selectedImage, dragId: `id-${index}`, show: true });
     });
+    console.log(copy,"cop",res)
     copy.forEach((item, index) => {
       res.push({
         dragId: `id-${index + orderOfVisibleItems.length}`,
@@ -52,7 +54,8 @@ const DragItemSetter = ({orderOfVisibleItems,imageData: homeImages,updateOrdder}
         ...item,
       });
     });
-    return res;
+    // prevent empty object from showing up
+    return res.filter((item)=>item["id"]!==undefined);
   };
 
   const reorder = (
@@ -97,7 +100,7 @@ const DragItemSetter = ({orderOfVisibleItems,imageData: homeImages,updateOrdder}
       <Droppable droppableId="list">
         {(provided) => (
           <div ref={provided.innerRef} {...provided.droppableProps}>
-            <DragList images={draggableItems} handleGenerator={handleGenerator} />
+            <DragList images={draggableItems} handleGenerator={handleGenerator}  deleteById={deleteById}/>
             {provided.placeholder}
           </div>
         )}

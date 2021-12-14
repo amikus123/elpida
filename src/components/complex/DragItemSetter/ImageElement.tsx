@@ -26,6 +26,7 @@ const Wrap = styled.div<{show:boolean}>`
   transition: 0.5s background-color;
   flex-direction: column;
   align-items: center;
+  border:1px solid red;
   >*{
     margin:0.25rem;
   }
@@ -34,24 +35,26 @@ const Wrap = styled.div<{show:boolean}>`
 interface ImageElementProps {
   imageData: DraggableData;
   handleToggle: () => void;
+  deleteById:(s:string)=>Promise<void>
+
 }
 
 // addinitional properties are due to Drag api
 const ImageElement = React.forwardRef<any, ImageElementProps>((props, ref) => {
-  const { imageData, handleToggle } = props;
+  const { imageData, handleToggle,deleteById } = props;
   const { show } = imageData;
   return (
     <Wrap
       ref={ref}
       {...props}
       show={show}
-      // style={{ backgroundColor: show ? "green" : "grey" }}
-    >
+    > 
       <MyText fontSize="1.25rem">Ttile and alt: {imageData.title}</MyText>
       <Toggle checked={show} onChange={handleToggle} />
       <ImgaeWrap>
         <Imgae src={imageData.image} alt={imageData.title} />
       </ImgaeWrap>
+    <div onClick={()=>{deleteById(imageData.id)}}><MyText>Delete item</MyText></div>
     </Wrap>
   );
 });

@@ -1,4 +1,4 @@
-import { doc, setDoc } from "firebase/firestore";
+import { doc, setDoc, collection, query, where, getDocs, deleteDoc } from "firebase/firestore";
 import { uploadBytes, ref } from "firebase/storage";
 import { SnackbarTexts } from "../../constans/snackbar";
 import { BaseResposne, TextMixedResposne } from "../../constans/types";
@@ -134,10 +134,10 @@ const handleImageUpload = async (
 };
 
 export const addNewDragObjectGenerator = (path: string) => {
-    const fun = async (data: MyFormData) => {
-      return await updateCards(data, path);
-    };
-    return fun
+  const fun = async (data: MyFormData) => {
+    return await updateCards(data, path);
+  };
+  return fun;
 };
 
 export const updateCards = async (
@@ -177,7 +177,6 @@ export const updateCards = async (
   }
 };
 
-
 // this function is used in formik objects to remove the need to pass path in the component
 export const updateGroupDragGenerator = (path: string) => {
   const res = async (value: Record<string, string>[][]) => {
@@ -209,4 +208,9 @@ export const updateGroupDrag = async (
       text: SnackbarTexts.unsuccesfulDbAddition + e.code,
     };
   }
+};
+
+export const deleteDocById = async (id, firestorePath) => {
+  await deleteDoc(doc(myDb, firestorePath, id));
+
 };

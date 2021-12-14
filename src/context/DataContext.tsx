@@ -44,7 +44,9 @@ export const DataProvider = ({ children }: { children: React.ReactNode }) => {
     cardGroups: [[],[],[],],
   });
 
-
+  const fetchInventory = async() =>{
+    
+  }
   const fetchHomeImages = async () => {
     const websiteData = await getWebisteData();
     if (!websiteData.error) {
@@ -52,7 +54,8 @@ export const DataProvider = ({ children }: { children: React.ReactNode }) => {
       setIdsOfItemsToDisplay(websiteData.res);
       const { selectedHomeImages } = websiteData.res;
       const a = await getSelectedHomeImages(selectedHomeImages);
-      return a.res;
+      // if objects is missing in db, but still listed as an item to display, we fillter 
+      return a.res.filter(item=>item!==undefined);
     } else {
       // show snackabr
     }

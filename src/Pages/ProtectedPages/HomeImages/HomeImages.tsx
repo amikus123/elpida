@@ -7,6 +7,7 @@ import MyText from "../../../components/core/Text/MyText";
 import { PageCenterWrapWithBread } from "../../../components/containers/PageCenterWrap";
 import FormikForm from "../../../components/core/Form/FormikForm";
 import { formikDashboardData } from "../FormikData";
+import { FirestorePaths } from "../../../constans/consts";
 
 const Wrap = styled.div`
   display: flex;
@@ -18,7 +19,7 @@ const Wrap = styled.div`
   }
 `;
 const HomeImages = () => {
-  const { homeImages } = useContext(DashboardContext);
+  const { homeImages,deleteByIdGenerator } = useContext(DashboardContext);
   const { dataToShow, updateSelectedImagesList } = useContext(DataContext);
   const {inputs,handleSubmit,submitButtonText} = formikDashboardData.homeImages
 
@@ -39,6 +40,7 @@ const HomeImages = () => {
           Change home image order, or toggle visibility
         </MyText>
         <DragItemSetter
+          deleteById={deleteByIdGenerator(FirestorePaths.homeImages)}
           imageData={homeImages}
           orderOfVisibleItems={dataToShow.selectedHomeImages}
           updateOrdder={updateSelectedImagesList}

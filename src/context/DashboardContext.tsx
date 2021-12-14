@@ -1,10 +1,14 @@
-import { createContext,  useState,useEffect, useContext } from "react";
+import { createContext, useState, useEffect, useContext } from "react";
 import { DASHBOARD_ROUTES } from "../constans/routes";
-import {  convertFilePathsToImages, getAllHomeImages } from "../firebase/firestore/access";
+import {
+  convertFilePathsToImages,
+  getAllHomeImages,
+} from "../firebase/firestore/access";
 import { getDashboardCategoryImages } from "../firebase/storage/access";
 import { CardData, ImageWithLink } from "../constans/types";
 import { setStateOrDisplayError } from "../utils/stateFunctions";
 import { ElementContext } from "./ElementContext";
+import { deleteDocById } from "../firebase/firestore/write";
 
 const example: CardData = {
   image: "",
@@ -35,16 +39,24 @@ const baseState: CardData[] = [
   },
 ];
 
-const hm :ImageWithLink[] = []
+const hm: ImageWithLink[] = [];
 export const DashboardContext = createContext({
   categories: [example],
   initzialzeDashboard: async () => {
     return await console.log();
   },
-  homeImages:hm
+  deleteByIdGenerator: (s: string) => {
+    const x = async(a:string) => {return await console.log()};
+    return x;
+  },
+  homeImages: hm,
 });
 
-export const DashboardProvider = ({ children }: { children: React.ReactNode }) => {
+export const DashboardProvider = ({
+  children,
+}: {
+  children: React.ReactNode;
+}) => {
   // sued to display dashaborad UI
   const [categories, setCategories] = useState<CardData[]>(baseState);
   const [homeImages, setHomeImages] = useState<ImageWithLink[]>([]);
@@ -59,24 +71,38 @@ export const DashboardProvider = ({ children }: { children: React.ReactNode }) =
     });
     setCategories(copy);
   };
-  
+
   const getAllImages = async () => {
-    const res = await getAllHomeImages()
-    if(!res.error){
-      const a  =  await convertFilePathsToImages(res.res) as any
-      setHomeImages(a)
+    const res = await getAllHomeImages();
+    if (!res.error) {
+      const a = (await convertFilePathsToImages(res.res)) as any;
+      setHomeImages(a);
     }
   };
-  const initzialzeDashboard = async() =>{
-    fetchDashboardCategoryImages()
-    getAllImages()
-  }
+  const initzialzeDashboard = async () => {
+    fetchDashboardCategoryImages();
+    getAllImages();
+  };
 
-  useEffect(()=>{
-    initzialzeDashboard()
-  },[])
+  const deleteByIdGenerator = (firebaseLocation: string) => {
+    const x = async (idToRemove: string) => {
+      deleteDocById(idToRemove, firebaseLocation).then(() => {
+        initzialzeDashboard();
+      });
+    };
+    return x;
+  };
+  useEffect(() => {
+    initzialzeDashboard();
+  }, []);
 
-  const val = { categories, setCategories, initzialzeDashboard,homeImages };
+  const val = {
+    categories,
+    setCategories,
+    initzialzeDashboard,
+    homeImages,
+    deleteByIdGenerator,
+  };
   return (
     <DashboardContext.Provider value={{ ...val }}>
       {children}
