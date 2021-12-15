@@ -39,7 +39,6 @@ const ItemCard = ({ item }: ProductListItemProps) => {
           null
           ) : (
           <Para key={index}>
-            {" "}
             {key}:{item[key]}
           </Para>
         );

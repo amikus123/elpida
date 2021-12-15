@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React from "react";
 import { createContext, useEffect, useState } from "react";
 import {
   DataToShow as IdsOfItemsToDisplay,
@@ -12,13 +12,47 @@ import {
   convertFilePathsToImages,
   getAllCardGroupes,
   getAllDocs,
+  getAllHomeImages,
 } from "../firebase/firestore/access";
-import { stateChangerGenerator } from "../firebase/firestore/write";
+import { deleteDocById, stateChangerGenerator } from "../firebase/firestore/write";
 import {  CardData, ImageWithLink } from "../constans/types";
+import { DASHBOARD_ROUTES } from "../constans/routes";
+import { getDashboardCategoryImages } from "../firebase/storage/access";
 
 // used to provide betterautocomplete
+
+const example: CardData = {
+  image: "",
+  title: "INVENTORY",
+  link: DASHBOARD_ROUTES.INVENTORY,
+};
+
+const baseState: CardData[] = [
+  {
+    image: "",
+    title: "INVENTORY",
+    link: DASHBOARD_ROUTES.INVENTORY,
+  },
+  {
+    image: "",
+    title: "BEST SELLERS",
+    link: DASHBOARD_ROUTES.BEST_SELLERS,
+  },
+  {
+    image: "",
+    title: "PROMOTED CARDS",
+    link: DASHBOARD_ROUTES.PROMOTED_CARDS,
+  },
+  {
+    image: "",
+    title: "HOME IMAGES",
+    link: DASHBOARD_ROUTES.HOME_IMAGES,
+  },
+];
+
+
 const x: IdsOfItemsToDisplay = { selectedHomeImages: [] };
-const y: DataToShow = { homeImages: [], cardGroups: [] ,inventory:{}};
+const y: DataToShow = { homeImages: [], cardGroups: [] ,inventory:{} ,dashboardCategories:[],dashboardImages:[]};
 
 export const DataContext = createContext({
   selectedLocation: "Austria",
@@ -28,13 +62,25 @@ export const DataContext = createContext({
   cartCount: 0,
   dataToShow: x,
   objectsToDisplay: y,
+  categories: [example],
+  initzialzeDashboard: async () => {
+    return await console.log();
+  },
+  deleteByIdGenerator: (s: string) => {
+    const x = async(a:string) => {return await console.log()};
+    return x;
+  },
 });
 
 export interface DataToShow {
+  dashboardCategories:CardData[];
   homeImages: ImageWithLink[];
   cardGroups: CardData[][];
   inventory: Record<string,any>
+  dashboardImages:any[]
 }
+
+
 export const DataProvider = ({ children }: { children: React.ReactNode }) => {
   // data for ui element
   const [selectedLocation, setSelectedLocation] = useState("Austria");
@@ -44,11 +90,51 @@ export const DataProvider = ({ children }: { children: React.ReactNode }) => {
     useState<IdsOfItemsToDisplay>({ selectedHomeImages: [] });
   // * object fetch from db, ready to display
   const [dataToShow, setDataToShow] = useState<DataToShow>({
+    dashboardCategories:[],
     homeImages: [],
     cardGroups: [[],[],[],],
-    inventory:{}
+    inventory:{},
+    dashboardImages:[]
   });
 
+  const [categories, setCategories] = useState<CardData[]>(baseState);
+
+  const fetchDashboardCategoryImages = async () => {
+    const response = await getDashboardCategoryImages();
+    // upadting the urls
+    const urls = response.res;
+    const copy = [...categories];
+    urls.forEach((item, index) => {
+      copy[index].image = item;
+    });
+    return copy
+  };
+
+  const getAllImages = async () => {
+    const res = await getAllHomeImages();
+    if (!res.error) {
+      const a = (await convertFilePathsToImages(res.res)) as any;
+      return a
+    }
+    return []
+  };
+  const initzialzeDashboard = async () => {
+    fetchDashboardCategoryImages();
+    getAllImages();
+  };
+
+  const deleteByIdGenerator = (firebaseLocation: string) => {
+    const x = async (idToRemove: string) => {
+      deleteDocById(idToRemove, firebaseLocation).then(() => {
+        initzialzeDashboard();
+      });
+    };
+    return x;
+  };
+
+  useEffect(() => {
+    initzialzeDashboard();
+  }, []);
   const fetchInventory = async() =>{
     const res = {}
     for(const name of productNames){
@@ -99,13 +185,15 @@ export const DataProvider = ({ children }: { children: React.ReactNode }) => {
         const res = (await convertFilePathsToImages(x)) as CardData[];
         cardGroups.push(res);
       }
+      const im =await  getAllImages()
+      const xd = await fetchDashboardCategoryImages()
       const inventory = await fetchInventory()
       const itemNames = Object.keys(inventory)
       for (const x of itemNames) {
         inventory[x] = await convertFilePathsToImages(inventory[x])
       }
       console.log(inventory)
-      setDataToShow({ homeImages, cardGroups,inventory });
+      setDataToShow({ homeImages, cardGroups,inventory,dashboardCategories:xd,dashboardImages:im });
     };
     init();
   }, []);
@@ -118,6 +206,10 @@ export const DataProvider = ({ children }: { children: React.ReactNode }) => {
     dataToShow: idsOfItemsToDisplay,
     updateSelectedImagesList,
     objectsToDisplay: dataToShow,
+    categories,
+    setCategories,
+    initzialzeDashboard,
+    deleteByIdGenerator,
   };
   return (
     <DataContext.Provider value={{ ...val }}>{children}</DataContext.Provider>

@@ -1,7 +1,6 @@
 import React, { useContext } from "react";
 import DragItemSetter from "../../../components/complex/DragItemSetter/DragItemSetter";
 import styled from "styled-components";
-import { DashboardContext } from "../../../context/DashboardContext";
 import { DataContext } from "../../../context/DataContext";
 import MyText from "../../../components/core/Text/MyText";
 import { PageCenterWrapWithBread } from "../../../components/containers/PageCenterWrap";
@@ -19,8 +18,7 @@ const Wrap = styled.div`
   }
 `;
 const HomeImages = () => {
-  const { homeImages,deleteByIdGenerator } = useContext(DashboardContext);
-  const { dataToShow, updateSelectedImagesList } = useContext(DataContext);
+  const { dataToShow, updateSelectedImagesList,deleteByIdGenerator,objectsToDisplay } = useContext(DataContext);
   const {inputs,handleSubmit,submitButtonText} = formikDashboardData.homeImages
 
 
@@ -41,7 +39,7 @@ const HomeImages = () => {
         </MyText>
         <DragItemSetter
           deleteById={deleteByIdGenerator(FirestorePaths.homeImages)}
-          imageData={homeImages}
+          imageData={objectsToDisplay.dashboardImages}
           orderOfVisibleItems={dataToShow.selectedHomeImages}
           updateOrdder={updateSelectedImagesList}
         />

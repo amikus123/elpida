@@ -30,6 +30,7 @@ const InternalWrap = styled.div`
   justify-content: center;
   align-items: center;
   border-radius: 3px;
+
   &:active{
     border: 1px solid #007185;
   }
