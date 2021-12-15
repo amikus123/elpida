@@ -18,7 +18,7 @@ import {  CardData, ImageWithLink } from "../constans/types";
 
 // used to provide betterautocomplete
 const x: IdsOfItemsToDisplay = { selectedHomeImages: [] };
-const y: DataToShow = { homeImages: [], cardGroups: [] };
+const y: DataToShow = { homeImages: [], cardGroups: [] ,inventory:{}};
 
 export const DataContext = createContext({
   selectedLocation: "Austria",
@@ -33,6 +33,7 @@ export const DataContext = createContext({
 export interface DataToShow {
   homeImages: ImageWithLink[];
   cardGroups: CardData[][];
+  inventory: Record<string,any>
 }
 export const DataProvider = ({ children }: { children: React.ReactNode }) => {
   // data for ui element
@@ -45,6 +46,7 @@ export const DataProvider = ({ children }: { children: React.ReactNode }) => {
   const [dataToShow, setDataToShow] = useState<DataToShow>({
     homeImages: [],
     cardGroups: [[],[],[],],
+    inventory:{}
   });
 
   const fetchInventory = async() =>{
@@ -97,14 +99,13 @@ export const DataProvider = ({ children }: { children: React.ReactNode }) => {
         const res = (await convertFilePathsToImages(x)) as CardData[];
         cardGroups.push(res);
       }
-      const rawInventory = await fetchInventory()
-      const itemNames = Object.keys(rawInventory)
+      const inventory = await fetchInventory()
+      const itemNames = Object.keys(inventory)
       for (const x of itemNames) {
-        rawInventory[x] = await convertFilePathsToImages(rawInventory[x])
+        inventory[x] = await convertFilePathsToImages(inventory[x])
       }
-      console.log( cardGroups,homeImages,"fin");
-      console.log(rawInventory)
-      setDataToShow({ homeImages, cardGroups });
+      console.log(inventory)
+      setDataToShow({ homeImages, cardGroups,inventory });
     };
     init();
   }, []);
