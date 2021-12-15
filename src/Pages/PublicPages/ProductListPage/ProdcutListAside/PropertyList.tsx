@@ -3,7 +3,7 @@ import { Field } from "formik";
 import styled from "styled-components";
 import MyText from "../../../../components/core/Text/MyText";
 import { COLORS } from "../../../../styles/styleValues";
-import { capitalizeFirstLetter } from "../../../../utils/stringFunctions";
+import { camelToSplit, determineExtraSymbol } from "../../../../utils/stringFunctions";
 interface PropertyListProps {
   data: any;
 }
@@ -42,7 +42,7 @@ const PropertyList = ({ data }: PropertyListProps) => {
                 id={propertyName + index}
               />
               <MyText element="label" labelTarget={propertyName + index} fontSize="1.25rem">
-                {value}{" "}<MyText presetColor="grey" element="span" fontSize="0.875em">({count})</MyText>
+                {camelToSplit(value)}{determineExtraSymbol(propertyName)}<MyText presetColor="grey" element="span" fontSize="0.875em">({count})</MyText>
               </MyText>
             </InnerCheckboxWrap>
           );

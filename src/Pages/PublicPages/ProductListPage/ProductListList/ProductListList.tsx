@@ -1,7 +1,6 @@
 import React from "react";
 import styled from "styled-components";
 import ProductListItem from "../ProductListItem/ProductListItem";
-import { ItemData } from "../tmpConst";
 
 const Wrap = styled.div`
   flex: 1;
@@ -9,14 +8,16 @@ const Wrap = styled.div`
   min-width: 100px;
 `;
 interface ProductListListProps{
-  items :ItemData[]
+  items :any[]
 }
 const ProductListList = ({items}:ProductListListProps) => {
   return <Wrap>
-
-    {items.map((item,index)=>{
-      return <ProductListItem item={item} key={index}/>
-    })}
+    {
+      items!==undefined?  items.map((item,index)=>{
+        return <ProductListItem item={item} key={index}/>
+      }):null
+    }
+  
   </Wrap>;
 };
 

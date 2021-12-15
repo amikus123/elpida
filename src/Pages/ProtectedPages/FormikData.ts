@@ -66,7 +66,6 @@ promotedCards:{
   handleSubmit:async (values) => {
     // ! NEVER USED FUCNTION IS PASSED IN  groupDataTemplates
     throw new Error("zesranie")
-    return await uploadFromForm({...values},  FirestorePaths.promotedCards);
 },
 submitButtonText:"Add card",
 

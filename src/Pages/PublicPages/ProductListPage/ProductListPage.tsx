@@ -63,7 +63,7 @@ const ProductListPage = () => {
 
   useEffect(() => {
     const res = createSidebBarData(contentData.inventory[category]) as any
-    console.log(res);
+    console.log(res,"ss",);
     setAsideData(res)
   }, [contentData, category]);
 
@@ -77,7 +77,7 @@ const ProductListPage = () => {
           dynamicValues={filterSettings}
           formRef={onRefChange}
         />
-        <ProductListList items={items} />
+        <ProductListList items={contentData.inventory[category]} />
       </Wrap>
     </PageCenterWrapWithBread>
   );

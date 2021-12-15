@@ -1,7 +1,6 @@
 import {  Formik, Form } from "formik";
 import React from "react";
 import styled from "styled-components";
-import { Filter } from "../tmpConst";
 import PropertyList from "./PropertyList";
 import MyText from "../../../../components/core/Text/MyText";
 import { capitalizeFirstLetter } from "../../../../utils/stringFunctions";

@@ -1,11 +1,10 @@
 import React from "react";
 import styled from "styled-components";
-import { nameToPublicLink } from "../../../../utils/imageFunctions";
-import { Option } from "../tmpConst";
 import MyText from "../../../../components/core/Text/MyText";
+import { camelToSplit, determineExtraSymbol } from "../../../../utils/stringFunctions";
 interface ProductDescriptionProps {
-  properties: Option[];
-  images: string[];
+  properties: Record<string,string>;
+  image: string
 }
 
 const Wrap = styled.div`
@@ -22,22 +21,24 @@ const PropertyListWrap = styled.div`
 `;
 const Image = styled.img``;
 
+
+
 const ProductDescription = ({
   properties,
-  images,
+  image,
 }: ProductDescriptionProps) => {
   return (
     <Wrap>
       <Image
-        src={nameToPublicLink(images[0], "items")}
-        alt="first product image"
+        src={image}
+        alt="product"
       />
       <PropertyListWrap>
-        {properties.map((item, index) => {
+        {Object.keys(properties).map((key, index) => {
           return (
             <PropertyWrap key={index}>
-              <MyText presetColor="grey"> {item.title}: </MyText>
-              <MyText>&nbsp;{item.value}</MyText>
+              <MyText presetColor="grey"> {camelToSplit(key)}: </MyText>
+              <MyText>&nbsp;{camelToSplit(properties[key])}{determineExtraSymbol(key)}</MyText>
             </PropertyWrap>
           );
         })}
