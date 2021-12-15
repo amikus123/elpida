@@ -35,6 +35,8 @@ const ImageComponent = styled.img`
 interface CategoryItemProps{
  item:CardData
 }
+
+
 const CardWrapStyled = styled(CardWrap)``;
 const CategoryItem = ({item}:CategoryItemProps) => {
   const {link,title: topText,bottomText,image: imageName} = item
