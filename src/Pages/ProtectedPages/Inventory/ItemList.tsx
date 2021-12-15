@@ -1,16 +1,18 @@
 import React from 'react'
-import ProductListItem from '../../PublicPages/ProductListPage/ProductListItem/ProductListItem'
 import ItemCard from './ItemCard'
 
 
 interface ItemListProps{
     items:any[]
+    categoryName:string
+    handleDelete:(s:string)=>any
 }
-const ItemList = ({items}:ItemListProps) => {
+const ItemList = ({items,categoryName,handleDelete}:ItemListProps) => {
     return (
         <div>
+            <p>{categoryName}</p>
             {items.map((item,index)=>{
-                return  <ItemCard item={item} key={index}/>
+                return  <ItemCard handleDelete={handleDelete} item={item} key={index}  />
             })}
         </div>
     )

@@ -1,10 +1,9 @@
-import { Rating } from "@mui/material";
 import styled from "styled-components";
-import MyText from "../../../components/core/Text/MyText";
 import { COLORS } from "../../../styles/styleValues";
 
 interface ProductListItemProps {
   item: any;
+  handleDelete:(s:string) =>any;
 }
 const Wrap = styled.section`
   border: 1px solid ${COLORS.grey};
@@ -30,7 +29,7 @@ cursor:pointer;
 `
 
 
-const ItemCard = ({ item }: ProductListItemProps) => {
+const ItemCard = ({ item,handleDelete}: ProductListItemProps) => {
   return (
     <Wrap>
       <img src={item.image} alt="item" />
@@ -43,7 +42,7 @@ const ItemCard = ({ item }: ProductListItemProps) => {
           </Para>
         );
       })}
-      <DeleteButton>DELETE</DeleteButton>
+      <DeleteButton onClick={()=>{handleDelete(item.id)}}>DELETE</DeleteButton>
     </Wrap>
   );
 };

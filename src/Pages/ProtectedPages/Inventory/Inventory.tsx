@@ -23,7 +23,7 @@ const Wrap = styled.div`
 const Inventory = () => {
   const options: AlocholCategoties[] = ["beer", "wine"];
   const [category, setCategory] = useState<AlocholCategoties>("beer");
-  const {objectsToDisplay} = useContext(DataContext)
+  const {contentData,deleteByIdGenerator} = useContext(DataContext)
   return (
     <PageCenterWrapWithBread>
       <Wrap>
@@ -44,7 +44,7 @@ const Inventory = () => {
         <MyText fontSize="2rem" boldness="bold">
           Change home image order, or toggle visibility
         </MyText>
-      <ItemList items={category in objectsToDisplay.inventory ? objectsToDisplay.inventory[category] : []} />
+      <ItemList categoryName={category} handleDelete={deleteByIdGenerator(category)}items={category in contentData.inventory ? contentData.inventory[category] : []} />
         
       </Wrap>
     </PageCenterWrapWithBread>

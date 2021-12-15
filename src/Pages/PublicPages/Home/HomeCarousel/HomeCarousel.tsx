@@ -27,11 +27,11 @@ const Wrapper = styled.div`
   }
 `;
 const HomeCarousel = () => {
-  const { objectsToDisplay } = useContext(DataContext);
+  const { contentData } = useContext(DataContext);
   return (
     <Wrapper>
       <Carousel infiniteLoop={true} showStatus={false} showIndicators={false}>
-        {objectsToDisplay.homeImages.map((item, index) => {
+        {contentData.homeImages.map((item, index) => {
           return (
             <CarouselItem
               key={index}

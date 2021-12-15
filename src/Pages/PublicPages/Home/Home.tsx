@@ -34,15 +34,15 @@ const bestSellersRowData: RowContent = {
 };
 
 const Home = () => {
-  const {objectsToDisplay} = useContext(DataContext)
+  const {contentData} = useContext(DataContext)
 
   return (
     <PageCenterWrap>
       <HomeCarousel />
       <ContentWrap>
-        <Cards data={objectsToDisplay.cardGroups[0]} />
+        <Cards data={contentData.cardGroups[0]} />
         <ItemRow data={bestSellersRowData} />
-        <Cards data={objectsToDisplay.cardGroups[1]} />
+        <Cards data={contentData.cardGroups[1]} />
       </ContentWrap>
     </PageCenterWrap>
   );

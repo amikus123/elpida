@@ -5,11 +5,11 @@ import GroupDataPage from "../../../components/complex/GroupDragPage/GroupDataPa
 
 const BestSellers = () => {
   // we use different one beacuse wee nned to acces context in upload
-  const { objectsToDisplay } = useContext(DataContext);
+  const { contentData } = useContext(DataContext);
 
   return (
  
-    <GroupDataPage objectsToDisplay={objectsToDisplay.cardGroups as unknown as Record<string,string>[][]}  templateData={groupDataTemplates.promotedCards} />
+    <GroupDataPage objectsToDisplay={contentData.cardGroups as unknown as Record<string,string>[][]}  templateData={groupDataTemplates.promotedCards} />
   );
 };
 

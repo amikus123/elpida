@@ -18,7 +18,7 @@ const Wrap = styled.div`
   }
 `;
 const HomeImages = () => {
-  const { dataToShow, updateSelectedImagesList,deleteByIdGenerator,objectsToDisplay } = useContext(DataContext);
+  const { activeIds, updateSelectedImagesList,deleteByIdGenerator,contentData } = useContext(DataContext);
   const {inputs,handleSubmit,submitButtonText} = formikDashboardData.homeImages
 
 
@@ -39,8 +39,8 @@ const HomeImages = () => {
         </MyText>
         <DragItemSetter
           deleteById={deleteByIdGenerator(FirestorePaths.homeImages)}
-          imageData={objectsToDisplay.dashboardImages}
-          orderOfVisibleItems={dataToShow.selectedHomeImages}
+          imageData={contentData.dashboardImages}
+          orderOfVisibleItems={activeIds.selectedHomeImages}
           updateOrdder={updateSelectedImagesList}
         />
       </Wrap>

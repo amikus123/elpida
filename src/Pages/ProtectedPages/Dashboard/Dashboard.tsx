@@ -5,11 +5,11 @@ import { DataContext } from "../../../context/DataContext";
 
 const Dashboard = () => {
   // cards for each categorey
-  const {objectsToDisplay} = useContext(DataContext)
+  const {contentData} = useContext(DataContext)
   
   return (
     <PageCenterWrapWithBread>
-      <Categories data={objectsToDisplay.dashboardCategories} />
+      <Categories data={contentData.dashboardCategories} />
     </PageCenterWrapWithBread>
   );
 };
