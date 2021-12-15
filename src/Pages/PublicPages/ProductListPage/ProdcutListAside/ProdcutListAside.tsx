@@ -1,11 +1,12 @@
-import { useFormik, Formik, Form, Field } from "formik";
+import {  Formik, Form } from "formik";
 import React from "react";
 import styled from "styled-components";
 import { Filter } from "../tmpConst";
 import PropertyList from "./PropertyList";
 import MyText from "../../../../components/core/Text/MyText";
+import { capitalizeFirstLetter } from "../../../../utils/stringFunctions";
 interface ProductListPageProps {
-  data: Filter[];
+  data: any[];
   dynamicValues: Record<string, string[]>;
   formRef: any;
   categoryName: string;
@@ -37,7 +38,7 @@ const ProdcutListAside = ({
   return (
     <Wrap>
       <TextWrap>
-        <MyText>{categoryName} </MyText>
+        <MyText>{capitalizeFirstLetter(categoryName)} </MyText>
         <MyText presetColor="grey" fontSize="0.85em">
           ({categoryCount})
         </MyText>

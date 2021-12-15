@@ -1,6 +1,5 @@
 import React from "react";
 import { Droppable } from "react-beautiful-dnd";
-import { CardData } from "../../../constans/types";
 import DraggableItem from "./DraggableItem";
 
 

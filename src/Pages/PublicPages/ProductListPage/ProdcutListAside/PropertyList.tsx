@@ -1,11 +1,11 @@
 import React from "react";
 import { Field } from "formik";
 import styled from "styled-components";
-import { Filter } from "../tmpConst";
 import MyText from "../../../../components/core/Text/MyText";
 import { COLORS } from "../../../../styles/styleValues";
+import { capitalizeFirstLetter } from "../../../../utils/stringFunctions";
 interface PropertyListProps {
-  data: Filter;
+  data: any;
 }
 const Wrap = styled.div`
   padding: 0.5rem;
@@ -27,22 +27,22 @@ const InnerCheckboxWrap = styled.div`
 
 const PropertyList = ({ data }: PropertyListProps) => {
   const { title, propertyName, values } = data;
-  // TODO show how many items are in each category
   return (
     <Wrap>
       <MyText>{title}</MyText>
       <CheckboxWrap role="group" aria-labelledby="checkbox-group">
         {values.map((item, index) => {
+          const {value,count} = item
           return (
             <InnerCheckboxWrap key={index}>
               <Field
                 type="checkbox"
                 name={propertyName}
-                value={item}
+                value={String(value)}
                 id={propertyName + index}
               />
-              <MyText element="label" labelTarget={propertyName + index}>
-                {item}
+              <MyText element="label" labelTarget={propertyName + index} fontSize="1.25rem">
+                {value}{" "}<MyText presetColor="grey" element="span" fontSize="0.875em">({count})</MyText>
               </MyText>
             </InnerCheckboxWrap>
           );

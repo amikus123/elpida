@@ -46,7 +46,6 @@ const DragItemSetter = ({orderOfVisibleItems,imageData: homeImages,updateOrdder,
       const selectedImage = copy.splice(selectedIndex, 1)[0];
       res.push({ ...selectedImage, dragId: `id-${index}`, show: true });
     });
-    console.log(copy,"cop",res)
     copy.forEach((item, index) => {
       res.push({
         dragId: `id-${index + orderOfVisibleItems.length}`,
@@ -92,7 +91,6 @@ const DragItemSetter = ({orderOfVisibleItems,imageData: homeImages,updateOrdder,
         res.push(item.id);
       }
     });
-    console.log(res);
     return res;
   };
   return (

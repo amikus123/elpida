@@ -2,7 +2,6 @@ import React from "react";
 import styled from "styled-components";
 import PlainButton from "../../../../components/core/Buttons/PlainButton";
 import { COLORS } from "../../../../styles/styleValues";
-import { ItemData } from "../tmpConst";
 import MyText from "../../../../components/core/Text/MyText";
 import PhoneCall from "./PhoneCall";
 

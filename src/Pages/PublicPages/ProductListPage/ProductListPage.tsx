@@ -1,15 +1,16 @@
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useContext, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import Breadcrumbs from "../../../components/core/Breadcrumbs/MyBreadcrumbs";
 import ProdcutListAside from "./ProdcutListAside/ProdcutListAside";
 import deep from "deep-equal";
 
 import ProductListList from "./ProductListList/ProductListList";
 import { Filter, filterOptions, items } from "./tmpConst";
 import styled from "styled-components";
-import PageCenterWrap, {
+import  {
   PageCenterWrapWithBread,
 } from "../../../components/containers/PageCenterWrap";
+import { DataContext } from "../../../context/DataContext";
+import { createSidebBarData } from "../../../utils/filterOptions";
 type CategoryParams = {
   category: string;
 };
@@ -38,7 +39,7 @@ const Wrap = styled.div`
 
 const ProductListPage = () => {
   const { category } = useParams<CategoryParams>();
-
+  const { contentData } = useContext(DataContext);
   // if category is in not in DoorBackTwoTone, we will show error component
   //  product list will be fetched frokm db
   // form will be based on type od object, fetched from db
@@ -47,6 +48,7 @@ const ProductListPage = () => {
     Record<string, string[]>
   >(filterToInitialState(filterOptions));
 
+    const [asideData,setAsideData] =  useState<any[]>([])
   const onRefChange = useCallback((node) => {
     if (node === null) {
       // DOM node referenced by ref has been unmounted
@@ -59,18 +61,24 @@ const ProductListPage = () => {
     }
   }, []);
 
+  useEffect(() => {
+    const res = createSidebBarData(contentData.inventory[category]) as any
+    console.log(res);
+    setAsideData(res)
+  }, [contentData, category]);
+
   return (
     <PageCenterWrapWithBread>
-    <Wrap>
-      <ProdcutListAside
-        categoryName={"Lodowki"}
-        categoryCount={items.length}
-        data={filterOptions}
-        dynamicValues={filterSettings}
-        formRef={onRefChange}
-      />
-      <ProductListList items={items} />
-    </Wrap>
+      <Wrap>
+        <ProdcutListAside
+          categoryName={category}
+          categoryCount={items.length}
+          data={asideData}
+          dynamicValues={filterSettings}
+          formRef={onRefChange}
+        />
+        <ProductListList items={items} />
+      </Wrap>
     </PageCenterWrapWithBread>
   );
 };

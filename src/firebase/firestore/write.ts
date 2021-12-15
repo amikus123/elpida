@@ -67,7 +67,6 @@ export const uploadFromForm = async (
     const keys = Object.keys(data);
     const filePath = imageLocation + "/" + dbId + ".png";
     for (const key of keys) {
-      console.log(key);
       let obj = data[key];
       if (
         obj instanceof File ||

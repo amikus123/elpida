@@ -6,6 +6,7 @@ import {
   PageCenterWrapWithBread,
 } from "../../../components/containers/PageCenterWrap";
 import {DataContext} from "../../../context/DataContext"
+import { nameToPublicLink } from "../../../utils/imageFunctions";
 const Wrap = styled(PageCenterWrapWithBread)`
   width: 100%;
   background-color: #ffffff;
@@ -21,10 +22,39 @@ const Wrap = styled(PageCenterWrapWithBread)`
 
 // on this page user can see all categories which are avaliabile at store,
 // and can click on card to be taken to page that lists all item of given category
-
+const categoryStaticData = {
+  "beer": {
+    image: nameToPublicLink("beer", "/categories"),
+    bottomText: "16",
+    title: "Beers",
+    link: "/categories/beer",
+  },
+  "wine": {
+    image: nameToPublicLink("wine", "/categories"),
+    bottomText: "16",
+    title: "Wines",
+    link: "/categories/wine",
+  },
+}
 
 const CategoryPage = () => {
   const {contentData} = useContext(DataContext)
+
+  const getCategoryData = ()=>{
+    const data = contentData.inventory
+    const keys = Object.keys(data)
+    const arr = []   
+    keys.forEach((key)=>{
+      if(key in categoryStaticData){
+        const res = {...categoryStaticData[key]}
+        res.bottomText = data[key].length
+        arr.push(res)
+      }else{
+      }
+    }) 
+    return arr
+  }
+
   return (
     <Wrap>
       <MyText fontSize="2rem" element="h3">
@@ -33,7 +63,7 @@ const CategoryPage = () => {
           ({Object.keys(contentData.inventory).length})
         </MyText>
       </MyText>
-      <Categories data={contentData.inventory} />
+      <Categories data={getCategoryData()} />
     </Wrap>
   );
 };

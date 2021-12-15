@@ -17,7 +17,6 @@ import { getUrlsForLinks } from "../storage/access";
 
 export const getAllHomeImages = async (): Promise<HomeImagesResponse> => {
   const x =  (await getAllDocs(FirestorePaths.homeImages)) as HomeImagesResponse;
-  console.log(x,"all")
   return x 
 };
 
@@ -68,7 +67,6 @@ export const convertFilePathsToImages = async (
   for (const i in objectWithFiles) {
     objectWithFiles[i].image = links[i];
   }
-  console.log(objectWithFiles,"OBJ WIT ")
   return objectWithFiles;
 };
 
