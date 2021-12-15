@@ -1,5 +1,5 @@
-import React, { useContext } from "react";
-import {  Form, Formik } from "formik";
+import React, { useContext, useEffect, useRef } from "react";
+import { Form, Formik } from "formik";
 import * as Yup from "yup";
 import FormikInput from "../Inputs/FormikInput";
 import { BaseResposne, ValidationTypes } from "../../../constans/types";
@@ -13,16 +13,16 @@ export interface InputData {
   id: string;
   label: string;
   validation?: ValidationTypes;
-  values?:string[];
+  values?: string[];
 }
 
 export type FormikInputTypes =
   | "text"
   | "email"
   | "password"
-  |"number"
+  | "number"
   | "submit"
-  |"radio"
+  | "radio"
   | "file";
 
 const InputWrap = styled.div`
@@ -35,16 +35,31 @@ interface SignupProps {
 }
 
 const FormikForm = ({ inputs, onSubmit, submitButtonText }: SignupProps) => {
-  const {setSnackbarWithResposne} = useContext(ElementContext)
+  const { setSnackbarWithResposne } = useContext(ElementContext);
+  const formRef = useRef();
+
+  useEffect(() => {
+    const xd = formRef.current as any;
+    console.log(xd);
+    const a = getInitialValues(inputs).validation;
+    xd.validationSchema = Yup.object(a);
+
+    console.log("NEW", a, xd);
+  }, [inputs]);
 
   const getInitialValues = (inputs: InputData[]) => {
     let values: Record<string, string> = {};
     const validation: Record<string, ValidationTypes> = {};
     inputs.forEach((item) => {
       values[item.id] = "";
+      // if (item.type === "radio") {
+      //   values[item.id] = item.values[0];
+      // }
+      console.log(item, "ITEM");
       if (item.validation) {
         validation[item.id] = item.validation;
       }
+      console.log(validation);
     });
     return {
       values,
@@ -55,30 +70,32 @@ const FormikForm = ({ inputs, onSubmit, submitButtonText }: SignupProps) => {
   return (
     <Formik
       initialValues={getInitialValues(inputs).values}
-      onSubmit={async (values,actions) => {
-        console.log("XDDD")
+      innerRef={formRef}
+      onSubmit={async (values, actions) => {
+        console.log("XDDD");
         const res = await onSubmit(values);
-        setSnackbarWithResposne(res)
-        console.log(values,"XD")
-        if(!res.error){
+        setSnackbarWithResposne(res);
+        console.log(values, "XD");
+        if (!res.error) {
           // reset if succeded
-          actions.resetForm()
+          actions.resetForm();
         }
       }}
-      
       validationSchema={Yup.object(getInitialValues(inputs).validation)}
     >
       {({ isSubmitting, errors, touched, values, setFieldValue }) => (
         <Form>
           {inputs.map((item, index) => {
-            const {  id } = item;
+            const { id } = item;
             return (
               <InputWrap key={index}>
                 <FormikInput
                   item={item}
-                   setFieldValue={setFieldValue}
+                  setFieldValue={setFieldValue}
                   errorText={errors[id]}
-                  showError={errors[id] && touched[id]}
+                  showError={
+                    errors[id] && (touched[id] || item.type === "radio")
+                  }
                 />
               </InputWrap>
             );

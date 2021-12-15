@@ -6,15 +6,17 @@
 
 export enum FirestorePaths {
   homeImages = "/homeImages/",
-  dataToShow = "/dataToShow",
+  dataToShow = "/dataToShow/",
   promotedCards = "/promotedCards/promotedCards",
 
 
 
 }
+
+export const productNames = ["beer","wine"]
 export enum ProductPaths{
-  beer = "/beer",
-  wine="/wine"
+  beer = "/beer/",
+  wine="/wine/"
 }
 export enum StoragePaths {
   homeImages = "/homeImages/",

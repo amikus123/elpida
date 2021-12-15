@@ -50,7 +50,9 @@ export const formikAlchoholData: FormikDataWrap = {
         type: "radio",
         id: "taste",
         label:"Taste",
-        values:["dry","sweet","medium sweet"]
+        values:["dry","sweet","medium sweet"],
+        validation: Yup.string().required("Link is required"),
+
       },
       {
         type: "radio",
@@ -68,7 +70,7 @@ export const formikAlchoholData: FormikDataWrap = {
     inputs: [
       {
         type: "radio",
-        id: "type",
+        id: "category",
         label:"Type",
         values:["IPA","Porter",]
       },

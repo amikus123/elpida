@@ -135,6 +135,7 @@ export const getAllDocs = async (
   firestoreLocation: string
 ): Promise<unknown> => {
   try {
+    firestoreLocation = firestoreLocation.replace("/","")
     const querySnapshot = await getDocs(collection(myDb, firestoreLocation));
     const result: ImageWithLink[] = [];
     querySnapshot.forEach((doc) => {

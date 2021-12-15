@@ -92,6 +92,7 @@ export const DashboardProvider = ({
     };
     return x;
   };
+
   useEffect(() => {
     initzialzeDashboard();
   }, []);

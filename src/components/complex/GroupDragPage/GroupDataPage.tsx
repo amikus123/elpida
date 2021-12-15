@@ -6,7 +6,6 @@ import FormikForm from "../../core/Form/FormikForm";
 import MyText from "../../core/Text/MyText";
 import GroupDrag from "../GroupDrag/GroupDrag";
 import styled from "styled-components";
-import { BaseResposne } from "../../../constans/types";
 
 const Wrap = styled.div`
   display: flex;
@@ -41,6 +40,7 @@ const GroupDataPage = ({
         />
         <MyText fontSize="2rem" boldness="bold">
           Arrange groups
+          Drop to the last colum to remove item
         </MyText>
         <GroupDrag data={objectsToDisplay} templateData={templateData} />
       </Wrap>

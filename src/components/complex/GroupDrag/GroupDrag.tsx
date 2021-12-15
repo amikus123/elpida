@@ -73,7 +73,9 @@ const GroupDrag = ({data,templateData}:GroupDragInterface) => {
       console.log(result,newState)
       newState[sourceIndex] = result[sourceIndex];
       newState[dropIndex] = result[dropIndex];
+      console.log(newState,"XDDD")
       setState(newState);
+      newState[newState.length-1] = []
       // changes new data in db
       templateData.updateDb(newState)
     }

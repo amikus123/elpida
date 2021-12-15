@@ -2,6 +2,8 @@ import React, { useContext } from "react";
 import { createContext, useEffect, useState } from "react";
 import {
   DataToShow as IdsOfItemsToDisplay,
+  productNames,
+  ProductPaths,
   specificFirebasePaths,
 } from "../constans/consts";
 import {
@@ -9,6 +11,7 @@ import {
   getSelectedHomeImages,
   convertFilePathsToImages,
   getAllCardGroupes,
+  getAllDocs,
 } from "../firebase/firestore/access";
 import { stateChangerGenerator } from "../firebase/firestore/write";
 import {  CardData, ImageWithLink } from "../constans/types";
@@ -45,7 +48,12 @@ export const DataProvider = ({ children }: { children: React.ReactNode }) => {
   });
 
   const fetchInventory = async() =>{
-    
+    const res = {}
+    for(const name of productNames){
+      const  f = await getAllDocs(ProductPaths[name]) as any
+      res[name] = f.res
+    }
+    return res
   }
   const fetchHomeImages = async () => {
     const websiteData = await getWebisteData();
@@ -76,9 +84,6 @@ export const DataProvider = ({ children }: { children: React.ReactNode }) => {
     setSelectedLocation(location);
   };
   
-  // drag functions, they need access to current state to properly update state
-
-
 
   useEffect(() => {
     const init = async () => {
@@ -87,14 +92,18 @@ export const DataProvider = ({ children }: { children: React.ReactNode }) => {
         homeImagesRaw
       )) as ImageWithLink[];
       const groupCardsRaw = await getAllCardGroupes();
-      console.log(homeImages,"jkjj")
       const cardGroups: CardData[][] = [];
       for (const x of groupCardsRaw) {
         const res = (await convertFilePathsToImages(x)) as CardData[];
         cardGroups.push(res);
       }
-
-      console.log( cardGroups,homeImages,homeImagesRaw,"fin");
+      const rawInventory = await fetchInventory()
+      const itemNames = Object.keys(rawInventory)
+      for (const x of itemNames) {
+        rawInventory[x] = await convertFilePathsToImages(rawInventory[x])
+      }
+      console.log( cardGroups,homeImages,"fin");
+      console.log(rawInventory)
       setDataToShow({ homeImages, cardGroups });
     };
     init();

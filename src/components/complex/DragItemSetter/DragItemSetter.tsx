@@ -101,7 +101,7 @@ const DragItemSetter = ({orderOfVisibleItems,imageData: homeImages,updateOrdder,
         {(provided) => (
           <div ref={provided.innerRef} {...provided.droppableProps}>
             <DragList images={draggableItems} handleGenerator={handleGenerator}  deleteById={deleteById}/>
-            {provided.placeholder}
+            {provided.placeholder} 
           </div>
         )}
       </Droppable>

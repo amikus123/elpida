@@ -1,6 +1,7 @@
 import React from "react";
 import { Draggable } from "react-beautiful-dnd";
 import styled from "styled-components";
+import MyText from "../../core/Text/MyText";
 
 const getItemStyle = (isDragging: any, draggableStyle: any) => {
   return {
@@ -31,9 +32,9 @@ const Image = styled.img`
   height: 80px;
 `;
 const DraggableItem = ({ card, index }: DraggableItemProps) => {
-  const {  title, image, link, bottomText } = card;
+  const {  title, image, link, bottomText, id} = card;
   return (
-    <Draggable draggableId={card.id} index={index}>
+    <Draggable draggableId={id} index={index} key={id}>
       {(provided, snapshot) => (
         <div
           ref={provided.innerRef}
@@ -45,11 +46,15 @@ const DraggableItem = ({ card, index }: DraggableItemProps) => {
           )}
         >
           <Item>
+              {index}
+              <br/>
+              {id}
             <Image src={image} alt="failed to dowload preview" />
-            <p>Title:{title}</p>
-            <p>Link:{link}</p>
-            <p>Bottom text:{bottomText}</p>
-          </Item>
+            <MyText>Title:{title}</MyText>
+            <MyText>Link:{link}</MyText>
+            <MyText>Bottom text:{bottomText}</MyText>
+            <div><MyText>Remove </MyText></div>
+            </Item>
         </div>
       )}
     </Draggable>

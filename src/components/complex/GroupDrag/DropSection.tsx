@@ -24,8 +24,8 @@ const DropSection = ({index,cards}:DropSectionProps) => {
           style={getListStyle(snapshot.isDraggingOver)}
           {...provided.droppableProps}
         >
-          {cards.map((card, index) => (
-            <DraggableItem key={index}  card={card} index={index}/>
+          {cards.map((card, i) => (
+            <DraggableItem key={i}  card={card} index={i}/>
           ))}
           {provided.placeholder}
         </div>
