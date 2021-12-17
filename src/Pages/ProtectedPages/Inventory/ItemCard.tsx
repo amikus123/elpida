@@ -1,6 +1,6 @@
+import {useRef} from "react"
 import styled from "styled-components";
 import { COLORS } from "../../../styles/styleValues";
-
 interface ProductListItemProps {
   item: any;
   handleDelete:(s:string) =>any;
@@ -30,8 +30,9 @@ cursor:pointer;
 
 
 const ItemCard = ({ item,handleDelete}: ProductListItemProps) => {
+  const ref = useRef<HTMLDivElement>()
   return (
-    <Wrap>
+    <Wrap ref={ref}>
       <img src={item.image} alt="item" />
       {Object.keys(item).map((key, index) => {
         return key === "image" || key === "id" ? (
@@ -42,7 +43,12 @@ const ItemCard = ({ item,handleDelete}: ProductListItemProps) => {
           </Para>
         );
       })}
-      <DeleteButton onClick={()=>{handleDelete(item.id)}}>DELETE</DeleteButton>
+      <DeleteButton onClick={()=>{
+        if(ref.current && ref.current.style){
+          ref.current.setAttribute("style","display:none;")
+        }
+
+        handleDelete(item.id)}}>DELETE</DeleteButton>
     </Wrap>
   );
 };

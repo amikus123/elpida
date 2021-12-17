@@ -7,7 +7,7 @@ import MyText from "../../../components/core/Text/MyText";
 import { DataContext } from "../../../context/DataContext";
 import { MyFormData } from "../../../firebase/firestore/write";
 import ItemList from "./ItemList";
-import { baseProdcutInputs, formikAlchoholData } from "./tmp";
+import {  formikAlchoholData } from "./tmp";
 
 export type AlocholCategoties = "beer" | "wine";
 
@@ -31,13 +31,13 @@ const Inventory = () => {
     const x = async (values:MyFormData) =>{
       // when we swithc between two forms templates, old vales stay in object
       // we have to filler them out
+      const a = contentData.inventory[category]
+      console.log(a)
       const templateKeys = formikAlchoholData[category].inputs
-      console.log(templateKeys,values,"b4")
       const filteredData:MyFormData = {}
       templateKeys.forEach((key)=>{
         return filteredData[key.id] =values[key.id] 
       })
-      console.log("XD",filteredData  ,"inptus",values)
       return await formikAlchoholData[category].handleSubmit(filteredData)
     }
     return x 
@@ -59,9 +59,7 @@ const Inventory = () => {
           inputs={[...formikAlchoholData[category].inputs]}
           submitButtonText={`Add ${category}`}
         />
-        <MyText fontSize="2rem" boldness="bold">
-          Change home image order, or toggle visibility
-        </MyText>
+  
       <ItemList categoryName={category} handleDelete={deleteByIdGenerator(category)}items={category in contentData.inventory ? contentData.inventory[category] : []} />
         
       </Wrap>

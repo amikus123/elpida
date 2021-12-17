@@ -159,7 +159,8 @@ export const DataProvider = ({ children }: { children: React.ReactNode }) => {
   const deleteByIdGenerator = (firebaseLocation: string) => {
     const x = async (idToRemove: string) => {
       deleteDocById(idToRemove, firebaseLocation).then(() => {
-        init();
+        // it used to re download data after deletion, but instaed we just hide it
+        // init();
       });
     };
     return x;

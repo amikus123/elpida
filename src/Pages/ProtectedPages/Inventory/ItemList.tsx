@@ -1,16 +1,16 @@
 import React from 'react'
+import { ItemProperties } from '../../../context/DataContext'
 import ItemCard from './ItemCard'
 
 
 interface ItemListProps{
-    items:any[]
+    items:ItemProperties[]
     categoryName:string
     handleDelete:(s:string)=>any
 }
-const ItemList = ({items,categoryName,handleDelete}:ItemListProps) => {
+const ItemList = ({items,handleDelete}:ItemListProps) => {
     return (
         <div>
-            <p>{categoryName}</p>
             {items.map((item,index)=>{
                 return  <ItemCard handleDelete={handleDelete} item={item} key={index}  />
             })}
