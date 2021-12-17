@@ -30,13 +30,15 @@ export const baseProdcutInputs : InputData[]= [
     type: "number",
     id: "price",
     label: "Price",
-    validation: Yup.string().required("Title is required"),
+    validation: Yup.string().required("Price is required"),
   },
 
   {
     type: "file",
     id: "image",
     label: "Image",
+    validation: Yup.string().required("Image is required"),
+    
   },
 ];
 
@@ -46,6 +48,7 @@ export const baseProdcutInputs : InputData[]= [
 export const formikAlchoholData: FormikDataWrap = {
   wine: {
     inputs: [
+      ...baseProdcutInputs,
       {
         type: "radio",
         id: "taste",
@@ -68,6 +71,7 @@ export const formikAlchoholData: FormikDataWrap = {
   },
   beer: {
     inputs: [
+      ...baseProdcutInputs,
       {
         type: "radio",
         id: "category",

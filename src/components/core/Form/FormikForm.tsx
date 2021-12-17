@@ -40,11 +40,9 @@ const FormikForm = ({ inputs, onSubmit, submitButtonText }: SignupProps) => {
 
   useEffect(() => {
     const xd = formRef.current as any;
-    console.log(xd);
     const a = getInitialValues(inputs).validation;
     xd.validationSchema = Yup.object(a);
 
-    console.log("NEW", a, xd);
   }, [inputs]);
 
   const getInitialValues = (inputs: InputData[]) => {
@@ -52,14 +50,10 @@ const FormikForm = ({ inputs, onSubmit, submitButtonText }: SignupProps) => {
     const validation: Record<string, ValidationTypes> = {};
     inputs.forEach((item) => {
       values[item.id] = "";
-      // if (item.type === "radio") {
-      //   values[item.id] = item.values[0];
-      // }
-      console.log(item, "ITEM");
+ 
       if (item.validation) {
         validation[item.id] = item.validation;
       }
-      console.log(validation);
     });
     return {
       values,
@@ -72,10 +66,8 @@ const FormikForm = ({ inputs, onSubmit, submitButtonText }: SignupProps) => {
       initialValues={getInitialValues(inputs).values}
       innerRef={formRef}
       onSubmit={async (values, actions) => {
-        console.log("XDDD");
         const res = await onSubmit(values);
         setSnackbarWithResposne(res);
-        console.log(values, "XD");
         if (!res.error) {
           // reset if succeded
           actions.resetForm();

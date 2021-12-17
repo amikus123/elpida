@@ -1,17 +1,20 @@
+import { arrayRemove } from "@firebase/firestore";
 import { ItemProperties } from "../context/DataContext";
-import { NameWithCount, SidebarData } from "../Pages/PublicPages/ProductListPage/ProductListPage";
+import {
+  NameWithCount,
+  SidebarData,
+} from "../Pages/PublicPages/ProductListPage/ProductListPage";
 import { camelToSplit, capitalizeFirstLetter } from "./stringFunctions";
 
 const keysToskip = {
   id: true,
   image: true,
-  title:true,
-  description:true,
+  title: true,
+  description: true,
 };
 
-
 // data is fetched from db
-export const createSidebBarData = (data: ItemProperties[])  : SidebarData[]=> {
+export const createSidebBarData = (data: ItemProperties[]): SidebarData[] => {
   console.log(data, "CREATIN");
   // key  - found values
   const categoryMap = {};
@@ -46,30 +49,57 @@ export const createSidebBarData = (data: ItemProperties[])  : SidebarData[]=> {
     console.log("wrong input", e);
   }
 
-  const final :SidebarData[] = []
-  const properties = Object.keys(categoryMap)
-  properties.forEach((key)=>{
-    const keyValues = categoryMap[key]
-    const valueWithCount:NameWithCount[]= []
-    keyValues.forEach((value)=>{
-      const pair = {value,count:countMap[value]}
-      valueWithCount.push(pair)
-    })
-    const title = camelToSplit(key)
+  const final: SidebarData[] = [];
+  const properties = Object.keys(categoryMap);
+  properties.forEach((key) => {
+    const keyValues = categoryMap[key];
+    const valueWithCount: NameWithCount[] = [];
+    keyValues.forEach((value) => {
+      const pair = { value, count: countMap[value] };
+      valueWithCount.push(pair);
+    });
+    const title = camelToSplit(key);
 
-    const item :SidebarData = {
+    const item: SidebarData = {
       // i have access to array of values
-      values:valueWithCount,
+      values: valueWithCount,
       title,
-      propertyName:key,
-      
-    }
-    final.push(item)
-  }) 
+      propertyName: key,
+    };
+    final.push(item);
+  });
   console.log("enmd", final);
-  return final
+  return final;
 };
 
-const returnFilteredItems = () =>{
-  
-}
+export const filterItems = (
+  items: ItemProperties[],
+  filterSettings: Record<string, string[]>
+) => {
+  const keys = Object.keys(filterSettings);
+
+  for (const key of keys) {
+    if (key === "maxPrice") {
+    } else if (key === "minPrice") {
+    } else if (key !== "price") {
+      // fillter items based on content of filterSettings[key]
+      items = items.filter((item) => {
+        const itemValue = item[key];
+        console.log(filterSettings[key], "xdddd", itemValue);
+        if (filterSettings[key].length === 0) {
+          console.log("no entires");
+          return true;
+        }
+        if (filterSettings[key].indexOf(String(itemValue)) === -1) {
+          console.log("not found");
+          return false;
+        } else {
+          console.log("found");
+          return true;
+        }
+      });
+    }
+  }
+  console.log(items, "end of filter");
+  return items;
+};

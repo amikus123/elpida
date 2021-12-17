@@ -7,22 +7,21 @@ import ProductListList from "./ProductListList/ProductListList";
 import { Filter, filterOptions, items } from "./tmpConst";
 import styled from "styled-components";
 import { PageCenterWrapWithBread } from "../../../components/containers/PageCenterWrap";
-import { DataContext } from "../../../context/DataContext";
-import { createSidebBarData } from "../../../utils/filterOptions";
+import { DataContext, ItemProperties } from "../../../context/DataContext";
+import { createSidebBarData, filterItems } from "../../../utils/filterOptions";
 
 type CategoryParams = {
   category: string;
 };
 
-
-export interface SidebarData{
-  propertyName:string,
-  title:string,
-  values :NameWithCount[]
+export interface SidebarData {
+  propertyName: string;
+  title: string;
+  values: NameWithCount[];
 }
 export interface NameWithCount {
-  value:string|number, 
-  count:number
+  value: string | number;
+  count: number;
 }
 const filterToInitialState = (obj: Filter[]) => {
   const res: Record<string, string[]> = {};
@@ -49,6 +48,7 @@ const Wrap = styled.div`
 const ProductListPage = () => {
   const { category } = useParams<CategoryParams>();
   const { contentData } = useContext(DataContext);
+  const [items, setItems] = useState<ItemProperties[]>([]);
   // if category is in not in DoorBackTwoTone, we will show error component
   //  product list will be fetched frokm db
   // form will be based on type od object, fetched from db
@@ -64,22 +64,29 @@ const ProductListPage = () => {
     } else {
       if (!deep(node.values, filterSettings)) {
         setFilterSettings(node.values);
-        console.log("zmieniono", node.values);
       }
       // DOM node referenced by ref has changed and exists
     }
   }, []);
 
   useEffect(() => {
-    const 
-  categoryProperties = contentData.inventory[category];
-    if (categoryProperties !== undefined) {
-      console.log(categoryProperties, "before ss ");
-      const res = createSidebBarData(categoryProperties);
-      console.log(res, "ss");
-      setAsideData(res);
+    if (contentData.inventory[category] !== undefined) {
+      setItems(contentData.inventory[category]);
+    } else {
+      console.log("current cant set items");
     }
-  }, [contentData, category]);
+  }, [category, contentData]);
+
+  useEffect(() => {
+    filterItems(items, filterSettings);
+  }, [items, filterSettings]);
+
+  useEffect(() => {
+    console.log(items, "before ss ");
+    const res = createSidebBarData(items);
+    console.log(res, "ss");
+    setAsideData(res);
+  }, [items]);
 
   return (
     <PageCenterWrapWithBread>
@@ -92,7 +99,8 @@ const ProductListPage = () => {
           dynamicValues={filterSettings}
           formRef={onRefChange}
         />
-        <ProductListList items={contentData.inventory[category]} />
+        {/* {JSON.stringify(filterItems(items, filterSettings))} */}
+        <ProductListList items={items} />
       </Wrap>
     </PageCenterWrapWithBread>
   );

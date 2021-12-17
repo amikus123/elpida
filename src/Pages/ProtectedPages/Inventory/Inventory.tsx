@@ -5,6 +5,7 @@ import { PageCenterWrapWithBread } from "../../../components/containers/PageCent
 import FormikForm from "../../../components/core/Form/FormikForm";
 import MyText from "../../../components/core/Text/MyText";
 import { DataContext } from "../../../context/DataContext";
+import { MyFormData } from "../../../firebase/firestore/write";
 import ItemList from "./ItemList";
 import { baseProdcutInputs, formikAlchoholData } from "./tmp";
 
@@ -24,6 +25,23 @@ const Inventory = () => {
   const options: AlocholCategoties[] = ["beer", "wine"];
   const [category, setCategory] = useState<AlocholCategoties>("beer");
   const {contentData,deleteByIdGenerator} = useContext(DataContext)
+
+
+  const handleForm = () =>{
+    const x = async (values:MyFormData) =>{
+      // when we swithc between two forms templates, old vales stay in object
+      // we have to filler them out
+      const templateKeys = formikAlchoholData[category].inputs
+      console.log(templateKeys,values,"b4")
+      const filteredData:MyFormData = {}
+      templateKeys.forEach((key)=>{
+        return filteredData[key.id] =values[key.id] 
+      })
+      console.log("XD",filteredData  ,"inptus",values)
+      return await formikAlchoholData[category].handleSubmit(filteredData)
+    }
+    return x 
+   }
   return (
     <PageCenterWrapWithBread>
       <Wrap>
@@ -37,8 +55,8 @@ const Inventory = () => {
           Add new {category}
         </MyText>
         <FormikForm
-          onSubmit={formikAlchoholData[category].handleSubmit}
-          inputs={[...baseProdcutInputs, ...formikAlchoholData[category].inputs]}
+          onSubmit={handleForm()}
+          inputs={[...formikAlchoholData[category].inputs]}
           submitButtonText={`Add ${category}`}
         />
         <MyText fontSize="2rem" boldness="bold">
