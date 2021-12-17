@@ -6,15 +6,24 @@ import deep from "deep-equal";
 import ProductListList from "./ProductListList/ProductListList";
 import { Filter, filterOptions, items } from "./tmpConst";
 import styled from "styled-components";
-import  {
-  PageCenterWrapWithBread,
-} from "../../../components/containers/PageCenterWrap";
+import { PageCenterWrapWithBread } from "../../../components/containers/PageCenterWrap";
 import { DataContext } from "../../../context/DataContext";
 import { createSidebBarData } from "../../../utils/filterOptions";
+
 type CategoryParams = {
   category: string;
 };
 
+
+export interface SidebarData{
+  propertyName:string,
+  title:string,
+  values :NameWithCount[]
+}
+export interface NameWithCount {
+  value:string|number, 
+  count:number
+}
 const filterToInitialState = (obj: Filter[]) => {
   const res: Record<string, string[]> = {};
   obj.forEach((item, index) => {
@@ -46,9 +55,9 @@ const ProductListPage = () => {
 
   const [filterSettings, setFilterSettings] = useState<
     Record<string, string[]>
-  >(filterToInitialState(filterOptions));
+  >(filterToInitialState([]));
 
-    const [asideData,setAsideData] =  useState<any[]>([])
+  const [asideData, setAsideData] = useState<SidebarData[]>([]);
   const onRefChange = useCallback((node) => {
     if (node === null) {
       // DOM node referenced by ref has been unmounted
@@ -62,14 +71,20 @@ const ProductListPage = () => {
   }, []);
 
   useEffect(() => {
-    const res = createSidebBarData(contentData.inventory[category]) as any
-    console.log(res,"ss",);
-    setAsideData(res)
+    const 
+  categoryProperties = contentData.inventory[category];
+    if (categoryProperties !== undefined) {
+      console.log(categoryProperties, "before ss ");
+      const res = createSidebBarData(categoryProperties);
+      console.log(res, "ss");
+      setAsideData(res);
+    }
   }, [contentData, category]);
 
   return (
     <PageCenterWrapWithBread>
       <Wrap>
+        {JSON.stringify(filterSettings)}
         <ProdcutListAside
           categoryName={category}
           categoryCount={items.length}

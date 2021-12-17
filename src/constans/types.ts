@@ -77,11 +77,16 @@ export interface BaseResposne {
   text: string;
   error: boolean;
 }
+
 export interface UserResposne extends BaseResposne {
   res: User;
 }
 export interface AnyRespose extends BaseResposne {
-  res: any | null;
+  res: any ;
+}
+
+export interface AnyArrRespose extends BaseResposne {
+  res: any[] ;
 }
 
 

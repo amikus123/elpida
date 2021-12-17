@@ -4,8 +4,9 @@ import styled from "styled-components";
 import PropertyList from "./PropertyList";
 import MyText from "../../../../components/core/Text/MyText";
 import { capitalizeFirstLetter } from "../../../../utils/stringFunctions";
+import { SidebarData } from "../ProductListPage";
 interface ProductListPageProps {
-  data: any[];
+  data: SidebarData[];
   dynamicValues: Record<string, string[]>;
   formRef: any;
   categoryName: string;

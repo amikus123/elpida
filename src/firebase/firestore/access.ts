@@ -1,6 +1,8 @@
 import { getDocs, doc, collection, getDoc } from "@firebase/firestore";
 import { SnackbarTexts } from "../../constans/snackbar";
 import {
+  AnyArrRespose,
+  AnyRespose,
   BaseResposne,
   CardData,
   HomeImagesResponse,
@@ -16,22 +18,19 @@ import { myDb } from "../main";
 import { getUrlsForLinks } from "../storage/access";
 
 export const getAllHomeImages = async (): Promise<HomeImagesResponse> => {
-  const x =  (await getAllDocs(FirestorePaths.homeImages)) as HomeImagesResponse;
-  return x 
+  const x = (await getAllDocs(FirestorePaths.homeImages)) as HomeImagesResponse;
+  return x;
 };
 
-
-
-
 export const getAllCardGroupes = async (): Promise<CardData[][]> => {
-  const doc :any = await getSingleDoc(FirestorePaths.promotedCards)
-  console.log(doc,"lul")
-  const res = doc.res
-  const arr :CardData[][] = []
-  for(const key in Object.keys(res)){
-    arr.push(res[key])
+  const doc: any = await getSingleDoc(FirestorePaths.promotedCards);
+  console.log(doc, "lul");
+  const res = doc.res;
+  const arr: CardData[][] = [];
+  for (const key in Object.keys(res)) {
+    arr.push(res[key]);
   }
-  
+
   return arr;
 };
 // get initialData =
@@ -53,27 +52,26 @@ export const getSelectedHomeImages = async (
   )) as BaseResposne & { res: ImageWithLink[] };
 };
 
-
 interface ObjectWithImage {
   image: string;
 }
 // this function accepts any object with linkt to starage, and return thah object but with actual path to db
-export const convertFilePathsToImages = async (
-  objectWithFiles: ObjectWithImage[],
+export async function convertFilePathsToImages<T extends ObjectWithImage>(
+  objectWithFiles: T[],
   location: string = ""
-) => {
+) {
   const fileNames = objectWithFiles.map((item) => item.image);
   const links = await getUrlsForLinks(fileNames, location);
   for (const i in objectWithFiles) {
     objectWithFiles[i].image = links[i];
   }
   return objectWithFiles;
-};
+}
 
 export const getMultipleDocs = async (
   collection: string,
   documentNames: string[]
-): Promise<unknown> => {
+): Promise<AnyArrRespose> => {
   try {
     let res: any = [];
     const fetching = documentNames.map((name) => {
@@ -106,7 +104,7 @@ export const getMultipleDocs = async (
 export const getSingleDoc = async (
   collection: string | FirestorePathObject,
   documentName: string = ""
-): Promise<unknown> => {
+): Promise<AnyRespose> => {
   try {
     if (typeof collection !== "string") {
       documentName = collection.doc;
@@ -131,9 +129,9 @@ export const getSingleDoc = async (
 };
 export const getAllDocs = async (
   firestoreLocation: string
-): Promise<unknown> => {
+): Promise<AnyArrRespose> => {
   try {
-    firestoreLocation = firestoreLocation.replace("/","")
+    firestoreLocation = firestoreLocation.replace("/", "");
     const querySnapshot = await getDocs(collection(myDb, firestoreLocation));
     const result: ImageWithLink[] = [];
     querySnapshot.forEach((doc) => {

@@ -1,4 +1,6 @@
-import { capitalizeFirstLetter } from "./stringFunctions";
+import { ItemProperties } from "../context/DataContext";
+import { NameWithCount, SidebarData } from "../Pages/PublicPages/ProductListPage/ProductListPage";
+import { camelToSplit, capitalizeFirstLetter } from "./stringFunctions";
 
 const keysToskip = {
   id: true,
@@ -6,7 +8,10 @@ const keysToskip = {
   title:true,
   description:true,
 };
-export const createSidebBarData = (data: any[]) => {
+
+
+// data is fetched from db
+export const createSidebBarData = (data: ItemProperties[])  : SidebarData[]=> {
   console.log(data, "CREATIN");
   // key  - found values
   const categoryMap = {};
@@ -41,18 +46,18 @@ export const createSidebBarData = (data: any[]) => {
     console.log("wrong input", e);
   }
 
-  const final = []
+  const final :SidebarData[] = []
   const properties = Object.keys(categoryMap)
   properties.forEach((key)=>{
-    const values = categoryMap[key]
-    const valueWithCount = []
-    values.forEach((value)=>{
+    const keyValues = categoryMap[key]
+    const valueWithCount:NameWithCount[]= []
+    keyValues.forEach((value)=>{
       const pair = {value,count:countMap[value]}
       valueWithCount.push(pair)
     })
-    const title = key === "alcoholPercentage"?"Alcohol Percentage":capitalizeFirstLetter(key)
+    const title = camelToSplit(key)
 
-    const item = {
+    const item :SidebarData = {
       // i have access to array of values
       values:valueWithCount,
       title,
@@ -65,10 +70,6 @@ export const createSidebBarData = (data: any[]) => {
   return final
 };
 
-
-// {
-//   title: "Energy class",
-//   propertyName: "energyCLass",
-//   values: [{val:a,count:1}, "B", "C"],
-//   
-// },
+const returnFilteredItems = () =>{
+  
+}

@@ -44,7 +44,6 @@ const CategoryItem = ({item}:CategoryItemProps) => {
   return (
     <CardWrapStyled>
     <LinkFill to={link}>
-      {link}
       <ImageComponent src={imageName} />
       <MyText fontSize="1.25rem">{topText}</MyText>
       {bottomText?<MyText presetColor="grey" fontSize="1.125rem">{bottomText}</MyText>:null}

@@ -21,6 +21,7 @@ import {
 import { CardData, ImageWithLink } from "../constans/types";
 import { DASHBOARD_ROUTES } from "../constans/routes";
 import { getDashboardCategoryImages } from "../firebase/storage/access";
+import { checkboxClasses } from "@mui/material";
 
 const baseState: CardData[] = [
   {
@@ -71,12 +72,21 @@ export const DataContext = createContext({
   },
 });
 
+export interface  ItemProperties  {
+  [key : string]:number|string;
+  image:string;
+  id:string;
+  price:number;
+}
+
+export type Inventory = Record<string,ItemProperties[]>
+
 export interface ContentData {
   dashboardCategories: CardData[];
   homeImages: ImageWithLink[];
   cardGroups: CardData[][];
-  inventory: Record<string, any>;
-  dashboardImages: any[];
+  inventory: Inventory;
+  dashboardImages: ImageWithLink[];
 }
 
 export const DataProvider = ({ children }: { children: React.ReactNode }) => {
@@ -89,7 +99,8 @@ export const DataProvider = ({ children }: { children: React.ReactNode }) => {
   });
   // * object fetch from db, ready to display
   // home images - orderded and only those selected
-  // allHome images, only hown in db
+  // allHome images, only shown in dashboard
+
   const [contentData, setContentData] = useState<ContentData>({
     dashboardCategories: [],
     homeImages: [],
@@ -111,7 +122,7 @@ export const DataProvider = ({ children }: { children: React.ReactNode }) => {
   const getAllHomeImagesLocal = async () => {
     const res = await getAllHomeImages();
     if (!res.error) {
-      const a = (await convertFilePathsToImages(res.res)) as any;
+      const a = (await convertFilePathsToImages(res.res)) as ImageWithLink[];
       return a;
     }
     return [];
@@ -128,7 +139,7 @@ export const DataProvider = ({ children }: { children: React.ReactNode }) => {
       const res = (await convertFilePathsToImages(x)) as CardData[];
       cardGroups.push(res);
     }
-    const allHomeImages = await getAllHomeImagesLocal();
+    const dashboardImages = await getAllHomeImagesLocal()
     const dashboardCategories = await fetchDashboardCategoryImages();
     const inventory = await fetchInventory();
     const itemNames = Object.keys(inventory);
@@ -141,7 +152,7 @@ export const DataProvider = ({ children }: { children: React.ReactNode }) => {
       cardGroups,
       inventory,
       dashboardCategories,
-      dashboardImages: allHomeImages,
+      dashboardImages,
     });
   };
 
@@ -155,10 +166,11 @@ export const DataProvider = ({ children }: { children: React.ReactNode }) => {
   };
 
   const fetchInventory = async () => {
-    const res = {};
+    const res : Inventory = {};
     for (const name of productNames) {
       const f = (await getAllDocs(ProductPaths[name])) as any;
-      res[name] = f.res;
+      const productResult = f.res as  ItemProperties[]
+      res[name] = productResult;
     }
     return res;
   };

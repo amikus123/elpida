@@ -4,8 +4,9 @@ import styled from "styled-components";
 import MyText from "../../../../components/core/Text/MyText";
 import { COLORS } from "../../../../styles/styleValues";
 import { camelToSplit, determineExtraSymbol } from "../../../../utils/stringFunctions";
+import {SidebarData} from "../ProductListPage"
 interface PropertyListProps {
-  data: any;
+  data: SidebarData;
 }
 const Wrap = styled.div`
   padding: 0.5rem;
@@ -42,7 +43,7 @@ const PropertyList = ({ data }: PropertyListProps) => {
                 id={propertyName + index}
               />
               <MyText element="label" labelTarget={propertyName + index} fontSize="1.25rem">
-                {camelToSplit(value)}{determineExtraSymbol(propertyName)}<MyText presetColor="grey" element="span" fontSize="0.875em">({count})</MyText>
+                {camelToSplit(String(value))}{determineExtraSymbol(propertyName)}<MyText presetColor="grey" element="span" fontSize="0.875em">({count})</MyText>
               </MyText>
             </InnerCheckboxWrap>
           );
