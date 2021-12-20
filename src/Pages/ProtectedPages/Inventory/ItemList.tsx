@@ -1,7 +1,13 @@
 import React from 'react'
 import { ItemProperties } from '../../../context/DataContext'
 import ItemCard from './ItemCard'
+import styled from "styled-components"
 
+const Wrap = styled.div`
+display:flex;
+justify-content:center;
+flex-wrap:wrap;
+`
 
 interface ItemListProps{
     items:ItemProperties[]
@@ -10,11 +16,11 @@ interface ItemListProps{
 }
 const ItemList = ({items,handleDelete}:ItemListProps) => {
     return (
-        <div>
+        <Wrap>
             {items.map((item,index)=>{
                 return  <ItemCard handleDelete={handleDelete} item={item} key={index}  />
             })}
-        </div>
+        </Wrap>
     )
 }
 

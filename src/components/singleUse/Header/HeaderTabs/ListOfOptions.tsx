@@ -7,44 +7,33 @@ interface Option {
 }
 const options: Option[] = [
   {
-    name: "Sell",
-    url: "/sell",
+    name: "Categories",
+    url: "/categories/",
   },
   {
-    name: "Best Sellers",
-    url: "/best_sellers",
+    name: "Wine",
+    url: "/categories/wine",
   },
   {
-    name: "Customer Service",
-    url: "/customer_service",
+    name: "Beer",
+    url: "/categories/beer",
+  },
+
+  {
+    name: "Blog",
+    url: "/blog",
   },
   {
-    name: "New Releases",
-    url: "/new_relesaes",
+    name: "Our Favs",
+    url: "/favs",
   },
   {
-    name: "Books",
-    url: "/books",
+    name: "Random product",
+    url: "/random",
   },
   {
-    name: "Fashion",
-    url: "/fashion",
-  },
-  {
-    name: "Fashion",
-    url: "/fashion",
-  },
-  {
-    name: "Fashion",
-    url: "/fashion",
-  },
-  {
-    name: "Fashion",
-    url: "/fashion",
-  },
-  {
-    name: "Fashion",
-    url: "/fashion",
+    name: "Checkout",
+    url: "/checkout",
   },
 
 ];

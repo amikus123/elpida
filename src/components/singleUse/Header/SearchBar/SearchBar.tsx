@@ -1,5 +1,7 @@
-import React from "react";
+import React, { useContext } from "react";
+import { useHistory } from "react-router-dom";
 import styled from "styled-components";
+import { DataContext } from "../../../../context/DataContext";
 import SearchButton from "./SearchButton";
 import SearchInput from "./SearchInput";
 import SearchSelect from "./SearchSelect";
@@ -16,12 +18,21 @@ const ButtonWrapper = styled.div`
   width: 2.8125rem;
   height: 40px;
 `;
+interface SearchBarProps{
+  options:string[],
+}
+const SearchBar = ({options}:SearchBarProps) => {
+  const history = useHistory()
+  const {headerData} = useContext(DataContext)
 
-const SearchBar = () => {
   return (
-    <Form>
-      <SearchSelect />
-      <SearchInput />
+    <Form onSubmit={(e)=>{
+      history.replace(`/search/${headerData.selectedCategory}/${headerData.headerInput}`)
+
+      e.preventDefault()
+    }}>
+      <SearchSelect  options={options} />
+      <SearchInput  />
       <ButtonWrapper>
         <SearchButton />
       </ButtonWrapper>

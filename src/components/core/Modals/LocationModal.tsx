@@ -6,6 +6,7 @@ import HorizontalText from "../Dividers/HorizontalText";
 import Dropdown from "../Inputs/Dropdown";
 import TextInput from "../Inputs/TextInput";
 import MyText from "../Text/MyText";
+
 const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
@@ -63,6 +64,7 @@ const Bottom = styled.div`
     height: 29px;
   }
 `;
+
 const LocationModal = () => {
   const { reset } = useContext(ElementContext);
   const [userInput, setUserInput] = useState("");

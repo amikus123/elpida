@@ -23,7 +23,7 @@ const ProductSidebar = ({ price }: ProductListItemProps) => {
   return (
     <Wrap>
       <MyText fontSize="1.25rem">Price: {price}zl</MyText>
-      <MyText>Arrives: Nov 25 - Dec 6</MyText>
+      {/* <MyText>Arrives: Nov 25 - Dec 6</MyText> */}
       <PlainButton text="Add to Cart"></PlainButton>
       <PlainButton text="Buy now"></PlainButton>
 

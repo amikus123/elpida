@@ -33,6 +33,7 @@ import { UserContext } from "./context/UserContext";
 import PromotedCards from "./Pages/ProtectedPages/PromotedCards/PromotedCards";
 import BestSellers from "./Pages/ProtectedPages/BestSelllers/BestSellers";
 import Inventory from "./Pages/ProtectedPages/Inventory/Inventory";
+import SearchResultPage from "./Pages/PublicPages/SearchResult/SearchResultPage";
 function App() {
   const location = useLocation();
   const { reset } = useContext(ElementContext);
@@ -40,9 +41,10 @@ function App() {
 
   useEffect(() => {
     // reset element(modal,overlay) status on location change
-    console.log(location.pathname,noHeader.indexOf(location.pathname) );
+    console.log(location.pathname,noHeader.indexOf(location.pathname),"XDD" );
     reset();
-  }, [location, reset]);
+    // if restes is included it always fires
+  }, [location]);
   return (
     <>
       <Reset />
@@ -72,12 +74,19 @@ function App() {
             path={"/categories/:category/"}
             exact
           />
+              <RouteController
+            routeType="public"
+            component={SearchResultPage}
+            path={"/search/:category/:title"}
+            exact
+          />
           <RouteController
             routeType="public"
             component={ProductPage}
             path={"/categories/:category/:item"}
             exact
           />
+
 
           {/*  Auth Routes, only non logged user can access them */}
 

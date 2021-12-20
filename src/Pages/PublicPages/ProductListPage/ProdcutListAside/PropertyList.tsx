@@ -4,7 +4,7 @@ import styled from "styled-components";
 import MyText from "../../../../components/core/Text/MyText";
 import { COLORS } from "../../../../styles/styleValues";
 import { camelToSplit, determineExtraSymbol } from "../../../../utils/stringFunctions";
-import {SidebarData} from "../ProductListPage"
+import { SidebarData } from "../tmpConst";
 interface PropertyListProps {
   data: SidebarData;
 }

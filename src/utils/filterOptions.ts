@@ -1,10 +1,7 @@
 import { arrayRemove } from "@firebase/firestore";
 import { ItemProperties } from "../context/DataContext";
-import {
-  NameWithCount,
-  SidebarData,
-} from "../Pages/PublicPages/ProductListPage/ProductListPage";
-import { camelToSplit, capitalizeFirstLetter } from "./stringFunctions";
+import { SidebarData, NameWithCount } from "../Pages/PublicPages/ProductListPage/tmpConst";
+import { camelToSplit } from "./stringFunctions";
 
 const keysToskip = {
   id: true,
@@ -20,15 +17,18 @@ export const createSidebBarData = (data: ItemProperties[]): SidebarData[] => {
   const categoryMap = {};
   // name - count
   const countMap = {};
+
   try {
     data.forEach((item) => {
       const keys = Object.keys(item);
       keys.forEach((key) => {
         // check if value is stored
         // skip certain properties
+        // uniqe for each proeprty
         if (keysToskip[key] !== undefined) {
         } else {
           const value = item[key];
+          const unique = key + "_"+value
           if (categoryMap[key] === undefined) {
             categoryMap[key] = [];
           }
@@ -37,10 +37,10 @@ export const createSidebBarData = (data: ItemProperties[]): SidebarData[] => {
             categoryMap[key].push(value);
           }
           // increment count
-          if (countMap[value] !== undefined) {
-            countMap[value]++;
+          if (countMap[unique] !== undefined) {
+            countMap[unique]++;
           } else {
-            countMap[value] = 1;
+            countMap[unique] = 1;
           }
         }
       });
@@ -51,11 +51,14 @@ export const createSidebBarData = (data: ItemProperties[]): SidebarData[] => {
 
   const final: SidebarData[] = [];
   const properties = Object.keys(categoryMap);
-  properties.forEach((key) => {
+  properties.forEach((key,index) => {
     const keyValues = categoryMap[key];
     const valueWithCount: NameWithCount[] = [];
+    
+    console.log(keyValues,"XDDDD",properties[index])
     keyValues.forEach((value) => {
-      const pair = { value, count: countMap[value] };
+      const unique = properties[index] + "_"+value
+      const pair = {value, count: countMap[unique] };
       valueWithCount.push(pair);
     });
     const title = camelToSplit(key);

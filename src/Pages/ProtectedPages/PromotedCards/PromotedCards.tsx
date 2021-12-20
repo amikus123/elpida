@@ -8,7 +8,6 @@ const HomeImages = () => {
   const { contentData } = useContext(DataContext);
 
   return (
- 
     <GroupDataPage  objectsToDisplay={contentData.cardGroups as unknown as Record<string,string>[][]}  templateData={groupDataTemplates.promotedCards} />
   );
 };

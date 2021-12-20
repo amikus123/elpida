@@ -6,9 +6,12 @@ import ProductSidebar from "./ProductSidebar";
 import styled from "styled-components";
 import { COLORS } from "../../../../styles/styleValues";
 import { camelToSplit } from "../../../../utils/stringFunctions";
+import { Link } from "react-router-dom";
+import { ItemProperties } from "../../../../context/DataContext";
 
 interface ProductListItemProps {
-  item: any;
+  item: ItemProperties;
+  categoryName: string;
 }
 const Wrap = styled.section`
   border: 1px solid ${COLORS.grey};
@@ -16,7 +19,7 @@ const Wrap = styled.section`
   flex-direction: row;
   font-size: 1.125rem;
 `;
-const DescrtiptionWrap = styled.div`
+const DescrtiptionWrap = styled(Link)`
   padding: 1rem;
 
   flex: 1;
@@ -29,10 +32,10 @@ const coreKeys = {
   title:true
 };
 interface Values {
-  addonitial: Record<string, any>;
-  core: Record<string, any>;
+  addonitial: Record<string, string>;
+  core: Record<string, string>;
 }
-const ProductListItem = ({ item }: ProductListItemProps) => {
+const ProductListItem = ({ item,categoryName }: ProductListItemProps) => {
   const [values, setValues] = useState<Values>({ addonitial: {}, core: {} });
 
   useEffect(() => {
@@ -42,10 +45,10 @@ const ProductListItem = ({ item }: ProductListItemProps) => {
       const keys = Object.keys(item);
       keys.forEach((key) => {
         if (coreKeys[key] !== undefined) {
-          core[key] = item[key];
+          core[key] = String(item[key])
         } else {
 
-          addonitial[key] = item[key];
+          addonitial[key] =  String(item[key])
         }
       });
       console.log(addonitial,core)
@@ -57,7 +60,9 @@ const ProductListItem = ({ item }: ProductListItemProps) => {
     <Wrap>
       {values.core["id"] !== undefined ? (
         <>
-          <DescrtiptionWrap>
+          <DescrtiptionWrap to={`/categories/${categoryName}/${values.core.title}`}>
+          {/* <DescrtiptionWrap to={`#`}> */}
+
             <MyText fontSize="2em" to={values.core.id}>
               {camelToSplit(values.core.title)}
             </MyText>
@@ -70,7 +75,7 @@ const ProductListItem = ({ item }: ProductListItemProps) => {
             </div>
             <ProductDescription image={values.core.image} properties={values.addonitial} />
           </DescrtiptionWrap>
-          <ProductSidebar price={values.core.price} />
+          <ProductSidebar price={Number(values.core.price)}/>
         </>
       ) : null}
     </Wrap>

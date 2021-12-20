@@ -21,7 +21,6 @@ import {
 import { CardData, ImageWithLink } from "../constans/types";
 import { DASHBOARD_ROUTES } from "../constans/routes";
 import { getDashboardCategoryImages } from "../firebase/storage/access";
-import { checkboxClasses } from "@mui/material";
 
 const baseState: CardData[] = [
   {
@@ -54,16 +53,18 @@ const y: ContentData = {
   dashboardCategories: [],
   dashboardImages: [],
 };
-
+const z : HeaderData = {
+  headerInput:"",
+  selectedCategory:"All"
+}
 export const DataContext = createContext({
-  selectedLocation: "Austria",
-  setLocation: (location: string) => {},
   setCartCount: (newCount: number) => {},
   updateSelectedImagesList: (list: string[]) => {},
   cartCount: 0,
   activeIds: x,
   contentData: y,
-
+  headerData:z,
+  updateHeaderData : (s:string,a="text")=>{},
   deleteByIdGenerator: (s: string) => {
     const x = async (a: string) => {
       return await console.log();
@@ -74,6 +75,7 @@ export const DataContext = createContext({
 
 export interface  ItemProperties  {
   [key : string]:number|string;
+  title:string;
   image:string;
   id:string;
   price:number;
@@ -81,6 +83,10 @@ export interface  ItemProperties  {
 
 export type Inventory = Record<string,ItemProperties[]>
 
+export interface HeaderData{
+  selectedCategory:string,
+  headerInput:string
+}
 export interface ContentData {
   dashboardCategories: CardData[];
   homeImages: ImageWithLink[];
@@ -91,7 +97,7 @@ export interface ContentData {
 
 export const DataProvider = ({ children }: { children: React.ReactNode }) => {
   // data for ui element
-  const [selectedLocation, setSelectedLocation] = useState("Austria");
+  const [headerData,setHeaderData] = useState<HeaderData>({selectedCategory:"All",headerInput:""})
   const [cartCount, setCartCount] = useState(0);
   //* ids of images to fetch, found in db
   const [activeIds, setIdsOfItemsToDisplay] = useState<ItemsWithToggle>({
@@ -108,7 +114,14 @@ export const DataProvider = ({ children }: { children: React.ReactNode }) => {
     inventory: {},
     dashboardImages: [],
   });
+  const updateHeaderData = (value:string,target:"text"|"category"="text") =>{
+    if(target ==="text"){
+      setHeaderData({...headerData,headerInput:value})
 
+    }else{
+      setHeaderData({...headerData,selectedCategory:value})
+    }
+  }
   const fetchDashboardCategoryImages = async () => {
     const response = await getDashboardCategoryImages();
     // upadting the urls
@@ -200,17 +213,16 @@ export const DataProvider = ({ children }: { children: React.ReactNode }) => {
     );
     fun(newValue);
   };
-  const setLocation = (location: string) => {
-    setSelectedLocation(location);
-  };
+
 
   useEffect(() => {
     init();
   }, []);
 
   const val = {
-    setLocation,
-    selectedLocation,
+    headerData,
+  
+    updateHeaderData,
     cartCount,
     setCartCount,
     activeIds,

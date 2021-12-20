@@ -92,10 +92,14 @@ export const ElementProvider = ({ children }: { children: any }) => {
     setShowDropdown(bool);
   };
   const reset = () => {
+    console.log("reee")
     setShowOverlay(false);
     setShowDropdown(false);
     setSelectedModal("none");
   };
+  useEffect(()=>{
+    console.log(showOverlay,selectedModal)
+  },[showOverlay,selectedModal])
   const val = {
     showOverlay,
     reset,

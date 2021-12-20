@@ -1,9 +1,11 @@
 export enum COLORS {
   grey = "#888",
   black="#000",
+  white="#fff",
   darkBlue = "#007185",
   mediumOrange = "#c7511f",
   inherit = "inherit",
+  lightGrey = "#eee"
 }
 
 export enum SIZES{

@@ -30,6 +30,7 @@ const ContentWrap = styled.div`
 interface PageWrap {
   children?: React.ReactNode;
   className?: string;
+  bread?: boolean;
 }
 const PageCenterWrap = ({ children, className = "" }: PageWrap) => {
   return <Regular className={className}>{children}</Regular>;
@@ -37,10 +38,11 @@ const PageCenterWrap = ({ children, className = "" }: PageWrap) => {
 export const PageCenterWrapWithBread = ({
   children,
   className = "",
+  bread = true,
 }: PageWrap) => {
   return (
     <Wrap className={className}>
-      <MyBreadcrumbs />
+      {bread ? <MyBreadcrumbs /> : null}
       <ContentWrap> {children}</ContentWrap>
     </Wrap>
   );

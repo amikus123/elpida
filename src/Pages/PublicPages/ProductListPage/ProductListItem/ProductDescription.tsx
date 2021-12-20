@@ -19,7 +19,9 @@ const PropertyWrap = styled.div`
 const PropertyListWrap = styled.div`
   margin-left: 1rem;
 `;
-const Image = styled.img``;
+const Image = styled.img`
+  max-width:200px;
+`;
 
 
 

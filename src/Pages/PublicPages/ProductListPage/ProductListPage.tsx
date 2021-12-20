@@ -4,25 +4,13 @@ import ProdcutListAside from "./ProdcutListAside/ProdcutListAside";
 import deep from "deep-equal";
 
 import ProductListList from "./ProductListList/ProductListList";
-import { Filter, filterOptions, items } from "./tmpConst";
+import { CategoryParams, Filter, SidebarData } from "./tmpConst";
 import styled from "styled-components";
 import { PageCenterWrapWithBread } from "../../../components/containers/PageCenterWrap";
 import { DataContext, ItemProperties } from "../../../context/DataContext";
 import { createSidebBarData, filterItems } from "../../../utils/filterOptions";
 
-type CategoryParams = {
-  category: string;
-};
 
-export interface SidebarData {
-  propertyName: string;
-  title: string;
-  values: NameWithCount[];
-}
-export interface NameWithCount {
-  value: string | number;
-  count: number;
-}
 const filterToInitialState = (obj: Filter[]) => {
   const res: Record<string, string[]> = {};
   obj.forEach((item, index) => {
@@ -39,7 +27,6 @@ const Wrap = styled.div`
   align-items: flex-start;
   justify-content: space-around;
   padding: 0;
-
   & > * {
   }
   padding-bottom: 3rem;
@@ -67,6 +54,7 @@ const ProductListPage = () => {
       }
       // DOM node referenced by ref has changed and exists
     }
+    // i gues this can create infinite loop, which is bad news
   }, []);
 
   useEffect(() => {
@@ -91,7 +79,6 @@ const ProductListPage = () => {
   return (
     <PageCenterWrapWithBread>
       <Wrap>
-        {JSON.stringify(filterSettings)}
         <ProdcutListAside
           categoryName={category}
           categoryCount={items.length}
@@ -99,8 +86,9 @@ const ProductListPage = () => {
           dynamicValues={filterSettings}
           formRef={onRefChange}
         />
-        {/* {JSON.stringify(filterItems(items, filterSettings))} */}
-        <ProductListList items={items} />
+        <ProductListList items={filterItems(items, filterSettings)} 
+          categoryName={category}
+          />
       </Wrap>
     </PageCenterWrapWithBread>
   );

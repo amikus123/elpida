@@ -7,6 +7,7 @@ interface ProductListItemProps {
 }
 const Wrap = styled.section`
   border: 1px solid ${COLORS.grey};
+  min-width:200px;
   display: flex;
   flex-direction: row;
   font-size: 1.125rem;
@@ -27,13 +28,15 @@ cursor:pointer;
    color:red;
  }
 `
-
+const Image = styled.img`
+width:200px;
+`
 
 const ItemCard = ({ item,handleDelete}: ProductListItemProps) => {
   const ref = useRef<HTMLDivElement>()
   return (
     <Wrap ref={ref}>
-      <img src={item.image} alt="item" />
+      <Image src={item.image} alt="item" />
       {Object.keys(item).map((key, index) => {
         return key === "image" || key === "id" ? (
           null

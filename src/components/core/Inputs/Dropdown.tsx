@@ -61,7 +61,6 @@ const Option = styled.li`
 `;
 
 const Dropdown = () => {
-  const { selectedLocation, setLocation } = useContext(DataContext);
   const { showDropdown, setDropdown } = useContext(ElementContext);
   return (
     <Wrapper>
@@ -73,7 +72,6 @@ const Dropdown = () => {
             e.stopPropagation();
           }}
         >
-          {selectedLocation}
         </Display>
         <ListWrap style={{ visibility: showDropdown ? "visible" : "hidden" }}>
           <List>
@@ -83,7 +81,6 @@ const Dropdown = () => {
                   value={item}
                   key={index}
                   onClick={(e) => {
-                    setLocation(item);
                     setDropdown(false);
                     e.stopPropagation();
                   }}

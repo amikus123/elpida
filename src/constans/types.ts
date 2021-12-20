@@ -14,6 +14,10 @@ export interface RowItem {
   image: string;
   link: string;
 }
+export interface TextLink{
+  title:string;
+  link:string;
+}
 export interface ImageWithLink extends  RowItem  {
   title: string;
   id?:string;

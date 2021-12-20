@@ -4,7 +4,8 @@ import styled from "styled-components";
 import PropertyList from "./PropertyList";
 import MyText from "../../../../components/core/Text/MyText";
 import { capitalizeFirstLetter } from "../../../../utils/stringFunctions";
-import { SidebarData } from "../ProductListPage";
+import PriceControl from "./PriceControl";
+import { SidebarData } from "../tmpConst";
 interface ProductListPageProps {
   data: SidebarData[];
   dynamicValues: Record<string, string[]>;
@@ -19,10 +20,9 @@ const Wrap = styled.aside`
   width: min-content;
 `;
 const TextWrap = styled.div`
-  display: flex;
-  flex-direction: row;
-  align-items: center;
   margin-bottom: 0.5rem;
+  font-size: 2.5rem;
+
 `;
 const ColumnWrap = styled.div`
   /* outline: 1px solid red; */
@@ -38,12 +38,14 @@ const ProdcutListAside = ({
   return (
     <Wrap>
       <TextWrap>
-        <MyText>{capitalizeFirstLetter(categoryName)} </MyText>
-        <MyText presetColor="grey" fontSize="0.85em">
+        <MyText element="span">{capitalizeFirstLetter(categoryName)} </MyText>
+        <MyText element="span"presetColor="grey" fontSize="0.85em">
           ({categoryCount})
         </MyText>
       </TextWrap>
       <ColumnWrap>
+      {/* !TODO */}
+      <PriceControl/>
         <Formik
           innerRef={formRef}
           initialValues={dynamicValues}

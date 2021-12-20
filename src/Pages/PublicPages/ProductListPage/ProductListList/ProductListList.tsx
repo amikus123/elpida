@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import { ItemProperties } from "../../../../context/DataContext";
 import ProductListItem from "../ProductListItem/ProductListItem";
 
 const Wrap = styled.div`
@@ -8,13 +9,15 @@ const Wrap = styled.div`
   min-width: 100px;
 `;
 interface ProductListListProps{
-  items :any[]
+  items :ItemProperties[];
+  categoryName:string;
+
 }
-const ProductListList = ({items}:ProductListListProps) => {
+const ProductListList = ({items,categoryName}:ProductListListProps) => {
   return <Wrap>
     {
       items!==undefined?  items.map((item,index)=>{
-        return <ProductListItem item={item} key={index}/>
+        return <ProductListItem item={item} key={index}    categoryName={categoryName}/>
       }):null
     }
   

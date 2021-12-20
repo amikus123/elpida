@@ -15,6 +15,7 @@ type PossibleElements =
   | "h4"
   | "h5"
   | "h6"
+  |"li"
   | "link"
   | "label";
 // presetColor should always be poassed using COLORs enym

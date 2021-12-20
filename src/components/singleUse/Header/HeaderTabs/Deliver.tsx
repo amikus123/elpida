@@ -2,7 +2,6 @@ import React, { useContext } from "react";
 import RoomIcon from "@mui/icons-material/Room";
 import styled from "styled-components";
 import { MODALS } from "../../../../constans/routes";
-import { DataContext } from "../../../../context/DataContext";
 import { ElementContext } from "../../../../context/ElementContext";
 import HiddenLogin from "../List/HiddenLogin";
 import { SIZES } from "../../../../styles/styleValues";
@@ -40,7 +39,6 @@ const Bold = styled.span`
 `;
 const Deliver = () => {
   const { openModal } = useContext(ElementContext);
-  const { selectedLocation } = useContext(DataContext);
 
   return (
     <Wrapper
@@ -52,7 +50,7 @@ const Deliver = () => {
       <CustomLink>
         Deliver to
         <br />
-        <Bold>{selectedLocation}</Bold>
+        <Bold>NY</Bold>
       </CustomLink>
       <HiddenLogin />
     </Wrapper>

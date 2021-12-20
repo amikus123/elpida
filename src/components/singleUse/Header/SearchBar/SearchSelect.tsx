@@ -1,8 +1,8 @@
-import React, { useState } from "react";
+import React, { useContext } from "react";
 import styled from "styled-components";
 import { FaCaretDown } from "react-icons/fa";
+import { DataContext } from "../../../../context/DataContext";
 
-const options = ["All", "Audible Books & Originals", "Alexa Skills"];
 
 const Wrapper = styled.div`
   /* background-color: red; */
@@ -45,7 +45,7 @@ const Select = styled.select`
   height: 50px;
   cursor: pointer;
 
-  left: 1px;
+  left: 2px;
   width: 100%;
   width: -moz-available; /* WebKit-based browsers will ignore this. */
   width: -webkit-fill-available; /* Mozilla-based browsers will ignore this. */
@@ -53,24 +53,28 @@ const Select = styled.select`
 
   position: absolute;
   opacity: 0;
-  top: 0;
+  top: -8px;
 `;
 const Option = styled.option``;
+interface SearchSelectProps{
+  options:string[],
+  
+}
+const SearchSelect = ({options}:SearchSelectProps) => {
+  const { headerData ,updateHeaderData} = useContext(DataContext);
 
-const SearchSelect = () => {
-  const [selected, setSelected] = useState(options[0]);
   return (
     <Wrapper>
       <Inner>
         <Display>
           <span>
-            {selected}
+            {headerData.selectedCategory}
             <FaCaretDown />
           </span>
         </Display>
         <Select
           onChange={(e) => {
-            setSelected(e.target.value);
+            updateHeaderData(e.target.value,"category");
           }}
         >
           {options.map((item, index) => {

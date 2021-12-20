@@ -29,6 +29,8 @@ export default createGlobalStyle<StyledGlobals>`
    }
    a{
        text-decoration: none;
+       // MAY CASUE SOME PROBLEMS
+       color:inherit;
 
    }
 `;

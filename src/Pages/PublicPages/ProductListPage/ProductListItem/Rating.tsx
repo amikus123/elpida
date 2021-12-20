@@ -62,7 +62,8 @@ const Rating = ({ rating, ratingCount, productCode }: RatingProps) => {
   // fully filled stars will
   return (
     <Wrap>
-      {ratingCount === 0 ? null : (
+      {/* for now we dont use ratings */}
+      {/* {ratingCount === 0 ? null : (
         <>
           <StarWrap className="rating">
             <FullyFilled />
@@ -72,8 +73,8 @@ const Rating = ({ rating, ratingCount, productCode }: RatingProps) => {
             ({ratingCount})
           </MyText>
         </>
-      )}
-      <MyText presetColor="grey">Product code: {productCode} </MyText>
+      )} */}
+      {/* <MyText presetColor="grey">Product code: {productCode} </MyText> */}
     </Wrap>
   );
 };

@@ -1,12 +1,14 @@
 import styled from "styled-components";
 import Logo from "../../core/Logo/Logo";
 import Cart from "./HeaderTabs/Cart";
-import Deliver from "./HeaderTabs/Deliver";
 import ListOfOptions from "./HeaderTabs/ListOfOptions";
 import Login from "./HeaderTabs/Login";
 import Returns from "./HeaderTabs/Returns";
 import SearchBar from "./SearchBar/SearchBar";
 import { SIZES } from "../../../styles/styleValues";
+import { useState, useContext, useEffect } from "react";
+import { DataContext } from "../../../context/DataContext";
+import { capitalizeFirstLetter } from "../../../utils/stringFunctions";
 
 const HeaderElement = styled.header`
   display: flex;
@@ -52,13 +54,17 @@ const DesktopSearchWrap = styled.div`
   }
 `;
 const Header = () => {
+  const {contentData} = useContext(DataContext)
+  const [options,setOptions] = useState<string[]>([])
+  useEffect(() => {
+    setOptions(["All",...Object.keys(contentData.inventory)].map(capitalizeFirstLetter))
+  }, [contentData.inventory])
   return (
     <HeaderElement>
       <FirstRow>
         <Logo />
-        <Deliver />
         <DesktopSearchWrap>
-          <SearchBar />
+          <SearchBar  options={options} />
         </DesktopSearchWrap>
 
         <Login />
@@ -66,7 +72,7 @@ const Header = () => {
         <Cart />
       </FirstRow>
       <MobileSearchWrap>
-        <SearchBar />
+        <SearchBar options={options}/>
       </MobileSearchWrap>
       <ListOfOptions />
     </HeaderElement>
