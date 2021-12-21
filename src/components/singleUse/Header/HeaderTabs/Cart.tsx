@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import { PUBLIC_ROUTES } from "../../../../constans/routes";
 import { DataContext } from "../../../../context/DataContext";
 import { SIZES } from "../../../../styles/styleValues";
+import { countCartItems } from "../../../../utils/cartFuctiions";
 
 const Wrap = styled(Link)`
   font-size: 0.875rem;
@@ -43,12 +44,12 @@ const Text = styled.span`
   }
 `;
 const Cart = () => {
-  const { cartCount } = useContext(DataContext);
+  const { cartState} = useContext(DataContext);
   return (
-    <Wrap to={PUBLIC_ROUTES.CART}>
+    <Wrap to={PUBLIC_ROUTES.CHECKOUT}>
       <CartWrap>
         <FaShoppingCart color="red" size="2.5rem" />
-        <CartNumber>{cartCount}</CartNumber>
+        <CartNumber>{countCartItems(cartState)}</CartNumber>
       </CartWrap>
       <Text>Cart</Text>
     </Wrap>

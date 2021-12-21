@@ -13,6 +13,7 @@ const Wrap = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  padding-bottom:1rem;
 `;
 const InnerWrap = styled.div`
   display: flex;

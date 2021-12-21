@@ -9,6 +9,7 @@ import { camelToSplit } from "../../../../utils/stringFunctions";
 import { Link } from "react-router-dom";
 import { ItemProperties } from "../../../../context/DataContext";
 import { splitProperties } from "../../../../utils/filterOptions";
+import { createLink } from "../../../../utils/generalFunctions";
 
 interface ProductListItemProps {
   item: ItemProperties;
@@ -32,17 +33,16 @@ interface Values {
 }
 const ProductListItem = ({ item,categoryName }: ProductListItemProps) => {
   const [values, setValues] = useState<Values>({ addonitial: {}, core: {} });
-
   useEffect(() => {
-
   const itemValues=   splitProperties(item);
   setValues(itemValues)  
 }, [item]);
+
   return (
     <Wrap>
       {values.core["id"] !== undefined ? (
         <>
-          <DescrtiptionWrap to={`/categories/${categoryName}/${values.core.title}`}>
+          <DescrtiptionWrap to={createLink(item,categoryName)}>
 
             <MyText fontSize="2em">
               {camelToSplit(values.core.title)}
@@ -56,7 +56,7 @@ const ProductListItem = ({ item,categoryName }: ProductListItemProps) => {
             </div>
             <ProductDescription image={values.core.image} properties={values.addonitial} />
           </DescrtiptionWrap>
-          <ProductSidebar price={Number(values.core.price)}/>
+          <ProductSidebar price={Number(values.core.price)} item={item}  link={createLink(item,categoryName)}/>
         </>
       ) : null}
     </Wrap>

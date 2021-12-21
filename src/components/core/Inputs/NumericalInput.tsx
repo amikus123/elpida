@@ -9,6 +9,7 @@ const Wrap = styled.div`
   display: flex;
   width: fit-content;
   flex-direction: row;
+  align-items:center;
 `;
 const LeftBox = styled.div`
   padding:  0.5rem;
@@ -22,7 +23,11 @@ const RightBox = styled.div`
 
   border-left: 1px solid ${COLORS.lightGrey};
 `;
-const Input = styled.input``;
+const Input = styled.input`
+width:3rem;
+padding:0.5rem;
+outline:none;
+`;
 
 interface NumericalInputProps {
   count: number;

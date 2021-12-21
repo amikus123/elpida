@@ -11,9 +11,7 @@ import {
   ItemProperties,
 } from "../../../context/DataContext";
 import ProductProperties from "./ProductProperties";
-type CategoryParams = {
-  category: string;
-};
+
 
 const ContentWrap = styled(PageCenterWrap)`
   width: 100%;
@@ -45,17 +43,23 @@ const ProductPage = () => {
   const location = useLocation();
   const { contentData } = useContext(DataContext);
   const [item, setItem] = useState<ItemProperties | null>(null);
+  const [category,setCategory] = useState("")
   useEffect(() => {
     console.log(location, "locc");
+    const cat = getCategory()
+    setCategory(cat)
     setItem(getItem(contentData.inventory, location.pathname));
   }, [location.pathname, contentData.inventory]);
+  const getCategory = () =>{
+    return location.pathname.split("/")[2]
+  }
+
   const getItem = (inventory: Inventory, path: string) => {
     // "/categories/wine/Pirate wine"
     const pathData = path.split("/");
     const category = pathData[2];
     const title = pathData[3];
     let res = null;
-    console.log(pathData, "path");
     if (inventory[category] === undefined) {
       console.log("undecf");
 
@@ -83,7 +87,7 @@ const ProductPage = () => {
             <ImageWrap>
               <Image src={item.image} alt="item" />
             </ImageWrap>
-            <ProductProperties item={item} />
+            <ProductProperties item={item}  category={category}/>
           </>
         ) : null}
       </ContentWrap>

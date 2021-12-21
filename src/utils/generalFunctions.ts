@@ -1,4 +1,5 @@
 import { BaseResposne } from "../constans/types";
+import { ItemProperties } from "../context/DataContext";
 
 // * used in contenxt to simulate type, this is nevet called in actual code
 export const createPromise = async (): Promise<BaseResposne> => {
@@ -14,3 +15,8 @@ export const createPromise = async (): Promise<BaseResposne> => {
   res = res as unknown as Promise<BaseResposne>
   return res
 };
+
+
+export const createLink = (item:ItemProperties, category:string) =>{
+  return `/categories/${category}/${item.title}`
+}

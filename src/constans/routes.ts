@@ -1,7 +1,7 @@
 
 export enum PUBLIC_ROUTES {
   HOME = '/',
-  CART = '/cart',
+  CHECKOUT = '/checkout',
   ORDERS="/orders",
   CATEGORIES="/categories"
 

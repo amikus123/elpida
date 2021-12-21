@@ -23,5 +23,6 @@ export enum SnackbarTexts {
   editWithoutChanges = "Nowe dane są takie same jak stare",
   succesfulInitialFetching = "",
   unsuccesfulInitialFetching = "Nie udało się pobrać danych z bazy: ",
-  unsuccesfulImageFetching="Nie udało się pobrać zdjęcia z bazy: "
+  unsuccesfulImageFetching="Nie udało się pobrać zdjęcia z bazy: ",
+  succesfulCartAddidtion = "Added items to the cart"
 }
