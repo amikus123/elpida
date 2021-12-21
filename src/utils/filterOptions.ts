@@ -1,4 +1,3 @@
-import { arrayRemove } from "@firebase/firestore";
 import { ItemProperties } from "../context/DataContext";
 import { SidebarData, NameWithCount } from "../Pages/PublicPages/ProductListPage/tmpConst";
 import { camelToSplit } from "./stringFunctions";
@@ -105,4 +104,27 @@ export const filterItems = (
   }
   console.log(items, "end of filter");
   return items;
+};
+
+
+const coreKeys = {
+  id: true,
+  image: true,
+  price:true,
+  title:true
+};
+
+export const splitProperties = (item:ItemProperties) => {
+  const addonitial = {};
+  const core = {};
+  const keys = Object.keys(item);
+  keys.forEach((key) => {
+    if (coreKeys[key] !== undefined) {
+      core[key] = String(item[key])
+    } else {
+
+      addonitial[key] =  String(item[key])
+    }
+  });
+  return { addonitial, core }
 };

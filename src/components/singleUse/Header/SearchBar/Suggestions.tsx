@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { TextLink } from "../../../../constans/types";
 import { COLORS } from "../../../../styles/styleValues";
-import MyText from "../../../core/Text/MyText";
 
 const Wrap = styled.ul`
   position: absolute;

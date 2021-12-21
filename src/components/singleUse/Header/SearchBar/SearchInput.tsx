@@ -1,5 +1,4 @@
 import React, { useContext, useEffect, useState } from "react";
-import { useHistory, useLocation } from "react-router";
 import styled from "styled-components";
 import { TextLink } from "../../../../constans/types";
 import { DataContext } from "../../../../context/DataContext";
@@ -46,7 +45,7 @@ const Shadow = styled.div`
 
 
 const SearchInput = () => {
-  const { reset, setOverlay,showOverlay} = useContext(ElementContext);
+  const { reset, setOverlay} = useContext(ElementContext);
   const { contentData,headerData,updateHeaderData } = useContext(DataContext);
   const [suggsetions, setSuggestions] = useState<TextLink[]>([
     {

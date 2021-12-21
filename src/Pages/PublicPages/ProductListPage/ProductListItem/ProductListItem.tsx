@@ -8,6 +8,7 @@ import { COLORS } from "../../../../styles/styleValues";
 import { camelToSplit } from "../../../../utils/stringFunctions";
 import { Link } from "react-router-dom";
 import { ItemProperties } from "../../../../context/DataContext";
+import { splitProperties } from "../../../../utils/filterOptions";
 
 interface ProductListItemProps {
   item: ItemProperties;
@@ -25,12 +26,6 @@ const DescrtiptionWrap = styled(Link)`
   flex: 1;
 `;
 
-const coreKeys = {
-  id: true,
-  image: true,
-  price:true,
-  title:true
-};
 interface Values {
   addonitial: Record<string, string>;
   core: Record<string, string>;
@@ -39,31 +34,17 @@ const ProductListItem = ({ item,categoryName }: ProductListItemProps) => {
   const [values, setValues] = useState<Values>({ addonitial: {}, core: {} });
 
   useEffect(() => {
-    const getProperties = () => {
-      const addonitial = {};
-      const core = {};
-      const keys = Object.keys(item);
-      keys.forEach((key) => {
-        if (coreKeys[key] !== undefined) {
-          core[key] = String(item[key])
-        } else {
 
-          addonitial[key] =  String(item[key])
-        }
-      });
-      console.log(addonitial,core)
-      setValues({ addonitial, core });
-    };
-    getProperties();
-  }, [item]);
+  const itemValues=   splitProperties(item);
+  setValues(itemValues)  
+}, [item]);
   return (
     <Wrap>
       {values.core["id"] !== undefined ? (
         <>
           <DescrtiptionWrap to={`/categories/${categoryName}/${values.core.title}`}>
-          {/* <DescrtiptionWrap to={`#`}> */}
 
-            <MyText fontSize="2em" to={values.core.id}>
+            <MyText fontSize="2em">
               {camelToSplit(values.core.title)}
             </MyText>
             <div>
