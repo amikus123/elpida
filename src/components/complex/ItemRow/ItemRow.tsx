@@ -3,9 +3,11 @@ import ItemRowCarousel from "./ItemRowCarousel";
 import MyText from "../../core/Text/MyText";
 import styled from "styled-components";
 import { RowContent } from "../../../constans/types";
+import { ItemProperties } from "../../../context/DataContext";
 
 interface ItemRowProps {
-  data: RowContent;
+  data: ItemProperties[];
+  topText:string
 }
 const Wrapper = styled.div`
   background-color: #fff;
@@ -17,23 +19,18 @@ const Wrapper = styled.div`
 `;
 const TextWrapper = styled.div`
   display: flex;
-  margin-bottom: 1rem;
-  & > :first-child {
-    margin-right: 1rem;
-  }
+  font-size:1.5rem;
 `;
 const CarouselWrapper = styled.div``;
 
-const ItemRow = ({ data }: ItemRowProps) => {
-  const { products, extraPath, header, showLink } = data;
+const ItemRow = ({ data,topText="Our bestsellers" }: ItemRowProps) => {
   return (
     <Wrapper>
       <TextWrapper>
-        <MyText>{header}</MyText>
-        {showLink ? <MyText element="link">Shop now</MyText> : null}
+        <MyText>{topText}</MyText>
       </TextWrapper>
       <CarouselWrapper>
-        <ItemRowCarousel products={products} extraPath={extraPath} />
+        <ItemRowCarousel products={data} />
       </CarouselWrapper>
     </Wrapper>
   );

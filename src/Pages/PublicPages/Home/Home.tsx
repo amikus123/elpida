@@ -3,7 +3,6 @@ import styled from "styled-components";
 import Cards from "../../../components/complex/Cards/Cards";
 import ItemRow from "../../../components/complex/ItemRow/ItemRow";
 import PageCenterWrap from "../../../components/containers/PageCenterWrap";
-import { RowItem, RowContent } from "../../../constans/types";
 import { DataContext } from "../../../context/DataContext";
 import HomeCarousel from "./HomeCarousel/HomeCarousel";
 
@@ -18,20 +17,8 @@ const ContentWrap = styled.div`
 
 
 
-const bestSellersProducts: RowItem[] = [
-  {
-    image: "coffe",
-    link: "#",
-  },
-  { image: "jenga", link: "$" },
-];
 
-const bestSellersRowData: RowContent = {
-  extraPath: "rows/bestSellers",
-  products: bestSellersProducts,
-  header: "Best Sellers",
-  showLink: true,
-};
+
 
 const Home = () => {
   const {contentData} = useContext(DataContext)
@@ -41,7 +28,7 @@ const Home = () => {
       <HomeCarousel />
       <ContentWrap>
         <Cards data={contentData.cardGroups[0]} />
-        <ItemRow data={bestSellersRowData} />
+        <ItemRow data={contentData.bestSellers[0]} topText="Our bestsellers"/>
         <Cards data={contentData.cardGroups[1]} />
       </ContentWrap>
     </PageCenterWrap>

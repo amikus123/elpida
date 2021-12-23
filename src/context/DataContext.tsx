@@ -106,7 +106,7 @@ export interface ContentData {
   cardGroups: CardData[][];
   inventory: Inventory;
   dashboardImages: ImageWithLink[];
-  bestSellers: CardData[][]
+  bestSellers: ItemProperties[][]
 }
 
 export interface CartData {
@@ -234,10 +234,10 @@ export const DataProvider = ({ children }: { children: React.ReactNode }) => {
     }
 
     const bestSellersRaw = await getBestSellers();
-    const bestSellers: CardData[][] = [];
+    const bestSellers: ItemProperties[][] = [];
   console.log(bestSellersRaw)
     for (const x of bestSellersRaw) {
-      const res = (await convertFilePathsToImages(x)) as CardData[];
+      const res = (await convertFilePathsToImages(x)) as unknown as  ItemProperties[];
       bestSellers.push(res);
     }
   
