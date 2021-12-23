@@ -1,6 +1,7 @@
 import React, { useContext } from 'react'
 import styled from 'styled-components';
 import { ElementContext } from '../../../context/ElementContext';
+import ItemModal from './ItemModal';
 import LocationModal from './LocationModal';
 
 
@@ -12,6 +13,8 @@ const ModalWrap = () => {
     switch(selectedModal){
       case "none":
         return  null;
+      case "item":
+        return <ItemModal />
       case "location":
         return <LocationModal/>
     }

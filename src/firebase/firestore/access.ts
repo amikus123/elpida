@@ -33,6 +33,17 @@ export const getAllCardGroupes = async (): Promise<CardData[][]> => {
 
   return arr;
 };
+export const getBestSellers = async (): Promise<CardData[][]> => {
+  const doc: any = await getSingleDoc(FirestorePaths.bestSellers);
+  console.log(doc, "lul");
+  const res = doc.res;
+  const arr: CardData[][] = [];
+  for (const key in Object.keys(res)) {
+    arr.push(res[key]);
+  }
+
+  return arr;
+};
 // get initialData =
 
 export const getWebisteData = async (): Promise<

@@ -14,6 +14,7 @@ import {
   getAllCardGroupes,
   getAllDocs,
   getAllHomeImages,
+  getBestSellers,
 } from "../firebase/firestore/access";
 import {
   deleteDocById,
@@ -53,11 +54,14 @@ const y: ContentData = {
   inventory: {},
   dashboardCategories: [],
   dashboardImages: [],
+  bestSellers : [],
 };
 const z: HeaderData = {
   headerInput: "",
   selectedCategory: "All",
 };
+
+const q :ItemAndColumn = {item:null,column:-1}
 
 // const modifyCart = (item: ItemProperties, link: string, newCount: number) => {
 const cart: CartData = {};
@@ -76,7 +80,9 @@ export const DataContext = createContext({
     };
     return x;
   },
-  updateHomeImages:async(a:string) =>{ return await console.log()}
+  updateHomeImages:async(a:string) =>{ return await console.log()},
+  bestSellerPair :q,
+  editPair:  (arg?:number|ItemProperties) =>{}
 
 });
 
@@ -100,6 +106,7 @@ export interface ContentData {
   cardGroups: CardData[][];
   inventory: Inventory;
   dashboardImages: ImageWithLink[];
+  bestSellers: CardData[][]
 }
 
 export interface CartData {
@@ -109,6 +116,10 @@ export interface CartItem extends ItemProperties {
   count: number;
   link: string;
 }
+export interface ItemAndColumn {
+  column:number;
+  item:ItemProperties|null;
+}
 
 export const DataProvider = ({ children }: { children: React.ReactNode }) => {
   // data for ui element
@@ -116,6 +127,7 @@ export const DataProvider = ({ children }: { children: React.ReactNode }) => {
     selectedCategory: "All",
     headerInput: "",
   });
+  const [bestSellerPair,setBestSellerPair] = useState<ItemAndColumn>({column:-1,item:null }) 
   const [cartState, setCartState] = useState<CartData>({});
   //* ids of images to fetch, found in db
   const [activeIds, setIdsOfItemsToDisplay] = useState<ItemsWithToggle>({
@@ -158,12 +170,14 @@ export const DataProvider = ({ children }: { children: React.ReactNode }) => {
       setCartState({ ...cartCopy });
     }
   };
+
   const [contentData, setContentData] = useState<ContentData>({
     dashboardCategories: [],
     homeImages: [],
     cardGroups: [[], [], []],
     inventory: {},
     dashboardImages: [],
+    bestSellers:[],
   });
   const updateHeaderData = (
     value: string,
@@ -194,17 +208,39 @@ export const DataProvider = ({ children }: { children: React.ReactNode }) => {
     return [];
   };
 
+  const editPair = (arg?:number|ItemProperties) =>{
+    if(arg===undefined){
+      setBestSellerPair({item:null,column:-1})
+
+    }else if(typeof arg === "number"){
+      setBestSellerPair({...bestSellerPair,column:arg})
+    }else{
+      setBestSellerPair({...bestSellerPair,item:arg})
+      
+    }
+  }
+
   const init = async () => {
     const homeImagesRaw = await fetchHomeImages();
     const homeImages = (await convertFilePathsToImages(
       homeImagesRaw
     )) as ImageWithLink[];
+    
     const groupCardsRaw = await getAllCardGroupes();
     const cardGroups: CardData[][] = [];
     for (const x of groupCardsRaw) {
       const res = (await convertFilePathsToImages(x)) as CardData[];
       cardGroups.push(res);
     }
+
+    const bestSellersRaw = await getBestSellers();
+    const bestSellers: CardData[][] = [];
+  console.log(bestSellersRaw)
+    for (const x of bestSellersRaw) {
+      const res = (await convertFilePathsToImages(x)) as CardData[];
+      bestSellers.push(res);
+    }
+  
     const dashboardImages = await getAllHomeImagesLocal();
     const dashboardCategories = await fetchDashboardCategoryImages();
     const inventory = await fetchInventory();
@@ -214,6 +250,7 @@ export const DataProvider = ({ children }: { children: React.ReactNode }) => {
     }
 
     setContentData({
+      bestSellers,
       homeImages,
       cardGroups,
       inventory,
@@ -256,7 +293,7 @@ export const DataProvider = ({ children }: { children: React.ReactNode }) => {
   };
 
   const updateHomeImages = async(idToRemove) => {
-    const newHome = contentData.homeImages.filter(
+    const newHome = contentData.dashboardImages.filter(
       (item) => item.id !== idToRemove
     );
 
@@ -279,9 +316,7 @@ export const DataProvider = ({ children }: { children: React.ReactNode }) => {
   useEffect(() => {
     init();
   }, []);
-  useEffect(() => {
-    console.log(cartState, "asasd");
-  }, [cartState]);
+
   const val = {
     headerData,
     updateHeaderData,
@@ -292,7 +327,9 @@ export const DataProvider = ({ children }: { children: React.ReactNode }) => {
     updateSelectedImagesList,
     contentData,
     deleteByIdGenerator,
-    updateHomeImages
+    updateHomeImages,
+    editPair,
+    bestSellerPair
   };
   return (
     <DataContext.Provider value={{ ...val }}>{children}</DataContext.Provider>

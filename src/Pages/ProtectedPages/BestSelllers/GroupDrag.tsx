@@ -1,15 +1,17 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { DragDropContext } from "react-beautiful-dnd";
 import styled from "styled-components";
-import { GroupDragTemplate } from "../../../Pages/ProtectedPages/FormikData";
-import Spinner from "../../core/Loading/Spinner";
+import Spinner from "../../../components/core/Loading/Spinner";
+import { DataContext } from "../../../context/DataContext";
+import { GroupDragTemplate } from "../FormikData";
 import DropSection from "./DropSection";
+import { v4 as uuidv4 } from "uuid";
 
 const Wrap = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-`;
+display:flex;
+flex-wrap:wrap;
+justify-content:center;
+`
 const reorder = (
   list: Iterable<any> | ArrayLike<any>,
   startIndex: number,
@@ -49,11 +51,41 @@ interface GroupDragInterface {
   templateData: GroupDragTemplate;
 }
 const GroupDrag = ({ data, templateData }: GroupDragInterface) => {
-  const [state, setState] = useState<Record<string, string>[][]>(data);
+
+  const { bestSellerPair ,editPair} = useContext(DataContext);
+
+
+  const [state, setState] = useState<Record<string, string>[][]>([[],[]]);
   useEffect(() => {
     setState(data);
+    // check if each item has dragId, if not add
+    const copy = [...data]
+    copy.forEach((arr)=>{
+      arr.forEach((item)=>{
+        if(item["dragId"] === undefined){
+          item["dragId"] = uuidv4()
+        }
+      })
+    })
+    console.log(data,"XDDDda")
   }, [data]);
+  useEffect(()=>{
+    let {column,item} = bestSellerPair
+    if(column !== -1 && item !== null){
+      const myItem = item as unknown as Record<string,string>
+      // we reset the pair
+      editPair()
+      // set db
+      // set local state
+      const copy = state
+      const selectedArr = state[column]
+      selectedArr.push(myItem )
+      copy[column] = selectedArr
+      setState(copy)
+      templateData.updateDb(copy);
 
+    }
+  },[bestSellerPair])
   function onDragEnd(result: any) {
     const { source, destination } = result;
     // dropped outside the list
@@ -89,12 +121,14 @@ const GroupDrag = ({ data, templateData }: GroupDragInterface) => {
       templateData.updateDb(newState);
     }
   }
+
+
   return (
     <Wrap>
-      {data.length === 0 ? (
+      {data.length===0  ? (
         <Spinner showText={true} />
       ) : (
-        <DragDropContext onDragEnd={onDragEnd}>
+        <DragDropContext onDragEnd={onDragEnd} >
           {state.map((cards, index) => (
             <DropSection key={index} cards={cards} index={index} />
           ))}

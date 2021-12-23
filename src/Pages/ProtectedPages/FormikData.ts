@@ -32,7 +32,10 @@ export const formikDashboardData:FormikDataWrap = {
       },
     ],
     handleSubmit:async (values) => {
-      return await uploadFromForm({...values}, FirestorePaths.homeImages);
+
+      const a =  await uploadFromForm({...values}, FirestorePaths.homeImages)
+      window.location.reload()
+    return a
   },
   submitButtonText:"Add Home Image",
 
@@ -69,8 +72,20 @@ promotedCards:{
     // ! NEVER USED FUCNTION IS PASSED IN  groupDataTemplates
     throw new Error("zesranie")
 },
+
 submitButtonText:"Add card",
 
+},bestSellers:{
+  inputs: [
+
+  ],
+  handleSubmit:async (values) => {
+
+    const a =  await uploadFromForm({...values}, FirestorePaths.bestSellers)
+    window.location.reload()
+  return a
+},
+submitButtonText:"Add Home Image",
 }
 }
 
@@ -83,6 +98,12 @@ export const  groupDataTemplates:Record<string,GroupDragTemplate> = {
     updateDb:updateGroupDragGenerator(FirestorePaths.promotedCards),
     header:"Add new card",
     addNewDragObject:addNewDragObjectGenerator(FirestorePaths.promotedCards),
+  },
+  bestSellers:{
+    formik:formikDashboardData.bestSellers,
+    updateDb:updateGroupDragGenerator(FirestorePaths.bestSellers),
+    header:"Add new best seller",
+    addNewDragObject:addNewDragObjectGenerator(FirestorePaths.bestSellers),
   }
 }
 

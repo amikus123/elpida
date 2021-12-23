@@ -33,6 +33,7 @@ const DragItemSetter = ({
       const newState = [...draggableItems];
       newState[index].show = !newState[index].show;
       // update global
+      
       setDraggableItems(newState);
       updateOrdder(getListOFActive(newState));
     };
@@ -58,7 +59,9 @@ const DragItemSetter = ({
     // prevent empty object from showing up
     return res.filter((item) => item["id"] !== undefined);
   };
-
+  useEffect(() => {
+    setDraggableItems(getData(homeImages));
+  }, [homeImages]);
   const reorder = (
     list: DraggableData[],
     startIndex: number,

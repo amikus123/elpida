@@ -6,7 +6,7 @@ import {
 } from "../constans/snackbar";
 import { BaseResposne } from "../constans/types";
 
-export type ModalOptions = "location" | "none";
+export type ModalOptions = "location" | "none" | "item";
 const placeholderSnackbarValues: SnackbarType = {
   show: false,
   color: "red",
@@ -64,13 +64,13 @@ export const ElementProvider = ({ children }: { children: any }) => {
   useEffect(() => {
     if (selectedModal === "none") {
       const scrollY = document.body.style.top;
-      document.body.style.position = "";
-      document.body.style.top = "";
-      window.scrollTo(0, parseInt(scrollY || "0") * -1);
+      // document.body.style.position = "";
+      // document.body.style.top = "";
+      // window.scrollTo(0, parseInt(scrollY || "0") * -1);
     } else {
-      document.body.style.position = "fixed";
-      document.body.style.top = `-${window.scrollY}px`;
-      document.body.style.overflowY = "scroll";
+      // document.body.style.position = "fixed";
+      // document.body.style.top = `-${window.scrollY}px`;
+      // document.body.style.overflowY = "scroll";
     }
   }, [selectedModal]);
 
