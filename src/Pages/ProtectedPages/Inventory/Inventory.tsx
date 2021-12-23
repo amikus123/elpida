@@ -31,8 +31,6 @@ const Inventory = () => {
     const x = async (values:MyFormData) =>{
       // when we swithc between two forms templates, old vales stay in object
       // we have to filler them out
-      const a = contentData.inventory[category]
-      console.log(a)
       const templateKeys = formikAlchoholData[category].inputs
       const filteredData:MyFormData = {}
       templateKeys.forEach((key)=>{
@@ -59,7 +57,8 @@ const Inventory = () => {
           inputs={[...formikAlchoholData[category].inputs]}
           submitButtonText={`Add ${category}`}
         />
-  
+
+    
       <ItemList categoryName={category} handleDelete={deleteByIdGenerator(category)}items={category in contentData.inventory ? contentData.inventory[category] : []} />
         
       </Wrap>

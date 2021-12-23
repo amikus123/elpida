@@ -54,14 +54,16 @@ export const formikAlchoholData: FormikDataWrap = {
         id: "taste",
         label:"Taste",
         values:["dry","sweet","medium sweet"],
-        validation: Yup.string().required("Link is required"),
+        validation: Yup.string().required("Taste is required"),
 
       },
       {
         type: "radio",
         id: "color",
         label:"Color",
-        values:["red","white"]
+        values:["red","white"],
+        validation: Yup.string().required("Color is required"),
+
       },
     ],
     handleSubmit: async (values) => {
@@ -76,7 +78,9 @@ export const formikAlchoholData: FormikDataWrap = {
         type: "radio",
         id: "category",
         label:"Type",
-        values:["IPA","Porter",]
+        values:["IPA","Porter",],
+        validation: Yup.string().required("Type is required"),
+
       },
 
     ],

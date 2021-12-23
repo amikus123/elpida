@@ -1,5 +1,7 @@
 import React from "react";
 import styled from "styled-components";
+import { CardData } from "../../../constans/types";
+import Spinner from "../../core/Loading/Spinner";
 import CategoryItem from "./CategoryItem";
 
 const Wrap = styled.div`
@@ -13,17 +15,23 @@ const Wrap = styled.div`
   }
 `;
 
-interface CategoriesProps{
-  data:Record<string, any>
+interface CategoriesProps {
+  data: CardData[];
 }
-// displays cards 
-const Categories = ({data}:CategoriesProps) => {
+// displays cards
+const Categories = ({ data }: CategoriesProps) => {
   return (
-    <Wrap>
-      {data.map((item, index) => {
-        return <CategoryItem item={item} key={index} />;
-      })}
-    </Wrap>
+    <>
+      {data.length === 0 ? (
+        <Spinner showText={true} />
+      ) : (
+        <Wrap>
+          {data.map((item, index) => {
+            return <CategoryItem item={item} key={index} />;
+          })}
+        </Wrap>
+      )}
+    </>
   );
 };
 

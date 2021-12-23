@@ -56,7 +56,7 @@ const FormikInput = ({
         <MyInput
           name={id}
           type="file"
-          onChange={(event: any) => {
+          onChange={(event) => {
             if (event.currentTarget && event.currentTarget.files) {
               setFieldValue(id, event.currentTarget.files[0]);
             }
@@ -65,10 +65,10 @@ const FormikInput = ({
       );
     } else if (type === "radio") {
       el = (
-        <div role="group" aria-labelledby="my-radio-group">
+        <div role="group" aria-labelledby="my-radio-group" >
           {values.map((item, index) => {
             return (
-              <label key={index}>
+              <label key={index} style={{paddingRight:"1rem"}}>
                 <Field type="radio" name={id} value={item} />
                 {item}
               </label>

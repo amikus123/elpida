@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import MyText from "../Text/MyText";
 
 const Spin = styled.div`
   display: block;
@@ -9,16 +10,25 @@ const Spin = styled.div`
   border-radius: 50%;
   border-top-color: #354e92;
   animation: spin 1s ease-in-out infinite;
-  margin:0 auto;
+  margin: 0 auto;
   @keyframes spin {
     to {
       transform: rotate(360deg);
     }
   }
- 
 `;
-const Spinner = () => {
-  return <Spin></Spin>;
+
+const Wrap = styled.div``;
+interface SpinnerProps {
+  showText?: boolean;
+}
+const Spinner = ({ showText = false }: SpinnerProps) => {
+  return (
+    <Wrap>
+      <Spin></Spin>
+      {showText ? <MyText style={{"padding":"1rem","text-align":"center"}} fontSize="1.5rem">Loading...</MyText> : null}
+    </Wrap>
+  );
 };
 
 export default Spinner;

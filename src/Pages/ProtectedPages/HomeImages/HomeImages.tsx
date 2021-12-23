@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import DragItemSetter from "../../../components/complex/DragItemSetter/DragItemSetter";
 import styled from "styled-components";
 import { DataContext } from "../../../context/DataContext";
@@ -18,9 +18,11 @@ const Wrap = styled.div`
   }
 `;
 const HomeImages = () => {
-  const { activeIds, updateSelectedImagesList,deleteByIdGenerator,contentData } = useContext(DataContext);
+  const { activeIds, updateSelectedImagesList,contentData,updateHomeImages} = useContext(DataContext);
   const {inputs,handleSubmit,submitButtonText} = formikDashboardData.homeImages
-
+  useEffect(()=>{
+    console.log(contentData.dashboardImages)
+  },[contentData.dashboardImages])
 
   return (
     <PageCenterWrapWithBread>
@@ -38,7 +40,7 @@ const HomeImages = () => {
           Change home image order, or toggle visibility
         </MyText>
         <DragItemSetter
-          deleteById={deleteByIdGenerator(FirestorePaths.homeImages)}
+          deleteById={updateHomeImages}
           imageData={contentData.dashboardImages}
           orderOfVisibleItems={activeIds.selectedHomeImages}
           updateOrdder={updateSelectedImagesList}

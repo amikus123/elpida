@@ -1,6 +1,8 @@
 import React from "react";
 import styled from "styled-components";
 import { AlocholCategoties } from "../../../Pages/ProtectedPages/Inventory/Inventory";
+import { COLORS } from "../../../styles/styleValues";
+import { capitalizeFirstLetter } from "../../../utils/stringFunctions";
 
 interface ButtonSelectionProps {
   options: AlocholCategoties[];
@@ -11,12 +13,20 @@ const Wrap = styled.div`
 flex-direction:row;
 display:flex;
 `;
-const Button = styled.div`
+
+
+interface ButtonProps{
+  selected:boolean;
+}
+const Button = styled.div<ButtonProps>`
   padding:1rem;
   font-size:1.5rem;
   backgroud-color:grey;
   outline:1px solid red;
   cursor:pointer;
+  color: ${(props) => props.selected?COLORS.white:"red"};
+  background-color: ${(props) => props.selected?"red":COLORS.white};
+
 `;
 
 const ButtonSelection = ({
@@ -28,13 +38,14 @@ const ButtonSelection = ({
     <Wrap>
       {options.map((item, index) => {
         return (
-          <Button
+          <Button 
             key={index}
             onClick={() => {
               setSelected(item);
             }}
-          >
-            {item}
+            selected={selected===item}
+>
+            {capitalizeFirstLetter(item)}
           </Button>
         );
       })}

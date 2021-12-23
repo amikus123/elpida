@@ -38,10 +38,12 @@ const GroupDataPage = ({
           inputs={inputs}
           submitButtonText={submitButtonText}
         />
-        <MyText fontSize="2rem" boldness="bold">
-          Arrange groups
+        <MyText fontSize="2rem" boldness="bold" style={{textAlign:"center"}}>
+          Arrange groups <br/>
           Drop to the last colum to remove item
+
         </MyText>
+        
         <GroupDrag data={objectsToDisplay} templateData={templateData} />
       </Wrap>
     </PageCenterWrapWithBread>

@@ -26,7 +26,7 @@ const Wrap = styled.div<{show:boolean}>`
   transition: 0.5s background-color;
   flex-direction: column;
   align-items: center;
-  border:1px solid red;
+  border:1px solid black;
   >*{
     margin:0.25rem;
   }
@@ -54,7 +54,7 @@ const ImageElement = React.forwardRef<any, ImageElementProps>((props, ref) => {
       <ImgaeWrap>
         <Imgae src={imageData.image} alt={imageData.title} />
       </ImgaeWrap>
-    <div onClick={()=>{deleteById(imageData.id)}}><MyText>Delete item</MyText></div>
+  <MyText onClick={()=>{deleteById(imageData.id)}} style={{color:"red",cursor:"pointer"}}>Delete item</MyText>  
     </Wrap>
   );
 });

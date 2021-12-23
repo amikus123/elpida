@@ -42,6 +42,18 @@ const Button = styled.button<ButtonStyle>`
         ? props.theme.yellowBorder
         : props.theme.whiteButtonHover};
   }
+  &:active{
+    background-color: ${(props) =>
+      props.color === "yellow"
+        ?"#e4d039"
+        : props.theme.whiteButtonHover};
+  }
+  border-color: ${(props) =>
+      props.color === "yellow"
+        ?"#e4d039"
+        : props.theme.whiteButtonHover};
+  }
+
 `;
 const PlainButton = ({
   color = "yellow",

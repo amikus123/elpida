@@ -7,6 +7,8 @@ const getListStyle = (isDraggingOver: boolean) => ({
   background: isDraggingOver ? "lightblue" : "lightgrey",
   padding: "0.5rem",
   width: 250,
+  minHeight:"377px",
+  margin:"0.5rem",
 });
 
 interface DropSectionProps{

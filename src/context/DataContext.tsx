@@ -2,6 +2,7 @@ import React from "react";
 import { createContext, useEffect, useState } from "react";
 import {
   DataToShow as ItemsWithToggle,
+  FirestorePaths,
   productNames,
   ProductPaths,
   specificFirebasePaths,
@@ -59,7 +60,7 @@ const z: HeaderData = {
 };
 
 // const modifyCart = (item: ItemProperties, link: string, newCount: number) => {
-const cart:CartData = {}
+const cart: CartData = {};
 export const DataContext = createContext({
   updateSelectedImagesList: (list: string[]) => {},
   cartState: cart,
@@ -67,7 +68,7 @@ export const DataContext = createContext({
   contentData: y,
   headerData: z,
   addToCart: (item: ItemProperties, link: string, newCount: number) => {},
-  modifyCart: (item: ItemProperties,  newCount: number) => {},
+  modifyCart: (item: ItemProperties, newCount: number) => {},
   updateHeaderData: (s: string, a = "text") => {},
   deleteByIdGenerator: (s: string) => {
     const x = async (a: string) => {
@@ -75,6 +76,8 @@ export const DataContext = createContext({
     };
     return x;
   },
+  updateHomeImages:async(a:string) =>{ return await console.log()}
+
 });
 
 export interface ItemProperties {
@@ -104,7 +107,7 @@ export interface CartData {
 }
 export interface CartItem extends ItemProperties {
   count: number;
-  link:string;
+  link: string;
 }
 
 export const DataProvider = ({ children }: { children: React.ReactNode }) => {
@@ -120,44 +123,40 @@ export const DataProvider = ({ children }: { children: React.ReactNode }) => {
   });
   // * object fetch from db, ready to display
   // home images - orderded and only those selected
-  // allHome images, only shown in dashboard
+  // dashboardImages  all images, only shown in dashboard
   const addToCart = (item: ItemProperties, link: string, count: number) => {
     // if item is not in cart, we add it
     // if count is equal to zero, throw error beacuse it shoulldnt be pssoible
-    if(count === 0){
-      throw new Error("Count should not be 0")
+    if (count === 0) {
+      throw new Error("Count should not be 0");
     }
-    const cartCopy = {...cartState} 
-    if(cartCopy[item.id] === undefined){
-      const newObj :CartItem = {...item,count,link}
-      setCartState({...cartCopy,[item.id]:newObj})
-    }else{
-      // it exists, we just have to changethe count 
+    const cartCopy = { ...cartState };
+    if (cartCopy[item.id] === undefined) {
+      const newObj: CartItem = { ...item, count, link };
+      setCartState({ ...cartCopy, [item.id]: newObj });
+    } else {
+      // it exists, we just have to changethe count
       cartCopy[item.id].count += count;
-      setCartState({...cartCopy})
-
+      setCartState({ ...cartCopy });
     }
   };
-  const modifyCart = (item: ItemProperties,  newCount: number) => {
-    // if new count === 0, we juest delete the item 
-  
-    const cartCopy = {...cartState} 
+  const modifyCart = (item: ItemProperties, newCount: number) => {
+    // if new count === 0, we juest delete the item
+
+    const cartCopy = { ...cartState };
     // if missing, we jst add it
-    if(cartCopy[item.id] === undefined){
-        console.log("CANT EDIT MISSING ITEM")
-    }else{
-      // it exists, we just have to changethe count 
+    if (cartCopy[item.id] === undefined) {
+      console.log("CANT EDIT MISSING ITEM");
+    } else {
+      // it exists, we just have to changethe count
       // if new count ===0, we delete the object
-      if(newCount === 0){
-        delete cartCopy[item.id]
-      }else{
-        cartCopy[item.id].count = newCount
+      if (newCount === 0) {
+        delete cartCopy[item.id];
+      } else {
+        cartCopy[item.id].count = newCount;
       }
-      setCartState({...cartCopy})
-
+      setCartState({ ...cartCopy });
     }
-
-
   };
   const [contentData, setContentData] = useState<ContentData>({
     dashboardCategories: [],
@@ -225,9 +224,9 @@ export const DataProvider = ({ children }: { children: React.ReactNode }) => {
 
   const deleteByIdGenerator = (firebaseLocation: string) => {
     const x = async (idToRemove: string) => {
+      console.log("x")
       deleteDocById(idToRemove, firebaseLocation).then(() => {
         // it used to re download data after deletion, but instaed we just hide it
-        // init();
       });
     };
     return x;
@@ -256,6 +255,15 @@ export const DataProvider = ({ children }: { children: React.ReactNode }) => {
     }
   };
 
+  const updateHomeImages = async(idToRemove) => {
+    const newHome = contentData.homeImages.filter(
+      (item) => item.id !== idToRemove
+    );
+
+    setContentData( { ...contentData, dashboardImages: newHome })
+    deleteDocById(idToRemove,FirestorePaths.homeImages)
+      
+  };
   const updateSelectedImagesList = (list: string[]) => {
     const newValue: ItemsWithToggle = {
       ...activeIds,
@@ -271,9 +279,9 @@ export const DataProvider = ({ children }: { children: React.ReactNode }) => {
   useEffect(() => {
     init();
   }, []);
-  useEffect(()=>{
-    console.log(cartState,"asasd")
-  },[cartState])
+  useEffect(() => {
+    console.log(cartState, "asasd");
+  }, [cartState]);
   const val = {
     headerData,
     updateHeaderData,
@@ -284,6 +292,7 @@ export const DataProvider = ({ children }: { children: React.ReactNode }) => {
     updateSelectedImagesList,
     contentData,
     deleteByIdGenerator,
+    updateHomeImages
   };
   return (
     <DataContext.Provider value={{ ...val }}>{children}</DataContext.Provider>

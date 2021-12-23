@@ -61,6 +61,8 @@ promotedCards:{
       type: "file",
       id: "image",
       label: "Card image",
+      validation: Yup.string().required("Image is required"),
+
     },
   ],
   handleSubmit:async (values) => {

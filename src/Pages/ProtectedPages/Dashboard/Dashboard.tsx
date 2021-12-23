@@ -9,6 +9,7 @@ const Dashboard = () => {
   
   return (
     <PageCenterWrapWithBread>
+      
       <Categories data={contentData.dashboardCategories} />
     </PageCenterWrapWithBread>
   );

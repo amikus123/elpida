@@ -1,12 +1,16 @@
 import React, { useEffect, useState } from "react";
-import {
-  DragDropContext,
-} from "react-beautiful-dnd";
+import { DragDropContext } from "react-beautiful-dnd";
+import styled from "styled-components";
 import { GroupDragTemplate } from "../../../Pages/ProtectedPages/FormikData";
+import Spinner from "../../core/Loading/Spinner";
 import DropSection from "./DropSection";
 
 
-
+const Wrap = styled.div`
+display:flex;
+flex-wrap:wrap;
+justify-content:center;
+`
 const reorder = (
   list: Iterable<any> | ArrayLike<any>,
   startIndex: number,
@@ -22,7 +26,7 @@ const reorder = (
 /**
  * Moves an item from one list to another list.
  */
-const move = ( 
+const move = (
   source: Iterable<any> | ArrayLike<any>,
   destination: Iterable<any> | ArrayLike<any>,
   droppableSource: { index: number; droppableId: string | number },
@@ -41,16 +45,15 @@ const move = (
   return result;
 };
 
-
-interface GroupDragInterface{
-  data : Record<string,string>[][],
-  templateData:GroupDragTemplate
+interface GroupDragInterface {
+  data: Record<string, string>[][];
+  templateData: GroupDragTemplate;
 }
-const GroupDrag = ({data,templateData}:GroupDragInterface) => {
-  const [state, setState] = useState< Record<string,string>[][]>(data);
-  useEffect(()=>{
-    setState(data)
-  },[data])
+const GroupDrag = ({ data, templateData }: GroupDragInterface) => {
+  const [state, setState] = useState<Record<string, string>[][]>(data);
+  useEffect(() => {
+    setState(data);
+  }, [data]);
 
   function onDragEnd(result: any) {
     const { source, destination } = result;
@@ -62,34 +65,53 @@ const GroupDrag = ({data,templateData}:GroupDragInterface) => {
     const dropIndex = +destination.droppableId;
     // it dropped item in the same group
     if (sourceIndex === dropIndex) {
-      const items = reorder(state[sourceIndex], source.index, destination.index);
+      const items = reorder(
+        state[sourceIndex],
+        source.index,
+        destination.index
+      );
       const newState = [...state];
       newState[sourceIndex] = items;
       setState(newState);
     } else {
       // dropped item in other group
-      const result = move(state[sourceIndex], state[dropIndex], source, destination);
+      const result = move(
+        state[sourceIndex],
+        state[dropIndex],
+        source,
+        destination
+      );
       const newState = [...state];
       newState[sourceIndex] = result[sourceIndex];
       newState[dropIndex] = result[dropIndex];
       setState(newState);
-      newState[newState.length-1] = []
+      newState[newState.length - 1] = [];
       // changes new data in db
-      templateData.updateDb(newState)
+      templateData.updateDb(newState);
     }
   }
-
+  const checkIfAllEmpty = (matrix: any[][]) => {
+    for (const arr of matrix) {
+      if (arr.length !== 0) {
+        return false;
+      }
+    }
+    return true;
+  };
 
   return (
-      <div style={{ display: "flex" }}>
-        <DragDropContext onDragEnd={onDragEnd}>
+    <Wrap>
+      {checkIfAllEmpty(state) ? (
+        <Spinner showText={true} />
+      ) : (
+        <DragDropContext onDragEnd={onDragEnd} >
           {state.map((cards, index) => (
-           <DropSection key={index} cards={cards} index={index} />
+            <DropSection key={index} cards={cards} index={index} />
           ))}
         </DragDropContext>
-      </div>
+      )}
+    </Wrap>
   );
-}
+};
 
-
-export default GroupDrag
+export default GroupDrag;

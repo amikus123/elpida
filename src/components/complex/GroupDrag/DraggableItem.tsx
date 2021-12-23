@@ -11,8 +11,8 @@ const getItemStyle = (isDragging: any, draggableStyle: any) => {
     margin: `0 0 0.5rem 0`,
 
     // change background colour if dragging
-    background: isDragging ? "lightgreen" : "grey",
-
+    background: isDragging ? "white" : "none",
+    border:"1px solid black",
     // styles we need to apply on draggables
     ...draggableStyle,
   };
@@ -46,14 +46,10 @@ const DraggableItem = ({ card, index }: DraggableItemProps) => {
           )}
         >
           <Item>
-              {index}
-              <br/>
-              {id}
             <Image src={image} alt="failed to dowload preview" />
             <MyText>Title:{title}</MyText>
             <MyText>Link:{link}</MyText>
             <MyText>Bottom text:{bottomText}</MyText>
-            <div><MyText>Remove </MyText></div>
             </Item>
         </div>
       )}

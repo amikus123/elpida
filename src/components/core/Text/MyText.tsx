@@ -29,6 +29,7 @@ interface TextProps {
   style?: {};
   boldness?: FontSizes;
   presetColor?: string;
+  onClick?: (arg?:any) =>any
 }
 interface StyleProps {
   variant: Variants;
@@ -64,6 +65,7 @@ const MyText = ({
   style = {},
   boldness = "initial",
   presetColor = "inherit",
+  onClick= ()=>{}
 }: TextProps) => {
   // get element to display from passed props
 
@@ -72,6 +74,8 @@ const MyText = ({
     if (element === "link") {
       toReturn = (
         <LinkElement
+        onClick={onClick}
+
           as={Link}
           to={to}
           variant={variant}
@@ -86,7 +90,8 @@ const MyText = ({
     } else if (element === "label") {
       toReturn = (
         <TextElement
-          boldness={boldness}
+        onClick={onClick}
+        boldness={boldness}
           as="label"
           variant={variant}
           htmlFor={labelTarget}
@@ -100,7 +105,8 @@ const MyText = ({
     } else if (to !== "") {
       toReturn = (
         <TextElement
-          boldness={boldness}
+        onClick={onClick}
+        boldness={boldness}
           as={Link}
           variant={variant}
           fontSize={fontSize}
@@ -114,6 +120,7 @@ const MyText = ({
     } else {
       toReturn = (
         <TextElement
+        onClick={onClick}
           boldness={boldness}
           as={element}
           variant={variant}

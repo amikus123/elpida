@@ -1,28 +1,31 @@
 import React, { useEffect, useState } from "react";
 import { DragDropContext, Droppable } from "react-beautiful-dnd";
 import { ImageWithLink } from "../../../constans/types";
+import Spinner from "../../core/Loading/Spinner";
 import DragList from "./DragList";
 
 export type DraggableData = ImageWithLink & { dragId: string; show: boolean };
 
 // * allows user to toggle visibility of items and to adjust their order
 
-interface ImageControlProps{
-  imageData:ImageWithLink[],
+interface ImageControlProps {
+  imageData: ImageWithLink[];
   //* array, with active item ids in order
-  orderOfVisibleItems:string[],
+  orderOfVisibleItems: string[];
   //* fucntions, which updates the db and context
-  updateOrdder: (list: string[]) => void,
-  deleteById:(s:string)=>Promise<void>
+  updateOrdder: (list: string[]) => void;
+  deleteById: (s: string) => Promise<void>;
 }
-const DragItemSetter = ({orderOfVisibleItems,imageData: homeImages,updateOrdder,deleteById}:ImageControlProps) => {
-
+const DragItemSetter = ({
+  orderOfVisibleItems,
+  imageData: homeImages,
+  updateOrdder,
+  deleteById,
+}: ImageControlProps) => {
   const [draggableItems, setDraggableItems] = useState<DraggableData[]>([]);
 
   // used to update state when new data is fetched
-  useEffect(() => {
-    setDraggableItems(getData());
-  }, [homeImages]);
+
 
   // creates functions, which passed to element allows to toggle show state
   const handleGenerator = (index: number) => {
@@ -36,10 +39,9 @@ const DragItemSetter = ({orderOfVisibleItems,imageData: homeImages,updateOrdder,
     return x;
   };
 
-  
-  const getData = () => {
+  const getData = (base: ImageWithLink[]) => {
     const res: DraggableData[] = [];
-    const copy = [...homeImages];
+    const copy = [...base];
     // first we go over the allowed list
     orderOfVisibleItems.forEach((id, index) => {
       const selectedIndex = copy.findIndex((image) => image.id === id);
@@ -54,7 +56,7 @@ const DragItemSetter = ({orderOfVisibleItems,imageData: homeImages,updateOrdder,
       });
     });
     // prevent empty object from showing up
-    return res.filter((item)=>item["id"]!==undefined);
+    return res.filter((item) => item["id"] !== undefined);
   };
 
   const reorder = (
@@ -95,14 +97,22 @@ const DragItemSetter = ({orderOfVisibleItems,imageData: homeImages,updateOrdder,
   };
   return (
     <DragDropContext onDragEnd={onDragEnd}>
-      <Droppable droppableId="list">
-        {(provided) => (
-          <div ref={provided.innerRef} {...provided.droppableProps}>
-            <DragList images={draggableItems} handleGenerator={handleGenerator}  deleteById={deleteById}/>
-            {provided.placeholder} 
-          </div>
-        )}
-      </Droppable>
+      {draggableItems.length === 0 ? (
+        <Spinner showText={true} />
+      ) : (
+        <Droppable droppableId="list">
+          {(provided) => (
+            <div ref={provided.innerRef} {...provided.droppableProps}>
+              <DragList
+                images={draggableItems}
+                handleGenerator={handleGenerator}
+                deleteById={deleteById}
+              />
+              {provided.placeholder}
+            </div>
+          )}
+        </Droppable>
+      )}
     </DragDropContext>
   );
 };
