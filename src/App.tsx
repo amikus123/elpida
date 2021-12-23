@@ -34,6 +34,7 @@ import PromotedCards from "./Pages/ProtectedPages/PromotedCards/PromotedCards";
 import BestSellers from "./Pages/ProtectedPages/BestSelllers/BestSellers";
 import Inventory from "./Pages/ProtectedPages/Inventory/Inventory";
 import SearchResultPage from "./Pages/PublicPages/SearchResult/SearchResultPage";
+import Checkout from "./Pages/PublicPages/Checkout/Checkout";
 function App() {
   const location = useLocation();
   const { reset } = useContext(ElementContext);
@@ -66,6 +67,13 @@ function App() {
             routeType="public"
             component={CategoryPage}
             path={PUBLIC_ROUTES.CATEGORIES}
+            exact
+          />
+
+<RouteController
+            routeType="public"
+            component={Checkout}
+            path={PUBLIC_ROUTES.CHECKOUT}
             exact
           />
           <RouteController

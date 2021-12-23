@@ -5,6 +5,8 @@ interface Option {
   name: string;
   url: string;
 }
+
+ //  ! TODO CHANGE TO CONST
 const options: Option[] = [
   {
     name: "Categories",

@@ -6,6 +6,7 @@ interface ButtonProps {
   color?: "yellow" | "white";
   variant?: "button" | "link" | "submit";
   text: string;
+  style?: Record<string, string>;
   onClick?: () => void;
   disabled?: boolean;
 }
@@ -47,19 +48,26 @@ const PlainButton = ({
   variant = "button",
   onClick = () => {},
   disabled = false,
+  style = {},
   text,
 }: ButtonProps) => {
   const getElement = () => {
     switch (variant) {
       case "button":
         return (
-          <Button color={color} onClick={onClick} disabled={disabled}>
+          <Button
+            color={color}
+            onClick={onClick}
+            disabled={disabled}
+            style={style}
+          >
             {text}
           </Button>
         );
       case "submit":
         return (
           <Button
+            style={style}
             disabled={disabled}
             color={color}
             as="input"
@@ -71,6 +79,7 @@ const PlainButton = ({
       default:
         return (
           <Button
+            style={style}
             color={color}
             as="a"
             type="submit"

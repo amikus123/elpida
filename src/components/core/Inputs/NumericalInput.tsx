@@ -3,13 +3,18 @@ import styled from "styled-components";
 import { COLORS } from "../../../styles/styleValues";
 import { AiOutlineMinus, AiOutlinePlus } from "react-icons/ai";
 import MyText from "../Text/MyText";
+import { Box } from "@mui/system";
 
 const Wrap = styled.div`
+position:relative;
+`
+const InputWrap = styled.div`
   border: 1px solid ${COLORS.lightGrey};
   display: flex;
   width: fit-content;
   flex-direction: row;
   align-items:center;
+  height:fit-content;
 `;
 const LeftBox = styled.div`
   padding:  0.5rem;
@@ -28,14 +33,14 @@ width:3rem;
 padding:0.5rem;
 outline:none;
 `;
-
 interface NumericalInputProps {
   count: number;
-  setCount: React.Dispatch<React.SetStateAction<number>>;
+  setCount: (arg1:number)=>void;
+  abosluteError? :boolean;
 }
-const NumericalInput = ({ count, setCount }: NumericalInputProps) => {
+const NumericalInput = ({ count, setCount,abosluteError=false }: NumericalInputProps) => {
   const [errorText, setErrorText] = useState("");
-  const [inputValue, setInputValue] = useState("1");
+  const [inputValue, setInputValue] = useState(String(count));
 
   const handleIncrementaction = () => {
     setCount(count + 1);
@@ -58,8 +63,8 @@ const NumericalInput = ({ count, setCount }: NumericalInputProps) => {
     }
   }, [count, setCount]);
   return (
-    <>
-      <Wrap>
+    <Wrap>
+      <InputWrap>
         <LeftBox onClick={handleDecrementation}>
           <AiOutlineMinus />
         </LeftBox>
@@ -92,11 +97,11 @@ const NumericalInput = ({ count, setCount }: NumericalInputProps) => {
         <RightBox onClick={handleIncrementaction}>
           <AiOutlinePlus />
         </RightBox>
-      </Wrap>
+      </InputWrap>
       {errorText !== "" ? (
-        <MyText presetColor="red"> {errorText} </MyText>
+        <MyText presetColor="red" style={{"position":abosluteError?"absolute":"initial"}}> {errorText} </MyText>
       ) : null}
-    </>
+    </Wrap>
   );
 };
 

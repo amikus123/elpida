@@ -59,15 +59,15 @@ const z: HeaderData = {
 };
 
 // const modifyCart = (item: ItemProperties, link: string, newCount: number) => {
-
+const cart:CartData = {}
 export const DataContext = createContext({
   updateSelectedImagesList: (list: string[]) => {},
-  cartState: {},
+  cartState: cart,
   activeIds: x,
   contentData: y,
   headerData: z,
   addToCart: (item: ItemProperties, link: string, newCount: number) => {},
-  modifyCart: (item: ItemProperties, link: string, newCount: number) => {},
+  modifyCart: (item: ItemProperties,  newCount: number) => {},
   updateHeaderData: (s: string, a = "text") => {},
   deleteByIdGenerator: (s: string) => {
     const x = async (a: string) => {
@@ -138,18 +138,13 @@ export const DataProvider = ({ children }: { children: React.ReactNode }) => {
 
     }
   };
-  const modifyCart = (item: ItemProperties, link: string, newCount: number) => {
+  const modifyCart = (item: ItemProperties,  newCount: number) => {
     // if new count === 0, we juest delete the item 
   
     const cartCopy = {...cartState} 
     // if missing, we jst add it
     if(cartCopy[item.id] === undefined){
-      // we cant objcet to 0
-      if(newCount === 0){
-        throw new Error("Count should not be 0")
-      }
-      const newObj :CartItem = {...item,count:newCount,link}
-      setCartState({...cartCopy,[item.id]:newObj})
+        console.log("CANT EDIT MISSING ITEM")
     }else{
       // it exists, we just have to changethe count 
       // if new count ===0, we delete the object

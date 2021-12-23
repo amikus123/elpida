@@ -1,6 +1,5 @@
 import React,{useContext} from "react";
 import { useHistory } from "react-router";
-import styled from "styled-components";
 import { PUBLIC_ROUTES } from "../../../../constans/routes";
 import { SnackbarTexts } from "../../../../constans/snackbar";
 import { DataContext, ItemProperties } from "../../../../context/DataContext";
