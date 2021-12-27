@@ -11,9 +11,11 @@ interface PathObject {
 
 const Wrap = styled.div`
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
   padding-bottom:1rem;
+  flex-wrap:wrap;
+
 `;
 const InnerWrap = styled.div`
   display: flex;

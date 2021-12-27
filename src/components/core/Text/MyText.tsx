@@ -34,7 +34,7 @@ interface TextProps {
 interface StyleProps {
   variant: Variants;
   fontSize: string;
-  presetColor: string;
+  presetcolor: string;
   boldness: FontSizes;
 }
 
@@ -42,7 +42,7 @@ const Base = styled.p<StyleProps>`
   line-height: 1.5em;
   font-size: ${(props) => props.fontSize};
   font-weight: ${(props) => props.boldness};
-  color: ${(props) => props.presetColor};
+  color: ${(props) => props.presetcolor};
 `;
 
 const TextElement = styled(Base)<StyleProps>``;
@@ -82,7 +82,7 @@ const MyText = ({
           fontSize={fontSize}
           boldness={boldness}
           style={style}
-          presetColor={presetColor}
+          presetcolor={presetColor}
         >
           {children}
         </LinkElement>
@@ -97,7 +97,7 @@ const MyText = ({
           htmlFor={labelTarget}
           fontSize={fontSize}
           style={style}
-          presetColor={presetColor}
+          presetcolor={presetColor}
         >
           {children}
         </TextElement>
@@ -111,7 +111,7 @@ const MyText = ({
           variant={variant}
           fontSize={fontSize}
           style={style}
-          presetColor={presetColor}
+          presetcolor={presetColor}
           to={to}
         >
           {children}
@@ -126,7 +126,7 @@ const MyText = ({
           variant={variant}
           fontSize={fontSize}
           style={style}
-          presetColor={presetColor}
+          presetcolor={presetColor}
         >
           {children}
         </TextElement>

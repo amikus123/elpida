@@ -26,7 +26,7 @@ const Spinner = ({ showText = false }: SpinnerProps) => {
   return (
     <Wrap>
       <Spin></Spin>
-      {showText ? <MyText style={{"padding":"1rem","text-align":"center"}} fontSize="1.5rem">Loading...</MyText> : null}
+      {showText ? <MyText style={{"padding":"1rem","textAlign":"center"}} fontSize="1.5rem">Loading...</MyText> : null}
     </Wrap>
   );
 };

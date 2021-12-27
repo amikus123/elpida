@@ -49,7 +49,7 @@ const Inventory = () => {
           setSelected={setCategory}
         />
 
-        <MyText fontSize="2rem" boldness="bold">
+        <MyText fontSize="2rem" boldness="bold" style={{"textAlign":"center"}}>
           Add new {category}
         </MyText>
         <FormikForm

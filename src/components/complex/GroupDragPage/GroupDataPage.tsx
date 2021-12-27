@@ -30,7 +30,7 @@ const GroupDataPage = ({
   return (
     <PageCenterWrapWithBread>
       <Wrap>
-        <MyText fontSize="2rem" boldness="bold">
+        <MyText fontSize="2rem" boldness="bold" style={{textAlign:"center"}}>
           {templateData.header}
         </MyText>
         <FormikForm

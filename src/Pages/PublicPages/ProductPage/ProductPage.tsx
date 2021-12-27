@@ -91,14 +91,15 @@ const ProductPage = () => {
   // on the bottom there will be carousel of items of the same category, and of something promoeted
   // ! FIX THE BUG  WHEN THE ERROR IS SHOWED BEFORE ITEM IS FETCHED
   const getElement = () => {
-    if (Object.keys(contentData.inventory).length === 0 )   {
+    if (Object.keys(contentData.inventory).length === 0  || category === "")   {
+      console.log(category,"why you dont show")
       return <Spinner showText={true} />;
     } else if (contentData.inventory[category] === undefined) {
       console.log(category,"XDDD")
       return (
         <ErrorWrap>
           <MyText>Selected category does not exit</MyText>
-          <MyText to={PUBLIC_ROUTES.CATEGORIES}>Browse items</MyText>
+          <MyText  style={{ color: "orange" }} to={PUBLIC_ROUTES.CATEGORIES}>Browse items</MyText>
         </ErrorWrap>
       );
     } else {

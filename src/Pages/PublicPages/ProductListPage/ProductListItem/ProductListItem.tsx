@@ -31,35 +31,35 @@ interface Values {
   addonitial: Record<string, string>;
   core: Record<string, string>;
 }
-const ProductListItem = ({ item,categoryName }: ProductListItemProps) => {
+const ProductListItem = ({ item, categoryName }: ProductListItemProps) => {
   const [values, setValues] = useState<Values>({ addonitial: {}, core: {} });
   useEffect(() => {
-  const itemValues=   splitProperties(item);
-  setValues(itemValues)  
-}, [item]);
+    const itemValues = splitProperties(item);
+    setValues(itemValues);
+  }, [item]);
 
   return (
-    <Wrap>
+    <>
       {values.core["id"] !== undefined ? (
-        <>
-          <DescrtiptionWrap to={createLink(item,categoryName)}>
-
-            <MyText fontSize="2em">
-              {camelToSplit(values.core.title)}
-            </MyText>
+        <Wrap>
+          <DescrtiptionWrap to={createLink(item, categoryName)}>
+            <MyText fontSize="2em">{camelToSplit(values.core.title)}</MyText>
             <div>
-              <Rating
-                rating={1}
-                ratingCount={1}
-                productCode={values.core.id}
-              />
+              <Rating rating={1} ratingCount={1} productCode={values.core.id} />
             </div>
-            <ProductDescription image={values.core.image} properties={values.addonitial} />
+            <ProductDescription
+              image={values.core.image}
+              properties={values.addonitial}
+            />
           </DescrtiptionWrap>
-          <ProductSidebar price={Number(values.core.price)} item={item}  link={createLink(item,categoryName)}/>
-        </>
+          <ProductSidebar
+            price={Number(values.core.price)}
+            item={item}
+            link={createLink(item, categoryName)}
+          />
+        </Wrap>
       ) : null}
-    </Wrap>
+    </>
   );
 };
 

@@ -20,19 +20,11 @@ const options: Option[] = [
     name: "Beer",
     url: "/categories/beer",
   },
+  {
+    name:"Dashboard",
+    url:"/dashboard"
+  },
 
-  {
-    name: "Blog",
-    url: "/blog",
-  },
-  {
-    name: "Our Favs",
-    url: "/favs",
-  },
-  {
-    name: "Random product",
-    url: "/random",
-  },
   {
     name: "Checkout",
     url: "/checkout",

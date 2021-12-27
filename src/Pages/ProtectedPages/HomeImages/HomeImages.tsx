@@ -27,7 +27,7 @@ const HomeImages = () => {
   return (
     <PageCenterWrapWithBread>
       <Wrap>
-        <MyText fontSize="2rem" boldness="bold">
+        <MyText fontSize="2rem" boldness="bold"  style={{textAlign:"center"}}>
           Add new home image
         </MyText>
       <FormikForm
@@ -36,7 +36,7 @@ const HomeImages = () => {
           submitButtonText={submitButtonText}
 
       />
-        <MyText fontSize="2rem" boldness="bold">
+        <MyText fontSize="2rem" boldness="bold"  style={{textAlign:"center"}}>
           Change home image order, or toggle visibility
         </MyText>
         <DragItemSetter

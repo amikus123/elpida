@@ -10,30 +10,43 @@ const Wrap = styled.div`
   min-height: 100px;
   min-width: 100px;
 `;
-interface ProductListListProps{
-  items :ItemProperties[];
-  categoryName:string;
+interface ProductListListProps {
+  items: ItemProperties[];
+  categoryName: string;
   filterSettings: Record<string, string[] | number[]>;
-
 }
 
-const ProductListList = ({items,categoryName,filterSettings}:ProductListListProps) => {
-  const getZeroElements= () =>{
-    if(Object.keys(filterSettings).length=== 0){
-        return <Spinner showText={true}/>
-      }else{
-        return <MyText fontSize="3rem" style={{"textAlign":"center"}}>No items found for current settings</MyText>
-      }
-
-  }
-  return <Wrap>
-    {
-      items!==undefined && items.length>0?  items.map((item,index)=>{
-        return <ProductListItem item={item} key={index}    categoryName={categoryName}/>
-      }):getZeroElements()
+const ProductListList = ({
+  items,
+  categoryName,
+  filterSettings,
+}: ProductListListProps) => {
+  const getZeroElements = () => {
+    if (Object.keys(filterSettings).length === 0) {
+      return <Spinner showText={true} />;
+    } else {
+      return (
+        <MyText fontSize="3rem" style={{ textAlign: "center" }}>
+          No items found for current settings
+        </MyText>
+      );
     }
-  
-  </Wrap>;
+  };
+  return (
+    <Wrap>
+      {items !== undefined && items.length > 0
+        ? items.map((item, index) => {
+            return (
+              <ProductListItem
+                item={item}
+                key={index}
+                categoryName={categoryName}
+              />
+            );
+          })
+        : getZeroElements()}
+    </Wrap>
+  );
 };
 
 export default ProductListList;

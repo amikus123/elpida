@@ -8,12 +8,11 @@ import { CategoryParams, Filter, SidebarData } from "./tmpConst";
 import styled from "styled-components";
 import { PageCenterWrapWithBread } from "../../../components/containers/PageCenterWrap";
 import { DataContext, ItemProperties } from "../../../context/DataContext";
-import {
-  createSidebBarData,
-  filterItems,
-  sortProperties,
-  sortSidebar,
-} from "../../../utils/filterOptions";
+import { createSidebBarData, filterItems } from "../../../utils/filterOptions";
+import Spinner from "../../../components/core/Loading/Spinner";
+import MyText from "../../../components/core/Text/MyText";
+import { PUBLIC_ROUTES } from "../../../constans/routes";
+import Inventory from "../../ProtectedPages/Inventory/Inventory";
 
 const filterToInitialState = (obj: Filter[]) => {
   const res: Record<string, string[]> = {};
@@ -34,6 +33,14 @@ const Wrap = styled.div`
   & > * {
   }
   padding-bottom: 3rem;
+`;
+
+const ErrorWrap = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: 3.5rem;
 `;
 
 const ProductListPage = () => {
@@ -74,31 +81,55 @@ const ProductListPage = () => {
   }, [items, filterSettings]);
 
   useEffect(() => {
-    console.log(items, "before ss ");
     const res = createSidebBarData(items);
-    console.log(res, "ss");
     setAsideData(res);
   }, [items]);
 
+  // (contentData.inventory[category] === undefined)
+  const getElement = () => {
+    // if there are no items
+    // there are items
+    if (
+      Object.keys(contentData.inventory).length !== 0 &&
+      contentData.inventory[category] === undefined
+    ) {
+      return (
+        <ErrorWrap>
+          <MyText>Selected category does not exit</MyText>
+          <MyText style={{ color: "orange" }} to={PUBLIC_ROUTES.CATEGORIES}>
+            Browse items
+          </MyText>
+        </ErrorWrap>
+      );
+    } else {
+      return <Spinner showText={true} />;
+    }
+  };
+
   return (
     <PageCenterWrapWithBread>
-      <Wrap>
-        <ProdcutListAside
-          categoryName={category}
-          categoryCount={items.length}
-          // sorts data in alphanumeric  order
-          data={asideData.sort((a, b) => {
-            return ("" + a.propertyName).localeCompare(b.propertyName);
-          })}
-          dynamicValues={filterSettings}
-          formRef={onRefChange}
-        />
-        <ProductListList
-          items={filterItems(items, filterSettings)}
-          filterSettings={filterSettings}
-          categoryName={category}
-        />
-      </Wrap>
+      {/* if items can be found */}
+      {asideData.length !== 0 ? (
+        <Wrap>
+          <ProdcutListAside
+            categoryName={category}
+            categoryCount={items.length}
+            // sorts data in alphanumeric  order
+            data={asideData.sort((a, b) => {
+              return ("" + a.propertyName).localeCompare(b.propertyName);
+            })}
+            dynamicValues={filterSettings}
+            formRef={onRefChange}
+          />
+          <ProductListList
+            items={filterItems(items, filterSettings)}
+            filterSettings={filterSettings}
+            categoryName={category}
+          />
+        </Wrap>
+      ) : (
+        getElement()
+      )}
     </PageCenterWrapWithBread>
   );
 };

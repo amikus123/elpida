@@ -19,7 +19,7 @@ const Wrap = styled.section`
     margin:0 auto;
   }
 `;
-const Para = styled.p`
+const Para = styled.span`
 padding:1rem;
 `
 const DeleteButton = styled.div`
@@ -28,15 +28,27 @@ cursor:pointer;
    color:red;
  }
 `
-const Image = styled.img`
+const ImageWrap = styled.div`
 width:200px;
+height:200px;
+display:flex;
+align-items:center;
+justify-content:center;
+
+`
+const Image = styled.img`
+max-width:200px;
+max-height:200px;
 `
 
 const ItemCard = ({ item,handleDelete}: ProductListItemProps) => {
   const ref = useRef<HTMLDivElement>()
   return (
     <Wrap ref={ref}>
+      <ImageWrap>
+
       <Image src={item.image} alt="item" />
+     </ImageWrap>
       {Object.keys(item).map((key, index) => {
         return key === "image" || key === "id" ? (
           null

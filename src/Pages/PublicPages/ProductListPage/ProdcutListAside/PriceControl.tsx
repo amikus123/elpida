@@ -54,6 +54,9 @@ const PriceControl = ({
     setFieldValue(propertyName,values)
     console.log("should set",values)
   },[ propertyName, setFieldValue, values])
+  useEffect(()=>{
+    setMarkData(getMarks(rawValues))
+  },[rawValues])
   return (
     <Wrap>
       <Slider.Range
@@ -61,8 +64,8 @@ const PriceControl = ({
           setValues(newValues);
           setFieldValue(propertyName,newValues)
         }}
-        marks={markData.res}
-        step={null}
+        marks={{[markData.max]:markData.max,[markData.min]:markData.min}}
+        step={1}
         value={values}
         max={markData.max}
         min={markData.min}

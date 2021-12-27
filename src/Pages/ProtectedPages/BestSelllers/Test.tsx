@@ -1,7 +1,6 @@
 
 import styled from "styled-components";
 import { PageCenterWrapWithBread } from "../../../components/containers/PageCenterWrap";
-import FormikForm from "../../../components/core/Form/FormikForm";
 import MyText from "../../../components/core/Text/MyText";
 import { GroupDragTemplate } from "../FormikData";
 import GroupDrag from "./GroupDrag";
@@ -28,11 +27,9 @@ const Test = ({
   return (
     <PageCenterWrapWithBread>
       <Wrap>
-        <MyText fontSize="2rem" boldness="bold">
-          {templateData.header}
-        </MyText>
 
         <MyText fontSize="2rem" boldness="bold" style={{textAlign:"center"}}>
+        {templateData.header}<br/>
           Arrange groups <br/>
           Drop to the last colum to remove item<br/>
           Double click to add new item
