@@ -30,7 +30,7 @@ const HomeCarousel = () => {
   const { contentData } = useContext(DataContext);
   return (
     <Wrapper>
-      <Carousel infiniteLoop={true} showStatus={false} showIndicators={false}>
+      <Carousel infiniteLoop={true} showStatus={false} showIndicators={false} showThumbs={false}>
         {contentData.homeImages.map((item, index) => {
           return (
             <CarouselItem

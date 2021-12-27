@@ -25,6 +25,10 @@ const Wrap = styled.div`
   flex: 1;
   margin-left: 1rem;
   font-size: 1.25rem;
+  @media (max-width:600px) {
+    font-size: 1rem;
+  }
+ 
 `;
 const PropertyWrap = styled.div`
   display: flex;
@@ -66,10 +70,12 @@ const ProductProperties = ({ item, category }: ProductPropertiesProps) => {
         {Object.keys(values.addonitial).map((key, index) => {
           return (
             <PropertyWrap key={index}>
-              <MyText presetColor="grey"> {camelToSplit(key)}: </MyText>
-              <MyText>
-                &nbsp;{capitalizeFirstLetter(values.addonitial[key])}
-                {determineExtraSymbol(key)}
+              <MyText presetColor="grey" element="span">
+                {camelToSplit(key)}:
+                <MyText presetColor="black" element="span">
+                  &nbsp;{capitalizeFirstLetter(values.addonitial[key])}
+                  {determineExtraSymbol(key)}
+                </MyText>
               </MyText>
             </PropertyWrap>
           );

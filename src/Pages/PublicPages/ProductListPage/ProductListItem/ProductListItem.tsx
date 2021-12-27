@@ -20,10 +20,15 @@ const Wrap = styled.section`
   display: flex;
   flex-direction: row;
   font-size: 1.125rem;
+  @media (max-width: 640px) {
+    flex-direction: column;
+  }
 `;
 const DescrtiptionWrap = styled(Link)`
   padding: 1rem;
-
+  @media (max-width: 640px) {
+    padding: 1rem 1rem 0rem;
+  }
   flex: 1;
 `;
 

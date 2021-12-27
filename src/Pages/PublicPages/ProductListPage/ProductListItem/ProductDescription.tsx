@@ -17,7 +17,10 @@ const Wrap = styled.div`
   padding: 1rem;
   @media (max-width: 1200px) {
     flex-direction: column;
+    padding: 0 0 1rem;
+  
   }
+
 `;
 const PropertyWrap = styled.div`
   display: flex;
@@ -25,6 +28,9 @@ const PropertyWrap = styled.div`
 `;
 const PropertyListWrap = styled.div`
   margin-left: 1rem;
+  @media (max-width: 640px) {
+    margin-left: 0;
+  }
 `;
 const ImageWrap = styled.div`
   width: 200px;
@@ -32,6 +38,10 @@ const ImageWrap = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+  @media (max-width: 640px) {
+    width: initial;
+    height: initial;
+  }
 `;
 const Image = styled.img`
   max-width: 200px;

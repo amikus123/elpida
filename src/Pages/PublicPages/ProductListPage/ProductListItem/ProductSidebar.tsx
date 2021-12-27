@@ -9,7 +9,7 @@ import AddToCart from "../../../../components/core/Buttons/SmartButtons/AddToCar
 interface ProductListItemProps {
   price: number;
   item: ItemProperties;
-  link:string;
+  link: string;
 }
 
 const Wrap = styled.div`
@@ -18,17 +18,20 @@ const Wrap = styled.div`
   padding: 1rem;
   font-size: 1rem;
   border-left: 1px solid ${COLORS.grey};
+  @media (max-width: 640px) {
+    padding: 0rem 1rem 1rem;
+    border-left: 0px solid ${COLORS.grey};
+  }
   > * {
     margin-bottom: 0.5rem;
   }
 `;
-const ProductSidebar = ({ price,item,link }: ProductListItemProps) => {
+const ProductSidebar = ({ price, item, link }: ProductListItemProps) => {
   return (
     <Wrap>
       <MyText fontSize="1.25rem">Price: {price}zl</MyText>
-      {/* <MyText>Arrives: Nov 25 - Dec 6</MyText> */}
-      <AddToCart item={item} link={link} text="Add to Cart"  />
-      <AddToCart item={item} link={link} text="Buy now" checkout={true}  />
+      <AddToCart item={item} link={link} text="Add to Cart" />
+      <AddToCart item={item} link={link} text="Buy now" checkout={true} />
 
       <PhoneCall />
     </Wrap>

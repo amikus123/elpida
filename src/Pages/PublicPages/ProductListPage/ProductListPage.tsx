@@ -22,6 +22,7 @@ const filterToInitialState = (obj: Filter[]) => {
   return res;
 };
 
+// adds mediq
 const Wrap = styled.div`
   width: 100%;
   display: flex;
@@ -30,9 +31,10 @@ const Wrap = styled.div`
   align-items: flex-start;
   justify-content: space-around;
   padding: 0;
-  & > * {
-  }
   padding-bottom: 3rem;
+  @media (max-width:1000px){
+    flex-direction:column;
+  }
 `;
 
 const ErrorWrap = styled.div`
@@ -106,12 +108,15 @@ const ProductListPage = () => {
     }
   };
 
+
+  // button to show options
   return (
     <PageCenterWrapWithBread>
       {/* if items can be found */}
+
       {asideData.length !== 0 ? (
         <Wrap>
-          <ProdcutListAside
+          {/* <ProdcutListAside
             categoryName={category}
             categoryCount={items.length}
             // sorts data in alphanumeric  order
@@ -120,7 +125,8 @@ const ProductListPage = () => {
             })}
             dynamicValues={filterSettings}
             formRef={onRefChange}
-          />
+          /> */}
+          {/* // dropdown with sort options */}
           <ProductListList
             items={filterItems(items, filterSettings)}
             filterSettings={filterSettings}

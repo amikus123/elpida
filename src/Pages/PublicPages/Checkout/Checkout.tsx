@@ -17,6 +17,9 @@ const ListWrap = styled.div`
 `;
 const ButtonWrap = styled.div`
   width: 200px;
+  @media (max-width:640px){
+    margin:2.5rem;
+  }
 `;
 const EmptyWrap = styled.div`
   font-size: 2rem;
@@ -25,6 +28,7 @@ const EmptyWrap = styled.div`
   justify-content: center;
   padding: 1rem;
   flex-direction:column;
+  text-align:center;
 `;
 const Checkout = () => {
   // list of items with buttons to add change etc

@@ -9,6 +9,9 @@ const Wrap = styled.div`
   flex: 1;
   min-height: 100px;
   min-width: 100px;
+  @media (max-width:1000px){
+    width:100%;
+  }
 `;
 interface ProductListListProps {
   items: ItemProperties[];

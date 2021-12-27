@@ -27,19 +27,29 @@ const ContentWrap = styled(PageCenterWrap)`
   justify-content: space-around;
   padding: 0;
   max-width: 1100px;
-
   padding-bottom: 3rem;
+  @media (max-width: 500px) {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
 `;
 const ImageWrap = styled.div`
   max-width: 50%;
   max-height: 500px;
+
   flex: 1;
   display: flex;
   justify-content: center;
   align-items: center;
+  @media (max-width: 500px) {
+    max-width: 70%;
+  }
 `;
 const Image = styled.img`
-  height: 500px;
+  max-height: 500px;
+  width: 100%; // if browser dosnet support other options
+  width: fill-available;
 `;
 
 const ErrorWrap = styled.div`
@@ -91,15 +101,17 @@ const ProductPage = () => {
   // on the bottom there will be carousel of items of the same category, and of something promoeted
   // ! FIX THE BUG  WHEN THE ERROR IS SHOWED BEFORE ITEM IS FETCHED
   const getElement = () => {
-    if (Object.keys(contentData.inventory).length === 0  || category === "")   {
-      console.log(category,"why you dont show")
+    if (Object.keys(contentData.inventory).length === 0 || category === "") {
+      console.log(category, "why you dont show");
       return <Spinner showText={true} />;
     } else if (contentData.inventory[category] === undefined) {
-      console.log(category,"XDDD")
+      console.log(category, "XDDD");
       return (
         <ErrorWrap>
           <MyText>Selected category does not exit</MyText>
-          <MyText  style={{ color: "orange" }} to={PUBLIC_ROUTES.CATEGORIES}>Browse items</MyText>
+          <MyText style={{ color: "orange" }} to={PUBLIC_ROUTES.CATEGORIES}>
+            Browse items
+          </MyText>
         </ErrorWrap>
       );
     } else {
