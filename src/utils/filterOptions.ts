@@ -168,3 +168,23 @@ export const sortProperties = (arr: NameWithCount[]) => {
   });
   return copy;
 };
+export const sortSidebar = (arr: SidebarData[]) => {
+  const copy = [...arr];
+  copy.sort((a, b) => {
+    // if item can be converted to nan, we
+    if (isNaN(Number(a.propertyName)) && isNaN(Number(b.propertyName))) {
+      if (a.propertyName > b.propertyName) {
+        return 1;
+      } else {
+        return -1;
+      }
+    } else {
+      if (Number(a.propertyName) > Number(b.propertyName)) {
+        return 1;
+      } else {
+        return -1;
+      }
+    }
+  });
+  return copy;
+};

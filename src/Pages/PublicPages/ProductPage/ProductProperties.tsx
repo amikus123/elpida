@@ -49,7 +49,7 @@ const ProductProperties = ({ item, category }: ProductPropertiesProps) => {
   useEffect(() => {
     const itemValues = splitProperties(item);
     setValues(itemValues);
-  }, []);
+  }, [item]);
 
   return (
     <Wrap>

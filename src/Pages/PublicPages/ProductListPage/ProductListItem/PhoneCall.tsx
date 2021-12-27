@@ -29,7 +29,7 @@ const PhoneCall = () => {
       <MyText>
         Or order by phone
         <br />
-        <PhoneLink href="tel:1111111222333">111 222 333</PhoneLink>
+        <PhoneLink href="tel:11111111111222333">111 222 333</PhoneLink>
       </MyText>
     </Wrap>
   );

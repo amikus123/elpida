@@ -4,7 +4,7 @@ import styled from "styled-components";
 import MyText from "../../../../components/core/Text/MyText";
 import { COLORS } from "../../../../styles/styleValues";
 import {
-  camelToSplit,
+  capitalizeFirstLetter,
   determineExtraSymbol,
 } from "../../../../utils/stringFunctions";
 import {  SidebarData } from "../tmpConst";
@@ -65,7 +65,7 @@ const PropertyList = ({ data ,setFieldValue}: PropertyListProps) => {
                   labelTarget={propertyName + index}
                   fontSize="1.25rem"
                 >
-                  {camelToSplit(String(value))}
+                  {capitalizeFirstLetter(String(value))}
                   {determineExtraSymbol(propertyName)}
                   <MyText presetColor="grey" element="span" fontSize="0.875em">
                     ({count})

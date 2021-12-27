@@ -8,10 +8,10 @@ import { getMatchingItems } from "../../../utils/headerFunctions";
 import ProductListList from "../ProductListPage/ProductListList/ProductListList";
 
 const Wrap = styled.div`
-display:flex;
-justify-content:center;
-flex-direction:column;
-align-items:center;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
 `;
 
 export type CategoryParams = {
@@ -32,12 +32,20 @@ const SearchResultPage = () => {
   return (
     <PageCenterWrapWithBread bread={false}>
       <Wrap>
-        <MyText fontSize="2rem" element="h2">Search results:</MyText>
-        {
-            items.length === 0? <MyText fontSize="2rem" element="h2" style={{"padding":"1rem","color":"red"}}>We have no results for your search!</MyText>:        <ProductListList items={items} categoryName={category} />
-
-        }
-
+        <MyText fontSize="2rem" element="h2">
+          Search results:
+        </MyText>
+        {items.length === 0 ? (
+          <MyText
+            fontSize="2rem"
+            element="h2"
+            style={{ padding: "1rem", color: "red" }}
+          >
+            We have no results for your search!
+          </MyText>
+        ) : (
+          <ProductListList items={items} categoryName={category} filterSettings={{}} />
+        )}
       </Wrap>
     </PageCenterWrapWithBread>
   );

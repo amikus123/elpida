@@ -14,12 +14,18 @@ interface CarouselProps {
   products: ItemProperties[];
 }
 
+const MyLink = styled(Link)`
+  min-width: 200px;
+  display: flex!important;
+  justify-content: center;
+  align-items: center;
+`;
 const Image = styled.img`
-  height:200px;
+  height: 200px;
 `;
 const ItemRowCarousel = ({ products }: CarouselProps) => {
   const CustomSlider = styled(Slider)``;
-  const {contentData} = useContext(DataContext)
+  const { contentData } = useContext(DataContext);
   return (
     <>
       {products === undefined || products.length === 0 ? (
@@ -27,21 +33,22 @@ const ItemRowCarousel = ({ products }: CarouselProps) => {
       ) : (
         <CustomSlider
           dots={false}
-          infinite={false}
-          speed={300}
+          infinite={true}
+          speed={500}
           variableWidth={true}
           centerMode={false}
-          slidesToShow={5}
-          slidesToScroll={5}
+          slidesToScroll={3}
           prevArrow={<Arrow left={true} />}
           nextArrow={<Arrow left={false} />}
-          adaptiveHeight={true}
         >
           {products.map((item, index) => {
             return (
-              <Link to={createLinkFromId(item,contentData.inventory)} key={index}>
+              <MyLink
+                to={createLinkFromId(item, contentData.inventory)}
+                key={index}
+              >
                 <Image alt={item.title} src={item.image} />
-              </Link>
+              </MyLink>
             );
           })}
         </CustomSlider>

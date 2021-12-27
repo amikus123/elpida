@@ -1,11 +1,15 @@
+import { title } from "process";
 import React, { useContext, useEffect, useState } from "react";
-import { useLocation, useParams } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 
 import styled from "styled-components";
+import ItemRow from "../../../components/complex/ItemRow/ItemRow";
 import PageCenterWrap, {
   PageCenterWrapWithBread,
 } from "../../../components/containers/PageCenterWrap";
 import Spinner from "../../../components/core/Loading/Spinner";
+import MyText from "../../../components/core/Text/MyText";
+import { PUBLIC_ROUTES } from "../../../constans/routes";
 import {
   DataContext,
   Inventory,
@@ -13,7 +17,7 @@ import {
 } from "../../../context/DataContext";
 import ProductProperties from "./ProductProperties";
 
-
+const Wrap = styled.div``;
 const ContentWrap = styled(PageCenterWrap)`
   width: 100%;
   display: flex;
@@ -23,37 +27,42 @@ const ContentWrap = styled(PageCenterWrap)`
   justify-content: space-around;
   padding: 0;
   max-width: 1100px;
-  & > * {
-  }
+
   padding-bottom: 3rem;
 `;
 const ImageWrap = styled.div`
   max-width: 50%;
   max-height: 500px;
-  flex:1;
-  display:flex;
-  justify-content:center;
-  align-items:center;
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
 const Image = styled.img`
-  max-height: 500px;
-
+  height: 500px;
 `;
 
+const ErrorWrap = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: 3.5rem;
+`;
 const ProductPage = () => {
   const location = useLocation();
   const { contentData } = useContext(DataContext);
   const [item, setItem] = useState<ItemProperties | null>(null);
-  const [category,setCategory] = useState("")
+  const [category, setCategory] = useState("");
   useEffect(() => {
-    console.log(location, "locc");
-    const cat = getCategory()
-    setCategory(cat)
-    setItem(getItem(contentData.inventory, location.pathname));
-  }, [location.pathname, contentData.inventory]);
-  const getCategory = () =>{
-    return location.pathname.split("/")[2]
-  }
+    const getCategory = () => {
+      return location.pathname.split("/")[2];
+    };
+    const cat = getCategory();
+    setCategory(cat);
+    const xd = getItem(contentData.inventory, location.pathname);
+    setItem(xd);
+  }, [location, contentData.inventory]);
 
   const getItem = (inventory: Inventory, path: string) => {
     // "/categories/wine/Pirate wine"
@@ -80,18 +89,51 @@ const ProductPage = () => {
   // on the left will be the image of object
   // on the right itemm properties
   // on the bottom there will be carousel of items of the same category, and of something promoeted
+  // ! FIX THE BUG  WHEN THE ERROR IS SHOWED BEFORE ITEM IS FETCHED
+  const getElement = () => {
+    if (Object.keys(contentData.inventory).length === 0 )   {
+      return <Spinner showText={true} />;
+    } else if (contentData.inventory[category] === undefined) {
+      console.log(category,"XDDD")
+      return (
+        <ErrorWrap>
+          <MyText>Selected category does not exit</MyText>
+          <MyText to={PUBLIC_ROUTES.CATEGORIES}>Browse items</MyText>
+        </ErrorWrap>
+      );
+    } else {
+      return (
+        <ErrorWrap>
+          <MyText>Selected item does not exit</MyText>
+          <MyText to={`/categories/${category}`} style={{ color: "orange" }}>
+            Browse {category}{" "}
+          </MyText>
+        </ErrorWrap>
+      );
+    }
+  };
   return (
     <PageCenterWrapWithBread>
-      <ContentWrap>
-        {item !== null ? (
-          <>
+      {item !== null ? (
+        <Wrap>
+          <ContentWrap>
             <ImageWrap>
               <Image src={item.image} alt="item" />
             </ImageWrap>
-            <ProductProperties item={item}  category={category}/>
-          </>
-        ) : <Spinner showText={true}/>}
-      </ContentWrap>
+            <ProductProperties item={item} category={category} />
+          </ContentWrap>
+          <ItemRow
+            data={contentData.bestSellers[0]}
+            topText="Our bestsellers"
+          />
+          <ItemRow
+            data={contentData.inventory[category]}
+            topText={`Our ${category} selection`}
+          />
+        </Wrap>
+      ) : (
+        getElement()
+      )}
     </PageCenterWrapWithBread>
   );
 };

@@ -8,7 +8,12 @@ import { CategoryParams, Filter, SidebarData } from "./tmpConst";
 import styled from "styled-components";
 import { PageCenterWrapWithBread } from "../../../components/containers/PageCenterWrap";
 import { DataContext, ItemProperties } from "../../../context/DataContext";
-import { createSidebBarData, filterItems } from "../../../utils/filterOptions";
+import {
+  createSidebBarData,
+  filterItems,
+  sortProperties,
+  sortSidebar,
+} from "../../../utils/filterOptions";
 
 const filterToInitialState = (obj: Filter[]) => {
   const res: Record<string, string[]> = {};
@@ -81,12 +86,16 @@ const ProductListPage = () => {
         <ProdcutListAside
           categoryName={category}
           categoryCount={items.length}
-          data={asideData}
+          // sorts data in alphanumeric  order
+          data={asideData.sort((a, b) => {
+            return ("" + a.propertyName).localeCompare(b.propertyName);
+          })}
           dynamicValues={filterSettings}
           formRef={onRefChange}
         />
         <ProductListList
           items={filterItems(items, filterSettings)}
+          filterSettings={filterSettings}
           categoryName={category}
         />
       </Wrap>
