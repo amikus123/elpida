@@ -5,6 +5,7 @@ import styled from "styled-components";
 import PageCenterWrap, {
   PageCenterWrapWithBread,
 } from "../../../components/containers/PageCenterWrap";
+import Spinner from "../../../components/core/Loading/Spinner";
 import {
   DataContext,
   Inventory,
@@ -89,7 +90,7 @@ const ProductPage = () => {
             </ImageWrap>
             <ProductProperties item={item}  category={category}/>
           </>
-        ) : null}
+        ) : <Spinner showText={true}/>}
       </ContentWrap>
     </PageCenterWrapWithBread>
   );

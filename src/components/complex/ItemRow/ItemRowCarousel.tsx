@@ -4,8 +4,6 @@ import styled from "styled-components";
 
 import Slider from "react-slick";
 import Arrow from "../../../Pages/PublicPages/Home/HomeCarousel/Arrow";
-import { nameToPublicLink } from "../../../utils/imageFunctions";
-import { RowItem } from "../../../constans/types";
 import { DataContext, ItemProperties } from "../../../context/DataContext";
 import Spinner from "../../core/Loading/Spinner";
 import { createLinkFromId } from "../../../utils/generalFunctions";
@@ -16,7 +14,9 @@ interface CarouselProps {
   products: ItemProperties[];
 }
 
-const Image = styled.img``;
+const Image = styled.img`
+  height:200px;
+`;
 const ItemRowCarousel = ({ products }: CarouselProps) => {
   const CustomSlider = styled(Slider)``;
   const {contentData} = useContext(DataContext)

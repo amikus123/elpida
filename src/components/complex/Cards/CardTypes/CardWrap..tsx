@@ -9,7 +9,6 @@ const WrapWrap = styled.div`
 `;
 
 const Wrap = styled.div`
-width:100%;
 
   display:flex;
   flex-direction:column;
@@ -36,13 +35,13 @@ interface CardProps {
 }
 const CardWrap = ({ children, type = "home",className="" }: CardProps) => {
   return (
-    <WrapWrap className={className}>
+    <>
       {type === "home" ? (
         <HomeWrap>{children}</HomeWrap>
       ) : (
         <AddWrap> {children}</AddWrap>
       )}
-    </WrapWrap>
+    </>
   );
 };
 

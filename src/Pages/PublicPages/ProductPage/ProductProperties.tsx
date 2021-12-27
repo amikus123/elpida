@@ -8,6 +8,7 @@ import { splitProperties } from "../../../utils/filterOptions";
 import { createLink } from "../../../utils/generalFunctions";
 import {
   camelToSplit,
+  capitalizeFirstLetter,
   determineExtraSymbol,
 } from "../../../utils/stringFunctions";
 import Rating from "../ProductListPage/ProductListItem/Rating";
@@ -67,7 +68,7 @@ const ProductProperties = ({ item, category }: ProductPropertiesProps) => {
             <PropertyWrap key={index}>
               <MyText presetColor="grey"> {camelToSplit(key)}: </MyText>
               <MyText>
-                &nbsp;{camelToSplit(values.addonitial[key])}
+                &nbsp;{capitalizeFirstLetter(values.addonitial[key])}
                 {determineExtraSymbol(key)}
               </MyText>
             </PropertyWrap>

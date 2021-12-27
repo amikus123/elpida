@@ -6,16 +6,7 @@ import CardWrap from '../Cards/CardTypes/CardWrap.';
 import MyText from '../../../components/core/Text/MyText';
 import { CardData } from '../../../constans/types';
 
-const Wrap = styled.div`
-  width: 100%;
-  display: flex;
-  flex-wrap: wrap;
-  flex-direction: row;
-  justify-content: space-between;
-  & > :hover {
-    transform: scale(1.05);
-  }
-`;
+
 const LinkFill = styled(Link)`
   display: flex;
   flex-direction: column;

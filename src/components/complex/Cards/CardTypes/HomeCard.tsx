@@ -15,6 +15,9 @@ const TextWrap = styled.div`
   padding-top: 10px;
 `;
 
+const TopWrap = styled.div`
+max-height:420px;
+`
 const Imgage = styled.img`
   width: 100%;
   aspect-ratio: 1 / 1;
@@ -27,7 +30,7 @@ const HomeCard = ({ data }: CardProps) => {
   const { image: imageName, title: topText, bottomText, link } = data;
   return (
     <CardWrapWithSize type="home">
-      <div>
+      <TopWrap>
         <MyText variant="header" fontSize="21px">
           {topText}
         </MyText>
@@ -38,7 +41,7 @@ const HomeCard = ({ data }: CardProps) => {
             src={imageName}
           />
         </MyText>
-      </div>
+      </TopWrap>
       <MyText
         element="link"
         to={link}

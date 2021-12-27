@@ -80,5 +80,5 @@ const getMatchingItemsFromCategory = (text:string,category:string,itemsFromCateg
 
 
 const createLink = (title:string,category:string)=>{
-    return `/categories/${category}/${title}`
+    return `/categories/${category.toLowerCase()}/${title}`
 }

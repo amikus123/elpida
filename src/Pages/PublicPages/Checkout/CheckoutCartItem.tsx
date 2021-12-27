@@ -48,7 +48,7 @@ interface CheckoutCartItemProps {
   item: CartItem;
 }
 const CheckoutCartItem = ({ item }: CheckoutCartItemProps) => {
-  const { cartState, modifyCart } = useContext(DataContext);
+  const {  modifyCart } = useContext(DataContext);
   return (
     <Wrap>
       <LeftContainer to={item.link}>

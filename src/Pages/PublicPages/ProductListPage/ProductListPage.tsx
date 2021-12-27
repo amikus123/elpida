@@ -10,7 +10,6 @@ import { PageCenterWrapWithBread } from "../../../components/containers/PageCent
 import { DataContext, ItemProperties } from "../../../context/DataContext";
 import { createSidebBarData, filterItems } from "../../../utils/filterOptions";
 
-
 const filterToInitialState = (obj: Filter[]) => {
   const res: Record<string, string[]> = {};
   obj.forEach((item, index) => {
@@ -41,7 +40,7 @@ const ProductListPage = () => {
   // form will be based on type od object, fetched from db
 
   const [filterSettings, setFilterSettings] = useState<
-    Record<string, string[]>
+    Record<string, string[] | number[]>
   >(filterToInitialState([]));
 
   const [asideData, setAsideData] = useState<SidebarData[]>([]);
@@ -86,9 +85,10 @@ const ProductListPage = () => {
           dynamicValues={filterSettings}
           formRef={onRefChange}
         />
-        <ProductListList items={filterItems(items, filterSettings)} 
+        <ProductListList
+          items={filterItems(items, filterSettings)}
           categoryName={category}
-          />
+        />
       </Wrap>
     </PageCenterWrapWithBread>
   );

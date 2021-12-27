@@ -5,7 +5,7 @@ import Spinner from "../../core/Loading/Spinner";
 import CategoryItem from "./CategoryItem";
 
 const Wrap = styled.div`
-  width: 100%;
+  /* width: 100%; */
   display: flex;
   flex-wrap: wrap;
   flex-direction: row;

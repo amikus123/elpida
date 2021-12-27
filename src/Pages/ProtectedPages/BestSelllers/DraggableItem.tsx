@@ -32,7 +32,7 @@ const Image = styled.img`
   height: 80px;
 `;
 const DraggableItem = ({ card, index }: DraggableItemProps) => {
-  const {  title, image, dragId} = card;
+  const {  title, image, dragId,id} = card;
   return (
     <Draggable draggableId={dragId} index={index} key={dragId}>
       {(provided, snapshot) => (
@@ -46,9 +46,12 @@ const DraggableItem = ({ card, index }: DraggableItemProps) => {
           )}
         >
           <Item>
+            {dragId}
 
             <Image src={image} alt="failed to dowload preview" />
             <MyText>Title:{title}</MyText>
+            {id}
+            
             </Item>
         </div>
       )}

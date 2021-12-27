@@ -3,11 +3,13 @@ import { Field } from "formik";
 import styled from "styled-components";
 import MyText from "../../../../components/core/Text/MyText";
 import { COLORS } from "../../../../styles/styleValues";
-import { camelToSplit, determineExtraSymbol } from "../../../../utils/stringFunctions";
-import { SidebarData } from "../tmpConst";
-interface PropertyListProps {
-  data: SidebarData;
-}
+import {
+  camelToSplit,
+  determineExtraSymbol,
+} from "../../../../utils/stringFunctions";
+import {  SidebarData } from "../tmpConst";
+import { sortProperties } from "../../../../utils/filterOptions";
+import PriceControl from "./PriceControl";
 const Wrap = styled.div`
   padding: 0.5rem;
   border: 1px solid ${COLORS.grey};
@@ -26,29 +28,54 @@ const InnerCheckboxWrap = styled.div`
   }
 `;
 
-const PropertyList = ({ data }: PropertyListProps) => {
+interface PropertyListProps {
+  data: SidebarData;
+  setFieldValue: (field: string, value: any, shouldValidate?: boolean) => void
+}
+const PropertyList = ({ data ,setFieldValue}: PropertyListProps) => {
   const { title, propertyName, values } = data;
+  // if ikey is prcie or alghohl we do tdifferent
+  const shouldBeSlider = (key: string) => {
+    if (key === "price" || key === "alcoholPercentage") {
+      return true;
+    } else {
+      return false;
+    }
+  };
   return (
     <Wrap>
       <MyText>{title}</MyText>
-      <CheckboxWrap role="group" aria-labelledby="checkbox-group">
-        {values.map((item, index) => {
-          const {value,count} = item
-          return (
-            <InnerCheckboxWrap key={index}>
-              <Field
-                type="checkbox"
-                name={propertyName}
-                value={String(value)}
-                id={propertyName + index}
-              />
-              <MyText element="label" labelTarget={propertyName + index} fontSize="1.25rem">
-                {camelToSplit(String(value))}{determineExtraSymbol(propertyName)}<MyText presetColor="grey" element="span" fontSize="0.875em">({count})</MyText>
-              </MyText>
-            </InnerCheckboxWrap>
-          );
-        })}
-      </CheckboxWrap>
+      {shouldBeSlider(propertyName) ? (
+        <PriceControl  setFieldValue={setFieldValue}rawValues={values}  propertyName={propertyName}  />
+
+      ) : (
+        <CheckboxWrap role="group" aria-labelledby="checkbox-group">
+          {sortProperties(values).map((item, index) => {
+            const { value, count } = item;
+            return (
+              <InnerCheckboxWrap key={index}>
+                <Field
+                  type="checkbox"
+                  name={propertyName}
+                  value={String(value)}
+                  id={propertyName + index}
+                />
+                <MyText
+                  element="label"
+                  labelTarget={propertyName + index}
+                  fontSize="1.25rem"
+                >
+                  {camelToSplit(String(value))}
+                  {determineExtraSymbol(propertyName)}
+                  <MyText presetColor="grey" element="span" fontSize="0.875em">
+                    ({count})
+                  </MyText>
+                </MyText>
+              </InnerCheckboxWrap>
+            );
+          })}
+        </CheckboxWrap>
+      )}
     </Wrap>
   );
 };

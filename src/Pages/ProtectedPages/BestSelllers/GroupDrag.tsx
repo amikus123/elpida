@@ -33,6 +33,7 @@ const move = (
   droppableSource: { index: number; droppableId: string | number },
   droppableDestination: { index: number; droppableId: string | number }
 ) => {
+  console.log(droppableSource.droppableId,)
   const sourceClone = Array.from(source);
   const destClone = Array.from(destination);
   const [removed] = sourceClone.splice(droppableSource.index, 1);
@@ -59,6 +60,7 @@ const GroupDrag = ({ data, templateData }: GroupDragInterface) => {
   useEffect(() => {
     setState(data);
     // check if each item has dragId, if not add
+    
     const copy = [...data]
     copy.forEach((arr)=>{
       arr.forEach((item)=>{
@@ -72,7 +74,11 @@ const GroupDrag = ({ data, templateData }: GroupDragInterface) => {
   useEffect(()=>{
     let {column,item} = bestSellerPair
     if(column !== -1 && item !== null){
-      const myItem = item as unknown as Record<string,string>
+      let myItem = item as unknown as Record<string,string>
+      // we use the spraed operator to lose reference, otherwise rpobles arise when we add multiple items os the same type
+      myItem = {...myItem}
+      myItem["dragId"] =uuidv4()
+      // myItem["id"] =rnd
       // we reset the pair
       editPair()
       // set db
@@ -85,7 +91,7 @@ const GroupDrag = ({ data, templateData }: GroupDragInterface) => {
       templateData.updateDb(copy);
 
     }
-  },[bestSellerPair])
+  },[bestSellerPair, editPair, state, templateData])
   function onDragEnd(result: any) {
     const { source, destination } = result;
     // dropped outside the list
