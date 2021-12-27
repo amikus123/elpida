@@ -11,7 +11,7 @@ import { BaseResposne } from "../constans/types";
 import { createPromise } from "../utils/generalFunctions";
 
 // we either have to preserve any, or add interface for context
-const placeholderUser: User|any = null;
+const placeholderUser: User | any = null;
 
 export const UserContext = createContext({
   signup: async (arg1: string, arg2: string) => {
@@ -39,7 +39,7 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
       await createUserWithEmailAndPassword(myAuth, email, password);
       return {
         error: false,
-        text: "Succ",
+        text: "Succesfully logged out",
       };
     } catch (e: any) {
       return {
@@ -56,7 +56,7 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
       await signInWithEmailAndPassword(myAuth, email, password);
       return {
         error: false,
-        text: "Succ",
+        text: "Succesfully logged in",
       };
     } catch (e: any) {
       return {
@@ -68,9 +68,10 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
   const signout = async () => {
     try {
       await signOut(myAuth);
+
       return {
         error: false,
-        text: "Succ",
+        text: "Succesfully signed up",
       };
     } catch (e: any) {
       return {

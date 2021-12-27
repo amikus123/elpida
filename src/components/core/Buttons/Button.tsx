@@ -48,28 +48,37 @@ const Text = styled.span`
 interface ButtonProps {
   text?: string;
   children?: any;
-  to?:string
+  to?: string;
+  onClick?: () => void;
 }
-const Button = ({ text = "", children = "" ,to=""}: ButtonProps) => {
+const Button = ({
+  text = "",
+  children = "",
+  to = "",
+  onClick = () => {},
+}: ButtonProps) => {
   return (
     <>
-    {to===""? (<Outer as="span">
-      <Inner>
-        <Text>
-          {text}
-          {children}
-        </Text>
-      </Inner>
-    </Outer>): (<Outer to={to}>
-      <Inner>
-        <Text>
-          {text}
-          {children}
-        </Text>
-      </Inner>
-    </Outer>)}
+      {to === "" ? (
+        <Outer as="span" onClick={onClick}>
+          <Inner>
+            <Text>
+              {text}
+              {children}
+            </Text>
+          </Inner>
+        </Outer>
+      ) : (
+        <Outer to={to} onClick={onClick}>
+          <Inner>
+            <Text>
+              {text}
+              {children}
+            </Text>
+          </Inner>
+        </Outer>
+      )}
     </>
-   
   );
 };
 

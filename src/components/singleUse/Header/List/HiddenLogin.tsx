@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 
 import styled from "styled-components";
 import { Link } from "react-router-dom";
@@ -6,6 +6,8 @@ import Button from "../../../core/Buttons/Button";
 import { AUTH_ROUTES } from "../../../../constans/routes";
 import MyText from "../../../core/Text/MyText";
 import { SIZES } from "../../../../styles/styleValues";
+import { UserContext } from "../../../../context/UserContext";
+import { ElementContext } from "../../../../context/ElementContext";
 
 const leftNames = [
   "Create a List",
@@ -33,17 +35,16 @@ const rightNames = [
 const Padding = styled.div`
   position: absolute;
   width: 500px;
-  max-width:90vw;
+  max-width: 90vw;
   padding: 1rem;
   cursor: default;
   top: 3rem;
   left: -15rem;
-  z-index:30;
+  z-index: 30;
   @media (max-width: ${SIZES.TABLET}) {
-  left: 50%;
-transform: translateX(-50%);
+    left: 50%;
+    transform: translateX(-50%);
   }
-  
 `;
 const Wrapper = styled.div`
   background-color: snow;
@@ -55,7 +56,7 @@ const Wrapper = styled.div`
 // changes width ro 460
 const InternalWrapper = styled.div`
   margin: 0 auto;
-  width:92%;
+  width: 92%;
 `;
 const TopSection = styled.div`
   display: flex;
@@ -110,18 +111,37 @@ const ListLink = styled(Link)`
 
 // ADD DODOAD
 const HiddenLogin = () => {
+  const { currentUser, signout } = useContext(UserContext);
+  const { setSnackbarWithResposne } = useContext(ElementContext);
+
   return (
     <Padding style={{ visibility: "hidden" }}>
       <Wrapper>
         <InternalWrapper>
           <TopSection>
-            <Button to={AUTH_ROUTES.LOGIN}>Sign in</Button>
-            <MyText>
-              New customer?{" "}
-              <MyText to={AUTH_ROUTES.SIGNUP} element="link">
-                Start here
-              </MyText>
-            </MyText>
+            {currentUser === null ? (
+              <>
+                <Button to={AUTH_ROUTES.LOGIN}>Sign in</Button>
+                <MyText>
+                  New customer?{" "}
+                  <MyText to={AUTH_ROUTES.SIGNUP} element="link">
+                    Start here
+                  </MyText>
+                </MyText>
+              </>
+            ) : (
+              <>
+                <MyText fontSize="1.25rem" boldness="bold">Welcome to Elpida!</MyText>
+                <Button
+                  onClick={async() => {
+                    const xd = await signout()
+                    setSnackbarWithResposne(xd)
+                  }}
+                >
+                  Logout
+                </Button>
+              </>
+            )}
           </TopSection>
           <ListSectionWrap>
             <ListWrap>

@@ -6,6 +6,7 @@ import styled from "styled-components";
 import { ElementContext } from "../../../../context/ElementContext";
 import HiddenLogin from "../List/HiddenLogin";
 import { SIZES } from "../../../../styles/styleValues";
+import { UserContext } from "../../../../context/UserContext";
 const Wrapper = styled.div`
   margin: 5px 0;
   padding: 8px;
@@ -42,14 +43,17 @@ const Bold = styled.span`
 `;
 const Login = () => {
   const { setOverlay } = useContext(ElementContext);
+  const { currentUser, signout } = useContext(UserContext);
 
   return (
     <Wrapper
       onMouseEnter={() => setOverlay(true)}
       onMouseLeave={() => setOverlay(false)}
     >
+      {/* \xa0 is nbsp */}
       <CustomLink to="/orders">
-        Hello, Sign&nbsp;in <br />
+        {currentUser === null ? "Hello, Sign in\xa0" : "You are logged\xa0"}
+        <br />
         <Bold>
           Account & Lists <FaCaretDown />
         </Bold>

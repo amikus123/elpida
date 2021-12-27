@@ -15,7 +15,9 @@ const Wrapper = styled.div`
   top: 0;
   left: 50%;
   transform: translateX(-50%);
-  
+  @media(max-width:600px){
+    display:none;
+  }
   /* overflow: hidden; */
   -ms-overflow-style: none; /* IE and Edge */
   scrollbar-width: none; /* Firefox */

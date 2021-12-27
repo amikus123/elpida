@@ -15,12 +15,12 @@ interface CarouselProps {
 }
 
 const MyLink = styled(Link)`
-  min-width: 200px;
+  width: 200px;
   display: flex !important;
   justify-content: center;
   align-items: center;
   @media (max-width: 500px) {
-    min-width: 100px;
+  width: 100px;
   }
 `;
 const Image = styled.img`
@@ -38,6 +38,7 @@ const ItemRowCarousel = ({ products }: CarouselProps) => {
       {products === undefined || products.length === 0 ? (
         <Spinner />
       ) : (
+        
         <CustomSlider
           dots={false}
           infinite={true}

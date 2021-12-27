@@ -148,13 +148,7 @@ function App() {
             exact
           />
         </Switch>
-        <button
-          onClick={() => {
-            signout();
-          }}
-        >
-          adasdda
-        </button>
+   
       </ThemeProvider>
     </>
   );
