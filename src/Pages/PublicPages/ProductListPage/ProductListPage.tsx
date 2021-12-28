@@ -42,7 +42,8 @@ const ErrorWrap = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  font-size: 3.5rem;
+  text-align:center;
+  font-size: 2rem;
 `;
 
 const ProductListPage = () => {

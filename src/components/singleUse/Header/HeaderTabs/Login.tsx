@@ -43,7 +43,7 @@ const Bold = styled.span`
 `;
 const Login = () => {
   const { setOverlay } = useContext(ElementContext);
-  const { currentUser, signout } = useContext(UserContext);
+  const { currentUser } = useContext(UserContext);
 
   return (
     <Wrapper
@@ -52,8 +52,7 @@ const Login = () => {
     >
       {/* \xa0 is nbsp */}
       <CustomLink to="/orders">
-        {currentUser === null ? "Hello, Sign in\xa0" : "You are logged\xa0"}
-        <br />
+        {currentUser === null ? "Hello, Sign\xa0in" : "You\xa0are logged\xa0in"}
         <Bold>
           Account & Lists <FaCaretDown />
         </Bold>
