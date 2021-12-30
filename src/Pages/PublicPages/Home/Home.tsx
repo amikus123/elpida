@@ -3,6 +3,7 @@ import styled from "styled-components";
 import Cards from "../../../components/complex/Cards/Cards";
 import ItemRow from "../../../components/complex/ItemRow/ItemRow";
 import PageCenterWrap from "../../../components/containers/PageCenterWrap";
+import Spinner from "../../../components/core/Loading/Spinner";
 import { DataContext } from "../../../context/DataContext";
 import HomeCarousel from "./HomeCarousel/HomeCarousel";
 
@@ -23,18 +24,32 @@ const ContentWrap = styled.div`
     margin-top: 1rem;
   }
 `;
+const Wrap = styled.div`
+  padding-top: 1rem;
+`;
 
 const Home = () => {
   const { contentData } = useContext(DataContext);
 
   return (
     <PageCenterWrap>
-      <HomeCarousel />
-      <ContentWrap>
-        <Cards data={contentData.cardGroups[0]} />
-        <ItemRow data={contentData.bestSellers[0]} topText="Our bestsellers" />
-        <Cards data={contentData.cardGroups[1]} />
-      </ContentWrap>
+      {contentData.cardGroups[0].length !== 0 ? (
+        <>
+          <HomeCarousel />
+          <ContentWrap>
+            <Cards data={contentData.cardGroups[0]} />
+            <ItemRow
+              data={contentData.bestSellers[0]}
+              topText="Our bestsellers"
+            />
+            <Cards data={contentData.cardGroups[1]} />
+          </ContentWrap>
+        </>
+      ) : (
+        <Wrap>
+          <Spinner showText />
+        </Wrap>
+      )}
     </PageCenterWrap>
   );
 };

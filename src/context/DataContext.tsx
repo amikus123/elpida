@@ -82,8 +82,8 @@ export const DataContext = createContext({
   },
   updateHomeImages:async(a:string) =>{ return await console.log()},
   bestSellerPair :q,
-  editPair:  (arg?:number|ItemProperties) =>{}
-
+  editPair:  (arg?:number|ItemProperties) =>{},
+  resetCart : ()=>{}
 });
 
 export interface ItemProperties {
@@ -107,6 +107,7 @@ export interface ContentData {
   inventory: Inventory;
   dashboardImages: ImageWithLink[];
   bestSellers: ItemProperties[][]
+
 }
 
 export interface CartData {
@@ -312,6 +313,9 @@ export const DataProvider = ({ children }: { children: React.ReactNode }) => {
     );
     fun(newValue);
   };
+  const resetCart = ()=>{
+    setCartState({})
+  }
 
   useEffect(() => {
     init();
@@ -329,7 +333,9 @@ export const DataProvider = ({ children }: { children: React.ReactNode }) => {
     deleteByIdGenerator,
     updateHomeImages,
     editPair,
-    bestSellerPair
+    bestSellerPair,
+  resetCart
+    
   };
   return (
     <DataContext.Provider value={{ ...val }}>{children}</DataContext.Provider>

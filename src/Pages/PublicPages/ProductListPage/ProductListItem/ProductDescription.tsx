@@ -41,6 +41,8 @@ const ImageWrap = styled.div`
   @media (max-width: 640px) {
     width: initial;
     height: initial;
+    min-height:200px;
+    padding-bottom:1rem;
   }
 `;
 const Image = styled.img`

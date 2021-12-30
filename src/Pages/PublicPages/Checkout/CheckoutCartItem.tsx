@@ -1,4 +1,4 @@
-import React, {  useContext } from "react";
+import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import NumericalInput from "../../../components/core/Inputs/NumericalInput";
@@ -11,7 +11,7 @@ const Wrap = styled.div`
   flex-direction: row;
   justify-content: space-between;
   wdith: 100%;
-  margin:0.5rem 
+  margin: 0.5rem ;
   @media (max-width: 640px) {
     flex-direction: column;
   }
@@ -35,10 +35,9 @@ const TextWrap = styled.div`
   display: flex;
   flex-direction: column;
   margin-left: 1rem;
-  @media (max-width:640px){
-    flex:1;
-  margin-left: 1rem;
-
+  @media (max-width: 640px) {
+    flex: 1;
+    margin-left: 1rem;
   }
 `;
 const Image = styled.img`

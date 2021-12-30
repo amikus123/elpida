@@ -36,7 +36,7 @@ const ContentWrap = styled(PageCenterWrap)`
 `;
 const ImageWrap = styled.div`
   max-width: 50%;
-  max-height: 500px;
+  height: 500px;
 
   flex: 1;
   display: flex;
@@ -48,8 +48,9 @@ const ImageWrap = styled.div`
 `;
 const Image = styled.img`
   max-height: 500px;
-  width: 100%; // if browser dosnet support other options
-  width: fill-available;
+  height: 100%;
+  /* width: 100%; // if browser dosnet support other options
+  width: fill-available; */
 `;
 
 const ErrorWrap = styled.div`
@@ -57,8 +58,9 @@ const ErrorWrap = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  text-align:center;
-  font-size: 2rem;`;
+  text-align: center;
+  font-size: 2rem;
+`;
 const ProductPage = () => {
   const location = useLocation();
   const { contentData } = useContext(DataContext);
@@ -100,12 +102,13 @@ const ProductPage = () => {
   // on the right itemm properties
   // on the bottom there will be carousel of items of the same category, and of something promoeted
   // ! FIX THE BUG  WHEN THE ERROR IS SHOWED BEFORE ITEM IS FETCHED
+
   const getElement = () => {
     if (Object.keys(contentData.inventory).length === 0 || category === "") {
       console.log(category, "why you dont show");
       return <Spinner showText={true} />;
     } else if (contentData.inventory[category] === undefined) {
-      console.log(category, "XDDD");
+      console.log(contentData.inventory[category], category, "XDDD");
       return (
         <ErrorWrap>
           <MyText>Selected category does not exit</MyText>
@@ -114,7 +117,11 @@ const ProductPage = () => {
           </MyText>
         </ErrorWrap>
       );
-    } else {
+    } else if (
+      !contentData.inventory[category].some(
+        (item) => item.title === location.pathname.split("/")[3]
+      )
+    ) {
       return (
         <ErrorWrap>
           <MyText>Selected item does not exit</MyText>
@@ -123,11 +130,10 @@ const ProductPage = () => {
           </MyText>
         </ErrorWrap>
       );
-    }
-  };
-  return (
-    <PageCenterWrapWithBread>
-      {item !== null ? (
+    } else if (item === null) {
+      return <Spinner showText={true} />;
+    } else {
+      return (
         <Wrap>
           <ContentWrap>
             <ImageWrap>
@@ -144,11 +150,11 @@ const ProductPage = () => {
             topText={`Our ${category} selection`}
           />
         </Wrap>
-      ) : (
-        getElement()
-      )}
-    </PageCenterWrapWithBread>
-  );
+      );
+    }
+  };
+
+  return <PageCenterWrapWithBread>{getElement()}</PageCenterWrapWithBread>;
 };
 
 export default ProductPage;

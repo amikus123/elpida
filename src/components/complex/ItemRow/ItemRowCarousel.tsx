@@ -19,8 +19,9 @@ const MyLink = styled(Link)`
   display: flex !important;
   justify-content: center;
   align-items: center;
+  margin: 0 1rem;
   @media (max-width: 500px) {
-  width: 100px;
+    width: 100px;
   }
 `;
 const Image = styled.img`
@@ -30,7 +31,8 @@ const Image = styled.img`
   }
 `;
 const CustomSlider = styled(Slider)`
-height:200px;`;
+  height: 200px;
+`;
 const ItemRowCarousel = ({ products }: CarouselProps) => {
   const { contentData } = useContext(DataContext);
   return (
@@ -38,7 +40,6 @@ const ItemRowCarousel = ({ products }: CarouselProps) => {
       {products === undefined || products.length === 0 ? (
         <Spinner />
       ) : (
-        
         <CustomSlider
           dots={false}
           infinite={true}

@@ -14,9 +14,7 @@ const Wrap = styled(PageCenterWrapWithBread)`
   justify-content: flex-start;
   flex-direction: column;
   align-items: flex-start;
-  & > * {
-    padding-top: 0.5rem;
-  }
+
   padding-bottom: 3rem;
 `;
 
@@ -25,13 +23,11 @@ const Wrap = styled(PageCenterWrapWithBread)`
 const categoryStaticData = {
   "beer": {
     image: nameToPublicLink("beer", "/categories"),
-    bottomText: "16",
     title: "Beers",
     link: "/categories/beer",
   },
   "wine": {
     image: nameToPublicLink("wine", "/categories"),
-    bottomText: "16",
     title: "Wines",
     link: "/categories/wine",
   },
@@ -49,7 +45,6 @@ const CategoryPage = () => {
         const res = {...categoryStaticData[key]}
         res.bottomText = data[key].length
         arr.push(res)
-      }else{
       }
     }) 
     return arr

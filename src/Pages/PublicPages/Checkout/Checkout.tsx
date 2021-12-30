@@ -17,8 +17,8 @@ const ListWrap = styled.div`
 `;
 const ButtonWrap = styled.div`
   width: 200px;
-  @media (max-width:640px){
-    margin:2.5rem;
+  @media (max-width: 640px) {
+    margin: 2.5rem;
   }
 `;
 const EmptyWrap = styled.div`
@@ -27,14 +27,14 @@ const EmptyWrap = styled.div`
   align-items: center;
   justify-content: center;
   padding: 1rem;
-  flex-direction:column;
-  text-align:center;
+  flex-direction: column;
+  text-align: center;
 `;
 const Checkout = () => {
   // list of items with buttons to add change etc
   // at the end add button to pay with stripe
   // add something if cart is empty
-  const { cartState } = useContext(DataContext);
+  const { cartState, resetCart } = useContext(DataContext);
   return (
     <PageCenterWrapWithBread>
       <Wrap>
@@ -49,13 +49,19 @@ const Checkout = () => {
               <PlainButton
                 text={`Pay ${countCartTotal(cartState)} zl`}
                 style={{ fontSize: "1.5rem" }}
+                onClick={() => {
+                  alert(`You paid ${countCartTotal(cartState)}zl!`);
+                  resetCart();
+                }}
               />
             </ButtonWrap>{" "}
           </>
         ) : (
           <EmptyWrap>
             <MyText> It apperas that your cart is empty</MyText>
-            <MyText to={PUBLIC_ROUTES.CATEGORIES} presetColor="red">Browse items</MyText>
+            <MyText to={PUBLIC_ROUTES.CATEGORIES} presetColor="red">
+              Browse items
+            </MyText>
           </EmptyWrap>
         )}
       </Wrap>

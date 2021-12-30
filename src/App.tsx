@@ -29,7 +29,6 @@ import ProductListPage from "./Pages/PublicPages/ProductListPage/ProductListPage
 import IncorrectPath from "./Pages/PublicPages/IncorrectPath/IncorrectPath";
 import HomeImages from "./Pages/ProtectedPages/HomeImages/HomeImages";
 import Snackbar from "./components/singleUse/Snackbar/Snackbar";
-import { UserContext } from "./context/UserContext";
 import PromotedCards from "./Pages/ProtectedPages/PromotedCards/PromotedCards";
 import BestSellers from "./Pages/ProtectedPages/BestSelllers/BestSellers";
 import Inventory from "./Pages/ProtectedPages/Inventory/Inventory";
@@ -38,11 +37,10 @@ import Checkout from "./Pages/PublicPages/Checkout/Checkout";
 function App() {
   const location = useLocation();
   const { reset } = useContext(ElementContext);
-  const { signout } = useContext(UserContext);
 
   useEffect(() => {
     // reset element(modal,overlay) status on location change
-    console.log(location.pathname,noHeader.indexOf(location.pathname),"XDD" );
+    console.log(location.pathname, noHeader.indexOf(location.pathname), "XDD");
     reset();
     // if restes is included it always fires
   }, [location]);
@@ -70,7 +68,7 @@ function App() {
             exact
           />
 
-<RouteController
+          <RouteController
             routeType="public"
             component={Checkout}
             path={PUBLIC_ROUTES.CHECKOUT}
@@ -82,7 +80,7 @@ function App() {
             path={"/categories/:category/"}
             exact
           />
-              <RouteController
+          <RouteController
             routeType="public"
             component={SearchResultPage}
             path={"/search/:category/:title"}
@@ -94,7 +92,6 @@ function App() {
             path={"/categories/:category/:item"}
             exact
           />
-
 
           {/*  Auth Routes, only non logged user can access them */}
 
@@ -123,19 +120,19 @@ function App() {
             path={PROTECTED_ROUTES.HOME_IMAGES}
             exact
           />
-               <RouteController
+          <RouteController
             routeType="protected"
             component={PromotedCards}
             path={PROTECTED_ROUTES.PROMOTED_CARDS}
             exact
           />
-               <RouteController
+          <RouteController
             routeType="protected"
             component={BestSellers}
             path={PROTECTED_ROUTES.BEST_SELLERS}
             exact
           />
-               <RouteController
+          <RouteController
             routeType="protected"
             component={Inventory}
             path={PROTECTED_ROUTES.INVENTORY}
@@ -148,7 +145,6 @@ function App() {
             exact
           />
         </Switch>
-   
       </ThemeProvider>
     </>
   );
