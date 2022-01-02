@@ -34,6 +34,8 @@ import BestSellers from "./Pages/ProtectedPages/BestSelllers/BestSellers";
 import Inventory from "./Pages/ProtectedPages/Inventory/Inventory";
 import SearchResultPage from "./Pages/PublicPages/SearchResult/SearchResultPage";
 import Checkout from "./Pages/PublicPages/Checkout/Checkout";
+import Failure from "./Pages/PublicPages/Failure";
+import Success from "./Pages/PublicPages/Success";
 function App() {
   const location = useLocation();
   const { reset } = useContext(ElementContext);
@@ -78,6 +80,18 @@ function App() {
             routeType="public"
             component={ProductListPage}
             path={"/categories/:category/"}
+            exact
+          />
+          <RouteController
+            routeType="public"
+            component={Failure}
+            path={"/failure"}
+            exact
+          />
+          <RouteController
+            routeType="public"
+            component={Success}
+            path={"/success"}
             exact
           />
           <RouteController

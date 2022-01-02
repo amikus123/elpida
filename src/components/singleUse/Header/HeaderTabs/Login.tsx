@@ -52,9 +52,11 @@ const Login = () => {
     >
       {/* \xa0 is nbsp */}
       <CustomLink to="/orders">
-        {currentUser === null ? "Hello, Sign\xa0in" : "You\xa0are logged\xa0in"}
-        <Bold>
-          Account & Lists <FaCaretDown />
+        {currentUser === null ? "Hello," : "You\xa0are logged\xa0in"}
+      
+      <Bold>
+        {currentUser===null?"Sign\xa0in":<>Account & Lists <FaCaretDown /></>}
+         
         </Bold>
       </CustomLink>
       <HiddenLogin />

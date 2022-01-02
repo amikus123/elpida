@@ -5,6 +5,7 @@ import PlainButton from "../../../components/core/Buttons/PlainButton";
 import MyText from "../../../components/core/Text/MyText";
 import { PUBLIC_ROUTES } from "../../../constans/routes";
 import { DataContext } from "../../../context/DataContext";
+import {  fun } from "../../../firebase/main";
 import { countCartItems, countCartTotal } from "../../../utils/cartFuctiions";
 import CheckoutCartItem from "./CheckoutCartItem";
 const Wrap = styled.div`
@@ -34,7 +35,7 @@ const Checkout = () => {
   // list of items with buttons to add change etc
   // at the end add button to pay with stripe
   // add something if cart is empty
-  const { cartState, resetCart } = useContext(DataContext);
+  const { cartState } = useContext(DataContext);
   return (
     <PageCenterWrapWithBread>
       <Wrap>
@@ -49,9 +50,9 @@ const Checkout = () => {
               <PlainButton
                 text={`Pay ${countCartTotal(cartState)} zl`}
                 style={{ fontSize: "1.5rem" }}
-                onClick={() => {
-                  alert(`You paid ${countCartTotal(cartState)}zl!`);
-                  resetCart();
+                onClick={async () => {
+                  const xd = await fun(cartState);
+                  console.log(xd);
                 }}
               />
             </ButtonWrap>{" "}
@@ -65,6 +66,7 @@ const Checkout = () => {
           </EmptyWrap>
         )}
       </Wrap>
+ 
     </PageCenterWrapWithBread>
   );
 };

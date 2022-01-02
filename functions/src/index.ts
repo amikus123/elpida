@@ -1,9 +1,19 @@
-import * as functions from "firebase-functions";
+const f = require("firebase-functions");
 
-// // Start writing Firebase Functions
-// // https://firebase.google.com/docs/functions/typescript
-//
-// export const helloWorld = functions.https.onRequest((request, response) => {
-//   functions.logger.info("Hello logs!", {structuredData: true});
-//   response.send("Hello from Firebase!");
-// });
+export const createStripeCheckout = f.https.onCall(
+  async (data: any, contenxt: any) => {
+    const stripe = require("stripe")(f.config().stripe.secret);
+
+  
+    const session = await stripe.checkout.sessions.create({
+      payment_method_types: ["card"],
+      mode: "payment",
+      success_url: "elpida-6c698.web.app/success",
+      cancel_url: "elpida-6c698.web.app/fail",
+      line_items: data
+    });
+    return {
+      id: session.id,
+    };
+  }
+);
