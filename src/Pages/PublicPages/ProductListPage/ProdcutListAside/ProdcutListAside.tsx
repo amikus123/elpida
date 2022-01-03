@@ -17,7 +17,21 @@ const Wrap = styled.aside`
   font-size: 1.5rem;
   /* outline: 1px solid blue; */
   width: min-content;
+  @media (max-width:1000px){
+    width: 100%;
+    display:flex;
+    flex-direction:column;
+    flex-wrap:wrap;
+  }
 `;
+const StyledForm = styled(Form)`
+ @media (max-width:1000px){
+    width: 100%;
+    display:flex;
+    flex-direction:row;
+    flex-wrap:wrap;
+  }
+`
 const TextWrap = styled.div`
   margin-bottom: 0.5rem;
   font-size: 2.5rem;
@@ -50,7 +64,7 @@ const ProdcutListAside = ({
           }}
         >
           {({ values, setFieldValue }) => (
-            <Form>
+            <StyledForm>
               {data.map((item, index) => {
                 return (
                   <PropertyList
@@ -60,7 +74,7 @@ const ProdcutListAside = ({
                   />
                 );
               })}
-            </Form>
+            </StyledForm>
           )}
         </Formik>
       </ColumnWrap>

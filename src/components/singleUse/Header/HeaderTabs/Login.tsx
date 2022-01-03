@@ -37,6 +37,16 @@ const Bold = styled.span`
   display: flex;
   min-height: 17.33px;
   align-items: center;
+  /* @media (max-width: ${SIZES.TABLET}) {
+    display: none;
+  } */
+`;
+const HideSmall = styled.span`
+  font-weight: bold;
+  color: #fff;
+  display: flex;
+  min-height: 17.33px;
+  align-items: center;
   @media (max-width: ${SIZES.TABLET}) {
     display: none;
   }
@@ -51,13 +61,16 @@ const Login = () => {
       onMouseLeave={() => setOverlay(false)}
     >
       {/* \xa0 is nbsp */}
-      <CustomLink to="/orders">
+      <CustomLink to="/categories">
         {currentUser === null ? "Hello," : "You\xa0are logged\xa0in"}
-      
-      <Bold>
-        {currentUser===null?"Sign\xa0in":<>Account & Lists <FaCaretDown /></>}
-         
-        </Bold>
+
+        {currentUser === null ? (
+          <Bold>Sign&nbsp;in</Bold>
+        ) : (
+          <HideSmall>
+            Account & Lists <FaCaretDown />
+          </HideSmall>
+        )}
       </CustomLink>
       <HiddenLogin />
     </Wrapper>

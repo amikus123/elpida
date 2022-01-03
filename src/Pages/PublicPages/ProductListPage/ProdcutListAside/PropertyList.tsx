@@ -7,12 +7,25 @@ import {
   capitalizeFirstLetter,
   determineExtraSymbol,
 } from "../../../../utils/stringFunctions";
-import {  SidebarData } from "../tmpConst";
+import { SidebarData } from "../tmpConst";
 import { sortProperties } from "../../../../utils/filterOptions";
 import PriceControl from "./PriceControl";
 const Wrap = styled.div`
   padding: 0.5rem;
   border: 1px solid ${COLORS.grey};
+
+  @media (max-width: 1000px) {
+    width: 50%;
+    /* display:flex;
+    flex-direction:column; */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  @media (max-width: 800px) {
+    width: 100%;
+  }
 `;
 const CheckboxWrap = styled.div`
   display: flex;
@@ -30,9 +43,9 @@ const InnerCheckboxWrap = styled.div`
 
 interface PropertyListProps {
   data: SidebarData;
-  setFieldValue: (field: string, value: any, shouldValidate?: boolean) => void
+  setFieldValue: (field: string, value: any, shouldValidate?: boolean) => void;
 }
-const PropertyList = ({ data ,setFieldValue}: PropertyListProps) => {
+const PropertyList = ({ data, setFieldValue }: PropertyListProps) => {
   const { title, propertyName, values } = data;
   // if ikey is prcie or alghohl we do tdifferent
   const shouldBeSlider = (key: string) => {
@@ -46,8 +59,11 @@ const PropertyList = ({ data ,setFieldValue}: PropertyListProps) => {
     <Wrap>
       <MyText>{title}</MyText>
       {shouldBeSlider(propertyName) ? (
-        <PriceControl  setFieldValue={setFieldValue}rawValues={values}  propertyName={propertyName}  />
-
+        <PriceControl
+          setFieldValue={setFieldValue}
+          rawValues={values}
+          propertyName={propertyName}
+        />
       ) : (
         <CheckboxWrap role="group" aria-labelledby="checkbox-group">
           {sortProperties(values).map((item, index) => {

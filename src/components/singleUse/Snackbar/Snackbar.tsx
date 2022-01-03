@@ -4,7 +4,7 @@ import { ElementContext } from "../../../context/ElementContext";
 
 const ContentWrap = styled.div`
   position: absolute;
-  bottom: 20px;
+  bottom: 30px;
   width: 80vw;
   min-height: 60px;
   padding: 1rem;

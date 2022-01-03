@@ -8,8 +8,8 @@ export const createStripeCheckout = f.https.onCall(
     const session = await stripe.checkout.sessions.create({
       payment_method_types: ["card"],
       mode: "payment",
-      success_url: "elpida-6c698.web.app/success",
-      cancel_url: "elpida-6c698.web.app/fail",
+      success_url: "https://elpida-6c698.web.app/success",
+      cancel_url: "https://elpida-6c698.web.app/fail",
       line_items: data
     });
     return {

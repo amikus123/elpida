@@ -12,7 +12,6 @@ import { createSidebBarData, filterItems } from "../../../utils/filterOptions";
 import Spinner from "../../../components/core/Loading/Spinner";
 import MyText from "../../../components/core/Text/MyText";
 import { PUBLIC_ROUTES } from "../../../constans/routes";
-import Inventory from "../../ProtectedPages/Inventory/Inventory";
 
 const filterToInitialState = (obj: Filter[]) => {
   const res: Record<string, string[]> = {};
@@ -117,7 +116,7 @@ const ProductListPage = () => {
 
       {asideData.length !== 0 ? (
         <Wrap>
-          {/* <ProdcutListAside
+          <ProdcutListAside
             categoryName={category}
             categoryCount={items.length}
             // sorts data in alphanumeric  order
@@ -126,7 +125,7 @@ const ProductListPage = () => {
             })}
             dynamicValues={filterSettings}
             formRef={onRefChange}
-          /> */}
+          />
           {/* // dropdown with sort options */}
           <ProductListList
             items={filterItems(items, filterSettings)}
