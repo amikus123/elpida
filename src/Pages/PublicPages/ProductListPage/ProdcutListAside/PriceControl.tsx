@@ -55,7 +55,9 @@ const PriceControl = ({
     console.log("should set",values)
   },[ propertyName, setFieldValue, values])
   useEffect(()=>{
-    setMarkData(getMarks(rawValues))
+    const res  = getMarks(rawValues)
+    setMarkData(res)
+    setValues([res.min,res.max])
   },[rawValues])
   return (
     <Wrap>

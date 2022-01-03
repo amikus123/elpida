@@ -1,4 +1,9 @@
-import React, { useCallback, useContext, useEffect, useState } from "react";
+import React, {
+  useCallback,
+  useContext,
+  useLayoutEffect,
+  useState,
+} from "react";
 import { useParams } from "react-router-dom";
 import ProdcutListAside from "./ProdcutListAside/ProdcutListAside";
 import deep from "deep-equal";
@@ -31,8 +36,8 @@ const Wrap = styled.div`
   justify-content: space-around;
   padding: 0;
   padding-bottom: 3rem;
-  @media (max-width:1000px){
-    flex-direction:column;
+  @media (max-width: 1000px) {
+    flex-direction: column;
   }
 `;
 
@@ -41,7 +46,7 @@ const ErrorWrap = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  text-align:center;
+  text-align: center;
   font-size: 2rem;
 `;
 
@@ -70,7 +75,7 @@ const ProductListPage = () => {
     // i gues this can create infinite loop, which is bad news
   }, []);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (contentData.inventory[category] !== undefined) {
       setItems(contentData.inventory[category]);
     } else {
@@ -78,11 +83,12 @@ const ProductListPage = () => {
     }
   }, [category, contentData]);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
+    console.log(filterSettings, "XD");
     filterItems(items, filterSettings);
   }, [items, filterSettings]);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     const res = createSidebBarData(items);
     setAsideData(res);
   }, [items]);
@@ -91,6 +97,7 @@ const ProductListPage = () => {
   const getElement = () => {
     // if there are no items
     // there are items
+
     if (
       Object.keys(contentData.inventory).length !== 0 &&
       contentData.inventory[category] === undefined
@@ -108,8 +115,6 @@ const ProductListPage = () => {
     }
   };
 
-
-  // button to show options
   return (
     <PageCenterWrapWithBread>
       {/* if items can be found */}

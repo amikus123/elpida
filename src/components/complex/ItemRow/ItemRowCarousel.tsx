@@ -50,7 +50,7 @@ const ItemRowCarousel = ({ products }: CarouselProps) => {
           autoplay={true}
           prevArrow={<Arrow left={true} />}
           nextArrow={<Arrow left={false} />}
-          centerPadding="30px"
+          centerPadding="20px"
         >
           {products.map((item, index) => {
             return (

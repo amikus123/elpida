@@ -1,5 +1,4 @@
-import { title } from "process";
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext,  useState,useLayoutEffect } from "react";
 import { useLocation } from "react-router-dom";
 
 import styled from "styled-components";
@@ -48,9 +47,9 @@ const ImageWrap = styled.div`
 `;
 const Image = styled.img`
   max-height: 500px;
-  height: 100%;
-  /* width: 100%; // if browser dosnet support other options
-  width: fill-available; */
+  /* height: 100%; */
+  /* /* width: 100%; // if browser dosnet support other options */
+  width: fill-available; 
 `;
 
 const ErrorWrap = styled.div`
@@ -66,7 +65,7 @@ const ProductPage = () => {
   const { contentData } = useContext(DataContext);
   const [item, setItem] = useState<ItemProperties | null>(null);
   const [category, setCategory] = useState("");
-  useEffect(() => {
+  useLayoutEffect(() => {
     const getCategory = () => {
       return location.pathname.split("/")[2];
     };
@@ -120,7 +119,7 @@ const ProductPage = () => {
     } else if (
       !contentData.inventory[category].some(
         (item) => item.title === location.pathname.split("/")[3]
-      )
+      ) 
     ) {
       return (
         <ErrorWrap>
