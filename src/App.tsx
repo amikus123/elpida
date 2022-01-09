@@ -36,6 +36,7 @@ import SearchResultPage from "./Pages/PublicPages/SearchResult/SearchResultPage"
 import Checkout from "./Pages/PublicPages/Checkout/Checkout";
 import Failure from "./Pages/PublicPages/Failure";
 import Success from "./Pages/PublicPages/Success";
+import ScrollToTop from "./components/CustomRoutes/ScrollToTop";
 function App() {
   const location = useLocation();
   const { reset } = useContext(ElementContext);
@@ -54,6 +55,7 @@ function App() {
         <Overlay />
         <Snackbar />
         {noHeader.indexOf(location.pathname) !== -1 ? null : <Header />}
+        <ScrollToTop>
 
         <Switch>
           <RouteController
@@ -85,7 +87,7 @@ function App() {
           <RouteController
             routeType="public"
             component={Failure}
-            path={"/failure"}
+            path={"/fail"}
             exact
           />
           <RouteController
@@ -156,9 +158,11 @@ function App() {
             routeType="public"
             component={IncorrectPath}
             path={"/*"}
-            exact
+        
           />
         </Switch>
+        </ScrollToTop>
+
       </ThemeProvider>
     </>
   );

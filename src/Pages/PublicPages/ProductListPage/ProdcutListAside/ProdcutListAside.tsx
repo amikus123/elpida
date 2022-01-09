@@ -39,6 +39,13 @@ const TextWrap = styled.div`
 const ColumnWrap = styled.div`
   /* outline: 1px solid red; */
   min-width: 200px;
+
+  @media (max-width:1000px){
+    min-width: 0px;
+
+
+  }
+
 `;
 const ProdcutListAside = ({
   data,

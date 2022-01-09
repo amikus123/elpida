@@ -8,7 +8,8 @@ import ManualInput from "./ManualInput";
 
 const Wrap = styled.div`
 // do smokething with it
-width:300px;
+width:75%;
+max-width:300px;
 padding:1rem;`;
 export interface PriceControlProps {
   rawValues: NameWithCount[];

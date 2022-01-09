@@ -15,17 +15,18 @@ interface CarouselProps {
 }
 
 const MyLink = styled(Link)`
-  width: 200px;
+  width: 200px!important;
   display: flex !important;
   justify-content: center;
   align-items: center;
   margin: 0 1rem;
+  overflow:hidden;
   @media (max-width: 500px) {
-    width: 100px;
+    min-width: 100px!important;
   }
 `;
 const Image = styled.img`
-  height: 200px;
+  max-height: 200px;
   @media (max-width: 500px) {
     min-width: 100px;
   }
@@ -33,7 +34,7 @@ const Image = styled.img`
 const CustomSlider = styled(Slider)`
   height: 200px;
 `;
-const ItemRowCarousel = ({ products }: CarouselProps) => {
+const ItemRowCarousel = ({ products }: CarouselProps) => {  
   const { contentData } = useContext(DataContext);
   return (
     <>
@@ -51,6 +52,7 @@ const ItemRowCarousel = ({ products }: CarouselProps) => {
           prevArrow={<Arrow left={true} />}
           nextArrow={<Arrow left={false} />}
           centerPadding="20px"
+
         >
           {products.map((item, index) => {
             return (
