@@ -8,7 +8,7 @@
 * [Status](#status)
 
 ## General info
-This project is a online shop with custom CMS. Page content is fetched from firebase. User can even pay using Swapi!
+This project is a online shop with custom CMS, which can be accessed by authenticated users. Page content is fetched from firebase. User can even pay using Swapi!
 ![el](https://user-images.githubusercontent.com/51713265/177221486-58614b11-a6d2-4087-820f-cb4afb97da5b.JPG)
 ## Hosting
 This page can be seen live [here](https://elpida-6c698.web.app).
