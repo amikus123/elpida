@@ -53,7 +53,7 @@ const Wrapper = styled.div`
   font-size: 0.875rem;
   border-radius: 6px;
 `;
-// changes width ro 460
+// changes width to 460
 const InternalWrapper = styled.div`
   margin: 0 auto;
   width: 92%;
@@ -109,7 +109,6 @@ const ListLink = styled(Link)`
   }
 `;
 
-// ADD DODOAD
 const HiddenLogin = () => {
   const { currentUser, signout } = useContext(UserContext);
   const { setSnackbarWithResposne } = useContext(ElementContext);
@@ -123,7 +122,7 @@ const HiddenLogin = () => {
               <>
                 <Button to={AUTH_ROUTES.LOGIN}>Sign in</Button>
                 <MyText>
-                  New customer?{" "}
+                  New customer?
                   <MyText to={AUTH_ROUTES.SIGNUP} element="link">
                     Start here
                   </MyText>
@@ -131,11 +130,13 @@ const HiddenLogin = () => {
               </>
             ) : (
               <>
-                <MyText fontSize="1.25rem" boldness="bold">Welcome to Elpida!</MyText>
+                <MyText fontSize="1.25rem" boldness="bold">
+                  Welcome to Elpida!
+                </MyText>
                 <Button
-                  onClick={async() => {
-                    const xd = await signout()
-                    setSnackbarWithResposne(xd)
+                  onClick={async () => {
+                    const f = await signout();
+                    setSnackbarWithResposne(f);
                   }}
                 >
                   Logout

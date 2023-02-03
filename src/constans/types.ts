@@ -14,15 +14,15 @@ export interface RowItem {
   image: string;
   link: string;
 }
-export interface TextLink{
-  title:string;
-  link:string;
-}
-export interface ImageWithLink extends  RowItem  {
+export interface TextLink {
   title: string;
-  id?:string;
+  link: string;
 }
-export interface CardData  extends ImageWithLink{
+export interface ImageWithLink extends RowItem {
+  title: string;
+  id?: string;
+}
+export interface CardData extends ImageWithLink {
   bottomText?: string;
 }
 
@@ -38,8 +38,6 @@ export interface RowContent {
 
 // * USED IN CARD COMPONENT
 
-
-
 export interface Ad {
   signIn: boolean;
   addName: string;
@@ -48,14 +46,12 @@ export type CardArr = (Ad | CardData)[];
 
 // * FIREBASE TYPES
 
-
-
 export interface BaseResposne {
   text: string;
   error: boolean;
 }
-export interface TextResposne extends BaseResposne{
-  res:string
+export interface TextResposne extends BaseResposne {
+  res: string;
 }
 export interface HomeImagesResponse extends BaseResposne {
   res: ImageWithLink[];
@@ -67,12 +63,11 @@ export interface CardDataResponsePlural extends BaseResposne {
   res: CardData[][];
 }
 
-
-export interface TextArrResposne extends BaseResposne{
-  res:string[]
+export interface TextArrResposne extends BaseResposne {
+  res: string[];
 }
-export interface TextMixedResposne extends BaseResposne{
-  res:string[] | string
+export interface TextMixedResposne extends BaseResposne {
+  res: string[] | string;
 }
 export interface AnyResposne extends BaseResposne {
   res: any;
@@ -86,15 +81,14 @@ export interface UserResposne extends BaseResposne {
   res: User;
 }
 export interface AnyRespose extends BaseResposne {
-  res: any ;
+  res: any;
 }
 
 export interface AnyArrRespose extends BaseResposne {
-  res: any[] ;
+  res: any[];
 }
 
-
-export interface UploadedImageWithLink{
-  link:string,
-  image:File
+export interface UploadedImageWithLink {
+  link: string;
+  image: File;
 }

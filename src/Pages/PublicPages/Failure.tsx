@@ -24,7 +24,9 @@ const Failure = () => {
     <PageCenterWrapWithBread>
       <Wrap>
         <EmptyWrap>
-          <MyText  presetColor="red"> It apperas that the transaction failed</MyText>
+          <MyText presetColor="red">
+            It apperas that the transaction failed
+          </MyText>
           <MyText to={PUBLIC_ROUTES.CHECKOUT} presetColor="green">
             Go to checkout
           </MyText>

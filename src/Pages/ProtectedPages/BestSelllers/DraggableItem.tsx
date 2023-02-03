@@ -5,15 +5,12 @@ import MyText from "../../../components/core/Text/MyText";
 
 const getItemStyle = (isDragging: any, draggableStyle: any) => {
   return {
-    // some basic styles to make the items look a bit nicer
     userSelect: "none",
     padding: "1rem",
     margin: `0 0 0.5rem 0`,
 
-    // change background colour if dragging
     background: isDragging ? "white" : "none",
     border: "1px solid black",
-    // styles we need to apply on draggables
     ...draggableStyle,
   };
 };

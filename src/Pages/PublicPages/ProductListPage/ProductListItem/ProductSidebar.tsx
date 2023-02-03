@@ -32,7 +32,6 @@ const ProductSidebar = ({ price, item, link }: ProductListItemProps) => {
       <MyText fontSize="1.25rem">Price: {price}zl</MyText>
       <AddToCart item={item} link={link} text="Add to Cart" />
       <AddToCart item={item} link={link} text="Buy now" checkout={true} />
-
       <PhoneCall />
     </Wrap>
   );

@@ -29,7 +29,7 @@ const Inventory = () => {
   const { updateSnackbar } = useContext(ElementContext);
 
   const handleForm = () => {
-    const x = async (values: MyFormData) => {
+    const f = async (values: MyFormData) => {
       // when we swithc between two forms templates, old vales stay in object
       // we have to filler them out
       const templateKeys = formikAlchoholData[category].inputs;
@@ -39,7 +39,7 @@ const Inventory = () => {
       });
       return await formikAlchoholData[category].handleSubmit(filteredData);
     };
-    return x;
+    return f;
   };
   return (
     <PageCenterWrapWithBread>

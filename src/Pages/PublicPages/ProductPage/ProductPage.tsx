@@ -71,12 +71,11 @@ const ProductPage = () => {
     };
     const cat = getCategory();
     setCategory(cat);
-    const xd = getItem(contentData.inventory, location.pathname);
-    setItem(xd);
+    const item = getItem(contentData.inventory, location.pathname);
+    setItem(item);
   }, [location, contentData.inventory]);
 
   const getItem = (inventory: Inventory, path: string) => {
-    // "/categories/wine/Pirate wine"
     const pathData = path.split("/");
     const category = pathData[2];
     const title = pathData[3];
@@ -92,11 +91,6 @@ const ProductPage = () => {
     }
     return res;
   };
-  // on the left will be the image of object
-  // on the right itemm properties
-  // on the bottom there will be carousel of items of the same category, and of something promoeted
-  // ! FIX THE BUG  WHEN THE ERROR IS SHOWED BEFORE ITEM IS FETCHED
-
   const getElement = () => {
     if (Object.keys(contentData.inventory).length === 0 || category === "") {
       return <Spinner showText={true} />;

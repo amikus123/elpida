@@ -8,21 +8,19 @@ import { DataContext, ItemProperties } from "../../../context/DataContext";
 import Spinner from "../../core/Loading/Spinner";
 import { createLinkFromId } from "../../../utils/generalFunctions";
 
-// Import css files
-
 interface CarouselProps {
   products: ItemProperties[];
 }
 
 const MyLink = styled(Link)`
-  width: 200px!important;
+  width: 200px !important;
   display: flex !important;
   justify-content: center;
   align-items: center;
   margin: 0 1rem;
-  overflow:hidden;
+  overflow: hidden;
   @media (max-width: 500px) {
-    min-width: 100px!important;
+    min-width: 100px !important;
   }
 `;
 const Image = styled.img`
@@ -34,7 +32,7 @@ const Image = styled.img`
 const CustomSlider = styled(Slider)`
   height: 200px;
 `;
-const ItemRowCarousel = ({ products }: CarouselProps) => {  
+const ItemRowCarousel = ({ products }: CarouselProps) => {
   const { contentData } = useContext(DataContext);
   return (
     <>
@@ -52,7 +50,6 @@ const ItemRowCarousel = ({ products }: CarouselProps) => {
           prevArrow={<Arrow left={true} />}
           nextArrow={<Arrow left={false} />}
           centerPadding="20px"
-
         >
           {products.map((item, index) => {
             return (

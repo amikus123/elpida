@@ -6,7 +6,7 @@ import MyText from "../../../components/core/Text/MyText";
 import { PUBLIC_ROUTES } from "../../../constans/routes";
 import { DataContext } from "../../../context/DataContext";
 import { ElementContext } from "../../../context/ElementContext";
-import { fun } from "../../../firebase/main";
+import { payWithStripe } from "../../../firebase/main";
 import { countCartItems, countCartTotal } from "../../../utils/cartFuctiions";
 import CheckoutCartItem from "./CheckoutCartItem";
 const Wrap = styled.div`
@@ -33,8 +33,6 @@ const EmptyWrap = styled.div`
   text-align: center;
 `;
 const Checkout = () => {
-  // list of items with buttons to add change etc
-  // at the end add button to pay with stripe
   const { cartState } = useContext(DataContext);
   const { setSnackbarWithResposne } = useContext(ElementContext);
 
@@ -57,7 +55,7 @@ const Checkout = () => {
                     error: false,
                     text: "Waiting for Stripe...",
                   });
-                  await fun(cartState);
+                  await payWithStripe(cartState);
                 }}
               />
             </ButtonWrap>{" "}

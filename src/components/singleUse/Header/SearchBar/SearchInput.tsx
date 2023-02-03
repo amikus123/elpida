@@ -16,13 +16,13 @@ const Inner = styled.div`
   height: 100%;
   padding: 0 0.25rem;
   position: relative;
-  z-index:20;
+  z-index: 20;
   &:focus-within {
     & > div {
       box-shadow: 0 0 0 2px #f90, 0 0 0 3px rgba(255, 153, 0, 0.5);
     }
-    >#suggestions{
-      visibility:visible;
+    > #suggestions {
+      visibility: visible;
     }
   }
 `;
@@ -43,10 +43,9 @@ const Shadow = styled.div`
   z-index: 0;
 `;
 
-
 const SearchInput = () => {
-  const { reset, setOverlay} = useContext(ElementContext);
-  const { contentData,headerData,updateHeaderData } = useContext(DataContext);
+  const { reset, setOverlay } = useContext(ElementContext);
+  const { contentData, headerData, updateHeaderData } = useContext(DataContext);
   const [suggsetions, setSuggestions] = useState<TextLink[]>([
     {
       title: "No matches found!",
@@ -59,10 +58,20 @@ const SearchInput = () => {
     } else {
       setOverlay(true);
     }
-  }, [headerData.headerInput ]);
+  }, [headerData.headerInput]);
   useEffect(() => {
-    setSuggestions(getMatchingSuggestions(headerData.headerInput, headerData.selectedCategory, contentData.inventory));
-  }, [contentData.inventory,headerData.headerInput,headerData.selectedCategory]);
+    setSuggestions(
+      getMatchingSuggestions(
+        headerData.headerInput,
+        headerData.selectedCategory,
+        contentData.inventory
+      )
+    );
+  }, [
+    contentData.inventory,
+    headerData.headerInput,
+    headerData.selectedCategory,
+  ]);
   return (
     <Wrapper>
       <Inner>
@@ -71,11 +80,11 @@ const SearchInput = () => {
           onChange={(e) => {
             updateHeaderData(e.target.value);
           }}
-          onClick={(e)=>{
-            setOverlay(true)
+          onClick={(e) => {
+            setOverlay(true);
           }}
         />
-       <Suggestions suggsetions={suggsetions} />
+        <Suggestions suggsetions={suggsetions} />
 
         <Shadow></Shadow>
       </Inner>

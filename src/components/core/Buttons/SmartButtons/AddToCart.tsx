@@ -30,7 +30,7 @@ const AddToCart = ({
     <PlainButton
       onClick={() => {
         addToCart(item, link, count);
-        // move to cheocut page
+        // move to checkout page
         if (checkout) {
           history.replace(PUBLIC_ROUTES.CHECKOUT);
         } else {

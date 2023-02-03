@@ -10,23 +10,21 @@ interface ButtonSelectionProps {
   setSelected: React.Dispatch<React.SetStateAction<AlocholCategoties>>;
 }
 const Wrap = styled.div`
-flex-direction:row;
-display:flex;
+  flex-direction: row;
+  display: flex;
 `;
 
-
-interface ButtonProps{
-  selected:boolean;
+interface ButtonProps {
+  selected: boolean;
 }
 const Button = styled.div<ButtonProps>`
-  padding:1rem;
-  font-size:1.5rem;
-  backgroud-color:grey;
-  outline:1px solid red;
-  cursor:pointer;
-  color: ${(props) => props.selected?COLORS.white:"red"};
-  background-color: ${(props) => props.selected?"red":COLORS.white};
-
+  padding: 1rem;
+  font-size: 1.5rem;
+  backgroud-color: grey;
+  outline: 1px solid red;
+  cursor: pointer;
+  color: ${(props) => (props.selected ? COLORS.white : "red")};
+  background-color: ${(props) => (props.selected ? "red" : COLORS.white)};
 `;
 
 const ButtonSelection = ({
@@ -38,13 +36,13 @@ const ButtonSelection = ({
     <Wrap>
       {options.map((item, index) => {
         return (
-          <Button 
+          <Button
             key={index}
             onClick={() => {
               setSelected(item);
             }}
-            selected={selected===item}
->
+            selected={selected === item}
+          >
             {capitalizeFirstLetter(item)}
           </Button>
         );

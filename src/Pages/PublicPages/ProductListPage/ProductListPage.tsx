@@ -26,7 +26,6 @@ const filterToInitialState = (obj: Filter[]) => {
   return res;
 };
 
-// adds mediq
 const Wrap = styled.div`
   width: 100%;
   display: flex;
@@ -54,9 +53,6 @@ const ProductListPage = () => {
   const { category } = useParams<CategoryParams>();
   const { contentData } = useContext(DataContext);
   const [items, setItems] = useState<ItemProperties[]>([]);
-  // if category is in not in DoorBackTwoTone, we will show error component
-  //  product list will be fetched frokm db
-  // form will be based on type od object, fetched from db
 
   const [filterSettings, setFilterSettings] = useState<
     Record<string, string[] | number[]>
@@ -72,7 +68,7 @@ const ProductListPage = () => {
       }
       // DOM node referenced by ref has changed and exists
     }
-    // i gues this can create infinite loop, which is bad news
+    // not including prevents infinite loop
   }, []);
 
   useLayoutEffect(() => {
@@ -90,11 +86,7 @@ const ProductListPage = () => {
     setAsideData(res);
   }, [items]);
 
-  // (contentData.inventory[category] === undefined)
   const getElement = () => {
-    // if there are no items
-    // there are items
-
     if (
       Object.keys(contentData.inventory).length !== 0 &&
       contentData.inventory[category] === undefined
@@ -114,8 +106,6 @@ const ProductListPage = () => {
 
   return (
     <PageCenterWrapWithBread>
-      {/* if items can be found */}
-
       {asideData.length !== 0 ? (
         <Wrap>
           <ProdcutListAside

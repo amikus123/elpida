@@ -18,7 +18,6 @@ const Wrap = styled.div`
 interface CategoriesProps {
   data: CardData[];
 }
-// displays cards
 const Categories = ({ data }: CategoriesProps) => {
   return (
     <>

@@ -32,30 +32,28 @@ const Inner = styled.span`
   &:active {
     transform: scale(1.1);
     box-shadow: 0 0 0 2px #f90, 0 0 0 3px rgba(255, 153, 0, 0.5);
-
   }
 `;
 
 const HiddentInput = styled.input`
-/* visibility:hidden; */
-opacity:0;
-position:absolute;
-width:100%;
-height:100%;
-z-index:10;
-top:0;
-`
+  /* visibility:hidden; */
+  opacity: 0;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  z-index: 10;
+  top: 0;
+`;
 const CustomIcon = styled(SearchIcon)`
-  font-size: 1.75rem!important;
-
+  font-size: 1.75rem !important;
 `;
 
 const SearchButton = () => {
   return (
     <Outer>
       <Inner>
-          <CustomIcon />
-          <HiddentInput type="submit" onClick={(e)=>{console.log("XD")}}/>
+        <CustomIcon />
+        <HiddentInput type="submit" onClick={(e) => {}} />
       </Inner>
     </Outer>
   );

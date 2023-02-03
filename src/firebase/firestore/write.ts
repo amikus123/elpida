@@ -1,4 +1,4 @@
-import { doc, setDoc, collection, query, where, getDocs, deleteDoc } from "firebase/firestore";
+import { doc, setDoc, deleteDoc } from "firebase/firestore";
 import { uploadBytes, ref } from "firebase/storage";
 import { SnackbarTexts } from "../../constans/snackbar";
 import { BaseResposne, TextMixedResposne } from "../../constans/types";
@@ -17,11 +17,11 @@ export function stateChangerGenerator<T>(
   setState: React.Dispatch<React.SetStateAction<T>>,
   path: FirestorePathObject
 ) {
-  const x = async (val: T) => {
+  const f = async (val: T) => {
     setState(val);
     updateDoc(val, path);
   };
-  return x;
+  return f;
 }
 export const updateDoc = async (
   value: any,
@@ -57,7 +57,7 @@ export const uploadFromForm = async (
   path: string,
   imageLocation: string = path
 ): Promise<BaseResposne> => {
-  //* genereate random ID
+  // genereate random ID
   const dbId = uuidv4();
   const itemRef = doc(myDb, path + dbId);
 
@@ -78,7 +78,7 @@ export const uploadFromForm = async (
         firebaseEntry[key] = obj;
       }
     }
-    // generated dunctions updtates statre
+    // generated functions update state
     await setDoc(itemRef, firebaseEntry, { merge: true });
     return {
       error: false,
@@ -93,8 +93,8 @@ export const uploadFromForm = async (
   }
 };
 
-// this dunctions returs string if it is givent single File
-// or arr of string is givent arr of Files
+// this function returns string if it is given single File
+// or arr of strings if given arr of Files
 const handleImageUpload = async (
   fileData: File[] | File,
   filePath: string
@@ -146,7 +146,7 @@ export const updateCards = async (
   const dbId = uuidv4();
   try {
     const firebaseEntry: FirestoreEntry = { id: dbId };
-    const xd = await getAllCardGroupes();
+    const allCardGroups = await getAllCardGroupes();
     // we should add png while uploading
     const keys = Object.keys(data);
     const filePath = path + "/" + dbId + ".png";
@@ -162,7 +162,10 @@ export const updateCards = async (
         firebaseEntry[key] = obj;
       }
     }
-    await updateDoc({ ...xd, 0: [...xd[0], firebaseEntry] }, path);
+    await updateDoc(
+      { ...allCardGroups, 0: [...allCardGroups[0], firebaseEntry] },
+      path
+    );
     return {
       error: false,
       text: SnackbarTexts.succesfulDbAddition,
@@ -179,8 +182,8 @@ export const updateCards = async (
 // this function is used in formik objects to remove the need to pass path in the component
 export const updateGroupDragGenerator = (path: string) => {
   const res = async (value: Record<string, string>[][]) => {
-    const x = await updateGroupDrag(value, path);
-    return x;
+    const updateGroupDragResposne = await updateGroupDrag(value, path);
+    return updateGroupDragResposne;
   };
   return res;
 };
@@ -211,5 +214,4 @@ export const updateGroupDrag = async (
 
 export const deleteDocById = async (id, firestorePath) => {
   await deleteDoc(doc(myDb, firestorePath, id));
-
 };

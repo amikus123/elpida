@@ -1,7 +1,7 @@
 import { BaseResposne } from "../constans/types";
 import { Inventory, ItemProperties } from "../context/DataContext";
 
-// * used in contenxt to simulate type, this is nevet called in actual code
+// * used in context to simulate type, this is nevet called in actual code
 export const createPromise = async (): Promise<BaseResposne> => {
   function x() {
     var promise = new Promise(function (resolve, reject) {

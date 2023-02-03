@@ -40,7 +40,6 @@ const ManualInput = ({ values, markData, setValues }: ManualInputProps) => {
 
   useEffect(() => {
     setInputValues(values);
-    console.log("values chjange", values);
     setErrorText("");
   }, [values]);
 
@@ -64,7 +63,6 @@ const ManualInput = ({ values, markData, setValues }: ManualInputProps) => {
       ? (newValues = [value, inputValues[1]])
       : (newValues = [inputValues[0], value]);
 
-    console.log({ value, newValues });
     setInputValues(newValues);
 
     if (checkIfInRange(value)) {

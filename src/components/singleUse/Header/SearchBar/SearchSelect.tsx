@@ -3,7 +3,6 @@ import styled from "styled-components";
 import { FaCaretDown } from "react-icons/fa";
 import { DataContext } from "../../../../context/DataContext";
 
-
 const Wrapper = styled.div`
   /* background-color: red; */
   z-index: 15;
@@ -30,7 +29,7 @@ const Display = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  border-right: 1px solid ${props => props.theme.borderColor};
+  border-right: 1px solid ${(props) => props.theme.borderColor};
   border-radius: 6px 0px 0px 6px;
 
   & > span {
@@ -56,12 +55,11 @@ const Select = styled.select`
   top: -8px;
 `;
 const Option = styled.option``;
-interface SearchSelectProps{
-  options:string[],
-  
+interface SearchSelectProps {
+  options: string[];
 }
-const SearchSelect = ({options}:SearchSelectProps) => {
-  const { headerData ,updateHeaderData} = useContext(DataContext);
+const SearchSelect = ({ options }: SearchSelectProps) => {
+  const { headerData, updateHeaderData } = useContext(DataContext);
 
   return (
     <Wrapper>
@@ -74,7 +72,7 @@ const SearchSelect = ({options}:SearchSelectProps) => {
         </Display>
         <Select
           onChange={(e) => {
-            updateHeaderData(e.target.value,"category");
+            updateHeaderData(e.target.value, "category");
           }}
         >
           {options.map((item, index) => {

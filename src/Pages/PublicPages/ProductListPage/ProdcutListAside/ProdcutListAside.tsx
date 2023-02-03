@@ -17,21 +17,21 @@ const Wrap = styled.aside`
   font-size: 1.5rem;
   /* outline: 1px solid blue; */
   width: min-content;
-  @media (max-width:1000px){
+  @media (max-width: 1000px) {
     width: 100%;
-    display:flex;
-    flex-direction:column;
-    flex-wrap:wrap;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
   }
 `;
 const StyledForm = styled(Form)`
- @media (max-width:1000px){
+  @media (max-width: 1000px) {
     width: 100%;
-    display:flex;
-    flex-direction:row;
-    flex-wrap:wrap;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
   }
-`
+`;
 const TextWrap = styled.div`
   margin-bottom: 0.5rem;
   font-size: 2.5rem;
@@ -40,12 +40,9 @@ const ColumnWrap = styled.div`
   /* outline: 1px solid red; */
   min-width: 200px;
 
-  @media (max-width:1000px){
+  @media (max-width: 1000px) {
     min-width: 0px;
-
-
   }
-
 `;
 const ProdcutListAside = ({
   data,

@@ -6,7 +6,6 @@ import MyText from "../../../components/core/Text/MyText";
 import { PageCenterWrapWithBread } from "../../../components/containers/PageCenterWrap";
 import FormikForm from "../../../components/core/Form/FormikForm";
 import { formikDashboardData } from "../FormikData";
-import { FirestorePaths } from "../../../constans/consts";
 import { SnackbarTexts } from "../../../constans/snackbar";
 import { ElementContext } from "../../../context/ElementContext";
 

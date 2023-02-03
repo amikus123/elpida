@@ -26,8 +26,7 @@ const LoginPage = () => {
     },
   ];
   const onSubmit = async (e: Record<string, string>) => {
-    return  await login(e.email, e.password);
-
+    return await login(e.email, e.password);
   };
 
   return (
@@ -44,7 +43,7 @@ const LoginPage = () => {
       <form>
         <HorizontalText />
         <MyText>
-          New to Elpida?{" "}
+          New to Elpida?
           <MyText to="/signup" variant="link" element="link">
             Sign up
           </MyText>

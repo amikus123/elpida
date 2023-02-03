@@ -20,15 +20,12 @@ const ProtectedRoute = ({
       </>
     );
   };
-  // w
   return (
     <Route
       {...rest}
       render={(routerProps) => {
         return currentUser !== null ? (
-          <>
-            {renderElement(component, routerProps)}
-          </>
+          <>{renderElement(component, routerProps)}</>
         ) : (
           <Redirect path="" to={{ pathname: AUTH_ROUTES.SIGNUP }} />
         );

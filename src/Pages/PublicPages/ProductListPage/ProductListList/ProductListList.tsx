@@ -25,7 +25,6 @@ const ProductListList = ({
   filterSettings,
 }: ProductListListProps) => {
   const getZeroElements = () => {
-    console.log({ filterSettings });
     if (Object.keys(filterSettings).length === 0) {
       return <Spinner showText={true} />;
     } else {

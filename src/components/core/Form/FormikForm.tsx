@@ -40,8 +40,8 @@ const FormikForm = ({ inputs, onSubmit, submitButtonText }: SignupProps) => {
 
   useEffect(() => {
     const formReference = formRef.current as any;
-    const a = getInitialValues(inputs).validation;
-    formReference.validationSchema = Yup.object(a);
+    const initialValues = getInitialValues(inputs).validation;
+    formReference.validationSchema = Yup.object(initialValues);
   }, [inputs]);
 
   const getInitialValues = (inputs: InputData[]) => {
@@ -95,7 +95,6 @@ const FormikForm = ({ inputs, onSubmit, submitButtonText }: SignupProps) => {
 
           {isSubmitting ? (
             <div style={{ marginTop: "16px" }}>
-              {" "}
               <Spinner />
             </div>
           ) : null}

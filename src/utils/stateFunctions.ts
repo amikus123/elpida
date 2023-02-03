@@ -4,7 +4,7 @@ import { BaseResposne } from "../constans/types";
 export function setStateOrDisplayError<TValue>(
   response: BaseResposne & { res: TValue },
   setter: React.Dispatch<React.SetStateAction<TValue>>,
-  setSnackbarWithResposne:(resposne: BaseResposne) => void
+  setSnackbarWithResposne: (resposne: BaseResposne) => void
 ): boolean {
   if (response.error) {
     setSnackbarWithResposne(response);

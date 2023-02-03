@@ -1,6 +1,3 @@
-
-
-
 // firestore mimics storage
 // specific fileLoactions
 
@@ -8,24 +5,22 @@ export enum FirestorePaths {
   homeImages = "/homeImages/",
   dataToShow = "/dataToShow/",
   promotedCards = "/promotedCards/promotedCards",
-  bestSellers = "/bestSellers/bestSellers"
-
-
+  bestSellers = "/bestSellers/bestSellers",
 }
 
-export const productNames = ["beer","wine"]
-export enum ProductPaths{
+export const productNames = ["beer", "wine"];
+export enum ProductPaths {
   beer = "/beer/",
-  wine="/wine/"
+  wine = "/wine/",
 }
 export enum StoragePaths {
   homeImages = "/homeImages/",
 }
 // * STRUCTURE OF FIREBASE DATA
 
-export interface Group{
-  groupId:string,
-  ids:string
+export interface Group {
+  groupId: string;
+  ids: string;
 }
 export interface DataToShow {
   selectedHomeImages: string[];
@@ -36,8 +31,6 @@ export interface WebsiteData {
 export interface FirebaseModel {
   websiteData: WebsiteData;
 }
-
-
 
 export interface FirestorePathObject {
   col: string;

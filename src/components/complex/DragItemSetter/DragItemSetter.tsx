@@ -14,7 +14,7 @@ interface ImageControlProps {
   imageData: ImageWithLink[];
   //* array, with active item ids in order
   orderOfVisibleItems: string[];
-  //* fucntions, which updates the db and context
+  //* functions, which updates the db and context
   updateOrdder: (list: string[]) => Promise<void>;
   deleteById: (s: string) => Promise<void>;
 }
@@ -32,7 +32,7 @@ const DragItemSetter = ({
 
   // creates functions, which passed to element allows to toggle show state
   const handleGenerator = (index: number) => {
-    const x = () => {
+    const f = () => {
       const newState = [...draggableItems];
       newState[index].show = !newState[index].show;
       // update global
@@ -46,7 +46,7 @@ const DragItemSetter = ({
           updateSnackbar(SnackbarTexts.unsuccesfulDbChange, "red");
         });
     };
-    return x;
+    return f;
   };
 
   const getData = (base: ImageWithLink[]) => {
@@ -65,7 +65,7 @@ const DragItemSetter = ({
         ...item,
       });
     });
-    // prevent empty object from showing up
+    // prevent empty objects from showing up
     return res.filter((item) => item["id"] !== undefined);
   };
   useEffect(() => {

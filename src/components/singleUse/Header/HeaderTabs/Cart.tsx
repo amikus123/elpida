@@ -34,18 +34,18 @@ const CartNumber = styled.span`
   top: 50%;
   transform: translate(-50%, -50%);
   padding-bottom: 0.75rem;
-  font-weight:bold;
+  font-weight: bold;
   color: #fff;
 `;
 const Text = styled.span`
   font-weight: bold;
   color: #fff;
   @media (max-width: ${SIZES.TABLET}) {
-    display:none;
+    display: none;
   }
 `;
 const Cart = () => {
-  const { cartState} = useContext(DataContext);
+  const { cartState } = useContext(DataContext);
   return (
     <Wrap to={PUBLIC_ROUTES.CHECKOUT}>
       <CartWrap>

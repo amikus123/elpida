@@ -44,7 +44,11 @@ const SearchResultPage = () => {
             We have no results for your search!
           </MyText>
         ) : (
-          <ProductListList items={items} categoryName={category} filterSettings={{}} />
+          <ProductListList
+            items={items}
+            categoryName={category}
+            filterSettings={{}}
+          />
         )}
       </Wrap>
     </PageCenterWrapWithBread>

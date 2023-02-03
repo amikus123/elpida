@@ -37,9 +37,9 @@ export const formikDashboardData: FormikDataWrap = {
       },
     ],
     handleSubmit: async (values) => {
-      const a = await uploadFromForm({ ...values }, FirestorePaths.homeImages);
+      const f = await uploadFromForm({ ...values }, FirestorePaths.homeImages);
       window.location.reload();
-      return a;
+      return f;
     },
     submitButtonText: "Add Home Image",
   },

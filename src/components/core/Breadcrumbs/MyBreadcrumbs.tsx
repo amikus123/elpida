@@ -13,9 +13,8 @@ const Wrap = styled.div`
   display: flex;
   justify-content: flex-start;
   align-items: center;
-  padding-bottom:1rem;
-  flex-wrap:wrap;
-
+  padding-bottom: 1rem;
+  flex-wrap: wrap;
 `;
 const InnerWrap = styled.div`
   display: flex;
@@ -42,7 +41,7 @@ const MyBreadcrumbs = () => {
       });
       return pathObjects;
     };
-    
+
     setPathObjects(getFomratedPath());
   }, [location]);
 
@@ -51,7 +50,6 @@ const MyBreadcrumbs = () => {
       {pathObjects.map((item, index) => {
         return (
           <InnerWrap key={index}>
-
             {index !== 0 && index && item.name !== "" ? (
               <ArrowRightAltIcon fontSize="inherit" />
             ) : null}
@@ -61,7 +59,7 @@ const MyBreadcrumbs = () => {
               key={index}
               style={{ display: "inline" }}
             >
-              {item.name.replaceAll("_"," ")}
+              {item.name.replaceAll("_", " ")}
             </MyText>
           </InnerWrap>
         );

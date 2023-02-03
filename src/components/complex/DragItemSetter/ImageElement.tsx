@@ -32,7 +32,6 @@ const Wrap = styled.div<{ show: boolean }>`
     margin: 0.25rem;
   }
 `;
-// we cam cut like half of the image
 interface ImageElementProps {
   imageData: DraggableData;
   handleToggle: () => void;

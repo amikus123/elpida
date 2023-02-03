@@ -15,8 +15,8 @@ const Wrapper = styled.div`
   top: 0;
   left: 50%;
   transform: translateX(-50%);
-  @media(max-width:600px){
-    display:none;
+  @media (max-width: 600px) {
+    display: none;
   }
   /* overflow: hidden; */
   -ms-overflow-style: none; /* IE and Edge */
@@ -32,7 +32,12 @@ const HomeCarousel = () => {
   const { contentData } = useContext(DataContext);
   return (
     <Wrapper>
-      <Carousel infiniteLoop={true} showStatus={false} showIndicators={false} showThumbs={false}>
+      <Carousel
+        infiniteLoop={true}
+        showStatus={false}
+        showIndicators={false}
+        showThumbs={false}
+      >
         {contentData.homeImages.map((item, index) => {
           return (
             <CarouselItem

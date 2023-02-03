@@ -61,18 +61,6 @@ export const ElementProvider = ({ children }: { children: any }) => {
 
     updateSnackbar(text, color);
   };
-  useEffect(() => {
-    if (selectedModal === "none") {
-      const scrollY = document.body.style.top;
-      // document.body.style.position = "";
-      // document.body.style.top = "";
-      // window.scrollTo(0, parseInt(scrollY || "0") * -1);
-    } else {
-      // document.body.style.position = "fixed";
-      // document.body.style.top = `-${window.scrollY}px`;
-      // document.body.style.overflowY = "scroll";
-    }
-  }, [selectedModal]);
 
   const setOverlay = (bool: boolean) => {
     setShowOverlay(bool);

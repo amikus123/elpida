@@ -14,7 +14,6 @@ const Image = styled.img`
   min-width: 250px;
   max-height: 250px;
   margin: 1rem auto 0 auto;
-  
 `;
 const CardAd = ({ data }: CardProps) => {
   const { signIn, addName } = data;

@@ -12,18 +12,15 @@ export interface ItemData {
   images: string[];
   linkToPage: string;
   title: string;
-  // propertiees listed in Filter interfcaer
+  // propertiees listed in Filter interface
   properties: Option[];
 }
-
 
 export interface Option {
   title: string;
   propertyName: string;
   value: string;
 }
-
-
 
 export interface SidebarData {
   propertyName: string;

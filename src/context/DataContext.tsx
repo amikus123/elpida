@@ -100,30 +100,28 @@ const deleteByIdGenerator = (
   firebaseLocation: string,
   updateSnackbar: (text: string, color?: "green" | "red") => void
 ) => {
-  const x = async (idToRemove: string) => {
+  const f = async (idToRemove: string) => {
     deleteDocById(idToRemove, firebaseLocation)
       .then(() => {
         updateSnackbar("Deleted item", "green");
-        // it used to re download data after deletion, but instaed we just hide it
       })
       .catch((e) => {
         updateSnackbar("Failed to delete item", "red");
         console.error(e);
       });
   };
-  return x;
+  return f;
 };
 
 const itemAndColumn: ItemAndColumn = { item: null, column: -1 };
 
-// const modifyCart = (item: ItemProperties, link: string, newCount: number) => {
 const cart: CartData = {};
 export const DataContext = createContext({
   updateSelectedImagesList: (list: string[]) => {
-    const x = async () => {
+    const f = async () => {
       return await console.log();
     };
-    return x();
+    return f();
   },
   cartState: cart,
   activeIds: itemsWithToggle,
@@ -162,7 +160,7 @@ export const DataProvider = ({ children }: { children: React.ReactNode }) => {
     item: null,
   });
   const [cartState, setCartState] = useState<CartData>({});
-  //* ids of images to fetch, found in db
+  // ids of images to fetch, found in db
   const [activeIds, setIdsOfItemsToDisplay] = useState<ItemsWithToggle>({
     selectedHomeImages: [],
   });
@@ -171,7 +169,7 @@ export const DataProvider = ({ children }: { children: React.ReactNode }) => {
   // dashboardImages  all images, only shown in dashboard
   const addToCart = (item: ItemProperties, link: string, count: number) => {
     // if item is not in cart, we add it
-    // if count is equal to zero, throw error beacuse it shoulldnt be pssoible
+    // if count is equal to zero, throw error beacuse it shouldnt be possible
     if (count === 0) {
       throw new Error("Count should not be 0");
     }
@@ -180,20 +178,19 @@ export const DataProvider = ({ children }: { children: React.ReactNode }) => {
       const newObj: CartItem = { ...item, count, link };
       setCartState({ ...cartCopy, [item.id]: newObj });
     } else {
-      // it exists, we just have to changethe count
+      // it exists, we just have to change the count
       cartCopy[item.id].count += count;
       setCartState({ ...cartCopy });
     }
   };
   const modifyCart = (item: ItemProperties, newCount: number) => {
     // if new count === 0, we juest delete the item
-
     const cartCopy = { ...cartState };
-    // if missing, we jst add it
+    // if missing, we add it
     if (cartCopy[item.id] === undefined) {
       console.error("CANT EDIT MISSING ITEM");
     } else {
-      // it exists, we just have to changethe count
+      // it exists, we just have to change the count
       // if new count ===0, we delete the object
       if (newCount === 0) {
         delete cartCopy[item.id];
@@ -224,7 +221,7 @@ export const DataProvider = ({ children }: { children: React.ReactNode }) => {
   };
   const fetchDashboardCategoryImages = async () => {
     const response = await getDashboardCategoryImages();
-    // upadting the urls
+    // updating the urls
     const urls = response.res;
     urls.forEach((item, index) => {
       baseState[index].image = item;
@@ -259,16 +256,16 @@ export const DataProvider = ({ children }: { children: React.ReactNode }) => {
 
     const groupCardsRaw = await getAllCardGroupes();
     const cardGroups: CardData[][] = [];
-    for (const x of groupCardsRaw) {
-      const res = (await convertFilePathsToImages(x)) as CardData[];
+    for (const cardData of groupCardsRaw) {
+      const res = (await convertFilePathsToImages(cardData)) as CardData[];
       cardGroups.push(res);
     }
 
     const bestSellersRaw = await getBestSellers();
     const bestSellers: ItemProperties[][] = [];
-    for (const x of bestSellersRaw) {
+    for (const cardData of bestSellersRaw) {
       const res = (await convertFilePathsToImages(
-        x
+        cardData
       )) as unknown as ItemProperties[];
       bestSellers.push(res);
     }
@@ -277,8 +274,8 @@ export const DataProvider = ({ children }: { children: React.ReactNode }) => {
     const dashboardCategories = await fetchDashboardCategoryImages();
     const inventory = await fetchInventory();
     const itemNames = Object.keys(inventory);
-    for (const x of itemNames) {
-      inventory[x] = await convertFilePathsToImages(inventory[x]);
+    for (const itemName of itemNames) {
+      inventory[itemName] = await convertFilePathsToImages(inventory[itemName]);
     }
 
     setContentData({
@@ -294,8 +291,8 @@ export const DataProvider = ({ children }: { children: React.ReactNode }) => {
   const fetchInventory = async () => {
     const res: Inventory = {};
     for (const name of productNames) {
-      const f = (await getAllDocs(ProductPaths[name])) as any;
-      const productResult = f.res as ItemProperties[];
+      const allProductsOfType = (await getAllDocs(ProductPaths[name])) as any;
+      const productResult = allProductsOfType.res as ItemProperties[];
       res[name] = productResult;
     }
     return res;
@@ -307,7 +304,7 @@ export const DataProvider = ({ children }: { children: React.ReactNode }) => {
       setIdsOfItemsToDisplay(websiteData.res);
       const { selectedHomeImages } = websiteData.res;
       const a = await getSelectedHomeImages(selectedHomeImages);
-      // if objects is missing in db, but still listed as an item to display, we fillter
+      // if objects is missing in db, but still listed as an item to display, we filter
       return a.res.filter((item) => item !== undefined);
     } else {
       // show snackabr

@@ -1,29 +1,21 @@
-import React, { useContext } from 'react'
-import styled from 'styled-components';
-import { ElementContext } from '../../../context/ElementContext';
-import ItemModal from './ItemModal';
-import LocationModal from './LocationModal';
-
-
-
+import React, { useContext } from "react";
+import { ElementContext } from "../../../context/ElementContext";
+import ItemModal from "./ItemModal";
+import LocationModal from "./LocationModal";
 
 const ModalWrap = () => {
   const { selectedModal } = useContext(ElementContext);
-  const getModal= ()=>{
-    switch(selectedModal){
+  const getModal = () => {
+    switch (selectedModal) {
       case "none":
-        return  null;
+        return null;
       case "item":
-        return <ItemModal />
+        return <ItemModal />;
       case "location":
-        return <LocationModal/>
+        return <LocationModal />;
     }
-  }
-  return (
-    <>
-     {getModal()}
-    </>
-  )
-}
+  };
+  return <>{getModal()}</>;
+};
 
-export default ModalWrap
+export default ModalWrap;

@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
+import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 
 const Wrap = styled.div<StyleProps>`
@@ -20,7 +20,7 @@ const Wrap = styled.div<StyleProps>`
   display: flex;
   justify-content: center;
   align-items: center;
-box-shadow: 0 1px 3px #888;
+  box-shadow: 0 1px 3px #888;
 `;
 const InternalWrap = styled.div`
   /* border: 1px solid #007185; */
@@ -31,14 +31,14 @@ const InternalWrap = styled.div`
   align-items: center;
   border-radius: 3px;
 
-  &:active{
+  &:active {
     border: 1px solid #007185;
   }
-  & *{
-    display:flex;
-  justify-content: center;
-  align-items: center;
-}
+  & * {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
 `;
 interface StyleProps {
   left: boolean;

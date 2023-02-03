@@ -47,7 +47,6 @@ interface PropertyListProps {
 }
 const PropertyList = ({ data, setFieldValue }: PropertyListProps) => {
   const { title, propertyName, values } = data;
-  // if ikey is prcie or alghohl we do tdifferent
   const shouldBeSlider = (key: string) => {
     if (key === "price" || key === "alcoholPercentage") {
       return true;

@@ -5,26 +5,23 @@ import MyText from "../../core/Text/MyText";
 
 const getItemStyle = (isDragging: any, draggableStyle: any) => {
   return {
-    // some basic styles to make the items look a bit nicer
     userSelect: "none",
     padding: "1rem",
     margin: `0 0 0.5rem 0`,
 
-    // change background colour if dragging
     background: isDragging ? "white" : "none",
-    border:"1px solid black",
-    // styles we need to apply on draggables
+    border: "1px solid black",
     ...draggableStyle,
   };
 };
 interface DraggableItemProps {
-  card: Record<string,string>;
+  card: Record<string, string>;
   index: number;
 }
 const Item = styled.div`
   display: flex;
   justifycontent: center;
-  align-items:center;
+  align-items: center;
   flex-direction: column;
 `;
 const Image = styled.img`
@@ -32,7 +29,7 @@ const Image = styled.img`
   height: 80px;
 `;
 const DraggableItem = ({ card, index }: DraggableItemProps) => {
-  const {  title, image, link, bottomText, id} = card;
+  const { title, image, link, bottomText, id } = card;
   return (
     <Draggable draggableId={id} index={index} key={id}>
       {(provided, snapshot) => (
@@ -50,7 +47,7 @@ const DraggableItem = ({ card, index }: DraggableItemProps) => {
             <MyText>Title:{title}</MyText>
             <MyText>Link:{link}</MyText>
             <MyText>Bottom text:{bottomText}</MyText>
-            </Item>
+          </Item>
         </div>
       )}
     </Draggable>

@@ -3,7 +3,6 @@ import styled from "styled-components";
 import { COLORS } from "../../../styles/styleValues";
 import { AiOutlineMinus, AiOutlinePlus } from "react-icons/ai";
 import MyText from "../Text/MyText";
-import { Box } from "@mui/system";
 
 const Wrap = styled.div`
   position: relative;
@@ -83,7 +82,6 @@ const NumericalInput = ({
           value={inputValue}
           onChange={(e) => {
             const value = e.target.value;
-            // eslint-disable-next-line use-isnan
             if (
               !isNaN(Number(value)) &&
               !(value.length > 0 && value[0] === "0")
@@ -114,8 +112,7 @@ const NumericalInput = ({
           presetColor="red"
           style={{ position: abosluteError ? "absolute" : "initial" }}
         >
-          {" "}
-          {errorText}{" "}
+          {errorText}
         </MyText>
       ) : null}
     </Wrap>

@@ -15,10 +15,10 @@ type PossibleElements =
   | "h4"
   | "h5"
   | "h6"
-  |"li"
+  | "li"
   | "link"
   | "label";
-// presetColor should always be poassed using COLORs enym
+// presetColor should always be passed using COLOR's enum
 interface TextProps {
   children?: ReactNode;
   variant?: Variants;
@@ -29,7 +29,7 @@ interface TextProps {
   style?: {};
   boldness?: FontSizes;
   presetColor?: string;
-  onClick?: (arg?:any) =>any
+  onClick?: (arg?: any) => any;
 }
 interface StyleProps {
   variant: Variants;
@@ -65,7 +65,7 @@ const MyText = ({
   style = {},
   boldness = "initial",
   presetColor = "inherit",
-  onClick= ()=>{}
+  onClick = () => {},
 }: TextProps) => {
   // get element to display from passed props
 
@@ -74,8 +74,7 @@ const MyText = ({
     if (element === "link") {
       toReturn = (
         <LinkElement
-        onClick={onClick}
-
+          onClick={onClick}
           as={Link}
           to={to}
           variant={variant}
@@ -90,8 +89,8 @@ const MyText = ({
     } else if (element === "label") {
       toReturn = (
         <TextElement
-        onClick={onClick}
-        boldness={boldness}
+          onClick={onClick}
+          boldness={boldness}
           as="label"
           variant={variant}
           htmlFor={labelTarget}
@@ -105,8 +104,8 @@ const MyText = ({
     } else if (to !== "") {
       toReturn = (
         <TextElement
-        onClick={onClick}
-        boldness={boldness}
+          onClick={onClick}
+          boldness={boldness}
           as={Link}
           variant={variant}
           fontSize={fontSize}
@@ -120,7 +119,7 @@ const MyText = ({
     } else {
       toReturn = (
         <TextElement
-        onClick={onClick}
+          onClick={onClick}
           boldness={boldness}
           as={element}
           variant={variant}

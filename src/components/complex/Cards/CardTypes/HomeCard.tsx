@@ -1,7 +1,6 @@
 import React from "react";
 import styled from "styled-components";
 import { CardData } from "../../../../constans/types";
-import { nameToPublicLink } from "../../../../utils/imageFunctions";
 import MyText from "../../../core/Text/MyText";
 import CardWrap from "./CardWrap.";
 
@@ -16,8 +15,8 @@ const TextWrap = styled.div`
 `;
 
 const TopWrap = styled.div`
-max-height:420px;
-`
+  max-height: 420px;
+`;
 const Imgage = styled.img`
   width: 100%;
   aspect-ratio: 1 / 1;
@@ -36,10 +35,7 @@ const HomeCard = ({ data }: CardProps) => {
         </MyText>
         <TextWrap></TextWrap>
         <MyText to={link} element="link">
-          <Imgage
-            alt={imageName}
-            src={imageName}
-          />
+          <Imgage alt={imageName} src={imageName} />
         </MyText>
       </TopWrap>
       <MyText

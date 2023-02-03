@@ -1,6 +1,6 @@
 import { useContext } from "react";
 import * as Yup from "yup";
-import FormWrap from "../../components/containers/FormWrap"
+import FormWrap from "../../components/containers/FormWrap";
 import HorizontalText from "../../components/core/Dividers/HorizontalText";
 import FormikForm, { InputData } from "../../components/core/Form/FormikForm";
 import MyText from "../../components/core/Text/MyText";
@@ -8,9 +8,9 @@ import { UserContext } from "../../context/UserContext";
 
 const SignupPage = () => {
   const { signup } = useContext(UserContext);
-  
+
   const onSubmit = async (e: Record<string, string>) => {
-    return  await signup(e.email, e.password);
+    return await signup(e.email, e.password);
   };
 
   const inputs: InputData[] = [
@@ -42,13 +42,15 @@ const SignupPage = () => {
       <MyText variant="header" element="h1" fontSize="2rem">
         Sign up
       </MyText>
-      <FormikForm onSubmit={onSubmit} inputs={inputs} submitButtonText="Sign up"/>
-      
-
+      <FormikForm
+        onSubmit={onSubmit}
+        inputs={inputs}
+        submitButtonText="Sign up"
+      />
       <form>
         <HorizontalText />
         <MyText>
-          Already have an account?{" "}
+          Already have an account?
           <MyText to="/login" variant="link" element="link">
             Log in
           </MyText>

@@ -18,9 +18,7 @@ const Wrap = styled.div`
   @media (max-width: 1200px) {
     flex-direction: column;
     padding: 0 0 1rem;
-  
   }
-
 `;
 const PropertyWrap = styled.div`
   display: flex;
@@ -41,8 +39,8 @@ const ImageWrap = styled.div`
   @media (max-width: 640px) {
     width: initial;
     height: initial;
-    min-height:200px;
-    padding-bottom:1rem;
+    min-height: 200px;
+    padding-bottom: 1rem;
   }
 `;
 const Image = styled.img`

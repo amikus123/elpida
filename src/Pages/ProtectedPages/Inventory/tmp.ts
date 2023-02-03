@@ -1,12 +1,11 @@
 import * as Yup from "yup";
 import { InputData } from "../../../components/core/Form/FormikForm";
-import { ProductPaths, } from "../../../constans/consts";
+import { ProductPaths } from "../../../constans/consts";
 import { uploadFromForm } from "../../../firebase/firestore/write";
 import { FormikDataWrap } from "../FormikData";
 
-
 // common interface for all products
-export const baseProdcutInputs : InputData[]= [
+export const baseProdcutInputs: InputData[] = [
   {
     type: "text",
     id: "title",
@@ -38,12 +37,8 @@ export const baseProdcutInputs : InputData[]= [
     id: "image",
     label: "Image",
     validation: Yup.string().required("Image is required"),
-    
   },
 ];
-
-
-
 
 export const formikAlchoholData: FormikDataWrap = {
   wine: {
@@ -52,18 +47,16 @@ export const formikAlchoholData: FormikDataWrap = {
       {
         type: "radio",
         id: "taste",
-        label:"Taste",
-        values:["dry","sweet","medium sweet"],
+        label: "Taste",
+        values: ["dry", "sweet", "medium sweet"],
         validation: Yup.string().required("Taste is required"),
-
       },
       {
         type: "radio",
         id: "color",
-        label:"Color",
-        values:["red","white"],
+        label: "Color",
+        values: ["red", "white"],
         validation: Yup.string().required("Color is required"),
-
       },
     ],
     handleSubmit: async (values) => {
@@ -77,12 +70,10 @@ export const formikAlchoholData: FormikDataWrap = {
       {
         type: "radio",
         id: "category",
-        label:"Type",
-        values:["IPA","Porter",],
+        label: "Type",
+        values: ["IPA", "Porter"],
         validation: Yup.string().required("Type is required"),
-
       },
-
     ],
     handleSubmit: async (values) => {
       return await uploadFromForm({ ...values }, ProductPaths.beer);
@@ -98,5 +89,3 @@ interface BaseItemTemplate {
   id: string;
 }
 export interface FridgeTemplate extends BaseItemTemplate {}
-
-

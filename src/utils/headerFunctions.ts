@@ -10,7 +10,6 @@ export const getMatchingSuggestions = (
   // if category is all. we return all matching
   // else we only return items from matching cateory
   if (text === "") {
-    // do dont do anything
   } else if (category === "All") {
     const categories = Object.keys(items);
     for (const key of categories) {
@@ -19,7 +18,7 @@ export const getMatchingSuggestions = (
       res.push.apply(res, filteredItems);
     }
   } else {
-    // inventroy kesy are lawyas in lower case
+    // inventroy kesy are always in lower case
     const itemsFromCategory = items[category.toLowerCase()];
     const filteredItems = getPairsFromCategory(
       text,
@@ -61,7 +60,7 @@ export const getMatchingItems = (
 ): ItemProperties[] => {
   const res: ItemProperties[] = [];
   // if category is all. we return all matching
-  // else we only return items from matching cateory
+  // else we only return items from matching category
   if (text === "") {
     // do dont do anything
   } else if (category === "All") {
@@ -76,7 +75,7 @@ export const getMatchingItems = (
       res.push.apply(res, filteredItems);
     }
   } else {
-    // inventroy kesy are lawyas in lower case
+    // inventroy keys are always in lower case
     const itemsFromCategory = items[category.toLowerCase()];
     const filteredItems = getMatchingItemsFromCategory(
       text,

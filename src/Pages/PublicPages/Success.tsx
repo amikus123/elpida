@@ -21,10 +21,10 @@ const EmptyWrap = styled.div`
   text-align: center;
 `;
 const Success = () => {
-  const {resetCart  } = useContext(DataContext);
+  const { resetCart } = useContext(DataContext);
 
   useEffect(() => {
-    resetCart()
+    resetCart();
   }, []);
   return (
     <PageCenterWrapWithBread>

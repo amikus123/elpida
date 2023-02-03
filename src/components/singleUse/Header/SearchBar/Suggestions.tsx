@@ -7,8 +7,8 @@ import { COLORS } from "../../../../styles/styleValues";
 const Wrap = styled.ul`
   position: absolute;
   width: 100%;
-  left:0;
-  visibility:hidden;
+  left: 0;
+  visibility: hidden;
 `;
 interface SuggsetionsProps {
   suggsetions: TextLink[];
@@ -16,7 +16,7 @@ interface SuggsetionsProps {
 
 const ListElement = styled(Link)`
   padding: 0.3rem;
-  display:block;
+  display: block;
   background-color: ${COLORS.white};
   &:hover {
     background-color: ${COLORS.lightGrey};
@@ -24,10 +24,10 @@ const ListElement = styled(Link)`
 `;
 const Suggestions = ({ suggsetions }: SuggsetionsProps) => {
   return (
-    <Wrap id="suggestions" >
+    <Wrap id="suggestions">
       {suggsetions.map((item, index) => {
         return (
-          <ListElement key={index}  to={item.link}>
+          <ListElement key={index} to={item.link}>
             {item.title}
           </ListElement>
         );

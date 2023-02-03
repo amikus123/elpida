@@ -75,6 +75,14 @@ const GroupDrag = ({ data, templateData }: GroupDragInterface) => {
       const newState = [...state];
       newState[sourceIndex] = items;
       setState(newState);
+      templateData
+        .updateDb(newState)
+        .then(() => {
+          updateSnackbar(SnackbarTexts.succesfulDbChange, "green");
+        })
+        .catch(() => {
+          updateSnackbar(SnackbarTexts.unsuccesfulDbChange, "red");
+        });
     } else {
       // dropped item in other group
       const result = move(

@@ -14,7 +14,6 @@ const keysToskip = {
 
 // data is fetched from db
 export const createSidebBarData = (data: ItemProperties[]): SidebarData[] => {
-  console.log(data, "CREATIN");
   // key  - found values
   const categoryMap = {};
   // name - count
@@ -26,7 +25,7 @@ export const createSidebBarData = (data: ItemProperties[]): SidebarData[] => {
       keys.forEach((key) => {
         // check if value is stored
         // skip certain properties
-        // uniqe for each proeprty
+        // unique for each proeprty
         if (keysToskip[key] !== undefined) {
         } else {
           const value = item[key];
@@ -48,7 +47,7 @@ export const createSidebBarData = (data: ItemProperties[]): SidebarData[] => {
       });
     });
   } catch (e) {
-    console.log("wrong input", e);
+    console.error("wrong input", e);
   }
 
   const final: SidebarData[] = [];
@@ -80,7 +79,6 @@ export const filterItems = (
   filterSettings: Record<string, string[] | number[]>
 ) => {
   const keys = Object.keys(filterSettings);
-  console.log({ keys });
   for (const key of keys) {
     if (key === "price" || key === "alcoholPercentage") {
       const data: number[] = filterSettings[key] as number[];
@@ -146,7 +144,6 @@ export const splitProperties = (item: ItemProperties) => {
 export const sortProperties = (arr: NameWithCount[]) => {
   const copy = [...arr];
   copy.sort((a, b) => {
-    // if item can be converted to nan, we
     if (isNaN(Number(a.value)) && isNaN(Number(b.value))) {
       if (a.value > b.value) {
         return 1;

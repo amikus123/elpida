@@ -1,7 +1,6 @@
 import React from "react";
 import styled from "styled-components";
 
-type ButtonTypes = "normal" | "submit";
 interface ButtonProps {
   color?: "yellow" | "white";
   variant?: "button" | "link" | "submit";
@@ -44,14 +43,10 @@ const Button = styled.button<ButtonStyle>`
   }
   &:active{
     background-color: ${(props) =>
-      props.color === "yellow"
-        ?"#e4d039"
-        : props.theme.whiteButtonHover};
+      props.color === "yellow" ? "#e4d039" : props.theme.whiteButtonHover};
   }
   border-color: ${(props) =>
-      props.color === "yellow"
-        ?"#e4d039"
-        : props.theme.whiteButtonHover};
+    props.color === "yellow" ? "#e4d039" : props.theme.whiteButtonHover};
   }
 
 `;

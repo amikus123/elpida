@@ -18,29 +18,31 @@ import { myDb } from "../main";
 import { getUrlsForLinks } from "../storage/access";
 
 export const getAllHomeImages = async (): Promise<HomeImagesResponse> => {
-  const x = (await getAllDocs(FirestorePaths.homeImages)) as HomeImagesResponse;
-  return x;
+  const homeImages = (await getAllDocs(
+    FirestorePaths.homeImages
+  )) as HomeImagesResponse;
+  return homeImages;
 };
 
 export const getAllCardGroupes = async (): Promise<CardData[][]> => {
-  const doc: any = await getSingleDoc(FirestorePaths.promotedCards);
-  const res = doc.res;
-  const arr: CardData[][] = [];
-  for (const key in Object.keys(res)) {
-    arr.push(res[key]);
+  const requestResult: any = await getSingleDoc(FirestorePaths.promotedCards);
+  const data = requestResult.res;
+  const cardGroups: CardData[][] = [];
+  for (const key in Object.keys(data)) {
+    cardGroups.push(data[key]);
   }
 
-  return arr;
+  return cardGroups;
 };
 export const getBestSellers = async (): Promise<CardData[][]> => {
-  const doc: any = await getSingleDoc(FirestorePaths.bestSellers);
-  const res = doc.res;
-  const arr: CardData[][] = [];
-  for (const key in Object.keys(res)) {
-    arr.push(res[key]);
+  const requestResult: any = await getSingleDoc(FirestorePaths.bestSellers);
+  const data = requestResult.res;
+  const bestsellers: CardData[][] = [];
+  for (const key in Object.keys(data)) {
+    bestsellers.push(data[key]);
   }
 
-  return arr;
+  return bestsellers;
 };
 // get initialData =
 
@@ -64,7 +66,7 @@ export const getSelectedHomeImages = async (
 interface ObjectWithImage {
   image: string;
 }
-// this function accepts any object with linkt to starage, and return thah object but with actual path to db
+// this function accepts any object with linkt to storage, and return thah object but with actual path to db
 export async function convertFilePathsToImages<T extends ObjectWithImage>(
   objectWithFiles: T[],
   location: string = ""
@@ -109,7 +111,7 @@ export const getMultipleDocs = async (
   }
 };
 
-// we can pass an object  to simplify the procuder
+// we can pass an object  to simplify the procedure
 export const getSingleDoc = async (
   collection: string | FirestorePathObject,
   documentName: string = ""

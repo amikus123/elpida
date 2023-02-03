@@ -5,8 +5,6 @@ interface Option {
   name: string;
   url: string;
 }
-
- //  ! TODO CHANGE TO CONST
 const options: Option[] = [
   {
     name: "Categories",
@@ -21,15 +19,14 @@ const options: Option[] = [
     url: "/categories/beer",
   },
   {
-    name:"Dashboard",
-    url:"/dashboard"
+    name: "Dashboard",
+    url: "/dashboard",
   },
 
   {
     name: "Checkout",
     url: "/checkout",
   },
-
 ];
 
 const CustomLink = styled(Link)`

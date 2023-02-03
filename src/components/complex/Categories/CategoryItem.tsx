@@ -1,11 +1,10 @@
-import React from 'react'
-import { Link } from 'react-router-dom';
+import React from "react";
+import { Link } from "react-router-dom";
 
 import styled from "styled-components";
-import CardWrap from '../Cards/CardTypes/CardWrap.';
-import MyText from '../../../components/core/Text/MyText';
-import { CardData } from '../../../constans/types';
-
+import CardWrap from "../Cards/CardTypes/CardWrap.";
+import MyText from "../../../components/core/Text/MyText";
+import { CardData } from "../../../constans/types";
 
 const LinkFill = styled(Link)`
   display: flex;
@@ -16,31 +15,33 @@ const LinkFill = styled(Link)`
   height: 220px;
   width: 220px;
   color: inherit;
- 
 `;
 const ImageComponent = styled.img`
   max-width: 125px;
   max-height: 125px;
 `;
 
-interface CategoryItemProps{
- item:CardData
+interface CategoryItemProps {
+  item: CardData;
 }
 
-
 const CardWrapStyled = styled(CardWrap)``;
-const CategoryItem = ({item}:CategoryItemProps) => {
-  const {link,title: topText,bottomText,image: imageName} = item
+const CategoryItem = ({ item }: CategoryItemProps) => {
+  const { link, title: topText, bottomText, image: imageName } = item;
 
   return (
     <CardWrapStyled>
-    <LinkFill to={link}>
-      <ImageComponent src={imageName} />
-      <MyText fontSize="1.25rem">{topText}</MyText>
-      {bottomText?<MyText presetColor="grey" fontSize="1.125rem">{bottomText}</MyText>:null}
-    </LinkFill>
-  </CardWrapStyled>
-  )
-}
+      <LinkFill to={link}>
+        <ImageComponent src={imageName} />
+        <MyText fontSize="1.25rem">{topText}</MyText>
+        {bottomText ? (
+          <MyText presetColor="grey" fontSize="1.125rem">
+            {bottomText}
+          </MyText>
+        ) : null}
+      </LinkFill>
+    </CardWrapStyled>
+  );
+};
 
-export default CategoryItem
+export default CategoryItem;

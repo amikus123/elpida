@@ -6,7 +6,6 @@ import { ElementContext } from "../../../../context/ElementContext";
 import HiddenLogin from "../List/HiddenLogin";
 import { SIZES } from "../../../../styles/styleValues";
 
-
 const Wrapper = styled.div`
   margin: 5px 0;
   padding: 0.5rem 0;
@@ -20,7 +19,7 @@ const Wrapper = styled.div`
   }
   cursor: pointer;
   @media (max-width: ${SIZES.TABLET}) {
-    display:none;
+    display: none;
   }
 `;
 const CustomLink = styled.p`

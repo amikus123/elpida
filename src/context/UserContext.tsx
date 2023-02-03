@@ -21,7 +21,6 @@ const errorMessages = {
 
 const getErrorMessage = (str: string) => {
   for (const item of Object.entries(errorMessages)) {
-    console.log(item[0], str, str === item[0]);
     if (str === item[0]) {
       return item[1];
     }
@@ -76,7 +75,7 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
         text: "Succesfully logged in",
       };
     } catch (e: any) {
-      console.log({ e });
+      console.error({ e });
       return {
         error: true,
         text: getErrorMessage(e.code),

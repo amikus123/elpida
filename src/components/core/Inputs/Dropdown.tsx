@@ -1,7 +1,6 @@
 import { useContext } from "react";
 import styled from "styled-components";
 import { possibleLocations } from "../../../constans/locationList";
-import { DataContext } from "../../../context/DataContext";
 import { ElementContext } from "../../../context/ElementContext";
 const Wrapper = styled.div`
   position: relative;
@@ -71,8 +70,7 @@ const Dropdown = () => {
             setDropdown(true);
             e.stopPropagation();
           }}
-        >
-        </Display>
+        ></Display>
         <ListWrap style={{ visibility: showDropdown ? "visible" : "hidden" }}>
           <List>
             {possibleLocations.map((item, index) => {

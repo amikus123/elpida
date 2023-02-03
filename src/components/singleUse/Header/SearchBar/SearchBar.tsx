@@ -18,21 +18,25 @@ const ButtonWrapper = styled.div`
   width: 2.8125rem;
   height: 40px;
 `;
-interface SearchBarProps{
-  options:string[],
+interface SearchBarProps {
+  options: string[];
 }
-const SearchBar = ({options}:SearchBarProps) => {
-  const history = useHistory()
-  const {headerData} = useContext(DataContext)
+const SearchBar = ({ options }: SearchBarProps) => {
+  const history = useHistory();
+  const { headerData } = useContext(DataContext);
 
   return (
-    <Form onSubmit={(e)=>{
-      history.replace(`/search/${headerData.selectedCategory}/${headerData.headerInput}`)
+    <Form
+      onSubmit={(e) => {
+        history.replace(
+          `/search/${headerData.selectedCategory}/${headerData.headerInput}`
+        );
 
-      e.preventDefault()
-    }}>
-      <SearchSelect  options={options} />
-      <SearchInput  />
+        e.preventDefault();
+      }}
+    >
+      <SearchSelect options={options} />
+      <SearchInput />
       <ButtonWrapper>
         <SearchButton />
       </ButtonWrapper>

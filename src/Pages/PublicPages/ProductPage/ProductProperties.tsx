@@ -25,10 +25,9 @@ const Wrap = styled.div`
   flex: 1;
   margin-left: 1rem;
   font-size: 1.25rem;
-  @media (max-width:600px) {
+  @media (max-width: 600px) {
     font-size: 1rem;
   }
- 
 `;
 const PropertyWrap = styled.div`
   display: flex;

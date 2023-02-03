@@ -6,7 +6,7 @@ const Wrapper = styled(Link)`
   max-width: 1500px;
   height: 250px;
   position: relative;
-  display:block;
+  display: block;
 `;
 
 const Img = styled.img`
@@ -21,7 +21,7 @@ interface CarouselProps {
 }
 const CarouselItem = ({ image, link, alt }: CarouselProps) => {
   return (
-    <Wrapper to={link} >
+    <Wrapper to={link}>
       <Img src={image} alt={alt} />
     </Wrapper>
   );

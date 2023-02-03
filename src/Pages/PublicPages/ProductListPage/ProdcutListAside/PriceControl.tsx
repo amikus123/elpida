@@ -4,8 +4,6 @@ import styled from "styled-components";
 import { NameWithCount } from "../tmpConst";
 import ManualInput from "./ManualInput";
 
-// conternt input to mnarks
-
 const Wrap = styled.div`
   // do smokething with it
   width: 75%;

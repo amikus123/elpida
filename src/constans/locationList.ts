@@ -1,4 +1,4 @@
-export const possibleLocations =  [
+export const possibleLocations = [
   "Austria",
   "Poland",
   "Russia",
@@ -8,5 +8,5 @@ export const possibleLocations =  [
   "Belgium",
   "Ukraine",
   "Netherlands",
-  "Denmark"
-]
+  "Denmark",
+];
