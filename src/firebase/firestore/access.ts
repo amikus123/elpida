@@ -24,7 +24,6 @@ export const getAllHomeImages = async (): Promise<HomeImagesResponse> => {
 
 export const getAllCardGroupes = async (): Promise<CardData[][]> => {
   const doc: any = await getSingleDoc(FirestorePaths.promotedCards);
-  console.log(doc, "lul");
   const res = doc.res;
   const arr: CardData[][] = [];
   for (const key in Object.keys(res)) {
@@ -35,7 +34,6 @@ export const getAllCardGroupes = async (): Promise<CardData[][]> => {
 };
 export const getBestSellers = async (): Promise<CardData[][]> => {
   const doc: any = await getSingleDoc(FirestorePaths.bestSellers);
-  console.log(doc, "lul");
   const res = doc.res;
   const arr: CardData[][] = [];
   for (const key in Object.keys(res)) {

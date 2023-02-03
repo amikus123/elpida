@@ -5,9 +5,10 @@ import { PageCenterWrapWithBread } from "../../../components/containers/PageCent
 import FormikForm from "../../../components/core/Form/FormikForm";
 import MyText from "../../../components/core/Text/MyText";
 import { DataContext } from "../../../context/DataContext";
+import { ElementContext } from "../../../context/ElementContext";
 import { MyFormData } from "../../../firebase/firestore/write";
 import ItemList from "./ItemList";
-import {  formikAlchoholData } from "./tmp";
+import { formikAlchoholData } from "./tmp";
 
 export type AlocholCategoties = "beer" | "wine";
 
@@ -24,22 +25,22 @@ const Wrap = styled.div`
 const Inventory = () => {
   const options: AlocholCategoties[] = ["beer", "wine"];
   const [category, setCategory] = useState<AlocholCategoties>("beer");
-  const {contentData,deleteByIdGenerator} = useContext(DataContext)
+  const { contentData, deleteByIdGenerator } = useContext(DataContext);
+  const { updateSnackbar } = useContext(ElementContext);
 
-
-  const handleForm = () =>{
-    const x = async (values:MyFormData) =>{
+  const handleForm = () => {
+    const x = async (values: MyFormData) => {
       // when we swithc between two forms templates, old vales stay in object
       // we have to filler them out
-      const templateKeys = formikAlchoholData[category].inputs
-      const filteredData:MyFormData = {}
-      templateKeys.forEach((key)=>{
-        return filteredData[key.id] =values[key.id] 
-      })
-      return await formikAlchoholData[category].handleSubmit(filteredData)
-    }
-    return x 
-   }
+      const templateKeys = formikAlchoholData[category].inputs;
+      const filteredData: MyFormData = {};
+      templateKeys.forEach((key) => {
+        return (filteredData[key.id] = values[key.id]);
+      });
+      return await formikAlchoholData[category].handleSubmit(filteredData);
+    };
+    return x;
+  };
   return (
     <PageCenterWrapWithBread>
       <Wrap>
@@ -49,7 +50,7 @@ const Inventory = () => {
           setSelected={setCategory}
         />
 
-        <MyText fontSize="2rem" boldness="bold" style={{"textAlign":"center"}}>
+        <MyText fontSize="2rem" boldness="bold" style={{ textAlign: "center" }}>
           Add new {category}
         </MyText>
         <FormikForm
@@ -58,9 +59,15 @@ const Inventory = () => {
           submitButtonText={`Add ${category}`}
         />
 
-    
-      <ItemList categoryName={category} handleDelete={deleteByIdGenerator(category)}items={category in contentData.inventory ? contentData.inventory[category] : []} />
-        
+        <ItemList
+          categoryName={category}
+          handleDelete={deleteByIdGenerator(category, updateSnackbar)}
+          items={
+            category in contentData.inventory
+              ? contentData.inventory[category]
+              : []
+          }
+        />
       </Wrap>
     </PageCenterWrapWithBread>
   );

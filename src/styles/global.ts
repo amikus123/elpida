@@ -22,10 +22,9 @@ export default createGlobalStyle<StyledGlobals>`
     line-height: 19px;
     color: #111;
     background-color: #EAEDED;
-    width: 100vw;;
+    // width: 100vw;;
     overflow-x: hidden; 
     /* overflow: ${(props) => (props.modal ? "visible" : "hidden")}; */
-
    }
    a{
        text-decoration: none;

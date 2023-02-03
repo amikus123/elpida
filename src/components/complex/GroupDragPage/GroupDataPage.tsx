@@ -1,6 +1,4 @@
-import {
-  GroupDragTemplate,
-} from "../../../Pages/ProtectedPages/FormikData";
+import { GroupDragTemplate } from "../../../Pages/ProtectedPages/FormikData";
 import { PageCenterWrapWithBread } from "../../containers/PageCenterWrap";
 import FormikForm from "../../core/Form/FormikForm";
 import MyText from "../../core/Text/MyText";
@@ -30,7 +28,7 @@ const GroupDataPage = ({
   return (
     <PageCenterWrapWithBread>
       <Wrap>
-        <MyText fontSize="2rem" boldness="bold" style={{textAlign:"center"}}>
+        <MyText fontSize="2rem" boldness="bold" style={{ textAlign: "center" }}>
           {templateData.header}
         </MyText>
         <FormikForm
@@ -38,12 +36,11 @@ const GroupDataPage = ({
           inputs={inputs}
           submitButtonText={submitButtonText}
         />
-        <MyText fontSize="2rem" boldness="bold" style={{textAlign:"center"}}>
-          Arrange groups <br/>
+        <MyText fontSize="2rem" boldness="bold" style={{ textAlign: "center" }}>
+          Arrange groups <br />
           Drop to the last colum to remove item
-
         </MyText>
-        
+
         <GroupDrag data={objectsToDisplay} templateData={templateData} />
       </Wrap>
     </PageCenterWrapWithBread>

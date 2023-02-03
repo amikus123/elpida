@@ -65,10 +65,18 @@ const FormikInput = ({
       );
     } else if (type === "radio") {
       el = (
-        <div role="group" aria-labelledby="my-radio-group" >
+        <div role="group" aria-labelledby="my-radio-group">
           {values.map((item, index) => {
             return (
-              <label key={index} style={{paddingRight:"1rem"}}>
+              <label
+                key={index}
+                style={{
+                  paddingRight: "1rem",
+                  display: "inline-flex",
+                  alignItems: "center",
+                  gap: "4px",
+                }}
+              >
                 <Field type="radio" name={id} value={item} />
                 {item}
               </label>

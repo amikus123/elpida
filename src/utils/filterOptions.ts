@@ -57,7 +57,6 @@ export const createSidebBarData = (data: ItemProperties[]): SidebarData[] => {
     const keyValues = categoryMap[key];
     const valueWithCount: NameWithCount[] = [];
 
-    console.log(keyValues, "XDDDD", properties[index]);
     keyValues.forEach((value) => {
       const unique = properties[index] + "_" + value;
       const pair = { value, count: countMap[unique] };
@@ -73,7 +72,6 @@ export const createSidebBarData = (data: ItemProperties[]): SidebarData[] => {
     };
     final.push(item);
   });
-  console.log("enmd", final);
   return final;
 };
 
@@ -82,7 +80,7 @@ export const filterItems = (
   filterSettings: Record<string, string[] | number[]>
 ) => {
   const keys = Object.keys(filterSettings);
-
+  console.log({ keys });
   for (const key of keys) {
     if (key === "price" || key === "alcoholPercentage") {
       const data: number[] = filterSettings[key] as number[];
@@ -92,38 +90,35 @@ export const filterItems = (
           const itemValue = item[key];
 
           if (itemValue >= data[0] && itemValue <= data[1]) {
-            console.log("in range");
             return true;
           } else {
-            console.log("outsie the range");
             return false;
           }
         });
       } else {
-        console.log("wrong number of enteirs, we accept all data", data);
       }
     } else {
       // fillter items based on content of filterSettings[key]
-      //we are sure thet elements are of type string
+      // we are sure thet elements are of type string
       const data: string[] = filterSettings[key] as string[];
       if (data.length === 0) {
-        console.log("no entires, we allow all");
       } else {
         items = items.filter((item) => {
           const itemValue = item[key];
-
-          if (data.indexOf(String(itemValue)) === -1) {
-            console.log("not found");
+          // checks if item has key, then checks if value is valid
+          if (
+            item[key] !== undefined &&
+            data.indexOf(String(itemValue)) === -1
+          ) {
+            console.error("not found");
             return false;
           } else {
-            console.log("found");
             return true;
           }
         });
       }
     }
   }
-  console.log(items, "end of filter");
   return items;
 };
 

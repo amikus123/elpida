@@ -1,22 +1,26 @@
-import React, { memo } from 'react'
-import { Draggable } from 'react-beautiful-dnd';
-import { DraggableData } from './DragItemSetter';
-import ImageElement from './ImageElement';
+import React, { memo } from "react";
+import { Draggable } from "react-beautiful-dnd";
+import { DraggableData } from "./DragItemSetter";
+import ImageElement from "./ImageElement";
 
 interface DragListItemProps {
   handleToggle: () => void;
   image: DraggableData;
   index: number;
-  deleteById:(s:string)=>Promise<void>
-
+  deleteById: (s: string) => Promise<void>;
 }
 
-function DragListItem({ image, index, handleToggle,deleteById }: DragListItemProps) {
+function DragListItem({
+  image,
+  index,
+  handleToggle,
+  deleteById,
+}: DragListItemProps) {
   return (
     <Draggable draggableId={image.dragId} index={index}>
       {(provided) => (
         <ImageElement
-        deleteById={deleteById}
+          deleteById={deleteById}
           handleToggle={handleToggle}
           imageData={image}
           ref={provided.innerRef}
@@ -28,4 +32,4 @@ function DragListItem({ image, index, handleToggle,deleteById }: DragListItemPro
   );
 }
 
-export default memo(DragListItem)
+export default memo(DragListItem);

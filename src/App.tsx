@@ -43,7 +43,6 @@ function App() {
 
   useEffect(() => {
     // reset element(modal,overlay) status on location change
-    console.log(location.pathname, noHeader.indexOf(location.pathname), "XDD");
     reset();
     // if restes is included it always fires
   }, [location]);
@@ -56,113 +55,110 @@ function App() {
         <Snackbar />
         {noHeader.indexOf(location.pathname) !== -1 ? null : <Header />}
         <ScrollToTop>
+          <Switch>
+            <RouteController
+              routeType="public"
+              component={Home}
+              path={PUBLIC_ROUTES.HOME}
+              exact
+            />
 
-        <Switch>
-          <RouteController
-            routeType="public"
-            component={Home}
-            path={PUBLIC_ROUTES.HOME}
-            exact
-          />
+            <RouteController
+              routeType="public"
+              component={CategoryPage}
+              path={PUBLIC_ROUTES.CATEGORIES}
+              exact
+            />
 
-          <RouteController
-            routeType="public"
-            component={CategoryPage}
-            path={PUBLIC_ROUTES.CATEGORIES}
-            exact
-          />
+            <RouteController
+              routeType="public"
+              component={Checkout}
+              path={PUBLIC_ROUTES.CHECKOUT}
+              exact
+            />
+            <RouteController
+              routeType="public"
+              component={ProductListPage}
+              path={"/categories/:category/"}
+              exact
+            />
+            <RouteController
+              routeType="public"
+              component={Failure}
+              path={"/fail"}
+              exact
+            />
+            <RouteController
+              routeType="public"
+              component={Success}
+              path={"/success"}
+              exact
+            />
+            <RouteController
+              routeType="public"
+              component={SearchResultPage}
+              path={"/search/:category/:title"}
+              exact
+            />
+            <RouteController
+              routeType="public"
+              component={ProductPage}
+              path={"/categories/:category/:item"}
+              exact
+            />
 
-          <RouteController
-            routeType="public"
-            component={Checkout}
-            path={PUBLIC_ROUTES.CHECKOUT}
-            exact
-          />
-          <RouteController
-            routeType="public"
-            component={ProductListPage}
-            path={"/categories/:category/"}
-            exact
-          />
-          <RouteController
-            routeType="public"
-            component={Failure}
-            path={"/fail"}
-            exact
-          />
-          <RouteController
-            routeType="public"
-            component={Success}
-            path={"/success"}
-            exact
-          />
-          <RouteController
-            routeType="public"
-            component={SearchResultPage}
-            path={"/search/:category/:title"}
-            exact
-          />
-          <RouteController
-            routeType="public"
-            component={ProductPage}
-            path={"/categories/:category/:item"}
-            exact
-          />
+            {/*  Auth Routes, only non logged user can access them */}
 
-          {/*  Auth Routes, only non logged user can access them */}
-
-          <RouteController
-            routeType="auth"
-            component={LoginPage}
-            path={AUTH_ROUTES.LOGIN}
-            exact
-          />
-          <RouteController
-            routeType="auth"
-            component={SignupPage}
-            path={AUTH_ROUTES.SIGNUP}
-            exact
-          />
-          {/*  Protected Route only auth user can access them */}
-          <RouteController
-            routeType="protected"
-            component={Dashboard}
-            path={PROTECTED_ROUTES.DASHBOARD}
-            exact
-          />
-          <RouteController
-            routeType="protected"
-            component={HomeImages}
-            path={PROTECTED_ROUTES.HOME_IMAGES}
-            exact
-          />
-          <RouteController
-            routeType="protected"
-            component={PromotedCards}
-            path={PROTECTED_ROUTES.PROMOTED_CARDS}
-            exact
-          />
-          <RouteController
-            routeType="protected"
-            component={BestSellers}
-            path={PROTECTED_ROUTES.BEST_SELLERS}
-            exact
-          />
-          <RouteController
-            routeType="protected"
-            component={Inventory}
-            path={PROTECTED_ROUTES.INVENTORY}
-            exact
-          />
-          <RouteController
-            routeType="public"
-            component={IncorrectPath}
-            path={"/*"}
-        
-          />
-        </Switch>
+            <RouteController
+              routeType="auth"
+              component={LoginPage}
+              path={AUTH_ROUTES.LOGIN}
+              exact
+            />
+            <RouteController
+              routeType="auth"
+              component={SignupPage}
+              path={AUTH_ROUTES.SIGNUP}
+              exact
+            />
+            {/*  Protected Route only auth user can access them */}
+            <RouteController
+              routeType="protected"
+              component={Dashboard}
+              path={PROTECTED_ROUTES.DASHBOARD}
+              exact
+            />
+            <RouteController
+              routeType="protected"
+              component={HomeImages}
+              path={PROTECTED_ROUTES.HOME_IMAGES}
+              exact
+            />
+            <RouteController
+              routeType="protected"
+              component={PromotedCards}
+              path={PROTECTED_ROUTES.PROMOTED_CARDS}
+              exact
+            />
+            <RouteController
+              routeType="protected"
+              component={BestSellers}
+              path={PROTECTED_ROUTES.BEST_SELLERS}
+              exact
+            />
+            <RouteController
+              routeType="protected"
+              component={Inventory}
+              path={PROTECTED_ROUTES.INVENTORY}
+              exact
+            />
+            <RouteController
+              routeType="public"
+              component={IncorrectPath}
+              path={"/*"}
+            />
+          </Switch>
         </ScrollToTop>
-
       </ThemeProvider>
     </>
   );

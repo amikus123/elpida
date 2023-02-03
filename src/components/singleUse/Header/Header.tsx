@@ -12,7 +12,7 @@ import { capitalizeFirstLetter } from "../../../utils/stringFunctions";
 
 const HeaderElement = styled.header`
   display: flex;
-  width: 100vw;
+  width: 100%;
   flex-direction: column;
   justify-content: center;
   position: relative;
@@ -21,7 +21,7 @@ const HeaderElement = styled.header`
 `;
 const FirstRow = styled.div`
   padding: 0 1rem;
-  width: 100vw;
+  width: 100%;
   height: 64px;
   display: flex;
   align-items: center;
@@ -54,17 +54,19 @@ const DesktopSearchWrap = styled.div`
   }
 `;
 const Header = () => {
-  const {contentData} = useContext(DataContext)
-  const [options,setOptions] = useState<string[]>([])
+  const { contentData } = useContext(DataContext);
+  const [options, setOptions] = useState<string[]>([]);
   useEffect(() => {
-    setOptions(["All",...Object.keys(contentData.inventory)].map(capitalizeFirstLetter))
-  }, [contentData.inventory])
+    setOptions(
+      ["All", ...Object.keys(contentData.inventory)].map(capitalizeFirstLetter)
+    );
+  }, [contentData.inventory]);
   return (
     <HeaderElement>
       <FirstRow>
         <Logo />
         <DesktopSearchWrap>
-          <SearchBar  options={options} />
+          <SearchBar options={options} />
         </DesktopSearchWrap>
 
         <Login />
@@ -72,7 +74,7 @@ const Header = () => {
         <Cart />
       </FirstRow>
       <MobileSearchWrap>
-        <SearchBar options={options}/>
+        <SearchBar options={options} />
       </MobileSearchWrap>
       <ListOfOptions />
     </HeaderElement>

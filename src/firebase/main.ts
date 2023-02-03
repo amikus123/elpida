@@ -6,20 +6,14 @@ import { getFunctions, httpsCallable } from "firebase/functions";
 import { loadStripe } from "@stripe/stripe-js";
 import { CardData } from "../constans/types";
 import { CartData } from "../context/DataContext";
+import { firebaseConfig } from "./secret";
+import { toFixedNumber } from "../utils/cartFuctiions";
 
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
-const firebaseConfig = {
-  apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
-  authDomain: process.env.REACT_APP_FIREBASE_AUTH_DOMAIN,
-  projectId: process.env.REACT_APP_FIREBASE_PROJECT_ID,
-  storageBucket: process.env.REACT_APP_FIREBASE_STORAGE_BUCKET,
-  messagingSenderId: process.env.REACT_APP_FIREBASE_MESSAGING_SENDER_ID,
-  appId: process.env.REACT_APP_FIREBASE_APP_ID,
-};
 
 // Initialize Firebase
 
@@ -37,11 +31,11 @@ export const createStripeCheckout = httpsCallable(
 const formatCartData = (cart: CartData) => {
   const res = [];
   for (const key in cart) {
-    const cartItem = cart[key]
+    const cartItem = cart[key];
     const newObj = {
       price_data: {
         currency: "usd",
-        unit_amount: cartItem.price * 100,
+        unit_amount: toFixedNumber(cartItem.price * 100),
         product_data: {
           name: cartItem.title,
           images: [cartItem.image],
@@ -49,11 +43,9 @@ const formatCartData = (cart: CartData) => {
       },
       quantity: cartItem.count,
     };
-    res.push(newObj)
+    res.push(newObj);
   }
-  return res
-
-
+  return res;
 };
 export const fun = async (cart: CartData) => {
   const formatedCartData = formatCartData(cart);

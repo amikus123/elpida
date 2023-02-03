@@ -1,6 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { DragDropContext, Droppable } from "react-beautiful-dnd";
+import { SnackbarTexts } from "../../../constans/snackbar";
 import { ImageWithLink } from "../../../constans/types";
+import { ElementContext } from "../../../context/ElementContext";
 import Spinner from "../../core/Loading/Spinner";
 import DragList from "./DragList";
 
@@ -13,7 +15,7 @@ interface ImageControlProps {
   //* array, with active item ids in order
   orderOfVisibleItems: string[];
   //* fucntions, which updates the db and context
-  updateOrdder: (list: string[]) => void;
+  updateOrdder: (list: string[]) => Promise<void>;
   deleteById: (s: string) => Promise<void>;
 }
 const DragItemSetter = ({
@@ -26,6 +28,7 @@ const DragItemSetter = ({
 
   // used to update state when new data is fetched
 
+  const { updateSnackbar } = useContext(ElementContext);
 
   // creates functions, which passed to element allows to toggle show state
   const handleGenerator = (index: number) => {
@@ -33,9 +36,15 @@ const DragItemSetter = ({
       const newState = [...draggableItems];
       newState[index].show = !newState[index].show;
       // update global
-      
+
       setDraggableItems(newState);
-      updateOrdder(getListOFActive(newState));
+      updateOrdder(getListOFActive(newState))
+        .then(() => {
+          updateSnackbar(SnackbarTexts.succesfulDbChange, "green");
+        })
+        .catch(() => {
+          updateSnackbar(SnackbarTexts.unsuccesfulDbChange, "red");
+        });
     };
     return x;
   };
@@ -86,7 +95,13 @@ const DragItemSetter = ({
       result.source.index,
       result.destination.index
     ) as DraggableData[];
-    updateOrdder(getListOFActive(newState));
+    updateOrdder(getListOFActive(newState))
+      .then(() => {
+        updateSnackbar(SnackbarTexts.succesfulDbChange, "green");
+      })
+      .catch(() => {
+        updateSnackbar(SnackbarTexts.unsuccesfulDbChange, "red");
+      });
     setDraggableItems(newState);
   }
   const getListOFActive = (newState = draggableItems) => {

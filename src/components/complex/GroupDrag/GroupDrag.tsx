@@ -1,6 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { DragDropContext } from "react-beautiful-dnd";
 import styled from "styled-components";
+import { SnackbarTexts } from "../../../constans/snackbar";
+import { ElementContext } from "../../../context/ElementContext";
 import { GroupDragTemplate } from "../../../Pages/ProtectedPages/FormikData";
 import Spinner from "../../core/Loading/Spinner";
 import DropSection from "./DropSection";
@@ -53,6 +55,7 @@ const GroupDrag = ({ data, templateData }: GroupDragInterface) => {
   useEffect(() => {
     setState(data);
   }, [data]);
+  const { updateSnackbar } = useContext(ElementContext);
 
   function onDragEnd(result: any) {
     const { source, destination } = result;
@@ -86,7 +89,14 @@ const GroupDrag = ({ data, templateData }: GroupDragInterface) => {
       setState(newState);
       newState[newState.length - 1] = [];
       // changes new data in db
-      templateData.updateDb(newState);
+      templateData
+        .updateDb(newState)
+        .then(() => {
+          updateSnackbar(SnackbarTexts.succesfulDbChange, "green");
+        })
+        .catch(() => {
+          updateSnackbar(SnackbarTexts.unsuccesfulDbChange, "red");
+        });
     }
   }
   return (

@@ -9,6 +9,7 @@ import HomeCarousel from "./HomeCarousel/HomeCarousel";
 
 const ContentWrap = styled.div`
   margin-top: 250px;
+  margin-bottom: 32px;
   z-index: 10;
   position: relative;
   @media (max-width: 1000px) {

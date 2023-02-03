@@ -12,7 +12,7 @@ const ContentWrap = styled.div`
   left: 50%;
   transform: translate(-50%, 0);
   color: white;
-  line-height:30px;
+  line-height: 30px;
 `;
 
 const Overlay = styled.div`

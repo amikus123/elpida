@@ -24,6 +24,41 @@ import { CardData, ImageWithLink } from "../constans/types";
 import { DASHBOARD_ROUTES } from "../constans/routes";
 import { getDashboardCategoryImages } from "../firebase/storage/access";
 
+export interface ItemProperties {
+  [key: string]: number | string;
+  title: string;
+  image: string;
+  id: string;
+  price: number;
+}
+
+export type Inventory = Record<string, ItemProperties[]>;
+
+export interface HeaderData {
+  selectedCategory: string;
+  headerInput: string;
+}
+export interface ContentData {
+  dashboardCategories: CardData[];
+  homeImages: ImageWithLink[];
+  cardGroups: CardData[][];
+  inventory: Inventory;
+  dashboardImages: ImageWithLink[];
+  bestSellers: ItemProperties[][];
+}
+
+export interface CartData {
+  [id: string]: CartItem;
+}
+export interface CartItem extends ItemProperties {
+  count: number;
+  link: string;
+}
+export interface ItemAndColumn {
+  column: number;
+  item: ItemProperties | null;
+}
+
 const baseState: CardData[] = [
   {
     image: "",
@@ -47,80 +82,74 @@ const baseState: CardData[] = [
   },
 ];
 
-const x: ItemsWithToggle = { selectedHomeImages: [] };
-const y: ContentData = {
+const itemsWithToggle: ItemsWithToggle = { selectedHomeImages: [] };
+const contentData: ContentData = {
   homeImages: [],
   cardGroups: [],
   inventory: {},
   dashboardCategories: [],
   dashboardImages: [],
-  bestSellers : [],
+  bestSellers: [],
 };
-const z: HeaderData = {
+const headerData: HeaderData = {
   headerInput: "",
   selectedCategory: "All",
 };
 
-const q :ItemAndColumn = {item:null,column:-1}
+const deleteByIdGenerator = (
+  firebaseLocation: string,
+  updateSnackbar: (text: string, color?: "green" | "red") => void
+) => {
+  const x = async (idToRemove: string) => {
+    deleteDocById(idToRemove, firebaseLocation)
+      .then(() => {
+        updateSnackbar("Deleted item", "green");
+        // it used to re download data after deletion, but instaed we just hide it
+      })
+      .catch((e) => {
+        updateSnackbar("Failed to delete item", "red");
+        console.error(e);
+      });
+  };
+  return x;
+};
+
+const itemAndColumn: ItemAndColumn = { item: null, column: -1 };
 
 // const modifyCart = (item: ItemProperties, link: string, newCount: number) => {
 const cart: CartData = {};
 export const DataContext = createContext({
-  updateSelectedImagesList: (list: string[]) => {},
+  updateSelectedImagesList: (list: string[]) => {
+    const x = async () => {
+      return await console.log();
+    };
+    return x();
+  },
   cartState: cart,
-  activeIds: x,
-  contentData: y,
-  headerData: z,
+  activeIds: itemsWithToggle,
+  contentData: contentData,
+  headerData: headerData,
   addToCart: (item: ItemProperties, link: string, newCount: number) => {},
   modifyCart: (item: ItemProperties, newCount: number) => {},
   updateHeaderData: (s: string, a = "text") => {},
-  deleteByIdGenerator: (s: string) => {
+  deleteByIdGenerator: (
+    s: string,
+    updateSnackbar: (text: string, color?: "green" | "red") => void
+  ) => {
+    // placeholder to satisfy ts
     const x = async (a: string) => {
       return await console.log();
     };
     return x;
   },
-  updateHomeImages:async(a:string) =>{ return await console.log()},
-  bestSellerPair :q,
-  editPair:  (arg?:number|ItemProperties) =>{},
-  resetCart : ()=>{}
+  updateHomeImages: async (a: string) => {
+    // placeholder to satisfy ts
+    return await console.log();
+  },
+  bestSellerPair: itemAndColumn,
+  editPair: (arg?: number | ItemProperties) => {},
+  resetCart: () => {},
 });
-
-export interface ItemProperties {
-  [key: string]: number | string;
-  title: string;
-  image: string;
-  id: string;
-  price: number;
-}
-
-export type Inventory = Record<string, ItemProperties[]>;
-
-export interface HeaderData {
-  selectedCategory: string;
-  headerInput: string;
-}
-export interface ContentData {
-  dashboardCategories: CardData[];
-  homeImages: ImageWithLink[];
-  cardGroups: CardData[][];
-  inventory: Inventory;
-  dashboardImages: ImageWithLink[];
-  bestSellers: ItemProperties[][]
-
-}
-
-export interface CartData {
-  [id: string]: CartItem;
-}
-export interface CartItem extends ItemProperties {
-  count: number;
-  link: string;
-}
-export interface ItemAndColumn {
-  column:number;
-  item:ItemProperties|null;
-}
 
 export const DataProvider = ({ children }: { children: React.ReactNode }) => {
   // data for ui element
@@ -128,13 +157,16 @@ export const DataProvider = ({ children }: { children: React.ReactNode }) => {
     selectedCategory: "All",
     headerInput: "",
   });
-  const [bestSellerPair,setBestSellerPair] = useState<ItemAndColumn>({column:-1,item:null }) 
+  const [bestSellerPair, setBestSellerPair] = useState<ItemAndColumn>({
+    column: -1,
+    item: null,
+  });
   const [cartState, setCartState] = useState<CartData>({});
   //* ids of images to fetch, found in db
   const [activeIds, setIdsOfItemsToDisplay] = useState<ItemsWithToggle>({
     selectedHomeImages: [],
   });
-  // * object fetch from db, ready to display
+  //  object fetch from db, ready to display
   // home images - orderded and only those selected
   // dashboardImages  all images, only shown in dashboard
   const addToCart = (item: ItemProperties, link: string, count: number) => {
@@ -159,7 +191,7 @@ export const DataProvider = ({ children }: { children: React.ReactNode }) => {
     const cartCopy = { ...cartState };
     // if missing, we jst add it
     if (cartCopy[item.id] === undefined) {
-      console.log("CANT EDIT MISSING ITEM");
+      console.error("CANT EDIT MISSING ITEM");
     } else {
       // it exists, we just have to changethe count
       // if new count ===0, we delete the object
@@ -178,7 +210,7 @@ export const DataProvider = ({ children }: { children: React.ReactNode }) => {
     cardGroups: [[], [], []],
     inventory: {},
     dashboardImages: [],
-    bestSellers:[],
+    bestSellers: [],
   });
   const updateHeaderData = (
     value: string,
@@ -209,24 +241,22 @@ export const DataProvider = ({ children }: { children: React.ReactNode }) => {
     return [];
   };
 
-  const editPair = (arg?:number|ItemProperties) =>{
-    if(arg===undefined){
-      setBestSellerPair({item:null,column:-1})
-
-    }else if(typeof arg === "number"){
-      setBestSellerPair({...bestSellerPair,column:arg})
-    }else{
-      setBestSellerPair({...bestSellerPair,item:arg})
-      
+  const editPair = (arg?: number | ItemProperties) => {
+    if (arg === undefined) {
+      setBestSellerPair({ item: null, column: -1 });
+    } else if (typeof arg === "number") {
+      setBestSellerPair({ ...bestSellerPair, column: arg });
+    } else {
+      setBestSellerPair({ ...bestSellerPair, item: arg });
     }
-  }
+  };
 
   const init = async () => {
     const homeImagesRaw = await fetchHomeImages();
     const homeImages = (await convertFilePathsToImages(
       homeImagesRaw
     )) as ImageWithLink[];
-    
+
     const groupCardsRaw = await getAllCardGroupes();
     const cardGroups: CardData[][] = [];
     for (const x of groupCardsRaw) {
@@ -236,12 +266,13 @@ export const DataProvider = ({ children }: { children: React.ReactNode }) => {
 
     const bestSellersRaw = await getBestSellers();
     const bestSellers: ItemProperties[][] = [];
-  console.log(bestSellersRaw)
     for (const x of bestSellersRaw) {
-      const res = (await convertFilePathsToImages(x)) as unknown as  ItemProperties[];
+      const res = (await convertFilePathsToImages(
+        x
+      )) as unknown as ItemProperties[];
       bestSellers.push(res);
     }
-  
+
     const dashboardImages = await getAllHomeImagesLocal();
     const dashboardCategories = await fetchDashboardCategoryImages();
     const inventory = await fetchInventory();
@@ -258,16 +289,6 @@ export const DataProvider = ({ children }: { children: React.ReactNode }) => {
       dashboardCategories,
       dashboardImages,
     });
-  };
-
-  const deleteByIdGenerator = (firebaseLocation: string) => {
-    const x = async (idToRemove: string) => {
-      console.log("x")
-      deleteDocById(idToRemove, firebaseLocation).then(() => {
-        // it used to re download data after deletion, but instaed we just hide it
-      });
-    };
-    return x;
   };
 
   const fetchInventory = async () => {
@@ -293,14 +314,13 @@ export const DataProvider = ({ children }: { children: React.ReactNode }) => {
     }
   };
 
-  const updateHomeImages = async(idToRemove) => {
+  const updateHomeImages = async (idToRemove) => {
     const newHome = contentData.dashboardImages.filter(
       (item) => item.id !== idToRemove
     );
 
-    setContentData( { ...contentData, dashboardImages: newHome })
-    deleteDocById(idToRemove,FirestorePaths.homeImages)
-      
+    setContentData({ ...contentData, dashboardImages: newHome });
+    deleteDocById(idToRemove, FirestorePaths.homeImages);
   };
   const updateSelectedImagesList = (list: string[]) => {
     const newValue: ItemsWithToggle = {
@@ -311,11 +331,11 @@ export const DataProvider = ({ children }: { children: React.ReactNode }) => {
       setIdsOfItemsToDisplay,
       specificFirebasePaths.dataToShow
     );
-    fun(newValue);
+    return fun(newValue);
   };
-  const resetCart = ()=>{
-    setCartState({})
-  }
+  const resetCart = () => {
+    setCartState({});
+  };
 
   useEffect(() => {
     init();
@@ -334,8 +354,7 @@ export const DataProvider = ({ children }: { children: React.ReactNode }) => {
     updateHomeImages,
     editPair,
     bestSellerPair,
-  resetCart
-    
+    resetCart,
   };
   return (
     <DataContext.Provider value={{ ...val }}>{children}</DataContext.Provider>

@@ -1,4 +1,3 @@
-
 export type PossibleModalColor = keyof typeof POSSIBLE_MODAL_COLORS;
 export enum POSSIBLE_MODAL_COLORS {
   green = "#189306",
@@ -13,16 +12,18 @@ export interface SnackbarType {
 }
 
 export enum SnackbarTexts {
-  wrongEditData = "Złe dane w edytowanym przedmiocie",
-  succesfulImageUpload = "Udało się przesłać zdjęcie",
-  unsuccesfulImageUpload = "Nie dało się przesłać zdjęcia: ",
-  succesfulDbAddition = "Dodano przedmiot do bazy i przesłano zdjęcia",
-  unsuccesfulDbAddition = "Nie dodano przedmiotu do bazy: ",
-  succesfulItemUpdate = "Edytowano przedmiot w bazie",
-  unsuccesfulItemUpdate = "Nie udało sie edytować przedmiotu w bazie: ",
-  editWithoutChanges = "Nowe dane są takie same jak stare",
+  wrongEditData = "Wrong item values",
+  succesfulImageUpload = "Successfully uploaded image",
+  unsuccesfulImageUpload = "Failed to upload image",
+  succesfulDbAddition = "Successfully added item",
+  unsuccesfulDbAddition = "Failed to add item.",
+  succesfulItemUpdate = "Successfully edited item",
+  unsuccesfulItemUpdate = "Failed to edit item",
+  editWithoutChanges = "New item is the same as old item",
   succesfulInitialFetching = "",
-  unsuccesfulInitialFetching = "Nie udało się pobrać danych z bazy: ",
-  unsuccesfulImageFetching="Nie udało się pobrać zdjęcia z bazy: ",
-  succesfulCartAddidtion = "Added items to the cart"
+  unsuccesfulInitialFetching = "Failed to fetch data",
+  unsuccesfulImageFetching = "Failed to fetch image. ",
+  succesfulCartAddidtion = "Added items to the cart",
+  succesfulDbChange = "Successfully saved changes",
+  unsuccesfulDbChange = "Failed to save changes",
 }

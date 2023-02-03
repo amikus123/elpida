@@ -7,6 +7,8 @@ import { PageCenterWrapWithBread } from "../../../components/containers/PageCent
 import FormikForm from "../../../components/core/Form/FormikForm";
 import { formikDashboardData } from "../FormikData";
 import { FirestorePaths } from "../../../constans/consts";
+import { SnackbarTexts } from "../../../constans/snackbar";
+import { ElementContext } from "../../../context/ElementContext";
 
 const Wrap = styled.div`
   display: flex;
@@ -18,29 +20,45 @@ const Wrap = styled.div`
   }
 `;
 const HomeImages = () => {
-  const { activeIds, updateSelectedImagesList,contentData,updateHomeImages} = useContext(DataContext);
-  const {inputs,handleSubmit,submitButtonText} = formikDashboardData.homeImages
-  useEffect(()=>{
-    console.log(contentData.dashboardImages)
-  },[contentData.dashboardImages])
+  const { activeIds, updateSelectedImagesList, contentData, updateHomeImages } =
+    useContext(DataContext);
+  const { inputs, handleSubmit, submitButtonText } =
+    formikDashboardData.homeImages;
+  useEffect(() => {}, [contentData.dashboardImages]);
+  const { updateSnackbar } = useContext(ElementContext);
 
   return (
     <PageCenterWrapWithBread>
       <Wrap>
-        <MyText fontSize="2rem" boldness="bold"  style={{textAlign:"center"}}>
+        <MyText fontSize="2rem" boldness="bold" style={{ textAlign: "center" }}>
           Add new home image
         </MyText>
-      <FormikForm
-          onSubmit={handleSubmit}
+        <FormikForm
+          onSubmit={(arg: any) => {
+            return handleSubmit(arg)
+              .then(() => {
+                return { text: SnackbarTexts.succesfulDbChange, error: false };
+              })
+              .catch(() => {
+                return { text: SnackbarTexts.unsuccesfulDbChange, error: true };
+              });
+          }}
           inputs={inputs}
           submitButtonText={submitButtonText}
-
-      />
-        <MyText fontSize="2rem" boldness="bold"  style={{textAlign:"center"}}>
+        />
+        <MyText fontSize="2rem" boldness="bold" style={{ textAlign: "center" }}>
           Change home image order, or toggle visibility
         </MyText>
         <DragItemSetter
-          deleteById={updateHomeImages}
+          deleteById={(arg: any) => {
+            return updateHomeImages(arg)
+              .then(() => {
+                updateSnackbar(SnackbarTexts.succesfulDbChange, "green");
+              })
+              .catch(() => {
+                updateSnackbar(SnackbarTexts.unsuccesfulDbChange, "red");
+              });
+          }}
           imageData={contentData.dashboardImages}
           orderOfVisibleItems={activeIds.selectedHomeImages}
           updateOrdder={updateSelectedImagesList}

@@ -6,12 +6,14 @@ import { DataContext } from "../../../context/DataContext";
 import { GroupDragTemplate } from "../FormikData";
 import DropSection from "./DropSection";
 import { v4 as uuidv4 } from "uuid";
+import { ElementContext } from "../../../context/ElementContext";
+import { SnackbarTexts } from "../../../constans/snackbar";
 
 const Wrap = styled.div`
-display:flex;
-flex-wrap:wrap;
-justify-content:center;
-`
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+`;
 const reorder = (
   list: Iterable<any> | ArrayLike<any>,
   startIndex: number,
@@ -33,7 +35,6 @@ const move = (
   droppableSource: { index: number; droppableId: string | number },
   droppableDestination: { index: number; droppableId: string | number }
 ) => {
-  console.log(droppableSource.droppableId,)
   const sourceClone = Array.from(source);
   const destClone = Array.from(destination);
   const [removed] = sourceClone.splice(droppableSource.index, 1);
@@ -52,46 +53,48 @@ interface GroupDragInterface {
   templateData: GroupDragTemplate;
 }
 const GroupDrag = ({ data, templateData }: GroupDragInterface) => {
+  const { bestSellerPair, editPair } = useContext(DataContext);
+  const { updateSnackbar } = useContext(ElementContext);
 
-  const { bestSellerPair ,editPair} = useContext(DataContext);
-
-
-  const [state, setState] = useState<Record<string, string>[][]>([[],[]]);
+  const [state, setState] = useState<Record<string, string>[][]>([[], []]);
   useEffect(() => {
     setState(data);
     // check if each item has dragId, if not add
-    
-    const copy = [...data]
-    copy.forEach((arr)=>{
-      arr.forEach((item)=>{
-        if(item["dragId"] === undefined){
-          item["dragId"] = uuidv4()
+    const copy = [...data];
+    copy.forEach((arr) => {
+      arr.forEach((item) => {
+        if (item["dragId"] === undefined) {
+          item["dragId"] = uuidv4();
         }
-      })
-    })
-    console.log(data,"XDDDda")
+      });
+    });
   }, [data]);
-  useEffect(()=>{
-    let {column,item} = bestSellerPair
-    if(column !== -1 && item !== null){
-      let myItem = item as unknown as Record<string,string>
+  useEffect(() => {
+    let { column, item } = bestSellerPair;
+    if (column !== -1 && item !== null) {
+      let myItem = item as unknown as Record<string, string>;
       // we use the spraed operator to lose reference, otherwise rpobles arise when we add multiple items os the same type
-      myItem = {...myItem}
-      myItem["dragId"] =uuidv4()
-      // myItem["id"] =rnd
+      myItem = { ...myItem };
+      myItem["dragId"] = uuidv4();
       // we reset the pair
-      editPair()
+      editPair();
       // set db
       // set local state
-      const copy = state
-      const selectedArr = state[column]
-      selectedArr.push(myItem )
-      copy[column] = selectedArr
-      setState(copy)
-      templateData.updateDb(copy);
-
+      const copy = state;
+      const selectedArr = state[column];
+      selectedArr.push(myItem);
+      copy[column] = selectedArr;
+      setState(copy);
+      templateData
+        .updateDb(copy)
+        .then(() => {
+          updateSnackbar(SnackbarTexts.succesfulDbChange, "green");
+        })
+        .catch(() => {
+          updateSnackbar(SnackbarTexts.unsuccesfulDbChange, "red");
+        });
     }
-  },[bestSellerPair, editPair, state, templateData])
+  }, [bestSellerPair, editPair, state, templateData]);
   function onDragEnd(result: any) {
     const { source, destination } = result;
     // dropped outside the list
@@ -124,17 +127,23 @@ const GroupDrag = ({ data, templateData }: GroupDragInterface) => {
       setState(newState);
       newState[newState.length - 1] = [];
       // changes new data in db
-      templateData.updateDb(newState);
+      templateData
+        .updateDb(newState)
+        .then(() => {
+          updateSnackbar(SnackbarTexts.succesfulDbChange, "green");
+        })
+        .catch(() => {
+          updateSnackbar(SnackbarTexts.unsuccesfulDbChange, "red");
+        });
     }
   }
 
-
   return (
     <Wrap>
-      {data.length===0  ? (
+      {data.length === 0 ? (
         <Spinner showText={true} />
       ) : (
-        <DragDropContext onDragEnd={onDragEnd} >
+        <DragDropContext onDragEnd={onDragEnd}>
           {state.map((cards, index) => (
             <DropSection key={index} cards={cards} index={index} />
           ))}

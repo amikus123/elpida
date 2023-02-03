@@ -25,7 +25,7 @@ export const ElementContext = createContext({
   clearModal: () => {},
   setDropdown: (arg: boolean) => {},
   reset: () => {},
-  setSnackbarWithResposne: (resposne: BaseResposne) => {}
+  setSnackbarWithResposne: (resposne: BaseResposne) => {},
 });
 
 export const ElementProvider = ({ children }: { children: any }) => {
@@ -51,14 +51,14 @@ export const ElementProvider = ({ children }: { children: any }) => {
     }
     const newTimeoutId = setTimeout(() => {
       setSnackbarValue({ ...snackbarValue, show: false, prevTimeoutId: null });
-    }, 5000);
+    }, 1000);
     setSnackbarValue({ color, text, show: true, prevTimeoutId: newTimeoutId });
   };
 
   const setSnackbarWithResposne = (resposne: BaseResposne) => {
     const { text, error } = resposne;
-    const color = error?"red":"green"
-  
+    const color = error ? "red" : "green";
+
     updateSnackbar(text, color);
   };
   useEffect(() => {
@@ -92,14 +92,11 @@ export const ElementProvider = ({ children }: { children: any }) => {
     setShowDropdown(bool);
   };
   const reset = () => {
-    console.log("reee")
     setShowOverlay(false);
     setShowDropdown(false);
     setSelectedModal("none");
   };
-  useEffect(()=>{
-    console.log(showOverlay,selectedModal)
-  },[showOverlay,selectedModal])
+  useEffect(() => {}, [showOverlay, selectedModal]);
   const val = {
     showOverlay,
     reset,
@@ -112,7 +109,7 @@ export const ElementProvider = ({ children }: { children: any }) => {
     clearModal,
     snackbarValue,
     updateSnackbar,
-    setSnackbarWithResposne
+    setSnackbarWithResposne,
   };
   return (
     <ElementContext.Provider value={{ ...val }}>

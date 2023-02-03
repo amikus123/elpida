@@ -4,7 +4,7 @@ import MyBreadcrumbs from "../core/Breadcrumbs/MyBreadcrumbs";
 
 const Wrap = styled.div`
   margin: 0 auto;
-  padding: 0.5rem 2rem;
+  padding: 1rem 2rem 2rem;
   max-width: min(1500px, 90vw);
   /* overflow-x: hidden; */
   position: relative;

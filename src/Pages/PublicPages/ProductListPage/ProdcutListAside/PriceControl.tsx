@@ -7,15 +7,15 @@ import ManualInput from "./ManualInput";
 // conternt input to mnarks
 
 const Wrap = styled.div`
-// do smokething with it
-width:75%;
-max-width:300px;
-padding:1rem;`;
+  // do smokething with it
+  width: 75%;
+  max-width: 300px;
+  padding: 1rem;
+`;
 export interface PriceControlProps {
   rawValues: NameWithCount[];
   propertyName: string;
-  setFieldValue: (field: string, value: any, shouldValidate?: boolean) => void
-
+  setFieldValue: (field: string, value: any, shouldValidate?: boolean) => void;
 }
 export interface MarkData {
   res: Record<string, number>;
@@ -47,33 +47,32 @@ const getMarks = (rawValues: NameWithCount[]): MarkData => {
 const PriceControl = ({
   rawValues,
   propertyName,
-  setFieldValue
+  setFieldValue,
 }: PriceControlProps) => {
-    const [markData, setMarkData] = useState<MarkData>(getMarks(rawValues));
+  const [markData, setMarkData] = useState<MarkData>(getMarks(rawValues));
   const [values, setValues] = useState([markData.min, markData.max]);
-  useEffect(()=>{
-    setFieldValue(propertyName,values)
-    console.log("should set",values)
-  },[ propertyName, setFieldValue, values])
-  useEffect(()=>{
-    const res  = getMarks(rawValues)
-    setMarkData(res)
-    setValues([res.min,res.max])
-  },[rawValues])
+  useEffect(() => {
+    setFieldValue(propertyName, values);
+  }, [propertyName, setFieldValue, values]);
+  useEffect(() => {
+    const res = getMarks(rawValues);
+    setMarkData(res);
+    setValues([res.min, res.max]);
+  }, [rawValues]);
   return (
     <Wrap>
       <Slider.Range
         onChange={(newValues) => {
           setValues(newValues);
-          setFieldValue(propertyName,newValues)
+          setFieldValue(propertyName, newValues);
         }}
-        marks={{[markData.max]:markData.max,[markData.min]:markData.min}}
+        marks={{ [markData.max]: markData.max, [markData.min]: markData.min }}
         step={1}
         value={values}
         max={markData.max}
         min={markData.min}
       />
-        <ManualInput values={values}  markData={markData} setValues={setValues}/>
+      <ManualInput values={values} markData={markData} setValues={setValues} />
     </Wrap>
   );
 };

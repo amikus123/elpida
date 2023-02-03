@@ -1,4 +1,4 @@
-import React, { useContext,  useState,useLayoutEffect } from "react";
+import React, { useContext, useState, useLayoutEffect } from "react";
 import { useLocation } from "react-router-dom";
 
 import styled from "styled-components";
@@ -49,7 +49,7 @@ const Image = styled.img`
   max-height: 500px;
   /* height: 100%; */
   /* /* width: 100%; // if browser dosnet support other options */
-  width: fill-available; 
+  width: fill-available;
 `;
 
 const ErrorWrap = styled.div`
@@ -82,19 +82,14 @@ const ProductPage = () => {
     const title = pathData[3];
     let res = null;
     if (inventory[category] === undefined) {
-      console.log("undecf");
-
       return res;
     } else {
       for (const item of inventory[category]) {
         if (item.title === title) {
-          console.log("found");
-
           return item;
         }
       }
     }
-    console.log("failed");
     return res;
   };
   // on the left will be the image of object
@@ -104,10 +99,8 @@ const ProductPage = () => {
 
   const getElement = () => {
     if (Object.keys(contentData.inventory).length === 0 || category === "") {
-      console.log(category, "why you dont show");
       return <Spinner showText={true} />;
     } else if (contentData.inventory[category] === undefined) {
-      console.log(contentData.inventory[category], category, "XDDD");
       return (
         <ErrorWrap>
           <MyText>Selected category does not exit</MyText>
@@ -119,7 +112,7 @@ const ProductPage = () => {
     } else if (
       !contentData.inventory[category].some(
         (item) => item.title === location.pathname.split("/")[3]
-      ) 
+      )
     ) {
       return (
         <ErrorWrap>

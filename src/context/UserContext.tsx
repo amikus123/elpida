@@ -10,6 +10,24 @@ import { myAuth } from "../firebase/main";
 import { BaseResposne } from "../constans/types";
 import { createPromise } from "../utils/generalFunctions";
 
+const errorMessages = {
+  "auth/wrong-password": "Wrong password",
+  "auth/too-many-requests": "Too many failed attempts, try later",
+  "auth/weak-password": "Password is too weak",
+  "auth/email-already-exists": "Email is already in use",
+  "auth/email-already-in-use": "Email is already in use",
+  "auth/invalid-email": "Email is not valid",
+};
+
+const getErrorMessage = (str: string) => {
+  for (const item of Object.entries(errorMessages)) {
+    console.log(item[0], str, str === item[0]);
+    if (str === item[0]) {
+      return item[1];
+    }
+  }
+  return "Error has occured";
+};
 // we either have to preserve any, or add interface for context
 const placeholderUser: User | any = null;
 
@@ -28,7 +46,6 @@ export const UserContext = createContext({
 
 export const UserProvider = ({ children }: { children: React.ReactNode }) => {
   const [currentUser, setCurrentUser] = useState<User | null>(null);
-  // check if user i present
   const [loading, setLoading] = useState(true);
 
   const signup = async (
@@ -39,12 +56,12 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
       await createUserWithEmailAndPassword(myAuth, email, password);
       return {
         error: false,
-        text: "Succesfully logged out",
+        text: "Succesfully created account",
       };
     } catch (e: any) {
       return {
         error: true,
-        text: e.code,
+        text: getErrorMessage(e.code),
       };
     }
   };
@@ -59,9 +76,10 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
         text: "Succesfully logged in",
       };
     } catch (e: any) {
+      console.log({ e });
       return {
         error: true,
-        text: e.code,
+        text: getErrorMessage(e.code),
       };
     }
   };
@@ -71,12 +89,12 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
 
       return {
         error: false,
-        text: "Succesfully signed up",
+        text: "Succesfully signed out",
       };
     } catch (e: any) {
       return {
         error: true,
-        text: e.code,
+        text: getErrorMessage(e.code),
       };
     }
   };
@@ -84,7 +102,6 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
     const unsubscribe = myAuth.onAuthStateChanged((user) => {
       setCurrentUser(user);
       setLoading(false);
-      console.log(user, "context user");
     });
     return unsubscribe;
   }, []);

@@ -27,7 +27,6 @@ const DropSection = ({ index, cards }: DropSectionProps) => {
           onDoubleClick={() => {
             editPair(index);
             openModal("item");
-            console.log(1);
           }}
           ref={provided.innerRef}
           style={getListStyle(snapshot.isDraggingOver)}

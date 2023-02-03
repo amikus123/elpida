@@ -12,19 +12,19 @@ const getItemStyle = (isDragging: any, draggableStyle: any) => {
 
     // change background colour if dragging
     background: isDragging ? "white" : "none",
-    border:"1px solid black",
+    border: "1px solid black",
     // styles we need to apply on draggables
     ...draggableStyle,
   };
 };
 interface DraggableItemProps {
-  card: Record<string,string>;
+  card: Record<string, string>;
   index: number;
 }
 const Item = styled.div`
   display: flex;
   justifycontent: center;
-  align-items:center;
+  align-items: center;
   flex-direction: column;
 `;
 const Image = styled.img`
@@ -32,7 +32,7 @@ const Image = styled.img`
   height: 80px;
 `;
 const DraggableItem = ({ card, index }: DraggableItemProps) => {
-  const {  title, image, dragId,id} = card;
+  const { title, image, dragId } = card;
   return (
     <Draggable draggableId={dragId} index={index} key={dragId}>
       {(provided, snapshot) => (
@@ -46,13 +46,9 @@ const DraggableItem = ({ card, index }: DraggableItemProps) => {
           )}
         >
           <Item>
-            {dragId}
-
             <Image src={image} alt="failed to dowload preview" />
             <MyText>Title:{title}</MyText>
-            {id}
-            
-            </Item>
+          </Item>
         </div>
       )}
     </Draggable>

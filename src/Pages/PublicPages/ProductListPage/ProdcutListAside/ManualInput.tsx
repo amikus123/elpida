@@ -4,16 +4,16 @@ import MyText from "../../../../components/core/Text/MyText";
 import { MarkData } from "./PriceControl";
 
 const Wrap = styled.div`
-display:flex;
-flex-direction:column;
-justify-content:center;
-align-items: center;
-margin-top:2rem;
-`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 2rem;
+`;
 const InputWrap = styled.div`
   display: flex;
   width: fit-content;
-  
+
   flex-direction: row;
   align-items: center;
   height: fit-content;
@@ -40,15 +40,14 @@ const ManualInput = ({ values, markData, setValues }: ManualInputProps) => {
 
   useEffect(() => {
     setInputValues(values);
+    console.log("values chjange", values);
     setErrorText("");
-
-}, [values]);
+  }, [values]);
 
   useEffect(() => {
     const { max, min } = markData;
     setInputValues([min, max]);
     setErrorText("");
-
   }, [markData]);
 
   const checkIfInRange = (val: number) => {
@@ -59,14 +58,15 @@ const ManualInput = ({ values, markData, setValues }: ManualInputProps) => {
     index: number
   ) => {
     const value = Number(e.target.value);
-    console.log(value, "XDDD");
-    // if values are in correcnt orderd, we set it
+    // if values are in correct orderd, we set it
     let newValues = [];
     index === 0
       ? (newValues = [value, inputValues[1]])
       : (newValues = [inputValues[0], value]);
 
+    console.log({ value, newValues });
     setInputValues(newValues);
+
     if (checkIfInRange(value)) {
       setErrorText("Passed value is outside the range");
     } else if (newValues[0] <= newValues[1]) {
@@ -82,7 +82,7 @@ const ManualInput = ({ values, markData, setValues }: ManualInputProps) => {
       <InputWrap>
         <Input
           type="number"
-          value={inputValues[0]}
+          value={inputValues[0].toString()}
           onChange={(e) => {
             handleChange(e, 0);
           }}
@@ -90,7 +90,7 @@ const ManualInput = ({ values, markData, setValues }: ManualInputProps) => {
         <Divider />
         <Input
           type="number"
-          value={inputValues[1]}
+          value={inputValues[1].toString()}
           onChange={(e) => {
             handleChange(e, 1);
           }}

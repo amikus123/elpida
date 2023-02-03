@@ -6,39 +6,50 @@ import MyText from "../Text/MyText";
 import { Box } from "@mui/system";
 
 const Wrap = styled.div`
-position:relative;
-`
+  position: relative;
+`;
 const InputWrap = styled.div`
   border: 1px solid ${COLORS.lightGrey};
   display: flex;
   width: fit-content;
+  height: 37px;
+  border: none;
   flex-direction: row;
-  align-items:center;
-  height:fit-content;
+  align-items: center;
+  height: fit-content;
 `;
-const LeftBox = styled.div`
-  padding:  0.5rem;
-  cursor: pointer;
-  border-right: 1px solid ${COLORS.lightGrey};
-
-`;
-const RightBox = styled.div`
+const LeftBox = styled.button`
+  border: none;
+  background: none;
   padding: 0.5rem;
   cursor: pointer;
+  height: 37px;
+  border-right: 1px solid ${COLORS.lightGrey};
+`;
+const RightBox = styled.button`
+  border: none;
+  background: none;
+  height: 37px;
 
+  padding: 0.5rem;
+  cursor: pointer;
   border-left: 1px solid ${COLORS.lightGrey};
 `;
 const Input = styled.input`
-width:3rem;
-padding:0.5rem;
-outline:none;
+  width: 3rem;
+  padding: 0.5rem;
+  outline: none;
 `;
 interface NumericalInputProps {
   count: number;
-  setCount: (arg1:number)=>void;
-  abosluteError? :boolean;
+  setCount: (arg1: number) => void;
+  abosluteError?: boolean;
 }
-const NumericalInput = ({ count, setCount,abosluteError=false }: NumericalInputProps) => {
+const NumericalInput = ({
+  count,
+  setCount,
+  abosluteError = false,
+}: NumericalInputProps) => {
   const [errorText, setErrorText] = useState("");
   const [inputValue, setInputValue] = useState(String(count));
 
@@ -99,7 +110,13 @@ const NumericalInput = ({ count, setCount,abosluteError=false }: NumericalInputP
         </RightBox>
       </InputWrap>
       {errorText !== "" ? (
-        <MyText presetColor="red" style={{"position":abosluteError?"absolute":"initial"}}> {errorText} </MyText>
+        <MyText
+          presetColor="red"
+          style={{ position: abosluteError ? "absolute" : "initial" }}
+        >
+          {" "}
+          {errorText}{" "}
+        </MyText>
       ) : null}
     </Wrap>
   );

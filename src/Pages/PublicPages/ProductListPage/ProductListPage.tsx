@@ -78,13 +78,10 @@ const ProductListPage = () => {
   useLayoutEffect(() => {
     if (contentData.inventory[category] !== undefined) {
       setItems(contentData.inventory[category]);
-    } else {
-      console.log("current cant set items");
     }
   }, [category, contentData]);
 
   useLayoutEffect(() => {
-    console.log(filterSettings, "XD");
     filterItems(items, filterSettings);
   }, [items, filterSettings]);
 

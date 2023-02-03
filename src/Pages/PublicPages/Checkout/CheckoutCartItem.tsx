@@ -5,13 +5,14 @@ import NumericalInput from "../../../components/core/Inputs/NumericalInput";
 import MyText from "../../../components/core/Text/MyText";
 import { CartItem, DataContext } from "../../../context/DataContext";
 import { IoTrashBin } from "react-icons/io5";
+import { toFixedNumber } from "../../../utils/cartFuctiions";
 
 const Wrap = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   wdith: 100%;
-  margin: 0.5rem ;
+  margin: 0.5rem;
   @media (max-width: 640px) {
     flex-direction: column;
   }
@@ -74,7 +75,7 @@ const CheckoutCartItem = ({ item }: CheckoutCartItemProps) => {
             {item.title}
           </MyText>
           <MyText element="span" fontSize="1.5rem">
-            Total:{item.count * item.price}zl
+            Total:{toFixedNumber(item.count * item.price)}zl
           </MyText>
         </TextWrap>
       </LeftContainer>

@@ -9,8 +9,8 @@ const Wrap = styled.div`
   flex: 1;
   min-height: 100px;
   min-width: 100px;
-  @media (max-width:1000px){
-    width:100%;
+  @media (max-width: 1000px) {
+    width: 100%;
   }
 `;
 interface ProductListListProps {
@@ -25,6 +25,7 @@ const ProductListList = ({
   filterSettings,
 }: ProductListListProps) => {
   const getZeroElements = () => {
+    console.log({ filterSettings });
     if (Object.keys(filterSettings).length === 0) {
       return <Spinner showText={true} />;
     } else {
